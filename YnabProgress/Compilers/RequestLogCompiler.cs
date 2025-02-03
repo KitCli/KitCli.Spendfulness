@@ -7,11 +7,11 @@ public class RequestLogCompiler : IViewModelCompiler<IEnumerable<ApiRequestLog>>
 {
     private readonly ViewModel _requestLogViewModel = new();
     
-    public ViewModel Compile(IEnumerable<ApiRequestLog> amountsPerYear)
+    public ViewModel Compile(IEnumerable<ApiRequestLog> data)
     {
         _requestLogViewModel.Columns = ["Method", "URL", "Remaining Requests", "Request Time"];
         
-        _requestLogViewModel.Rows = amountsPerYear
+        _requestLogViewModel.Rows = data
             .Select(data => new List<object>
             {
                 data.Method,

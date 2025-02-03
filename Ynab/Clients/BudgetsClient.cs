@@ -19,10 +19,15 @@ public class BudgetsClient() : YnabApiClient([])
         {
             var parentApiPath = $"{HttpClient.BaseAddress}/{BudgetsApiPathSuffix}/{budget.Id}/";
 
-            var categoryApiClient = new CategoriesClient(parentApiPath, RequestLogs);
+            var accountsApiClient = new AccountsClient(parentApiPath, RequestLogs);
+            var categoriesApiClient = new CategoriesClient(parentApiPath, RequestLogs);
             var transactionsApiClient = new TransactionsClient(parentApiPath, RequestLogs);
             
-            yield return new Budget(categoryApiClient, transactionsApiClient, budget);
+            yield return new Budget(
+                accountsApiClient,
+                categoriesApiClient,
+                transactionsApiClient,
+                budget);
         }
     }
 }

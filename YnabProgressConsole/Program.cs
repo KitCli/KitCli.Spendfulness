@@ -1,3 +1,3 @@
 ﻿using YnabProgressConsole.Examples;
 
-await MonthlyPayByYearExample.Run();
+await SpareMoneyInCheckingExample.Run();
