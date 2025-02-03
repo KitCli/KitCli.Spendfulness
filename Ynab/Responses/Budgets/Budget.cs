@@ -1,23 +1,40 @@
 using Ynab.Clients;
+using Ynab.Extensions;
 
 namespace Ynab.Responses.Budgets;
 
 public class Budget
 {
-    private readonly CategoriesClient _categoriesBaseClient;
-    private readonly TransactionsClient _transactionsBaseClient;
+    private readonly AccountsClient _accountsClient;
+    private readonly CategoriesClient _categoriesClient;
+    private readonly TransactionsClient _transactionsClient;
     private readonly BudgetResponse _budget;
 
-    public Budget(CategoriesClient categoriesBaseClient, TransactionsClient transactionsClient, BudgetResponse budget)
+
+    public Budget(
+        AccountsClient accountsClient,
+        CategoriesClient categoriesClient,
+        TransactionsClient transactionsClient,
+        BudgetResponse budget)
     {
-        _categoriesBaseClient = categoriesBaseClient;
-        _transactionsBaseClient = transactionsClient;
+        _accountsClient = accountsClient;
+        _categoriesClient = categoriesClient;
+        _transactionsClient = transactionsClient;
         _budget = budget;
+    }
+    
+    public Task<IEnumerable<Account>> GetAccounts()
+        => _accountsClient.GetAccounts();
+
+    public async Task<IEnumerable<Account>> GetCheckingAccounts()
+    {
+        var allAccounts = await _accountsClient.GetAccounts();
+        return allAccounts.FilterToChecking();
     }
 
     public Task<IEnumerable<CategoryGroup>> GetCategoryGroups()
-        => _categoriesBaseClient.GetCategoryGroups();
+        => _categoriesClient.GetCategoryGroups();
     
     public Task<IEnumerable<Transaction>> GetTransactions()
-        => _transactionsBaseClient.GetTransactions();
+        => _transactionsClient.GetTransactions();
 }

@@ -6,13 +6,13 @@ namespace YnabProgress.Compilers;
 
 public class AmountsByYearCompiler : IViewModelCompiler<IEnumerable<AmountByYear>>
 {
-    public ViewModel Compile(IEnumerable<AmountByYear> amountsPerYear)
+    public ViewModel Compile(IEnumerable<AmountByYear> data)
     {
         var viewModel = new ViewModel();
         
         CompileColumns(viewModel);
 
-        var amountsPerYearIndexed = amountsPerYear.ToList();
+        var amountsPerYearIndexed = data.ToList();
         var firstAmountByYear = amountsPerYearIndexed.First();
         
         CompileFirstRow(viewModel, firstAmountByYear);

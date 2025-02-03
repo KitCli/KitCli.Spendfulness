@@ -9,12 +9,12 @@ public class ExpenditureChangeByFlagCompiler : IViewModelCompiler<IEnumerable<Fl
 {
     private readonly ViewModel _expenditureChangeByFlagViewModel = new();
 
-    public ViewModel Compile(IEnumerable<FlaggedTransactionsForMonth> amountsPerYear)
+    public ViewModel Compile(IEnumerable<FlaggedTransactionsForMonth> data)
     {
         var compilerStopWatch = new Stopwatch();
         compilerStopWatch.Start();
         
-        var flaggedTransactionsByMonthIndexed = amountsPerYear.ToList();
+        var flaggedTransactionsByMonthIndexed = data.ToList();
         var commonFlags = GetCommonFlags(flaggedTransactionsByMonthIndexed);
 
         CompileColumns(commonFlags);
