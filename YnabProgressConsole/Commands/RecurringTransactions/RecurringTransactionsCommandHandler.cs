@@ -9,11 +9,11 @@ namespace YnabProgressConsole.Commands.RecurringTransactions;
 public class RecurringTransactionsCommandHandler : CommandHandler, ICommandHandler<RecurringTransactionsCommand>
 {
     private readonly BudgetsClient _budgetsClient;
-    private readonly IViewModelConstructor<IEnumerable<TransactionsByMemoOccurrenceByPayeeName>> _viewModelConstructor;
+    private readonly RecurringTransactionsViewModelConstructor _viewModelConstructor;
 
     public RecurringTransactionsCommandHandler(
         BudgetsClient budgetsClient,
-        IViewModelConstructor<IEnumerable<TransactionsByMemoOccurrenceByPayeeName>> viewModelConstructor)
+        RecurringTransactionsViewModelConstructor viewModelConstructor)
     {
         _budgetsClient = budgetsClient;
         _viewModelConstructor = viewModelConstructor;

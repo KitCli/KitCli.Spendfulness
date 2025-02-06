@@ -14,7 +14,7 @@ var serviceProvider = new ServiceCollection()
         cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()))
     .AddKeyedSingleton<ICommandGenerator, CommandListCommandGenerator>(CommandListCommandGenerator.CommandName)
     .AddKeyedSingleton<ICommandGenerator, RecurringTransactionsCommandGenerator>(RecurringTransactionsCommand.CommandName)
-    .AddSingleton<IViewModelConstructor<IEnumerable<TransactionsByMemoOccurrenceByPayeeName>>, RecurringTransactionsViewModelConstructor>()
+    .AddSingleton<RecurringTransactionsViewModelConstructor>()
     .AddSingleton<ConsoleApplication>()
     .BuildServiceProvider();
 

@@ -4,7 +4,6 @@ using Ynab.Sanitisers;
 namespace YnabProgressConsole.ViewModels;
 
 public class RecurringTransactionsViewModelConstructor
-    : IViewModelConstructor<IEnumerable<TransactionsByMemoOccurrenceByPayeeName>>
 {
     public ViewModel Construct(IEnumerable<TransactionsByMemoOccurrenceByPayeeName> groupCollection)
     {
