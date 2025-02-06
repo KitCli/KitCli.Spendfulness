@@ -20,7 +20,7 @@ public class BaseCommandHandlerTests
             Columns = ["Column1", "Column2", "Column3"],
             Rows = [new List<object>() { "Row1", "Row2", "Row3" }]
         };
-
+        
         var result = new TestCommandHandler().TestCompile(vm);
 
         var expectedConsoleTable = new ConsoleTable();
