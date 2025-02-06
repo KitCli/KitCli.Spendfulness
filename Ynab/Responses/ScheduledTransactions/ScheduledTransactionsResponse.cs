@@ -6,7 +6,7 @@ namespace Ynab.Responses.ScheduledTransactions;
 public class ScheduledTransactionsResponse
 {
     [JsonPropertyName("memo")]
-    public string Memo { get; set; }
+    public string? Memo { get; set; }
     
     [JsonPropertyName("amount")]
     public int Amount { get; set; }

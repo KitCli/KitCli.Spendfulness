@@ -5,24 +5,29 @@ namespace Ynab.Extensions;
 
 public static class TransactionsByPayeeNameExtensions
 {
-    public static IEnumerable<TransactionsByMemoOccurenceByPayeeName> GroupbyMemoOccurence(
+    public static IEnumerable<TransactionsByMemoOccurrenceByPayeeName> GroupByMemoOccurence(
         this IEnumerable<TransactionsByPayeeName> transactionsByPayeeNames)
     {
-        foreach (var transactionsbyPayeeName in transactionsByPayeeNames)
+        foreach (var transactionsByPayeeName in transactionsByPayeeNames)
         {
-            var memoOccurences = transactionsbyPayeeName
+            var memoOccurences = transactionsByPayeeName
                 .Transactions
                 .GroupBy(t => t.Memo)
                 .Select(grouping => new TransactionsByMemoOccurence
                 {
                     Memo = grouping.Key,
                     MemoOccurence = grouping.Count(),
+                    // All transactions with that memo
                     Transactions = grouping.ToList()
-                });
+                })
+                // Highest memo occurence first is logical.
+                .OrderByDescending(t => t.MemoOccurence)
+                // TODO: Can this be passed in?
+                .Take(10);
 
-            yield return new TransactionsByMemoOccurenceByPayeeName
+            yield return new TransactionsByMemoOccurrenceByPayeeName
             {
-                PayeeName = transactionsbyPayeeName.PayeeName,
+                PayeeName = transactionsByPayeeName.PayeeName,
                 TransactionsByMemoOccurences = memoOccurences
             };
         }

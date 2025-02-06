@@ -2,6 +2,6 @@ namespace Ynab.Collections;
 
 public class TransactionsByPayeeName
 {
-    public string PayeeName { get; set; }
-    public IEnumerable<Transaction> Transactions { get; set; }
+    public required string PayeeName { get; set; }
+    public required IEnumerable<Transaction> Transactions { get; set; }
 }

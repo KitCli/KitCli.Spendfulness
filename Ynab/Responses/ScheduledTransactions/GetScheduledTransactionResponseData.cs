@@ -5,5 +5,5 @@ namespace Ynab.Responses.ScheduledTransactions;
 public class GetScheduledTransactionResponseData
 {
     [JsonPropertyName("scheduled_transactions")]
-    public IEnumerable<ScheduledTransactionsResponse> ScheduledTransactions { get; set; }
+    public required IEnumerable<ScheduledTransactionsResponse> ScheduledTransactions { get; set; }
 }

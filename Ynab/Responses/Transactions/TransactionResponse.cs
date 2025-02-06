@@ -8,8 +8,9 @@ public class TransactionResponse
     public DateTime Occured { get; set; }
     
     [JsonPropertyName("memo")]
-    public string Memo { get; set; }
+    public string? Memo { get; set; }
     
+    [JsonPropertyName("amount")]
     public int Amount { get; set; }
     
     [JsonPropertyName("flag_color")]
@@ -23,4 +24,7 @@ public class TransactionResponse
     
     [JsonPropertyName("category_id")]
     public Guid? CategoryId { get; set; }
+    
+    [JsonPropertyName("transfer_transaction_id")]
+    public string? TransferTransactionId { get; set; }
 }
