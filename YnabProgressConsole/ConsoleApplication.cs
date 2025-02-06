@@ -4,20 +4,13 @@ using YnabProgressConsole.Commands;
 
 namespace YnabProgressConsole;
 
-public class ConsoleApplication
+public class ConsoleApplication(IServiceProvider serviceProvider)
 {
-    private readonly IServiceProvider _serviceProvider;
-
-    public ConsoleApplication(IServiceProvider serviceProvider)
-    {
-        _serviceProvider = serviceProvider;
-    }
-
     public async Task Run()
     {
         Console.WriteLine("Welcome to YnabProgressConsole!");
         
-        var mediator = _serviceProvider.GetService<IMediator>();
+        var mediator = serviceProvider.GetService<IMediator>();
         if (mediator is null)
         {
             Console.WriteLine("No mediator registered.");
@@ -36,7 +29,7 @@ public class ConsoleApplication
             
             var input = new ConsoleInput(rawInput);
             
-            var commandGenerator = _serviceProvider.GetKeyedService<ICommandGenerator>(input.CommandName);
+            var commandGenerator = serviceProvider.GetKeyedService<ICommandGenerator>(input.CommandName);
             if (commandGenerator is null)
             {
                 Console.WriteLine("Invalid Command");
