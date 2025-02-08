@@ -39,14 +39,15 @@ public class RecurringTransactionsViewModelCompiler
         foreach (var subGroup in group.TransactionsByMemoOccurences)
         {
             var averageSpend = subGroup.Transactions.Average(transaction => transaction.Amount);
-            var sanitisedAverageSpend = DecimalSanitiser.Sanitise(averageSpend);
+            var sanitisedAverageSpend = DecimalPlaceSanitiser.Sanitise(averageSpend);
+            var displayableAverageSpend = Math.Abs(sanitisedAverageSpend);
 
             yield return
             [
                 group.PayeeName,
                 subGroup.Memo,
                 subGroup.MemoOccurence,
-                sanitisedAverageSpend
+                $"£{displayableAverageSpend}"
             ];
         }
     }

@@ -18,11 +18,11 @@ public static class TransactionExtensions
     public static IEnumerable<Transaction> FilterByPayeeName(
         this IEnumerable<Transaction> transactions, params string[] payeeNames)
             => transactions.Where(t => payeeNames.Contains(t.PayeeName));
-    
-    public static IEnumerable<Transaction> FilterToSpending(
-        this IEnumerable<Transaction> transactions)
-            => transactions.Where(transactions =>
-                !transactions.IsTransfer && transactions.PayeeName != "Reconciliation Balance Adjustment"); 
+
+    public static IEnumerable<Transaction> FilterToSpending(this IEnumerable<Transaction> transactions)
+        => transactions.Where(transactions =>
+            !transactions.IsTransfer && 
+            !YnabConstants.AutomatedPayeeNAmes.Contains(transactions.PayeeName));
 
     public static IEnumerable<TransactionsForMonth> GroupByMonth(
         this IEnumerable<Transaction> transactions)
@@ -73,7 +73,7 @@ public static class TransactionExtensions
         foreach (var group in groups)
         {
             var average = group.Average(transaction => transaction.Amount);
-            var sanitised = DecimalSanitiser.Sanitise(average);
+            var sanitised = DecimalPlaceSanitiser.Sanitise(average);
             
             yield return new AmountByYear
             {
