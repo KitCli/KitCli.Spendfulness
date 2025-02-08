@@ -1,8 +1,7 @@
 using ConsoleTables;
-using YnabProgressConsole.Commands;
 using YnabProgressConsole.Compilation;
 
-namespace YnabProgressConsole.Tests.Commands;
+namespace YnabProgressConsole.Commands.Tests.Commands;
 
 [TestFixture]
 public class CommandHandlerTests
