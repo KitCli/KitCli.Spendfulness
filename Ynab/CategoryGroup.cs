@@ -1,6 +1,6 @@
-using Ynab.Calculators;
 using Ynab.Clients;
 using Ynab.Responses.Categories;
+using Ynab.Sanitisers;
 
 namespace Ynab;
 
@@ -21,5 +21,5 @@ public class CategoryGroup
         .Select(categories => new Category(_categoryClient, categories));
     
     public decimal Balance => _categoryGroupResponse.Categories.Sum(category =>
-        MilliunitCalculator.Calculate(category.Balance));
+        MilliunitSanitiser.Calculate(category.Balance));
 }

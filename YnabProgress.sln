@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YnabProgressConsole.Instruc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YnabProgressConsole.Commands.Tests", "YnabProgressConsole.Commands.Tests\YnabProgressConsole.Commands.Tests.csproj", "{7EAF17CD-C47E-4573-A658-2D8F1C7AA1FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ynab.Tests", "Ynab.Tests\Ynab.Tests.csproj", "{603D8C36-71AF-423D-B27D-F78C3B09EA0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,5 +56,9 @@ Global
 		{7EAF17CD-C47E-4573-A658-2D8F1C7AA1FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EAF17CD-C47E-4573-A658-2D8F1C7AA1FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EAF17CD-C47E-4573-A658-2D8F1C7AA1FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{603D8C36-71AF-423D-B27D-F78C3B09EA0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{603D8C36-71AF-423D-B27D-F78C3B09EA0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{603D8C36-71AF-423D-B27D-F78C3B09EA0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{603D8C36-71AF-423D-B27D-F78C3B09EA0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
