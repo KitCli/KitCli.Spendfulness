@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Ynab.Clients;
+using Ynab.Http;
 
 namespace Ynab.Extensions;
 

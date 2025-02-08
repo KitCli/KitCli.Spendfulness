@@ -1,6 +1,6 @@
 using System.Net.Http.Headers;
 
-namespace Ynab.Clients;
+namespace Ynab.Http;
 
 public class YnabHttpClientFactory
 {

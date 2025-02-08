@@ -1,3 +1,4 @@
+using Ynab.Http;
 using Ynab.Responses.ScheduledTransactions;
 
 namespace Ynab.Clients;

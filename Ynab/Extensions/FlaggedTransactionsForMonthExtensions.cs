@@ -1,5 +1,5 @@
 using Ynab.Collections;
-using Ynab.Generators;
+using Ynab.Sanitisers;
 
 namespace Ynab.Extensions;
 

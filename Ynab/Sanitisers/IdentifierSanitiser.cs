@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace Ynab.Generators;
+namespace Ynab.Sanitisers;
 
 public static class IdentifierSanitiser
 {
