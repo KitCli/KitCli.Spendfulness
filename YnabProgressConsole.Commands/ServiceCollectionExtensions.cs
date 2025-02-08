@@ -19,7 +19,7 @@ public static class ServiceCollectionExtensions
     private static IServiceCollection AddCommandGenerators(this IServiceCollection serviceCollection)
         => serviceCollection
             .AddKeyedSingleton<ICommandGenerator, CommandListCommandGenerator>(
-                CommandListCommandGenerator.CommandName)
+                CommandListCommand.CommandName)
             .AddKeyedSingleton<ICommandGenerator, RecurringTransactionsCommandGenerator>(
                 RecurringTransactionsCommand.CommandName)
             .AddKeyedSingleton<ICommandGenerator, SalaryIncreasesCommandGenerator>(

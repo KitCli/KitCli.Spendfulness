@@ -7,7 +7,7 @@ public class AccountResponse
     [JsonPropertyName("name")]
     public string Name { get; set; }
     
-    [JsonPropertyName("balance")
+    [JsonPropertyName("balance")]
     public int Balance { get; set; }
     
     [JsonPropertyName("on_budget")]
