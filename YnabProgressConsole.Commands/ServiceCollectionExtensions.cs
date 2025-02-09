@@ -1,5 +1,6 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using YnabProgressConsole.Commands.CommandList;
 
 namespace YnabProgressConsole.Commands;
 
@@ -19,15 +20,11 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection AddCommandGenerators(this IServiceCollection serviceCollection, Assembly assembly)
     {
-        var implementationTypes = assembly.GetTypes()
-            .Where(anyType => anyType.IsClass && typeof(ICommandGenerator).IsAssignableFrom(anyType))
-            .ToList();
+        var implementationTypes = assembly.WhereClassTypesImplement(typeof(ICommandGenerator));
         
         foreach (var implementationType in implementationTypes)
         {
-            var genericInterfaceType = implementationType
-                .GetInterfaces()
-                .FirstOrDefault(interfaceType => interfaceType.GenericTypeArguments.Length != 0);
+            var genericInterfaceType = implementationType.FirstOrDefaultGenericInterface();
 
             if (genericInterfaceType is null)
             {
@@ -39,9 +36,8 @@ public static class ServiceCollectionExtensions
             
             var typeForAssignedCommand = genericInterfaceType.GenericTypeArguments.First();
 
-            var commandNameField = typeForAssignedCommand
-                .GetFields()
-                .FirstOrDefault(lol => lol.Name == "CommandName");
+            var commandNameField = typeForAssignedCommand.GetField(
+                nameof(CommandListCommand.CommandName));
             
             var commandNameValue = commandNameField.GetValue(typeForAssignedCommand);
             
