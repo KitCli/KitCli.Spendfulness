@@ -13,6 +13,7 @@ public class RecurringTransactionsCommandHandler
 {
     private readonly BudgetsClient _budgetsClient;
     private readonly IGroupViewModelBuilder<TransactionsByMemoOccurrenceByPayeeName> _groupViewModelBuilder;
+    private const int DefaultMinimumOccurrences = 2;
 
     public RecurringTransactionsCommandHandler(
         BudgetsClient budgetsClient,
@@ -31,11 +32,13 @@ public class RecurringTransactionsCommandHandler
         var budget =  budgets.First();
         
         var transactions = await budget.GetTransactions();
-        
+
+        var minimumOccurrences = command.MinimumOccurrences ?? DefaultMinimumOccurrences;
+
         var groups = transactions
             .FilterToSpending()
             .GroupByPayeeName(command.PayeeName)
-            .GroupByMemoOccurence(command.MinimumOccurrences);
+            .GroupByMemoOccurence(minimumOccurrences);
 
         var viewModelColumnNames = TransactionsByMemoOccurrenceByPayeeNameViewModel.GetColumnNames();
 
