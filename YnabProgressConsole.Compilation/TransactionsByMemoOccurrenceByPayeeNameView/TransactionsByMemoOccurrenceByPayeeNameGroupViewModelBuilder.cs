@@ -21,7 +21,7 @@ public class TransactionsByMemoOccurrenceByPayeeNameGroupViewModelBuilder
         var sortColumnIndex = ColumnNames.IndexOf(SortColumnName);
         
         var rows = BuildRows(_groups);
-        var orderedRows = OrderRows(rows, sortColumnIndex, SortOrder);
+        var orderedRows = OrderRows(rows, sortColumnIndex, ViewModelSortOrder);
         
         return new TransactionsByMemoOccurrenceByPayeeNameViewModel
         {
@@ -37,8 +37,8 @@ public class TransactionsByMemoOccurrenceByPayeeNameGroupViewModelBuilder
                     group.PayeeName, group.TransactionsByMemoOccurences));
 
     private IOrderedEnumerable<List<object>> OrderRows(
-        IEnumerable<List<object>> rows, int sortColumnIndex, SortOrder sortOrder)
-            => sortOrder == SortOrder.Ascending
+        IEnumerable<List<object>> rows, int sortColumnIndex, ViewModelSortOrder viewModelSortOrder)
+            => viewModelSortOrder == ViewModelSortOrder.Ascending
                 ? rows.OrderBy(row => row[sortColumnIndex])
                 : rows.OrderByDescending(row => row[sortColumnIndex]);
 

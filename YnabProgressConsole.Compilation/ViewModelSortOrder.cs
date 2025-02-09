@@ -1,6 +1,6 @@
 namespace YnabProgressConsole.Compilation;
 
-public enum SortOrder
+public enum ViewModelSortOrder
 {
     Ascending,
     Descending

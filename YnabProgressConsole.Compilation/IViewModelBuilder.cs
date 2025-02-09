@@ -6,7 +6,7 @@ public interface IViewModelBuilder
     
     public IViewModelBuilder AddSortColumnName(string columnName);
     
-    public IViewModelBuilder AddSortOrder(SortOrder sortOrder);
+    public IViewModelBuilder AddSortOrder(ViewModelSortOrder viewModelSortOrder);
 
     public ViewModel Build();
 }

@@ -4,7 +4,7 @@ public abstract class ViewModelBuilder
 {
     protected List<string> ColumnNames = [];
     protected string SortColumnName = string.Empty;
-    protected SortOrder SortOrder = SortOrder.Ascending;
+    protected ViewModelSortOrder ViewModelSortOrder = ViewModelSortOrder.Ascending;
     
     public IViewModelBuilder AddColumnNames(params string[] columnNames)
     {
@@ -18,9 +18,9 @@ public abstract class ViewModelBuilder
         return GetCurrentBuilder();
     }
 
-    public IViewModelBuilder AddSortOrder(SortOrder sortOrder)
+    public IViewModelBuilder AddSortOrder(ViewModelSortOrder viewModelSortOrder)
     {
-        SortOrder = sortOrder;
+        ViewModelSortOrder = viewModelSortOrder;
         return GetCurrentBuilder();
     }
 

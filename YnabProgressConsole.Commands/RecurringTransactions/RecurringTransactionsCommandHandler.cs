@@ -46,7 +46,7 @@ public class RecurringTransactionsCommandHandler
             .AddGroups(groups)
             .AddColumnNames(viewModelColumnNames.ToArray())
             .AddSortColumnName(TransactionsByMemoOccurrenceByPayeeNameViewModel.MemoOccurenceColumnName)
-            .AddSortOrder(SortOrder.Descending)
+            .AddSortOrder(ViewModelSortOrder.Descending)
             .Build();
         
         return Compile(viewModel);
