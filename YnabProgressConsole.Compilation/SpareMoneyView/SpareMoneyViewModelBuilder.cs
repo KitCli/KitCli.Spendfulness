@@ -1,11 +1,11 @@
 using Ynab.Aggregates;
 
-namespace YnabProgressConsole.Compilation.SpareMoney;
+namespace YnabProgressConsole.Compilation.SpareMoneyView;
 
 public class SpareMoneyViewModelBuilder 
     : ViewModelBuilder, IAggregateViewModelBuilder<SpareMoneyAggregation, AccountBalanceAggregate>
 {
-    private SpareMoneyAggregation _spareMoneyAggregation = new();
+    private SpareMoneyAggregation _spareMoneyAggregation = new([], 0);
     
     public IAggregateViewModelBuilder<SpareMoneyAggregation, AccountBalanceAggregate> AddAggregation(SpareMoneyAggregation aggregate)
     {
@@ -20,7 +20,7 @@ public class SpareMoneyViewModelBuilder
         
         return new SpareMoneyViewModel
         {
-            Columns = _columnNames,
+            Columns = ColumnNames,
             Rows =
             [
                 new List<object>

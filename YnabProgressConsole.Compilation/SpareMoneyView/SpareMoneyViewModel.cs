@@ -1,4 +1,4 @@
-namespace YnabProgressConsole.Compilation.SpareMoney;
+namespace YnabProgressConsole.Compilation.SpareMoneyView;
 
 public class SpareMoneyViewModel : ViewModel
 {

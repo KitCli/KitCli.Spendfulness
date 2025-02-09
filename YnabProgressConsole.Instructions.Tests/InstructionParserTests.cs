@@ -66,6 +66,7 @@ public class InstructionParserTests
             .OfType<TypedInstructionArgument<string>>()
             .FirstOrDefault();
         
+        Assert.That(resultingArgumentOne, Is.Not.Null);
         Assert.That(resultingArgumentOne.ArgumentName, Is.EqualTo(argumentOneName));
         Assert.That(resultingArgumentOne.ArgumentValue, Is.EqualTo(argumentOneValue));
         
@@ -93,6 +94,7 @@ public class InstructionParserTests
             .OfType<TypedInstructionArgument<string>>()
             .FirstOrDefault();
         
+        Assert.That(resultingArgumentOne, Is.Not.Null);
         Assert.That(resultingArgumentOne.ArgumentName, Is.EqualTo(argumentOneName));
         Assert.That(resultingArgumentOne.ArgumentValue, Is.EqualTo(argumentOneValue));
         

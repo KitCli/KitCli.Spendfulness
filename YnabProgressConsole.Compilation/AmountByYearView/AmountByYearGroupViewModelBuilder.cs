@@ -1,13 +1,13 @@
-namespace YnabProgressConsole.Compilation.AmountByYear;
+using Ynab.Collections;
+
+namespace YnabProgressConsole.Compilation.AmountByYearView;
 
 public class AmountByYearGroupViewModelBuilder 
-    : ViewModelBuilder, IGroupViewModelBuilder<Ynab.Collections.AmountByYear>
+    : ViewModelBuilder, IGroupViewModelBuilder<AmountByYear>
 {
-    private List<Ynab.Collections.AmountByYear> _salaryIncreases = [];
-    private List<string> _columNames = [];
+    private List<AmountByYear> _salaryIncreases = [];
 
-    public IGroupViewModelBuilder<Ynab.Collections.AmountByYear> AddGroups(
-        IEnumerable<Ynab.Collections.AmountByYear> groups)
+    public IGroupViewModelBuilder<AmountByYear> AddGroups(IEnumerable<AmountByYear> groups)
     {
         _salaryIncreases = groups.ToList();
         return this;
@@ -20,11 +20,11 @@ public class AmountByYearGroupViewModelBuilder
         return new AmountByYearViewModel
         {
             Rows = rows,
-            Columns = _columNames,
+            Columns = ColumnNames,
         };
     }
 
-    private List<List<object>> BuildRows(List<Ynab.Collections.AmountByYear> salaryIncreases)
+    private List<List<object>> BuildRows(List<AmountByYear> salaryIncreases)
     {
         // Can't increase from no basis, so first row is just a default.
         var firstSalaryIncrease  = salaryIncreases.First();
@@ -36,10 +36,10 @@ public class AmountByYearGroupViewModelBuilder
         return indexedRows;
     }
     
-    private List<object> BuildFirstRow(Ynab.Collections.AmountByYear salaryIncrease) 
+    private List<object> BuildFirstRow(AmountByYear salaryIncrease) 
         => [salaryIncrease.Year, salaryIncrease.AverageAmount, "0%"];
 
-    private IEnumerable<List<object>> BuildRemainingRows(List<Ynab.Collections.AmountByYear> salaryIncreases)
+    private IEnumerable<List<object>> BuildRemainingRows(List<AmountByYear> salaryIncreases)
     {
         // Offset from second salary increase so can be compared against first
         for (var i = 1; i < salaryIncreases.Count; i++)
@@ -47,7 +47,7 @@ public class AmountByYearGroupViewModelBuilder
             var priorSalaryIncrease = salaryIncreases.ElementAt(i - 1);
             var currentSalaryIncrease = salaryIncreases.ElementAt(i);
 
-            var percentageChange = CalculatePercentageDifference(
+            var percentageChange = PercentageCalculator.CalculateChange(
                 priorSalaryIncrease.AverageAmount,
                 currentSalaryIncrease.AverageAmount);
 
@@ -62,13 +62,4 @@ public class AmountByYearGroupViewModelBuilder
             ];
         }
     }
-
-    private int CalculatePercentageDifference(decimal priorAverageAmount, decimal currentAverageAmount)
-        => priorAverageAmount > currentAverageAmount
-            ? PercentageCalculator.CalculateChange(
-                priorAverageAmount,
-                currentAverageAmount)
-            : PercentageCalculator.CalculateChange(
-                currentAverageAmount,
-                priorAverageAmount);
 }

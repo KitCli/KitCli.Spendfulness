@@ -4,7 +4,7 @@ using Ynab.Clients;
 using Ynab.Collections;
 using Ynab.Extensions;
 using YnabProgressConsole.Compilation;
-using YnabProgressConsole.Compilation.AmountByYear;
+using YnabProgressConsole.Compilation.AmountByYearView;
 
 namespace YnabProgressConsole.Commands.SalaryIncreases;
 
@@ -26,7 +26,6 @@ public class SalaryIncreasesCommandHandler : CommandHandler, ICommandHandler<Sal
     {
         var budgets = await _budgetsClient.GetBudgets();
         
-        // TODO: Add support for selecting a budget if you ever do a settings feture.
         var budget =  budgets.First();
         
         var transactions = await budget.GetTransactions();

@@ -3,16 +3,10 @@ using Ynab.Responses.Budgets;
 
 namespace Ynab.Clients;
 
-public class BudgetsClient : YnabApiClient
+public class BudgetsClient(YnabHttpClientFactory ynabHttpClientFactory) : YnabApiClient
 {
     private const string BudgetsApiPath = "budgets";
-    private readonly YnabHttpClientFactory _ynabHttpClientFactory;
 
-    public BudgetsClient(YnabHttpClientFactory ynabHttpClientFactory)
-    {
-        _ynabHttpClientFactory = ynabHttpClientFactory;
-    }
-    
     public async Task<IEnumerable<Budget>> GetBudgets()
     {
         var response = await Get<GetBudgetsResponseData>(BudgetsApiPath);
@@ -25,10 +19,10 @@ public class BudgetsClient : YnabApiClient
         {
             var parentApiPath = $"{BudgetsApiPath}/{budgetResponse.Id}";
             
-            var accounts = new AccountsClient(_ynabHttpClientFactory, parentApiPath);
-            var categories = new CategoriesClient(_ynabHttpClientFactory, parentApiPath);
-            var transactions = new TransactionsClient(_ynabHttpClientFactory, parentApiPath);
-            var scheduledTransactions = new ScheduledTransactionsClient(_ynabHttpClientFactory, parentApiPath);
+            var accounts = new AccountsClient(ynabHttpClientFactory, parentApiPath);
+            var categories = new CategoriesClient(ynabHttpClientFactory, parentApiPath);
+            var transactions = new TransactionsClient(ynabHttpClientFactory, parentApiPath);
+            var scheduledTransactions = new ScheduledTransactionsClient(ynabHttpClientFactory, parentApiPath);
 
             yield return new Budget(
                 accounts,
@@ -39,5 +33,5 @@ public class BudgetsClient : YnabApiClient
         }
     }
 
-    protected override HttpClient GetHttpClient() => _ynabHttpClientFactory.Create();
+    protected override HttpClient GetHttpClient() => ynabHttpClientFactory.Create();
 }

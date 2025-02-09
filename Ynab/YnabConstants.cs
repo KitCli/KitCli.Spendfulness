@@ -2,7 +2,7 @@ namespace Ynab;
 
 public static class YnabConstants
 {
-    public static List<string> AutomatedPayeeNAmes =
+    public static readonly List<string> AutomatedPayeeNames =
     [
         "Starting Balance",
         "Manual Balance Adjustment",

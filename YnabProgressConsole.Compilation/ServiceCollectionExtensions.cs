@@ -1,9 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Ynab.Aggregates;
 using Ynab.Collections;
-using YnabProgressConsole.Compilation.AmountByYear;
-using YnabProgressConsole.Compilation.SpareMoney;
-using YnabProgressConsole.Compilation.TransactionsByMemoOccurrenceByPayeeNameV;
+using YnabProgressConsole.Compilation.AmountByYearView;
+using YnabProgressConsole.Compilation.SpareMoneyView;
+using YnabProgressConsole.Compilation.TransactionsByMemoOccurrenceByPayeeNameView;
 
 namespace YnabProgressConsole.Compilation;
 
@@ -14,8 +14,8 @@ public static class ServiceCollectionExtensions
             .AddKeyedSingleton<IGroupViewModelBuilder<TransactionsByMemoOccurrenceByPayeeName>,
                 TransactionsByMemoOccurrenceByPayeeNameGroupViewModelBuilder>(
                 typeof(TransactionsByMemoOccurrenceByPayeeName))
-            .AddKeyedSingleton<IGroupViewModelBuilder<Ynab.Collections.AmountByYear>,
-                AmountByYearGroupViewModelBuilder>(typeof(Ynab.Collections.AmountByYear))
+            .AddKeyedSingleton<IGroupViewModelBuilder<AmountByYear>,
+                AmountByYearGroupViewModelBuilder>(typeof(AmountByYear))
             .AddKeyedSingleton<IAggregateViewModelBuilder<SpareMoneyAggregation, AccountBalanceAggregate>,
                 SpareMoneyViewModelBuilder>(typeof(SpareMoneyAggregation));
 }

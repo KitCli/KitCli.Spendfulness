@@ -1,5 +1,4 @@
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 using YnabProgressConsole.Instructions.InstructionArgumentBuilders;
 using YnabProgressConsole.Instructions.InstructionArguments;
 
@@ -16,6 +15,8 @@ public class StringInstructionArgumentBuilderTests
         var result = builder.Create(string.Empty, "test test test");
 
         var typed = result as TypedInstructionArgument<string>;
+        
+        Assert.That(typed, Is.Not.Null);
         Assert.That(typed.ArgumentValue, Is.EqualTo("test test test"));
     }
     

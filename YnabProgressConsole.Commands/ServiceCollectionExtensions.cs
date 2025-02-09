@@ -14,8 +14,7 @@ public static class ServiceCollectionExtensions
             .AddMediatR(cfg => 
                 cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()))
             .AddCommandGenerators();
-
-    // TODO: Wonder if this could scan for all implementations of ICommandGenerator.
+    
     private static IServiceCollection AddCommandGenerators(this IServiceCollection serviceCollection)
         => serviceCollection
             .AddKeyedSingleton<ICommandGenerator, CommandListCommandGenerator>(
@@ -24,6 +23,6 @@ public static class ServiceCollectionExtensions
                 RecurringTransactionsCommand.CommandName)
             .AddKeyedSingleton<ICommandGenerator, SalaryIncreasesCommandGenerator>(
                 SalaryIncreasesCommand.CommandName)
-            .AddKeyedSingleton<ICommandGenerator, SpareMoney.SpareMoneyCommandGenerator>(
+            .AddKeyedSingleton<ICommandGenerator, SpareMoneyCommandGenerator>(
                 SpareMoneyCommand.CommandName);
 }

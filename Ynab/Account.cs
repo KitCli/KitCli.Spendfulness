@@ -1,22 +1,16 @@
+using Ynab.Aggregates;
 using Ynab.Clients;
 using Ynab.Responses.Accounts;
 using Ynab.Sanitisers;
 
 namespace Ynab;
 
-public class Account
+public class Account(AccountsClient accountsClient, AccountResponse accountResponse)
 {
-    private readonly AccountsClient _accountsClient;
-    private readonly AccountResponse _accountResponse;
-    
-    public string Name => _accountResponse.Name;
-    public decimal Balance => MilliunitSanitiser.Calculate(_accountResponse.Balance);
-    public bool OnBudget => _accountResponse.OnBudget;
-    public bool Closed => _accountResponse.Closed;
-    
-    public Account(AccountsClient accountsClient, AccountResponse accountResponse)
-    {
-        _accountsClient = accountsClient;
-        _accountResponse = accountResponse;
-    }
+    private readonly AccountsClient _accountsClient = accountsClient;
+    public string Name => accountResponse.Name;
+    public decimal Balance => MilliunitSanitiser.Calculate(accountResponse.Balance);
+    public bool OnBudget => accountResponse.OnBudget;
+    public bool Closed => accountResponse.Closed;
+    public AccountBalanceAggregate ToAggregate() => new(Balance);
 }

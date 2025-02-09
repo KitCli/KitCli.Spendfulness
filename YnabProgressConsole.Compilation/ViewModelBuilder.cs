@@ -2,25 +2,36 @@ namespace YnabProgressConsole.Compilation;
 
 public abstract class ViewModelBuilder
 {
-    protected List<string> _columnNames = [];
-    protected string _sortColumnName = string.Empty;
-    protected SortOrder _sortOrder = SortOrder.Ascending;
+    protected List<string> ColumnNames = [];
+    protected string SortColumnName = string.Empty;
+    protected SortOrder SortOrder = SortOrder.Ascending;
     
     public IViewModelBuilder AddColumnNames(params string[] columnNames)
     {
-        _columnNames = columnNames.ToList();
-        return this as IViewModelBuilder;
+        ColumnNames = columnNames.ToList();
+        return GetCurrentBuilder();
     }
 
     public IViewModelBuilder AddSortColumnName(string columnName)
     {
-        _sortColumnName = columnName;
-        return this as IViewModelBuilder;
+        SortColumnName = columnName;
+        return GetCurrentBuilder();
     }
 
     public IViewModelBuilder AddSortOrder(SortOrder sortOrder)
     {
-        _sortOrder = sortOrder;
-        return this as IViewModelBuilder;
+        SortOrder = sortOrder;
+        return GetCurrentBuilder();
+    }
+
+    private IViewModelBuilder GetCurrentBuilder()
+    {
+        var current = this as IViewModelBuilder;
+        if (current is null)
+        {
+            throw new Exception("Attempted to return a non-IViewModelBuilder superclass of ViewModelBuilder");
+        }
+        
+        return current;
     }
 }

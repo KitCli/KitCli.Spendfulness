@@ -1,6 +1,7 @@
 namespace Ynab.Aggregates;
 
-public class YnabAggregation<TAggregation> where TAggregation : class
+public class YnabAggregation<TAggregation>(IEnumerable<TAggregation> aggregation)
+    where TAggregation : class
 {
-    public IEnumerable<TAggregation> Aggregation { get; set; }
+    public IEnumerable<TAggregation> Aggregation { get; init; } = aggregation;
 }

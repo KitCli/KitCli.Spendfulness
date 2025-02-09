@@ -15,6 +15,8 @@ public class IntInstructionArgumentBuilderTests
         var result = builder.Create(string.Empty, "1");
 
         var typed = result as TypedInstructionArgument<int>;
+        
+        Assert.That(typed, Is.Not.Null);
         Assert.That(typed.ArgumentValue, Is.EqualTo(1));
     }
     

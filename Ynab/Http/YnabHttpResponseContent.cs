@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
 
-namespace Ynab.Responses;
+namespace Ynab.Http;
 
-public class YnabApiResponse<TResponseData> where TResponseData : class
+public class YnabHttpResponseContent<TResponseData> where TResponseData : class
 {
     [JsonPropertyName("data")]
     public required TResponseData Data { get; set; }

@@ -5,8 +5,7 @@ namespace Ynab;
 
 public class Transaction(TransactionResponse transactionResponse)
 {
-    private TransactionResponse _transactionResponse = transactionResponse;
-
+    private readonly TransactionResponse _transactionResponse = transactionResponse;
     public DateTime Occured => _transactionResponse.Occured;
     public string? Memo => _transactionResponse.Memo;
     public decimal Amount => MilliunitSanitiser.Calculate(_transactionResponse.Amount);

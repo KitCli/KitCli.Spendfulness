@@ -7,6 +7,7 @@ public class RecurringTransactionsCommandGenerator : ICommandGenerator
     public ICommand Generate(List<InstructionArgument> arguments)
     {
         var payeeName = RecurringTransactionsCommand.ArgumentNames.PayeeName;
+        
         var payeeNameArgument = arguments
             .Where(arg => arg.ArgumentName == payeeName)
             .OfType<TypedInstructionArgument<string>>()

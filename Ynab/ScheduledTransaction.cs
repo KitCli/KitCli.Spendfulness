@@ -4,19 +4,12 @@ using Ynab.Sanitisers;
 
 namespace Ynab;
 
-public class ScheduledTransaction
+public class ScheduledTransaction(
+    ScheduledTransactionsClient scheduledTransactionsClient,
+    ScheduledTransactionsResponse scheduledTransactionsResponse)
 {
-    private readonly ScheduledTransactionsClient _scheduledTransactionsClient;
-    private readonly ScheduledTransactionsResponse _scheduledTransactionsResponse;
+    private readonly ScheduledTransactionsClient _scheduledTransactionsClient = scheduledTransactionsClient;
 
-    public decimal Amount => MilliunitSanitiser.Calculate(_scheduledTransactionsResponse.Amount);
-    public DateTime NextOccurence => _scheduledTransactionsResponse.NextOccurence;
-
-    public ScheduledTransaction(
-        ScheduledTransactionsClient scheduledTransactionsClient,
-        ScheduledTransactionsResponse scheduledTransactionsResponse)
-    {
-        _scheduledTransactionsClient = scheduledTransactionsClient;
-        _scheduledTransactionsResponse = scheduledTransactionsResponse;
-    }
+    public decimal Amount => MilliunitSanitiser.Calculate(scheduledTransactionsResponse.Amount);
+    public DateTime NextOccurence => scheduledTransactionsResponse.NextOccurence;
 }

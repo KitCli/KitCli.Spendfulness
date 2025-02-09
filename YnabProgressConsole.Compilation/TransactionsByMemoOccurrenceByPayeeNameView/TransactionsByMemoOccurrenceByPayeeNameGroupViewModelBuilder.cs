@@ -2,7 +2,7 @@ using Ynab;
 using Ynab.Collections;
 using Ynab.Sanitisers;
 
-namespace YnabProgressConsole.Compilation.TransactionsByMemoOccurrenceByPayeeNameV;
+namespace YnabProgressConsole.Compilation.TransactionsByMemoOccurrenceByPayeeNameView;
 
 public class TransactionsByMemoOccurrenceByPayeeNameGroupViewModelBuilder
     : ViewModelBuilder, IGroupViewModelBuilder<TransactionsByMemoOccurrenceByPayeeName>
@@ -18,14 +18,14 @@ public class TransactionsByMemoOccurrenceByPayeeNameGroupViewModelBuilder
     
     public ViewModel Build()
     {
-        var sortColumnIndex = _columnNames.IndexOf(_sortColumnName);
+        var sortColumnIndex = ColumnNames.IndexOf(SortColumnName);
         
         var rows = BuildRows(_groups);
-        var orderedRows = OrderRows(rows, sortColumnIndex, _sortOrder);
+        var orderedRows = OrderRows(rows, sortColumnIndex, SortOrder);
         
         return new TransactionsByMemoOccurrenceByPayeeNameViewModel
         {
-            Columns = _columnNames,
+            Columns = ColumnNames,
             Rows = orderedRows.ToList()
         };
     }
@@ -52,7 +52,7 @@ public class TransactionsByMemoOccurrenceByPayeeNameGroupViewModelBuilder
             yield return
             [
                 payeeName,
-                transactionsByMemoOccurrence?.Memo ?? string.Empty,
+                transactionsByMemoOccurrence.Memo ?? string.Empty,
                 transactionsByMemoOccurrence.MemoOccurence,
                 averageAmount
             ];

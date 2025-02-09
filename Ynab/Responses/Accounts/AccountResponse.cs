@@ -2,16 +2,17 @@ using System.Text.Json.Serialization;
 
 namespace Ynab.Responses.Accounts;
 
-public class AccountResponse
+public record AccountResponse
 {
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public required string Name { get; set; }
     
     [JsonPropertyName("balance")]
-    public int Balance { get; set; }
+    public required int Balance { get; set; }
     
     [JsonPropertyName("on_budget")]
-    public bool OnBudget { get; set; }
+    public required bool OnBudget { get; set; }
     
-    public bool Closed {get; set; }
+    [JsonPropertyName("closed")]
+    public required bool Closed { get; set; }
 }

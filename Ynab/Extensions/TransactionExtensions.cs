@@ -19,11 +19,11 @@ public static class TransactionExtensions
             => transactions.Where(t => payeeNames.Contains(t.PayeeName));
 
     public static IEnumerable<Transaction> FilterToSpending(this IEnumerable<Transaction> transactions)
-        => transactions.Where(transactions =>
-            !transactions.IsTransfer && 
-            !YnabConstants.AutomatedPayeeNAmes.Contains(transactions.PayeeName));
+        => transactions.Where(transaction =>
+            !transaction.IsTransfer && 
+            !YnabConstants.AutomatedPayeeNames.Contains(transaction.PayeeName));
 
-    public static IEnumerable<TransactionsForMonth> GroupByMonth(
+    public static IEnumerable<TransactionsByMonth> GroupByMonth(
         this IEnumerable<Transaction> transactions)
     {
         var groups = transactions.GroupBy(transaction =>
@@ -31,7 +31,7 @@ public static class TransactionExtensions
 
         foreach (var group in groups)
         {
-            yield return new TransactionsForMonth
+            yield return new TransactionsByMonth
             {
                 Month = group.Key,
                 Transactions = group

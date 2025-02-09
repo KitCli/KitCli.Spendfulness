@@ -4,7 +4,7 @@ using Ynab.Aggregates;
 using Ynab.Clients;
 using Ynab.Extensions;
 using YnabProgressConsole.Compilation;
-using YnabProgressConsole.Compilation.SpareMoney;
+using YnabProgressConsole.Compilation.SpareMoneyView;
 
 namespace YnabProgressConsole.Commands.SpareMoney;
 
@@ -27,7 +27,6 @@ public class SpareMoneyCommandHandler : CommandHandler, ICommandHandler<SpareMon
 
         var budget = budgets.First();
         
-        // TODO: This needs moving to some kind of config or setting.
         var criticalCategoryGroupNames = new List<string>
         {
             "Phone",

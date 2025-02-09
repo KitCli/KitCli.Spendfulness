@@ -18,8 +18,10 @@ public class CategoryGroup
     }
     
     public IEnumerable<Category> Categories => _categoryGroupResponse.Categories
-        .Select(categories => new Category(_categoryClient, categories));
+        .Select(category => new Category(_categoryClient, category));
     
     public decimal Balance => _categoryGroupResponse.Categories.Sum(category =>
         MilliunitSanitiser.Calculate(category.Balance));
+    
+    public IEnumerable<Guid> GetCategoryIds() => Categories.Select(category => category.Id);
 }

@@ -1,5 +1,4 @@
 using System.Text.Json.Serialization;
-using Ynab.Responses.Transactions;
 
 namespace Ynab.Responses.ScheduledTransactions;
 

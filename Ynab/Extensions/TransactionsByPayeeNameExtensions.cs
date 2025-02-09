@@ -5,33 +5,25 @@ namespace Ynab.Extensions;
 public static class TransactionsByPayeeNameExtensions
 {
     public static IEnumerable<TransactionsByMemoOccurrenceByPayeeName> GroupByMemoOccurence(
-        this IEnumerable<TransactionsByPayeeName> transactionsByPayeeNames, int? minimumOccurences = 0)
+        this IEnumerable<TransactionsByPayeeName> transactionsByPayeeNames, int? minimumOccurences = 2)
     {
         foreach (var transactionsByPayeeName in transactionsByPayeeNames)
         {
-            var memoOccurences = transactionsByPayeeName
-                .Transactions
-                .GroupBy(t => t.Memo)
-                .Select(grouping => new TransactionsByMemoOccurrence
-                {
-                    Memo = grouping.Key,
-                    MemoOccurence = grouping.Count(),
-                    Transactions = grouping.ToList()
-                });
+            var memoOccurrenceGroups = transactionsByPayeeName.GroupByMemoOccurrence();
 
             if (minimumOccurences is not null)
             {
-                memoOccurences = memoOccurences
-                    .Where(x => x.MemoOccurence >= minimumOccurences);
+                memoOccurrenceGroups = memoOccurrenceGroups
+                    .Where(memoOccurrenceGroup => memoOccurrenceGroup.MemoOccurence >= minimumOccurences);
             }
             
-            memoOccurences = memoOccurences
-                .OrderByDescending(t => t.MemoOccurence);
+            memoOccurrenceGroups = memoOccurrenceGroups
+                .OrderByDescending(memoOccurrenceGroup => memoOccurrenceGroup.MemoOccurence);
 
             yield return new TransactionsByMemoOccurrenceByPayeeName
             {
                 PayeeName = transactionsByPayeeName.PayeeName,
-                TransactionsByMemoOccurences = memoOccurences
+                TransactionsByMemoOccurences = memoOccurrenceGroups
             };
         }
     }

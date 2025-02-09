@@ -1,5 +1,5 @@
 using System.Net.Http.Json;
-using Ynab.Responses;
+using Ynab.Http;
 
 namespace Ynab.Clients;
 
@@ -10,7 +10,7 @@ public class YnabApiClient
         throw new Exception("No override");
     }
 
-    protected async Task<YnabApiResponse<TApiResponse>> Get<TApiResponse>(string url) where TApiResponse : class
+    protected async Task<YnabHttpResponseContent<TApiResponse>> Get<TApiResponse>(string url) where TApiResponse : class
     {
         var client = GetHttpClient();
         
@@ -18,7 +18,11 @@ public class YnabApiClient
         
         response.EnsureSuccessStatusCode();
         
-        var responseContent = await response.Content.ReadFromJsonAsync<YnabApiResponse<TApiResponse>>();
+        var responseContent = await response.Content.ReadFromJsonAsync<YnabHttpResponseContent<TApiResponse>>();
+        if (responseContent is null)
+        {
+            throw new NullReferenceException("Response is null");
+        }
         
         return responseContent;
     }

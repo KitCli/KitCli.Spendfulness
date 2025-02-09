@@ -3,16 +3,9 @@ using Ynab.Responses.Category;
 
 namespace Ynab;
 
-public class Category
+public class Category(CategoriesClient categoriesClient, CategoryResponse categoryResponse)
 {
-    private readonly CategoriesClient _categoriesClient;
-    private CategoryResponse _categoryResponse;
+    private readonly CategoriesClient _categoriesClient = categoriesClient;
 
-    public Guid Id => _categoryResponse.Id;
-
-    public Category(CategoriesClient categoriesClient, CategoryResponse categoryResponse)
-    {
-        _categoriesClient = categoriesClient;
-        _categoryResponse = categoryResponse;
-    }
+    public Guid Id => categoryResponse.Id;
 }
