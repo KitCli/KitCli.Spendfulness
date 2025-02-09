@@ -1,7 +1,7 @@
 using YnabProgressConsole.Commands.CommandList;
 using YnabProgressConsole.Instructions.InstructionArguments;
 
-namespace YnabProgressConsole.Commands.Tests.Commands.CommandList;
+namespace YnabProgressConsole.Commands.Tests.CommandList;
 
 [TestFixture]
 public class CommandListCommandGeneratorTests
