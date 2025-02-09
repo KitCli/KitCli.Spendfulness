@@ -23,13 +23,23 @@ public class InstructionParserTests
     }
     
     [Test]
+    public void GivenInputstring_WhenaParse_ReturnsInstructionPrefixs()
+    {
+        var input = $"/command";
+        
+        var result = _parser.Parse(input);
+        
+        Assert.That(result.Prefix, Is.EqualTo("/"));
+    }
+    
+    [Test]
     public void GivenInputStringWithoutArguments_WhenaParse_ReturnsInstructionWithoutArguments()
     {
         var input = $"/command";
         
         var result = _parser.Parse(input);
         
-        Assert.That(result.InstructionName, Is.EqualTo("command"));
+        Assert.That(result.Name, Is.EqualTo("command"));
     }
     
     [Test]
