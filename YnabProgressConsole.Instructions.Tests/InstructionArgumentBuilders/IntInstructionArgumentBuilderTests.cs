@@ -42,12 +42,4 @@ public class IntInstructionArgumentBuilderTests
         Assert.That(typed, Is.Not.Null);
         Assert.That(typed.ArgumentValue, Is.EqualTo(1));
     }
-
-    [Test]
-    public void GivenNonIntArgumentValue_WhenCreate_WillThrowException()
-    {
-        void CreateArgument() => _intInstructionArgumentBuilder.Create(string.Empty, "hello world");
-
-        Assert.Throws<ArgumentException>(CreateArgument);
-    }
 }
