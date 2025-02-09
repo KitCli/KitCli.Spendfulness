@@ -5,19 +5,13 @@ namespace Ynab.Extensions;
 public static class TransactionsByPayeeNameExtensions
 {
     public static IEnumerable<TransactionsByMemoOccurrenceByPayeeName> GroupByMemoOccurence(
-        this IEnumerable<TransactionsByPayeeName> transactionsByPayeeNames, int? minimumOccurences = 2)
+        this IEnumerable<TransactionsByPayeeName> transactionsByPayeeNames, int minimumOccurrences = 0)
     {
         foreach (var transactionsByPayeeName in transactionsByPayeeNames)
         {
-            var memoOccurrenceGroups = transactionsByPayeeName.GroupByMemoOccurrence();
-
-            if (minimumOccurences is not null)
-            {
-                memoOccurrenceGroups = memoOccurrenceGroups
-                    .Where(memoOccurrenceGroup => memoOccurrenceGroup.MemoOccurence >= minimumOccurences);
-            }
-            
-            memoOccurrenceGroups = memoOccurrenceGroups
+            var memoOccurrenceGroups = transactionsByPayeeName.
+                GroupByMemoOccurrence()
+                .Where(memoOccurrenceGroup => memoOccurrenceGroup.MemoOccurence >= minimumOccurrences)
                 .OrderByDescending(memoOccurrenceGroup => memoOccurrenceGroup.MemoOccurence);
 
             yield return new TransactionsByMemoOccurrenceByPayeeName
