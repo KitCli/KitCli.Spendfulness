@@ -29,7 +29,7 @@ public class InstructionParserTests
         
         var result = _parser.Parse(input);
         
-        Assert.That(result.InstructionPrefix, Is.EqualTo("/"));
+        Assert.That(result.Prefix, Is.EqualTo("/"));
     }
     
     [Test]
@@ -39,7 +39,7 @@ public class InstructionParserTests
         
         var result = _parser.Parse(input);
         
-        Assert.That(result.InstructionName, Is.EqualTo("command"));
+        Assert.That(result.Name, Is.EqualTo("command"));
     }
     
     [Test]

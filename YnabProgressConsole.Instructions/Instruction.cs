@@ -3,6 +3,6 @@ using YnabProgressConsole.Instructions.InstructionArguments;
 namespace YnabProgressConsole.Instructions;
 
 public record Instruction(
-    string InstructionPrefix,
-    string InstructionName,
+    string Prefix,
+    string Name,
     IEnumerable<InstructionArgument> Arguments);

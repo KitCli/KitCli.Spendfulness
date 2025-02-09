@@ -27,7 +27,7 @@ public class ConsoleApplication(IServiceProvider serviceProvider)
 
             var instruction = instructionParser.Parse(input);
 
-            var generator = serviceProvider.GetKeyedService<ICommandGenerator>(instruction.InstructionName);
+            var generator = serviceProvider.GetKeyedService<ICommandGenerator>(instruction.Name);
             if (generator == null)
             {
                 PrintToConsole("Invalid Command, Try Again...");
