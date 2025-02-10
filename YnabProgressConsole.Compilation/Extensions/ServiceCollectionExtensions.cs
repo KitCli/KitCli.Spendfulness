@@ -1,11 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Ynab.Collections;
-using YnabProgressConsole.Compilation.AmountByYearView;
-using YnabProgressConsole.Compilation.CompanyDeductedBalanceView;
-using YnabProgressConsole.Compilation.SpareMoneyView;
-using YnabProgressConsole.Compilation.TransactionsByMemoOccurrenceByPayeeNameView;
+using YnabProgressConsole.Compilation.Evaluators;
+using YnabProgressConsole.Compilation.ViewModelBuilders;
 
-namespace YnabProgressConsole.Compilation;
+namespace YnabProgressConsole.Compilation.Extensions;
 
 public static class ServiceCollectionExtensions
 {

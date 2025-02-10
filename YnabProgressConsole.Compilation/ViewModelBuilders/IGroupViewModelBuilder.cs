@@ -1,4 +1,4 @@
-namespace YnabProgressConsole.Compilation;
+namespace YnabProgressConsole.Compilation.ViewModelBuilders;
 
 public interface IGroupViewModelBuilder<in TGroup> : IViewModelBuilder
 {

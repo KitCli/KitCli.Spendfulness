@@ -1,4 +1,6 @@
-namespace YnabProgressConsole.Compilation;
+using YnabProgressConsole.Compilation.ViewModels;
+
+namespace YnabProgressConsole.Compilation.ViewModelBuilders;
 
 public abstract class ViewModelBuilder
 {

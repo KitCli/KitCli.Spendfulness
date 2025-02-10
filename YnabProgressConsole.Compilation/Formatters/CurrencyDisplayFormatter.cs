@@ -1,4 +1,4 @@
-namespace YnabProgressConsole.Compilation;
+namespace YnabProgressConsole.Compilation.Formatters;
 
 public static class CurrencyDisplayFormatter
 {

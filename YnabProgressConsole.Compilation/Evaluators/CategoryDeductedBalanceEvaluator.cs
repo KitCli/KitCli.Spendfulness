@@ -1,6 +1,6 @@
 using Ynab;
 
-namespace YnabProgressConsole.Compilation.SpareMoneyView;
+namespace YnabProgressConsole.Compilation.Evaluators;
 
 public class CategoryDeductedBalanceEvaluator : YnabEvaluator<decimal>
 {

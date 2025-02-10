@@ -1,6 +1,8 @@
 using Ynab.Collections;
+using YnabProgressConsole.Compilation.Calculators;
+using YnabProgressConsole.Compilation.ViewModels;
 
-namespace YnabProgressConsole.Compilation.AmountByYearView;
+namespace YnabProgressConsole.Compilation.ViewModelBuilders;
 
 public class AmountByYearGroupViewModelBuilder 
     : ViewModelBuilder, IGroupViewModelBuilder<AmountByYear>

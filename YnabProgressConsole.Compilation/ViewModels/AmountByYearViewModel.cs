@@ -1,4 +1,4 @@
-namespace YnabProgressConsole.Compilation.AmountByYearView;
+namespace YnabProgressConsole.Compilation.ViewModels;
 
 public class AmountByYearViewModel : ViewModel
 {

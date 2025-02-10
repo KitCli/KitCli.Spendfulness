@@ -1,8 +1,9 @@
 using Ynab;
 using Ynab.Collections;
 using Ynab.Sanitisers;
+using YnabProgressConsole.Compilation.ViewModels;
 
-namespace YnabProgressConsole.Compilation.TransactionsByMemoOccurrenceByPayeeNameView;
+namespace YnabProgressConsole.Compilation.ViewModelBuilders;
 
 public class TransactionsByMemoOccurrenceByPayeeNameGroupViewModelBuilder
     : ViewModelBuilder, IGroupViewModelBuilder<TransactionsByMemoOccurrenceByPayeeName>

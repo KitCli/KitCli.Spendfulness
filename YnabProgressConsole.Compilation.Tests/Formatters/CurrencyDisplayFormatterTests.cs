@@ -1,4 +1,6 @@
-namespace YnabProgressConsole.Compilation.Tests;
+using YnabProgressConsole.Compilation.Formatters;
+
+namespace YnabProgressConsole.Compilation.Tests.Formatters;
 
 [TestFixture]
 public class CurrencyDisplayFormatterTests

@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using YnabProgressConsole.Instructions.InstructionArgumentBuilders;
 
-namespace YnabProgressConsole.Instructions.Extensions;
+namespace YnabProgressConsole.Instructions;
 
 public static class ServiceCollectionExtensions
 {

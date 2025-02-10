@@ -1,6 +1,8 @@
-using YnabProgressConsole.Compilation.SpareMoneyView;
+using YnabProgressConsole.Compilation.Evaluators;
+using YnabProgressConsole.Compilation.Formatters;
+using YnabProgressConsole.Compilation.ViewModels;
 
-namespace YnabProgressConsole.Compilation.CompanyDeductedBalanceView;
+namespace YnabProgressConsole.Compilation.ViewModelBuilders;
 
 public class CompanyDeductedBalanceEvaluator
     : ViewModelBuilder, IEvaluationViewModelBuilder<CategoryDeductedBalanceEvaluator, decimal>

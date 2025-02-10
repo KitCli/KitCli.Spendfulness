@@ -4,7 +4,8 @@ using Ynab;
 using Ynab.Clients;
 using Ynab.Extensions;
 using YnabProgressConsole.Compilation;
-using YnabProgressConsole.Compilation.SpareMoneyView;
+using YnabProgressConsole.Compilation.Evaluators;
+using YnabProgressConsole.Compilation.ViewModelBuilders;
 
 namespace YnabProgressConsole.Commands.SpareMoney;
 

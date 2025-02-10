@@ -3,7 +3,8 @@ using Ynab.Extensions;
 using YnabProgressConsole;
 using YnabProgressConsole.Commands;
 using YnabProgressConsole.Compilation;
-using YnabProgressConsole.Instructions.Extensions;
+using YnabProgressConsole.Compilation.Extensions;
+using YnabProgressConsole.Instructions;
 
 var serviceProvider = new ServiceCollection()
     .AddConsoleCompilation() // Compile into ConsoleTables.
