@@ -8,6 +8,7 @@ namespace YnabProgressConsole.Instructions.Tests;
 public class InstructionParserTests
 {
     private IEnumerable<IInstructionArgumentBuilder> _argumentBuilders;
+    private InstructionTokenParser _tokenparser;
     private InstructionParser _parser;
 
     [SetUp]
@@ -19,7 +20,8 @@ public class InstructionParserTests
             new IntInstructionArgumentBuilder(),
         };
         
-        _parser = new InstructionParser(_argumentBuilders);
+        _tokenparser = new InstructionTokenParser();
+        _parser = new InstructionParser(_tokenparser, _argumentBuilders);
     }
     
     [Test]
@@ -45,7 +47,7 @@ public class InstructionParserTests
     [Test]
     public void GivenInputWithArguments_WhenParse_ReturnsInstructionsWithCorrectName()
     {
-        var input = $"/command {_argumentBuilders.First()}";
+        var input = $"/command --argumentOne hello world";
         
         var result = _parser.Parse(input);
         

@@ -9,6 +9,7 @@ public static class ServiceCollectionExtensions
         => serviceCollection
             .AddSingleton<IInstructionArgumentBuilder, StringInstructionArgumentBuilder>()
             .AddSingleton<IInstructionArgumentBuilder, IntInstructionArgumentBuilder>()
+            .AddSingleton<InstructionTokenParser>()
             .AddSingleton<InstructionParser>();
 
 }
