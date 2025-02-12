@@ -66,12 +66,11 @@ public static class TransactionExtensions
         foreach (var group in groups)
         {
             var average = group.Average(transaction => transaction.Amount);
-            var sanitised = DecimalPlaceSanitiser.Sanitise(average);
             
             yield return new AmountByYear
             {
                 Year = group.Key,
-                AverageAmount = sanitised
+                AverageAmount = average
             };
         }
     }
