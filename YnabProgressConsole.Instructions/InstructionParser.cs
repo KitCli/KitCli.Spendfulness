@@ -3,14 +3,10 @@ using YnabProgressConsole.Instructions.InstructionArguments;
 
 namespace YnabProgressConsole.Instructions;
 
-public class InstructionParser(
-    InstructionTokenParser instructionTokenParser,
-    IEnumerable<IInstructionArgumentBuilder> instructionArgumentBuilders)
+public class InstructionParser(IEnumerable<IInstructionArgumentBuilder> instructionArgumentBuilders)
 {
-    public Instruction Parse(string input)
+    public Instruction Parse(InstructionTokens tokens)
     {
-        var tokens = instructionTokenParser.Parse(input);
-        
         var arguments = MapInstructionArguments(tokens.ArgumentTokens);
 
         return new Instruction(tokens.PrefixToken, tokens.NameToken, arguments);

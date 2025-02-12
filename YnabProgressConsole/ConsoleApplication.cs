@@ -11,6 +11,7 @@ public class ConsoleApplication(IServiceProvider serviceProvider)
     {
         PrintToConsole("Welcome to YnabProgressConsole!");
 
+        var instructionTokenParser = serviceProvider.GetRequiredService<InstructionTokenParser>();
         var instructionParser = serviceProvider.GetRequiredService<InstructionParser>();
         var mediator = serviceProvider.GetRequiredService<IMediator>();
 
@@ -25,7 +26,8 @@ public class ConsoleApplication(IServiceProvider serviceProvider)
                 continue;
             }
 
-            var instruction = instructionParser.Parse(input);
+            var tokens = instructionTokenParser.Parse(input);
+            var instruction = instructionParser.Parse(tokens);
             if (instruction.Prefix is null)
             {
                 PrintToConsole("Commands must have a '/' prefix.");
