@@ -27,12 +27,7 @@ public class RecurringTransactionsCommandHandler : CommandHandler, ICommandHandl
         
         var transactions = await budget.GetTransactions();
 
-        var evaluator = new TransactionMemoOccurrenceEvaluator(
-            null,
-            null,
-            null,
-            null,
-            transactions);
+        var evaluator = new TransactionMemoOccurrenceEvaluator(transactions);
 
         _builder
             .AddEvaluator(evaluator)

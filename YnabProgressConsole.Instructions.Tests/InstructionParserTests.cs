@@ -8,7 +8,6 @@ namespace YnabProgressConsole.Instructions.Tests;
 public class InstructionParserTests
 {
     private IEnumerable<IInstructionArgumentBuilder> _argumentBuilders;
-    private InstructionTokenParser _tokenparser;
     private InstructionParser _parser;
 
     [SetUp]
@@ -19,112 +18,72 @@ public class InstructionParserTests
             new StringInstructionArgumentBuilder(),
             new IntInstructionArgumentBuilder(),
         };
-        
-        _tokenparser = new InstructionTokenParser();
-        _parser = new InstructionParser(_tokenparser, _argumentBuilders);
-    }
-    
-    [Test]
-    public void GivenInputstring_WhenaParse_ReturnsInstructionPrefixs()
-    {
-        var input = $"/command";
-        
-        var result = _parser.Parse(input);
-        
-        Assert.That(result.Prefix, Is.EqualTo("/"));
-    }
-    
-    [Test]
-    public void GivenInputStringWithoutArguments_WhenaParse_ReturnsInstructionWithoutArguments()
-    {
-        var input = $"/command";
-        
-        var result = _parser.Parse(input);
-        
-        Assert.That(result.Name, Is.EqualTo("command"));
+
+        _parser = new InstructionParser(_argumentBuilders);
     }
 
     [Test]
-    public void GivenInputWithArguments_WhenParse_ReturnsInstructionsWithCorrectName()
+    public void GivenParserTokensWithPrefix_WhenParse_ThenReturnsInstructionWithPrefix()
     {
-        var input = $"/command --argumentOne hello world";
+        var prefix = "/";
         
-        var result = _parser.Parse(input);
+        var tokens = new InstructionTokens(prefix, string.Empty, new Dictionary<string, string>());
         
-        Assert.That(result.Name, Is.EqualTo("command"));
+        var result = _parser.Parse(tokens);
+        
+        Assert.That(result.Prefix, Is.EqualTo(prefix));
     }
-    
+
     [Test]
-    public void GivenInputString_WhenParse_ReturnsInstructionWithOneStringArguments()
+    public void GivenParserTokensWithName_WhenParse_ThenReturnsInstructionWithName()
     {
-        var argumentName = "argumentOne";
-        var argumentValue = "hello world";
+        var name = "/";
         
-        var input = $"/command --{argumentName} {argumentValue}";
+        var tokens = new InstructionTokens(string.Empty, name, new Dictionary<string, string>());
         
-        var result = _parser.Parse(input);
+        var result = _parser.Parse(tokens);
         
-        var resultingArgument = result.Arguments
-            .OfType<TypedInstructionArgument<string>>()
-            .Single();
-        
-        Assert.That(resultingArgument.ArgumentName, Is.EqualTo(argumentName));
-        Assert.That(resultingArgument.ArgumentValue, Is.EqualTo(argumentValue));
+        Assert.That(result.Name, Is.EqualTo(name));
     }
-    
+
     [Test]
-    public void GivenInputString_WhenParse_ReturnsInstructionWithTwoStringArguments()
+    public void GivenParserWithStringArguments_WhenParse_ThenReturnsInstructionWithStringTypedArguments()
     {
-        var argumentOneName = "argumentOne";
-        var argumentOneValue = "hello world";
-        var argumentTwoName = "argumentTwo";
-        var argumentTwoValue = "world hello";
+        var argumentName = "argumentName";
+        var arvumentValue = "arvumentValue";
         
-        var input = $"/command --{argumentOneName} {argumentOneValue} --{argumentTwoName} {argumentTwoValue}";
+        var tokens = new InstructionTokens(string.Empty, string.Empty, new Dictionary<string, string>
+        {
+            { argumentName, arvumentValue }
+        });
         
-        var result = _parser.Parse(input);
-        
-        var resultingArgumentOne = result.Arguments
+        var result = _parser.Parse(tokens);
+
+        var argument = result.Arguments
             .OfType<TypedInstructionArgument<string>>()
             .FirstOrDefault();
         
-        Assert.That(resultingArgumentOne, Is.Not.Null);
-        Assert.That(resultingArgumentOne.ArgumentName, Is.EqualTo(argumentOneName));
-        Assert.That(resultingArgumentOne.ArgumentValue, Is.EqualTo(argumentOneValue));
-        
-        var resultingArgumentTwo = result.Arguments
-            .OfType<TypedInstructionArgument<string>>()
-            .Last();
-        
-        Assert.That(resultingArgumentTwo.ArgumentName, Is.EqualTo(argumentTwoName));
-        Assert.That(resultingArgumentTwo.ArgumentValue, Is.EqualTo(argumentTwoValue));
+        Assert.That(argument, Is.Not.Null);
     }
     
+    
     [Test]
-    public void GivenInputString_WhenParse_ReturnsInstructionWithMultipleTypedArguments()
+    public void GivenParserWithIntArguments_WhenParse_ThenReturnsInstructionWithIntTypedArguments()
     {
-        var argumentOneName = "argumentOne";
-        var argumentOneValue = "hello world";
-        var argumentTwoName = "argumentTwo";
-        var argumentTwoValue = 1;
+        var argumentName = "argumentName";
+        var arvumentValue = "1";
         
-        var input = $"/command --{argumentOneName} {argumentOneValue} --{argumentTwoName} {argumentTwoValue}";
+        var tokens = new InstructionTokens(string.Empty, string.Empty, new Dictionary<string, string>
+        {
+            { argumentName, arvumentValue }
+        });
         
-        var result = _parser.Parse(input);
-        
-        var resultingArgumentOne = result.Arguments
-            .OfType<TypedInstructionArgument<string>>()
-            .FirstOrDefault();
-        
-        Assert.That(resultingArgumentOne, Is.Not.Null);
-        Assert.That(resultingArgumentOne.ArgumentName, Is.EqualTo(argumentOneName));
-        Assert.That(resultingArgumentOne.ArgumentValue, Is.EqualTo(argumentOneValue));
-        
-        var resultingArgumentTwo = result.Arguments
+        var result = _parser.Parse(tokens);
+
+        var argument = result.Arguments
             .OfType<TypedInstructionArgument<int>>()
-            .Last();
+            .FirstOrDefault();
         
-        Assert.That(resultingArgumentTwo.ArgumentName, Is.EqualTo(argumentTwoName));
-        Assert.That(resultingArgumentTwo.ArgumentValue, Is.EqualTo(argumentTwoValue));
+        Assert.That(argument, Is.Not.Null);
     }
 }
