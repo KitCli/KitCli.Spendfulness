@@ -7,7 +7,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddConsoleCompilation(this IServiceCollection serviceCollection)
         => serviceCollection
-            .AddSingleton<ITransactionMemoOccurrenceViewModelBuilder, TransactionMemoOccurrenceViewModelBuilder>()
+            .AddSingleton<TransactionMemoOccurrenceViewModelBuilder>()
             .AddSingleton<TransactionYearAverageViewModelBuilder>()
-            .AddSingleton<CompanyDeductedBalanceEvaluator>();
+            .AddSingleton<CompanyDeductedBalanceViewModelBuilder>();
 }

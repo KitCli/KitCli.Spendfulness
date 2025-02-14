@@ -9,12 +9,12 @@ namespace YnabProgressConsole.Commands.RecurringTransactions;
 public class RecurringTransactionsCommandHandler : CommandHandler, ICommandHandler<RecurringTransactionsCommand>
 {
     private readonly BudgetsClient _budgetsClient;
-    private readonly ITransactionMemoOccurrenceViewModelBuilder _builder;
+    private readonly TransactionMemoOccurrenceViewModelBuilder _builder;
     private const int DefaultMinimumOccurrences = 2;
 
     public RecurringTransactionsCommandHandler(
         BudgetsClient budgetsClient,
-        ITransactionMemoOccurrenceViewModelBuilder builder)
+        TransactionMemoOccurrenceViewModelBuilder builder)
     {
         _budgetsClient = budgetsClient;
         _builder = builder;

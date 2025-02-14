@@ -11,14 +11,14 @@ namespace YnabProgressConsole.Commands.SpareMoney;
 public class SpareMoneyCommandHandler : CommandHandler, ICommandHandler<SpareMoneyCommand>
 {
     private readonly BudgetsClient _budgetsClient;
-    private readonly IEvaluationViewModelBuilder<CategoryDeductedBalanceEvaluator, decimal> _evaluationViewModelBuilder;
+    private readonly IViewModelBuilder<CategoryDeductedBalanceEvaluator, decimal> _viewModelBuilder;
 
     public SpareMoneyCommandHandler(BudgetsClient budgetsClient, 
         [FromKeyedServices(typeof(CategoryDeductedBalanceEvaluator))]
-        IEvaluationViewModelBuilder<CategoryDeductedBalanceEvaluator, decimal> evaluationViewModelBuilder)
+        IViewModelBuilder<CategoryDeductedBalanceEvaluator, decimal> viewModelBuilder)
     {
         _budgetsClient = budgetsClient;
-        _evaluationViewModelBuilder = evaluationViewModelBuilder;
+        _viewModelBuilder = viewModelBuilder;
     }
     
     public async Task<ConsoleTable> Handle(SpareMoneyCommand request, CancellationToken cancellationToken)
@@ -36,7 +36,7 @@ public class SpareMoneyCommandHandler : CommandHandler, ICommandHandler<SpareMon
             checkingAccounts.ToList(), 
             criticalCategoryGroups.ToList());
     
-        var viewModel = _evaluationViewModelBuilder
+        var viewModel = _viewModelBuilder
             .AddEvaluator(evaluator)
             .AddColumnNames(["Spare Money"])
             .AddRowCount(false)

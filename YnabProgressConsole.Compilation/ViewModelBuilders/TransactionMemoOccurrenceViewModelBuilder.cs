@@ -3,83 +3,60 @@ using YnabProgressConsole.Compilation.Aggregates;
 using YnabProgressConsole.Compilation.Evaluators;
 using YnabProgressConsole.Compilation.Extensions;
 using YnabProgressConsole.Compilation.Formatters;
-using YnabProgressConsole.Compilation.ViewModels;
 
 namespace YnabProgressConsole.Compilation.ViewModelBuilders;
 
-public class TransactionMemoOccurrenceViewModelBuilder : ViewModelBuilder, ITransactionMemoOccurrenceViewModelBuilder
+public class TransactionMemoOccurrenceViewModelBuilder : 
+    ViewModelBuilder<TransactionMemoOccurrenceEvaluator, IEnumerable<TransactionMemoOccurrenceAggregate>>
 {
-    private TransactionMemoOccurrenceEvaluator? _evaluator;
     private string? _payeeNameFilter;
     private int? _minimumOccurrencesFilter;
     
-    public IEvaluationViewModelBuilder<TransactionMemoOccurrenceEvaluator, IEnumerable<TransactionMemoOccurrenceAggregate>> AddEvaluator(TransactionMemoOccurrenceEvaluator evaluator)
-    {
-        _evaluator = evaluator;
-        return this;
-    }
-
-    public ITransactionMemoOccurrenceViewModelBuilder AddPayeeNameFilter(string payeeNameFilter)
+    public TransactionMemoOccurrenceViewModelBuilder AddPayeeNameFilter(string payeeNameFilter)
     {
         _payeeNameFilter = payeeNameFilter;
         return this;
     }
 
-    public ITransactionMemoOccurrenceViewModelBuilder AddMinimumOccurrencesFilter(int minimumOccurrences)
+    public TransactionMemoOccurrenceViewModelBuilder AddMinimumOccurrencesFilter(int minimumOccurrences)
     {
         _minimumOccurrencesFilter = minimumOccurrences;
         return this;
     }
     
-    public ViewModel Build()
+    protected override List<List<object>> BuildRows(TransactionMemoOccurrenceEvaluator evaluator)
     {
-        if (_evaluator == null)
-        {
-            throw new InvalidOperationException("You must call AddEvaluator before calling Build");
-        }
+        var evaluatedOccurrences = evaluator.Evaluate();
         
-        var evaluatedOccurrences = _evaluator.Evaluate();
+         if (_payeeNameFilter != null)
+         {
+             evaluatedOccurrences = evaluatedOccurrences
+                 .FilterByPayeeName(_payeeNameFilter);
+         }
 
-        if (_payeeNameFilter != null)
-        {
-            evaluatedOccurrences = evaluatedOccurrences
-                .FilterByPayeeName(_payeeNameFilter);
-        }
-
-        if (_minimumOccurrencesFilter.HasValue)
-        {
-            evaluatedOccurrences = evaluatedOccurrences
-                .FilterByMinimumOccurrences(_minimumOccurrencesFilter.Value);
-        }
-        
-        var rows = evaluatedOccurrences
-            .OrderBySortOrder(ViewModelSortOrder, aggregate => aggregate.MemoOccurrence)
-            .Select(BuildMemoOccurrenceRow)
-            .ToList();
-        
-        return new TransactionMemoOccurrenceViewModel
-        {
-            Columns = ColumnNames,
-            Rows = rows
-        };
+         if (_minimumOccurrencesFilter.HasValue)
+         {
+             evaluatedOccurrences = evaluatedOccurrences
+                 .FilterByMinimumOccurrences(_minimumOccurrencesFilter.Value);
+         }
+         
+         return evaluatedOccurrences
+             .OrderBySortOrder(ViewModelSortOrder, aggregate => aggregate.MemoOccurrence)
+             .Select(BuildMemoOccurrenceRow)
+             .ToList();
     }
     
     private List<object> BuildMemoOccurrenceRow(TransactionMemoOccurrenceAggregate aggregate)
     {
-        var averageAmount = BuildAverageAmount(aggregate.AverageAmount);
+        var flowSanitisedAmount = TransactionFlowSanitiser.Sanitise(aggregate.AverageAmount);
+        var displayableAverageAmount = CurrencyDisplayFormatter.Format(flowSanitisedAmount);
 
         return
         [
             aggregate.PayeeName,
-            aggregate.Memo,
+            aggregate.Memo ?? string.Empty,
             aggregate.MemoOccurrence,
-            averageAmount
+            displayableAverageAmount
         ];
-    }
-
-    private static string BuildAverageAmount(decimal averageAmount)
-    {
-        var flowSanitisedAmount = TransactionFlowSanitiser.Sanitise(averageAmount);
-        return CurrencyDisplayFormatter.Format(flowSanitisedAmount);
     }
 }

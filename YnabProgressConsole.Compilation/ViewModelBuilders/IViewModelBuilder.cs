@@ -1,14 +1,19 @@
+using Ynab;
 using YnabProgressConsole.Compilation.ViewModels;
 
 namespace YnabProgressConsole.Compilation.ViewModelBuilders;
 
-public interface IViewModelBuilder
+public interface IViewModelBuilder<in TEvaluator, TEvaluation>
+    where TEvaluator : YnabEvaluator<TEvaluation>
+    where TEvaluation : notnull
 {
-    public IViewModelBuilder AddColumnNames(List<string> columnNames);
+    IViewModelBuilder<TEvaluator, TEvaluation> AddEvaluator(TEvaluator evaluator);
     
-    public IViewModelBuilder AddSortOrder(ViewModelSortOrder viewModelSortOrder);
+    IViewModelBuilder<TEvaluator, TEvaluation> AddColumnNames(List<string> columnNames);
+    
+    IViewModelBuilder<TEvaluator, TEvaluation> AddSortOrder(ViewModelSortOrder viewModelSortOrder);
 
-    public IViewModelBuilder AddRowCount(bool showRowCount);
+    IViewModelBuilder<TEvaluator, TEvaluation> AddRowCount(bool showRowCount);
 
-    public ViewModel Build();
+    ViewModel Build();
 }
