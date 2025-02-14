@@ -2,7 +2,6 @@ using Ynab;
 using Ynab.Collections;
 using Ynab.Extensions;
 using YnabProgressConsole.Compilation.Calculators;
-using YnabProgressConsole.Compilation.Extensions;
 
 namespace YnabProgressConsole.Compilation.Evaluators;
 

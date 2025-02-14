@@ -10,7 +10,7 @@ public static class TransactionByMemoOccurrenceByPayeeNameExtensions
     {
         foreach (var transactionGroup in transactionGroups)
         {
-            foreach (var transactionSubGroup in transactionGroup.TransactionsByMemoOccurences)
+            foreach (var transactionSubGroup in transactionGroup.TransactionsByMemoOccurrences)
             {
                 var averageAmount = transactionSubGroup.Transactions.Average(o => o.Amount);
                 

@@ -2,7 +2,6 @@
 using Ynab.Extensions;
 using YnabProgressConsole;
 using YnabProgressConsole.Commands;
-using YnabProgressConsole.Compilation;
 using YnabProgressConsole.Compilation.Extensions;
 using YnabProgressConsole.Instructions;
 

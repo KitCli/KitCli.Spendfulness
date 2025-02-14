@@ -1,7 +1,4 @@
 using Microsoft.Extensions.DependencyInjection;
-using Ynab.Collections;
-using YnabProgressConsole.Compilation.Aggregates;
-using YnabProgressConsole.Compilation.Evaluators;
 using YnabProgressConsole.Compilation.ViewModelBuilders;
 
 namespace YnabProgressConsole.Compilation.Extensions;

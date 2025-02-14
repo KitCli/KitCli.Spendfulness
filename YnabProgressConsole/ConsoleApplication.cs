@@ -47,6 +47,9 @@ public class ConsoleApplication(IServiceProvider serviceProvider)
 
             PrintToConsole(table.ToString());
         }
+        
+        // Function never returns because... true is always true.
+        // TODO: Exit While loop if command was exist command.
     }
 
     private static void PrintToConsole(string print)

@@ -2,6 +2,6 @@ namespace YnabProgressConsole.Compilation.Aggregates;
 
 public record TransactionMemoOccurrenceAggregate(
     string PayeeName,
-    string Memo,
+    string? Memo,
     int MemoOccurrence,
     decimal AverageAmount);

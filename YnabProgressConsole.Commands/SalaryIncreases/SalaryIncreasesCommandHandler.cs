@@ -1,9 +1,5 @@
 using ConsoleTables;
-using Microsoft.Extensions.DependencyInjection;
 using Ynab.Clients;
-using Ynab.Collections;
-using Ynab.Extensions;
-using YnabProgressConsole.Compilation;
 using YnabProgressConsole.Compilation.Evaluators;
 using YnabProgressConsole.Compilation.ViewModelBuilders;
 using YnabProgressConsole.Compilation.ViewModels;

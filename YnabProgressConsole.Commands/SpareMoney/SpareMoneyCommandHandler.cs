@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Ynab;
 using Ynab.Clients;
 using Ynab.Extensions;
-using YnabProgressConsole.Compilation;
 using YnabProgressConsole.Compilation.Evaluators;
 using YnabProgressConsole.Compilation.ViewModelBuilders;
 

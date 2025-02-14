@@ -13,11 +13,9 @@ public static class TransactionsByPayeeNameExtensions
                 .GroupByMemoOccurrence()
                 .OrderByDescending(memoOccurrenceGroup => memoOccurrenceGroup.MemoOccurence);
 
-            yield return new TransactionsByMemoOccurrenceByPayeeName
-            {
-                PayeeName = transactionsByPayeeName.PayeeName,
-                TransactionsByMemoOccurences = memoOccurrenceGroups
-            };
+            yield return new TransactionsByMemoOccurrenceByPayeeName(
+                transactionsByPayeeName.PayeeName,
+                memoOccurrenceGroups);
         }
     }
 }

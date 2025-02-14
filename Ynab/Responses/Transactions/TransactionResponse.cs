@@ -20,7 +20,7 @@ public class TransactionResponse
     public string? FlagName { get; set; }
     
     [JsonPropertyName("payee_name")]
-    public string PayeeName { get; set; }
+    public required string PayeeName { get; set; }
     
     [JsonPropertyName("category_id")]
     public Guid? CategoryId { get; set; }

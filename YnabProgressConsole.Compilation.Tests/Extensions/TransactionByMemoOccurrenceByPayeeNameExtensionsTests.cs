@@ -49,12 +49,11 @@ public class TransactionByMemoOccurrenceByPayeeNameExtensionsTests
                 Transactions = [transaction]
             },
         };
+
+        var transactionsByMemoOccurrenceByPayeeName = new TransactionsByMemoOccurrenceByPayeeName(
+            transaction.PayeeName,
+            transactionsByMemoOccurrences);
         
-        var transactionsByMemoOccurrenceByPayeeName = new TransactionsByMemoOccurrenceByPayeeName
-        {
-            PayeeName = transaction.PayeeName,
-            TransactionsByMemoOccurences = transactionsByMemoOccurrences
-        };
         
         return new List<TransactionsByMemoOccurrenceByPayeeName>
         {

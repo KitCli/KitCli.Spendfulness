@@ -9,9 +9,9 @@ namespace YnabProgressConsole.Compilation.ViewModelBuilders;
 
 public class TransactionMemoOccurrenceViewModelBuilder : ViewModelBuilder, ITransactionMemoOccurrenceViewModelBuilder
 {
-    private TransactionMemoOccurrenceEvaluator? _evaluator = null;
-    private string? _payeeNameFilter = null;
-    private int? _minimumOccurrencesFilter = null;
+    private TransactionMemoOccurrenceEvaluator? _evaluator;
+    private string? _payeeNameFilter;
+    private int? _minimumOccurrencesFilter;
     
     public IEvaluationViewModelBuilder<TransactionMemoOccurrenceEvaluator, IEnumerable<TransactionMemoOccurrenceAggregate>> AddEvaluator(TransactionMemoOccurrenceEvaluator evaluator)
     {
