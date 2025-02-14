@@ -7,8 +7,7 @@ namespace YnabProgressConsole.Compilation.Evaluators;
 
 public class TransactionMemoOccurrenceEvaluator : YnabEvaluator<IEnumerable<TransactionMemoOccurrenceAggregate>>
 {
-    public TransactionMemoOccurrenceEvaluator(
-        IEnumerable<Transaction>? transactions = null)
+    public TransactionMemoOccurrenceEvaluator(IEnumerable<Transaction> transactions)
         : base(
             null,
             null,
@@ -24,5 +23,5 @@ public class TransactionMemoOccurrenceEvaluator : YnabEvaluator<IEnumerable<Tran
             .FilterToSpending()
             .GroupByPayeeName()
             .GroupByMemoOccurence()
-            .Aggregate();
+            .AggregateMemoOccurrences();
 }

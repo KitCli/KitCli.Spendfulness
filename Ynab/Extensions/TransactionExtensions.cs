@@ -22,7 +22,22 @@ public static class TransactionExtensions
         => transactions.Where(transaction =>
             !transaction.IsTransfer && 
             !YnabConstants.AutomatedPayeeNames.Contains(transaction.PayeeName));
+    
+    public static IEnumerable<Transaction> OrderByYear(
+        this IEnumerable<Transaction> transactions)
+        => transactions.OrderBy(transaction => transaction.Occured.Year);
+    
+    public static IEnumerable<TransactionsByYear> GroupByYear(this IEnumerable<Transaction> transactions)
+    {
+        var groups = transactions.GroupBy(transaction =>
+            IdentifierSanitiser.SanitiseForYear(transaction.Occured));
 
+        foreach (var group in groups)
+        {
+            yield return new TransactionsByYear(group.Key, group);
+        }
+    }
+    
     public static IEnumerable<TransactionsByMonth> GroupByMonth(
         this IEnumerable<Transaction> transactions)
     {
@@ -52,25 +67,6 @@ public static class TransactionExtensions
             {
                 PayeeName = group.Key,
                 Transactions = group.ToList()
-            };
-        }
-    }
-
-    public static IEnumerable<AmountByYear> AverageByYear(
-        this IEnumerable<Transaction> transactions)
-    {
-        var groups = transactions
-            .OrderBy(transaction => transaction.Occured.Year)
-            .GroupBy(transaction => IdentifierSanitiser.SanitiseForYear(transaction.Occured));
-
-        foreach (var group in groups)
-        {
-            var average = group.Average(transaction => transaction.Amount);
-            
-            yield return new AmountByYear
-            {
-                Year = group.Key,
-                AverageAmount = average
             };
         }
     }

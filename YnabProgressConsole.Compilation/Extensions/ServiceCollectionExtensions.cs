@@ -11,8 +11,6 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddConsoleCompilation(this IServiceCollection serviceCollection)
         => serviceCollection
             .AddSingleton<ITransactionMemoOccurrenceViewModelBuilder, TransactionMemoOccurrenceViewModelBuilder>()
-            .AddKeyedSingleton<IGroupViewModelBuilder<AmountByYear>,
-                AmountByYearGroupViewModelBuilder>(typeof(AmountByYear))
-            .AddKeyedSingleton<IEvaluationViewModelBuilder<CategoryDeductedBalanceEvaluator, decimal>,
-                CompanyDeductedBalanceEvaluator>(typeof(CategoryDeductedBalanceEvaluator));
+            .AddSingleton<TransactionYearAverageViewModelBuilder>()
+            .AddSingleton<CompanyDeductedBalanceEvaluator>();
 }

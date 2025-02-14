@@ -5,7 +5,7 @@ namespace YnabProgressConsole.Compilation.Extensions;
 
 public static class TransactionByMemoOccurrenceByPayeeNameExtensions
 {
-    public static IEnumerable<TransactionMemoOccurrenceAggregate> Aggregate(
+    public static IEnumerable<TransactionMemoOccurrenceAggregate> AggregateMemoOccurrences(
         this IEnumerable<TransactionsByMemoOccurrenceByPayeeName> transactionGroups)
     {
         foreach (var transactionGroup in transactionGroups)

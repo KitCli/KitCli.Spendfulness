@@ -4,6 +4,7 @@ namespace YnabProgressConsole.Compilation.Evaluators;
 
 public class CategoryDeductedBalanceEvaluator : YnabEvaluator<decimal>
 {
+    // TODO: reduce complexity of this constructor.
     public CategoryDeductedBalanceEvaluator(
         IEnumerable<Account>? accounts = null, 
         IEnumerable<CategoryGroup>? categoryGroups = null, 

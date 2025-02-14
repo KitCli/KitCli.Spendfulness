@@ -4,6 +4,7 @@ using Ynab.Clients;
 using Ynab.Collections;
 using Ynab.Extensions;
 using YnabProgressConsole.Compilation;
+using YnabProgressConsole.Compilation.Evaluators;
 using YnabProgressConsole.Compilation.ViewModelBuilders;
 using YnabProgressConsole.Compilation.ViewModels;
 
@@ -12,15 +13,12 @@ namespace YnabProgressConsole.Commands.SalaryIncreases;
 public class SalaryIncreasesCommandHandler : CommandHandler, ICommandHandler<SalaryIncreasesCommand>
 {
     private readonly BudgetsClient _budgetsClient;
-    private readonly IGroupViewModelBuilder<AmountByYear> _groupViewModelBuilder;
+    private readonly TransactionYearAverageViewModelBuilder _averageViewModelBuilder;
 
-    public SalaryIncreasesCommandHandler(
-        BudgetsClient budgetsClient, 
-        [FromKeyedServices(typeof(AmountByYear))]
-        IGroupViewModelBuilder<AmountByYear> groupViewModelBuilder)
+    public SalaryIncreasesCommandHandler(BudgetsClient budgetsClient, TransactionYearAverageViewModelBuilder averageViewModelBuilder)
     {
         _budgetsClient = budgetsClient;
-        _groupViewModelBuilder = groupViewModelBuilder;
+        _averageViewModelBuilder = averageViewModelBuilder;
     }
 
     public async Task<ConsoleTable> Handle(SalaryIncreasesCommand request, CancellationToken cancellationToken)
@@ -31,16 +29,11 @@ public class SalaryIncreasesCommandHandler : CommandHandler, ICommandHandler<Sal
         
         var transactions = await budget.GetTransactions();
         
-        var careerPayees = new List<string> { "BrightHR" };
-        
-        var monthlyPayByYear = transactions
-            .FilterToInflow()
-            .FilterByPayeeName(careerPayees.ToArray())
-            .AverageByYear();
-        
-        var viewModel = _groupViewModelBuilder
-            .AddGroups(monthlyPayByYear)
-            .AddColumnNames(AmountByYearViewModel.GetColumnNames())
+        var evaluator = new TransactionYearAverageEvaluator(transactions);
+
+        var viewModel = _averageViewModelBuilder
+            .AddEvaluator(evaluator)
+            .AddColumnNames(TransactionYearAverageViewModel.GetColumnNames())
             .AddRowCount(false)
             .Build();
 

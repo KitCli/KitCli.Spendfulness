@@ -9,7 +9,7 @@ namespace YnabProgressConsole.Compilation.ViewModelBuilders;
 
 public class TransactionMemoOccurrenceViewModelBuilder : ViewModelBuilder, ITransactionMemoOccurrenceViewModelBuilder
 {
-    private TransactionMemoOccurrenceEvaluator _evaluator = new();
+    private TransactionMemoOccurrenceEvaluator? _evaluator = null;
     private string? _payeeNameFilter = null;
     private int? _minimumOccurrencesFilter = null;
     
@@ -33,6 +33,11 @@ public class TransactionMemoOccurrenceViewModelBuilder : ViewModelBuilder, ITran
     
     public ViewModel Build()
     {
+        if (_evaluator == null)
+        {
+            throw new InvalidOperationException("You must call AddEvaluator before calling Build");
+        }
+        
         var evaluatedOccurrences = _evaluator.Evaluate();
 
         if (_payeeNameFilter != null)

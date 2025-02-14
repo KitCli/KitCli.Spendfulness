@@ -1,6 +1,6 @@
 namespace YnabProgressConsole.Compilation.ViewModels;
 
-public class AmountByYearViewModel : ViewModel
+public class TransactionYearAverageViewModel : ViewModel
 {
     public const string YearColumNName = "Yeear";
     public const string AverageAmountColumNName = "Average Amount";

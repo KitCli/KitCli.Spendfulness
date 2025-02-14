@@ -26,6 +26,16 @@ public abstract class ViewModelBuilder
         return GetCurrentBuilder();
     }
 
+    protected ViewModel BuildViewModel(List<List<object>> rows)
+    {
+        return new ViewModel
+        {
+            ShowRowCount = ShowRowCount,
+            Columns = ColumnNames,
+            Rows = rows,
+        };
+    }
+
     private IViewModelBuilder GetCurrentBuilder()
     {
         var current = this as IViewModelBuilder;

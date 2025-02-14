@@ -1,12 +1,12 @@
 namespace Ynab;
 
-public abstract class YnabEvaluator<TEvaluationResult>(
+public abstract class YnabEvaluator<TEValuation>(
     IEnumerable<Account>? accounts = null,
     IEnumerable<CategoryGroup>? categoryGroups = null,
     IEnumerable<Category>? categories = null,
     IEnumerable<ScheduledTransaction>? scheduledTransactions = null,
     IEnumerable<Transaction>? transactions = null)
-    where TEvaluationResult : notnull
+    where TEValuation : notnull
 {
     protected List<Account> Accounts { get; set; } = accounts?.ToList() ?? [];
     protected List<CategoryGroup> CategoryGroups { get; set; } = categoryGroups?.ToList() ?? [];
@@ -14,5 +14,5 @@ public abstract class YnabEvaluator<TEvaluationResult>(
     protected List<ScheduledTransaction> ScheduledTransactions { get; set; } = scheduledTransactions?.ToList() ?? [];
     protected List<Transaction> Transactions { get; set; } = transactions?.ToList() ?? [];
 
-    public abstract TEvaluationResult Evaluate();
+    public abstract TEValuation Evaluate();
 }
