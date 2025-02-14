@@ -2,19 +2,9 @@ using Ynab;
 
 namespace YnabProgressConsole.Compilation.Evaluators;
 
-public class CategoryDeductedBalanceEvaluator : YnabEvaluator<decimal>
+public class CategoryDeductedBalanceEvaluator(List<Account> accounts, List<CategoryGroup> categoryGroups)
+    : YnabEvaluator<decimal>(accounts, categoryGroups)
 {
-    // TODO: reduce complexity of this constructor.
-    public CategoryDeductedBalanceEvaluator(
-        IEnumerable<Account>? accounts = null, 
-        IEnumerable<CategoryGroup>? categoryGroups = null, 
-        IEnumerable<Category>? categories = null, 
-        IEnumerable<ScheduledTransaction>? scheduledTransactions = null, 
-        IEnumerable<Transaction>? transactions = null) :
-        base(accounts, categoryGroups, categories, scheduledTransactions, transactions)
-    {
-    }
-
     public override decimal Evaluate()
     {
         var availableAccountBalance = Accounts.Sum(account => account.ClearedBalance);

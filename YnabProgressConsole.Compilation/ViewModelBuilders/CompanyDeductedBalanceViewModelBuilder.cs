@@ -7,7 +7,7 @@ namespace YnabProgressConsole.Compilation.ViewModelBuilders;
 public class CompanyDeductedBalanceEvaluator
     : ViewModelBuilder, IEvaluationViewModelBuilder<CategoryDeductedBalanceEvaluator, decimal>
 {
-    private CategoryDeductedBalanceEvaluator _evaluator = new();
+    private CategoryDeductedBalanceEvaluator? _evaluator;
     
     public IEvaluationViewModelBuilder<CategoryDeductedBalanceEvaluator, decimal> AddEvaluator(CategoryDeductedBalanceEvaluator evaluator)
     {
@@ -17,20 +17,22 @@ public class CompanyDeductedBalanceEvaluator
     
     public ViewModel Build()
     {
+        if (_evaluator == null)
+        {
+            throw new InvalidOperationException("The evaluator must be set before calling this method.");
+        }
+        
         var spareMoney = _evaluator.Evaluate();
         var displayable = CurrencyDisplayFormatter.Format(spareMoney);
-        
-        return new ViewModel
+
+        var rows = new List<List<object>>
         {
-            ShowRowCount = ShowRowCount,
-            Columns = ColumnNames,
-            Rows =
-            [
-                new List<object>
-                {
-                    displayable
-                }
-            ]
+            new()
+            {
+                displayable
+            }
         };
+        
+        return BuildViewModel(rows);
     }
 }

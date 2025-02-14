@@ -32,7 +32,9 @@ public class SpareMoneyCommandHandler : CommandHandler, ICommandHandler<SpareMon
     
         var criticalCategoryGroups = await GetCriticalCategoryGroups(budget);
     
-        var evaluator = new CategoryDeductedBalanceEvaluator(checkingAccounts, criticalCategoryGroups);
+        var evaluator = new CategoryDeductedBalanceEvaluator(
+            checkingAccounts.ToList(), 
+            criticalCategoryGroups.ToList());
     
         var viewModel = _evaluationViewModelBuilder
             .AddEvaluator(evaluator)
