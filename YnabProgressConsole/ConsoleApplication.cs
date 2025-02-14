@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using YnabProgressConsole.Commands;
+using YnabProgressConsole.Commands.Exit;
 using YnabProgressConsole.Instructions;
 
 namespace YnabProgressConsole;
@@ -15,7 +16,9 @@ public class ConsoleApplication(IServiceProvider serviceProvider)
         var instructionParser = serviceProvider.GetRequiredService<InstructionParser>();
         var mediator = serviceProvider.GetRequiredService<IMediator>();
 
-        while (true)
+        var noExitCommand = true;
+
+        while (noExitCommand)
         {
             PrintToConsole("Enter a Command:");
 
@@ -27,13 +30,20 @@ public class ConsoleApplication(IServiceProvider serviceProvider)
             }
 
             var tokens = instructionTokenParser.Parse(input);
+            if (tokens.NameToken is ExitCommand.CommandName or ExitCommand.ShorthandCommandName)
+            {
+                PrintToConsole("Exiting...");
+                noExitCommand = false;
+                continue;
+            }
+            
             var instruction = instructionParser.Parse(tokens);
             if (instruction.Prefix is null)
             {
                 PrintToConsole("Commands must have a '/' prefix.");
                 continue;
             }
-
+            
             var generator = serviceProvider.GetKeyedService<ICommandGenerator>(instruction.Name);
             if (generator == null)
             {
