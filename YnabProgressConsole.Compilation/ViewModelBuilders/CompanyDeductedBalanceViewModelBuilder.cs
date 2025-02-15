@@ -5,9 +5,8 @@ namespace YnabProgressConsole.Compilation.ViewModelBuilders;
 
 public class CompanyDeductedBalanceViewModelBuilder : ViewModelBuilder<CategoryDeductedBalanceEvaluator, decimal>
 {
-    protected override List<List<object>> BuildRows(CategoryDeductedBalanceEvaluator evaluator)
+    protected override List<List<object>> BuildRows(decimal spareMoney)
     {
-        var spareMoney = evaluator.Evaluate();
         var displayable = CurrencyDisplayFormatter.Format(spareMoney);
     
         return

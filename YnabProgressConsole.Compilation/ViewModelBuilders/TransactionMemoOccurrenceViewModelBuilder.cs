@@ -24,23 +24,21 @@ public class TransactionMemoOccurrenceViewModelBuilder :
         return this;
     }
     
-    protected override List<List<object>> BuildRows(TransactionMemoOccurrenceEvaluator evaluator)
+    protected override List<List<object>> BuildRows(IEnumerable<TransactionMemoOccurrenceAggregate> occurrences)
     {
-        var evaluatedOccurrences = evaluator.Evaluate();
-        
          if (_payeeNameFilter != null)
          {
-             evaluatedOccurrences = evaluatedOccurrences
+             occurrences = occurrences
                  .FilterByPayeeName(_payeeNameFilter);
          }
 
          if (_minimumOccurrencesFilter.HasValue)
          {
-             evaluatedOccurrences = evaluatedOccurrences
+             occurrences = occurrences
                  .FilterByMinimumOccurrences(_minimumOccurrencesFilter.Value);
-         }
+         } 
          
-         return evaluatedOccurrences
+         return occurrences
              .OrderBySortOrder(ViewModelSortOrder, aggregate => aggregate.MemoOccurrence)
              .Select(BuildMemoOccurrenceRow)
              .ToList();

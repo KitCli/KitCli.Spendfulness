@@ -7,9 +7,9 @@ public abstract class ViewModelBuilder<TEvaluator, TEvaluation> : IViewModelBuil
     where TEvaluator : YnabEvaluator<TEvaluation>
     where TEvaluation : notnull
 {
+    protected List<string> ColumnNames = [];
     protected ViewModelSortOrder ViewModelSortOrder = ViewModelSortOrder.Ascending;
     private TEvaluator? _evaluator;
-    private List<string> _columnNames = [];
     private bool _showRowCount = true;
 
     public IViewModelBuilder<TEvaluator, TEvaluation> AddEvaluator(TEvaluator evaluator)
@@ -20,7 +20,7 @@ public abstract class ViewModelBuilder<TEvaluator, TEvaluation> : IViewModelBuil
 
     public IViewModelBuilder<TEvaluator, TEvaluation> AddColumnNames(List<string> columnNames)
     {
-        _columnNames = columnNames;
+        ColumnNames = columnNames;
         return GetCurrentBuilder();
     }
 
@@ -43,19 +43,24 @@ public abstract class ViewModelBuilder<TEvaluator, TEvaluation> : IViewModelBuil
             throw new InvalidOperationException("You must provide at least one evaluator");
         }
         
-        var rows = BuildRows(_evaluator);
+        var evaluation = _evaluator.Evaluate();
 
-        return BuildViewModel(rows);
+        var columns = BuildColumnNames(evaluation);
+        var rows = BuildRows(evaluation);
+
+        return BuildViewModel(columns, rows);
     }
     
-    protected abstract List<List<object>> BuildRows(TEvaluator evaluator);
+    protected virtual List<string> BuildColumnNames(TEvaluation evaluation) => ColumnNames;
+    
+    protected abstract List<List<object>> BuildRows(TEvaluation evaluation);
 
-    private ViewModel BuildViewModel(List<List<object>> rows)
+    private ViewModel BuildViewModel(List<string> columnNames, List<List<object>> rows)
     {
         return new ViewModel
         {
             ShowRowCount = _showRowCount,
-            Columns = _columnNames,
+            Columns = columnNames,
             Rows = rows,
         };
     }

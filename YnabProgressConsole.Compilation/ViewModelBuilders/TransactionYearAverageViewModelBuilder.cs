@@ -7,15 +7,14 @@ namespace YnabProgressConsole.Compilation.ViewModelBuilders;
 public class TransactionYearAverageViewModelBuilder :
     ViewModelBuilder<TransactionYearAverageEvaluator, IEnumerable<TransactionYearAverageAggregate>>
 {
-    protected override List<List<object>> BuildRows(TransactionYearAverageEvaluator evaluator)
+    protected override List<List<object>> BuildRows(IEnumerable<TransactionYearAverageAggregate> evaluation)
     {
-        var transactionYearAverageAggregates = evaluator.Evaluate();
-        var rows = BuildRows(transactionYearAverageAggregates);
+        var rows = BuildMultipleRows(evaluation);
 
         return rows.ToList();
     }
     
-    private IEnumerable<List<object>> BuildRows(IEnumerable<TransactionYearAverageAggregate> transactionYearAverages)
+    private IEnumerable<List<object>> BuildMultipleRows(IEnumerable<TransactionYearAverageAggregate> transactionYearAverages)
     {
         foreach (var transactionYearAverage in transactionYearAverages)
         {
