@@ -1,4 +1,6 @@
-namespace Ynab;
+using Ynab;
+
+namespace YnabProgressConsole.Compilation.Evaluators;
 
 public abstract class YnabEvaluator<TEvaluation>
 {
