@@ -1,6 +1,6 @@
 using ConsoleTables;
 using Ynab.Clients;
-using YnabProgressConsole.Compilation.Evaluators;
+using YnabProgressConsole.Compilation.Aggregator;
 using YnabProgressConsole.Compilation.ViewModelBuilders;
 using YnabProgressConsole.Compilation.ViewModels;
 
@@ -27,10 +27,10 @@ public class FlagChangesCommandHandler : CommandHandler, ICommandHandler<FlagCha
         var categoryGroups = await budget.GetCategoryGroups();
         var transactions = await budget.GetTransactions();
         
-        var evaluator = new TransactionMonthFlaggedAggregator(categoryGroups, transactions);
+        var aggregator = new TransactionMonthFlaggedAggregator(categoryGroups, transactions);
         
         var viewModel = _viewModelBuilder
-            .AddAggregator(evaluator)
+            .AddAggregator(aggregator)
             .AddColumnNames(TransactionMonthFlaggedViewModel.GetColumnNames())
             .Build();
         

@@ -1,7 +1,7 @@
 namespace YnabProgressConsole.Instructions.InstructionArguments;
 
-public class TypedInstructionArgument<TEvaluation>(string argumentName, TEvaluation argumentValue)
-    : InstructionArgument(argumentName) where TEvaluation : notnull
+public class TypedInstructionArgument<TArgumentValue>(string argumentName, TArgumentValue argumentValue)
+    : InstructionArgument(argumentName) where TArgumentValue : notnull
 {
-    public  TEvaluation ArgumentValue { get; set; } = argumentValue;
+    public  TArgumentValue ArgumentValue { get; set; } = argumentValue;
 }

@@ -1,6 +1,6 @@
 using ConsoleTables;
 using Ynab.Clients;
-using YnabProgressConsole.Compilation.Evaluators;
+using YnabProgressConsole.Compilation.Aggregator;
 using YnabProgressConsole.Compilation.ViewModelBuilders;
 using YnabProgressConsole.Compilation.ViewModels;
 
@@ -27,10 +27,10 @@ public class YearlyPayCommandHandler : CommandHandler, ICommandHandler<YearlyPay
         
         var transactions = await budget.GetTransactions();
         
-        var evaluator = new TransactionYearAverageAggregator(transactions);
+        var aggregator = new TransactionYearAverageAggregator(transactions);
 
         var viewModel = _averageViewModelBuilder
-            .AddAggregator(evaluator)
+            .AddAggregator(aggregator)
             .AddColumnNames(TransactionYearAverageViewModel.GetColumnNames())
             .AddRowCount(false)
             .Build();

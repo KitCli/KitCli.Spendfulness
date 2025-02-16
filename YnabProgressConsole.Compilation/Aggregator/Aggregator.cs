@@ -1,8 +1,8 @@
 using Ynab;
 
-namespace YnabProgressConsole.Compilation.Evaluators;
+namespace YnabProgressConsole.Compilation.Aggregator;
 
-public abstract class Aggregator<TEvaluation>
+public abstract class Aggregator<TAggregation>
 {
     protected IEnumerable<Account> Accounts { get; } 
     protected IEnumerable<CategoryGroup> CategoryGroups { get; }
@@ -29,5 +29,5 @@ public abstract class Aggregator<TEvaluation>
         Transactions = transactions;
     }
 
-    public abstract TEvaluation Evaluate();
+    public abstract TAggregation Aggregate();
 }

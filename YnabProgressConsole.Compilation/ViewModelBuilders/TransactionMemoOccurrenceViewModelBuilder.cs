@@ -1,6 +1,6 @@
 using Ynab.Sanitisers;
 using YnabProgressConsole.Compilation.Aggregates;
-using YnabProgressConsole.Compilation.Evaluators;
+using YnabProgressConsole.Compilation.Aggregator;
 using YnabProgressConsole.Compilation.Extensions;
 using YnabProgressConsole.Compilation.Formatters;
 
@@ -24,21 +24,21 @@ public class TransactionMemoOccurrenceViewModelBuilder :
         return this;
     }
     
-    protected override List<List<object>> BuildRows(IEnumerable<TransactionMemoOccurrenceAggregate> occurrences)
+    protected override List<List<object>> BuildRows(IEnumerable<TransactionMemoOccurrenceAggregate> aggregates)
     {
          if (_payeeNameFilter != null)
          {
-             occurrences = occurrences
+             aggregates = aggregates
                  .FilterByPayeeName(_payeeNameFilter);
          }
 
          if (_minimumOccurrencesFilter.HasValue)
          {
-             occurrences = occurrences
+             aggregates = aggregates
                  .FilterByMinimumOccurrences(_minimumOccurrencesFilter.Value);
          } 
          
-         return occurrences
+         return aggregates
              .OrderBySortOrder(ViewModelSortOrder, aggregate => aggregate.MemoOccurrence)
              .Select(BuildMemoOccurrenceRow)
              .ToList();

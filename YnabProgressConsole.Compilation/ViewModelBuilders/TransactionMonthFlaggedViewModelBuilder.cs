@@ -1,5 +1,5 @@
 using YnabProgressConsole.Compilation.Aggregates;
-using YnabProgressConsole.Compilation.Evaluators;
+using YnabProgressConsole.Compilation.Aggregator;
 using YnabProgressConsole.Compilation.Formatters;
 
 namespace YnabProgressConsole.Compilation.ViewModelBuilders;

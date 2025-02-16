@@ -4,12 +4,12 @@ using Ynab.Extensions;
 using YnabProgressConsole.Compilation.Aggregates;
 using YnabProgressConsole.Compilation.Calculators;
 
-namespace YnabProgressConsole.Compilation.Evaluators;
+namespace YnabProgressConsole.Compilation.Aggregator;
 
 public class TransactionYearAverageAggregator(IEnumerable<Transaction> transactions)
     : Aggregator<IEnumerable<TransactionYearAverageAggregate>>(transactions)
 {
-    public override IEnumerable<TransactionYearAverageAggregate> Evaluate()
+    public override IEnumerable<TransactionYearAverageAggregate> Aggregate()
     {
         var transactionsGroupedByYear = Transactions
             .FilterToInflow()
@@ -18,13 +18,13 @@ public class TransactionYearAverageAggregator(IEnumerable<Transaction> transacti
             .GroupByYear()
             .ToList();
         
-        var firstGroup = EvaluateFirstGroup(transactionsGroupedByYear);
-        var remainingRows = EvaluateRemainingGroups(transactionsGroupedByYear);
+        var firstGroup = AggregateFirstGroup(transactionsGroupedByYear);
+        var remainingRows = AggregateRemainingGroups(transactionsGroupedByYear);
         
         return new List<TransactionYearAverageAggregate> { firstGroup }.Concat(remainingRows);
     }
 
-    private TransactionYearAverageAggregate EvaluateFirstGroup(List<TransactionsByYear> transactionGroups)
+    private TransactionYearAverageAggregate AggregateFirstGroup(List<TransactionsByYear> transactionGroups)
     {
         var firstGroup = transactionGroups.FirstOrDefault();
         if (firstGroup == null)
@@ -36,7 +36,7 @@ public class TransactionYearAverageAggregator(IEnumerable<Transaction> transacti
         return new TransactionYearAverageAggregate(firstGroup.Year, averageAmount, 0);
     }
 
-    private IEnumerable<TransactionYearAverageAggregate> EvaluateRemainingGroups(List<TransactionsByYear> transactionGroups)
+    private IEnumerable<TransactionYearAverageAggregate> AggregateRemainingGroups(List<TransactionsByYear> transactionGroups)
     {
         // We skip so when comparing second row we have a prior row to compare with
         for (var i = 1; i < transactionGroups.Count; i++)

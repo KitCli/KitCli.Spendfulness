@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Ynab;
 using Ynab.Clients;
 using Ynab.Extensions;
-using YnabProgressConsole.Compilation.Evaluators;
+using YnabProgressConsole.Compilation.Aggregator;
 using YnabProgressConsole.Compilation.ViewModelBuilders;
 
 namespace YnabProgressConsole.Commands.SpareMoney;
@@ -32,12 +32,12 @@ public class SpareMoneyCommandHandler : CommandHandler, ICommandHandler<SpareMon
     
         var criticalCategoryGroups = await GetCriticalCategoryGroups(budget);
     
-        var evaluator = new CategoryDeductedBalanceAggregator(
+        var aggregator = new CategoryDeductedBalanceAggregator(
             checkingAccounts.ToList(), 
             criticalCategoryGroups.ToList());
     
         var viewModel = _viewModelBuilder
-            .AddAggregator(evaluator)
+            .AddAggregator(aggregator)
             .AddColumnNames(["Spare Money"])
             .AddRowCount(false)
             .Build();

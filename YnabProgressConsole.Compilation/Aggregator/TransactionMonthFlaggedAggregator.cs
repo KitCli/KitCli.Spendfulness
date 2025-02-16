@@ -4,12 +4,12 @@ using Ynab.Extensions;
 using YnabProgressConsole.Compilation.Aggregates;
 using YnabProgressConsole.Compilation.Calculators;
 
-namespace YnabProgressConsole.Compilation.Evaluators;
+namespace YnabProgressConsole.Compilation.Aggregator;
 
 public class TransactionMonthFlaggedAggregator(IEnumerable<CategoryGroup> categoryGroups, IEnumerable<Transaction> transactions)
     : Aggregator<IEnumerable<TransactionMonthFlaggedAggregate>>(categoryGroups, transactions)
 {
-    public override IEnumerable<TransactionMonthFlaggedAggregate> Evaluate()
+    public override IEnumerable<TransactionMonthFlaggedAggregate> Aggregate()
     {
         var spendingCategoryIds = CategoryGroups
             .FilterToSpendingCategories()

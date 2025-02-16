@@ -1,6 +1,6 @@
 using ConsoleTables;
 using Ynab.Clients;
-using YnabProgressConsole.Compilation.Evaluators;
+using YnabProgressConsole.Compilation.Aggregator;
 using YnabProgressConsole.Compilation.ViewModelBuilders;
 using YnabProgressConsole.Compilation.ViewModels;
 
@@ -27,10 +27,10 @@ public class RecurringTransactionsCommandHandler : CommandHandler, ICommandHandl
         
         var transactions = await budget.GetTransactions();
 
-        var evaluator = new TransactionMemoOccurrenceAggregator(transactions);
+        var aggregator = new TransactionMemoOccurrenceAggregator(transactions);
 
         _builder
-            .AddAggregator(evaluator)
+            .AddAggregator(aggregator)
             .AddColumnNames(TransactionMemoOccurrenceViewModel.GetColumnNames());
 
         if (command.PayeeName != null)

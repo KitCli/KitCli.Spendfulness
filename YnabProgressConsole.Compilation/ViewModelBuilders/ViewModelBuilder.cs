@@ -1,36 +1,36 @@
-using YnabProgressConsole.Compilation.Evaluators;
+using YnabProgressConsole.Compilation.Aggregator;
 using YnabProgressConsole.Compilation.ViewModels;
 
 namespace YnabProgressConsole.Compilation.ViewModelBuilders;
 
-public abstract class ViewModelBuilder<TEvaluator, TEvaluation> : IViewModelBuilder<TEvaluator, TEvaluation>
-    where TEvaluator : Aggregator<TEvaluation>
-    where TEvaluation : notnull
+public abstract class ViewModelBuilder<TAggregator, TAggregation> : IViewModelBuilder<TAggregator, TAggregation>
+    where TAggregator : Aggregator<TAggregation>
+    where TAggregation : notnull
 {
     protected List<string> ColumnNames = [];
     protected ViewModelSortOrder ViewModelSortOrder = ViewModelSortOrder.Ascending;
-    private TEvaluator? _evaluator;
+    private TAggregator? _aggregator;
     private bool _showRowCount = true;
 
-    public IViewModelBuilder<TEvaluator, TEvaluation> AddAggregator(TEvaluator evaluator)
+    public IViewModelBuilder<TAggregator, TAggregation> AddAggregator(TAggregator aggregator)
     {
-        _evaluator = evaluator;
+        _aggregator = aggregator;
         return GetCurrentBuilder();
     }
 
-    public IViewModelBuilder<TEvaluator, TEvaluation> AddColumnNames(List<string> columnNames)
+    public IViewModelBuilder<TAggregator, TAggregation> AddColumnNames(List<string> columnNames)
     {
         ColumnNames = columnNames;
         return GetCurrentBuilder();
     }
 
-    public IViewModelBuilder<TEvaluator, TEvaluation> AddSortOrder(ViewModelSortOrder viewModelSortOrder)
+    public IViewModelBuilder<TAggregator, TAggregation> AddSortOrder(ViewModelSortOrder viewModelSortOrder)
     {
         ViewModelSortOrder = viewModelSortOrder;
         return GetCurrentBuilder();
     }
 
-    public IViewModelBuilder<TEvaluator, TEvaluation> AddRowCount(bool showRowCount)
+    public IViewModelBuilder<TAggregator, TAggregation> AddRowCount(bool showRowCount)
     {
         _showRowCount = showRowCount;
         return GetCurrentBuilder();
@@ -38,12 +38,12 @@ public abstract class ViewModelBuilder<TEvaluator, TEvaluation> : IViewModelBuil
 
     public ViewModel Build()
     {
-        if (_evaluator is null)
+        if (_aggregator is null)
         {
-            throw new InvalidOperationException("You must provide at least one evaluator");
+            throw new InvalidOperationException("You must provide at least one aggregator");
         }
         
-        var evaluation = _evaluator.Evaluate();
+        var evaluation = _aggregator.Aggregate();
 
         var columns = BuildColumnNames(evaluation);
         var rows = BuildRows(evaluation);
@@ -51,9 +51,9 @@ public abstract class ViewModelBuilder<TEvaluator, TEvaluation> : IViewModelBuil
         return BuildViewModel(columns, rows);
     }
     
-    protected virtual List<string> BuildColumnNames(TEvaluation evaluation) => ColumnNames;
+    protected virtual List<string> BuildColumnNames(TAggregation evaluation) => ColumnNames;
     
-    protected abstract List<List<object>> BuildRows(TEvaluation evaluation);
+    protected abstract List<List<object>> BuildRows(TAggregation aggregates);
 
     private ViewModel BuildViewModel(List<string> columnNames, List<List<object>> rows)
     {
@@ -65,9 +65,9 @@ public abstract class ViewModelBuilder<TEvaluator, TEvaluation> : IViewModelBuil
         };
     }
 
-    private IViewModelBuilder<TEvaluator, TEvaluation> GetCurrentBuilder()
+    private IViewModelBuilder<TAggregator, TAggregation> GetCurrentBuilder()
     {
-        var current = this as IViewModelBuilder<TEvaluator, TEvaluation>;
+        var current = this as IViewModelBuilder<TAggregator, TAggregation>;
         if (current is null)
         {
             throw new Exception("Attempted to return a non-IViewModelBuilder superclass of ViewModelBuilder");

@@ -1,4 +1,4 @@
-using YnabProgressConsole.Compilation.Evaluators;
+using YnabProgressConsole.Compilation.Aggregator;
 using YnabProgressConsole.Compilation.ViewModels;
 
 namespace YnabProgressConsole.Compilation.ViewModelBuilders;
@@ -7,7 +7,7 @@ public interface IViewModelBuilder<in TAggregator, TAggregation>
     where TAggregator : Aggregator<TAggregation>
     where TAggregation : notnull
 {
-    IViewModelBuilder<TAggregator, TAggregation> AddAggregator(TAggregator evaluator);
+    IViewModelBuilder<TAggregator, TAggregation> AddAggregator(TAggregator aggregator);
     
     IViewModelBuilder<TAggregator, TAggregation> AddColumnNames(List<string> columnNames);
     

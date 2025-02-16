@@ -1,13 +1,13 @@
-using YnabProgressConsole.Compilation.Evaluators;
+using YnabProgressConsole.Compilation.Aggregator;
 using YnabProgressConsole.Compilation.Formatters;
 
 namespace YnabProgressConsole.Compilation.ViewModelBuilders;
 
 public class CompanyDeductedBalanceViewModelBuilder : ViewModelBuilder<CategoryDeductedBalanceAggregator, decimal>
 {
-    protected override List<List<object>> BuildRows(decimal spareMoney)
+    protected override List<List<object>> BuildRows(decimal aggregates)
     {
-        var displayable = CurrencyDisplayFormatter.Format(spareMoney);
+        var displayable = CurrencyDisplayFormatter.Format(aggregates);
     
         return
         [

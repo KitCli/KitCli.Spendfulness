@@ -1,5 +1,5 @@
 using YnabProgressConsole.Compilation.Aggregates;
-using YnabProgressConsole.Compilation.Evaluators;
+using YnabProgressConsole.Compilation.Aggregator;
 using YnabProgressConsole.Compilation.Formatters;
 
 namespace YnabProgressConsole.Compilation.ViewModelBuilders;
@@ -7,9 +7,9 @@ namespace YnabProgressConsole.Compilation.ViewModelBuilders;
 public class TransactionYearAverageViewModelBuilder :
     ViewModelBuilder<TransactionYearAverageAggregator, IEnumerable<TransactionYearAverageAggregate>>
 {
-    protected override List<List<object>> BuildRows(IEnumerable<TransactionYearAverageAggregate> evaluation)
+    protected override List<List<object>> BuildRows(IEnumerable<TransactionYearAverageAggregate> aggregates)
     {
-        var rows = BuildMultipleRows(evaluation);
+        var rows = BuildMultipleRows(aggregates);
 
         return rows.ToList();
     }
