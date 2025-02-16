@@ -9,6 +9,8 @@ namespace YnabProgressConsole.Compilation.Aggregator;
 public class TransactionMonthFlaggedAggregator(IEnumerable<CategoryGroup> categoryGroups, IEnumerable<Transaction> transactions)
     : Aggregator<IEnumerable<TransactionMonthFlaggedAggregate>>(categoryGroups, transactions)
 {
+    
+    
     public override IEnumerable<TransactionMonthFlaggedAggregate> Aggregate()
     {
         var spendingCategoryIds = CategoryGroups
@@ -17,9 +19,6 @@ public class TransactionMonthFlaggedAggregator(IEnumerable<CategoryGroup> catego
 
         var transactionGroups = Transactions
             .FilterByCategories(spendingCategoryIds)
-            // .FilterByYear(2024)
-            // .FilterFromMonth(2, 2024)
-            // .FilterUpToMonth(5, 2024)
             .GroupByMonth()
             .GroupByFlags()
             .ToList();

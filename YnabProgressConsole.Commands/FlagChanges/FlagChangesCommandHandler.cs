@@ -1,5 +1,6 @@
 using ConsoleTables;
 using Ynab.Clients;
+using Ynab.Extensions;
 using YnabProgressConsole.Compilation.Aggregator;
 using YnabProgressConsole.Compilation.ViewModelBuilders;
 using YnabProgressConsole.Compilation.ViewModels;
@@ -19,13 +20,18 @@ public class FlagChangesCommandHandler : CommandHandler, ICommandHandler<FlagCha
         _viewModelBuilder = viewModelBuilder;
     }
 
-    public async Task<ConsoleTable> Handle(FlagChangesCommand request, CancellationToken cancellationToken)
+    public async Task<ConsoleTable> Handle(FlagChangesCommand command, CancellationToken cancellationToken)
     {
         var budgets = await _budgetsClient.GetBudgets();
         var budget = budgets.First();
         
         var categoryGroups = await budget.GetCategoryGroups();
         var transactions = await budget.GetTransactions();
+
+        if (command.From.HasValue)
+        {
+            transactions = transactions.FilterStartingAtMonth(command.From.Value);
+        }
         
         var aggregator = new TransactionMonthFlaggedAggregator(categoryGroups, transactions);
         
