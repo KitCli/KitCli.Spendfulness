@@ -11,16 +11,14 @@ namespace YnabProgressConsole.Commands.SpareMoney;
 public class SpareMoneyCommandHandler : CommandHandler, ICommandHandler<SpareMoneyCommand>
 {
     private readonly BudgetsClient _budgetsClient;
-    private readonly IViewModelBuilder<CategoryDeductedBalanceAggregator, decimal> _viewModelBuilder;
+    private readonly AmountViewModelBuilder _viewModelBuilder;
 
-    public SpareMoneyCommandHandler(BudgetsClient budgetsClient, 
-        [FromKeyedServices(typeof(CategoryDeductedBalanceAggregator))]
-        IViewModelBuilder<CategoryDeductedBalanceAggregator, decimal> viewModelBuilder)
+    public SpareMoneyCommandHandler(BudgetsClient budgetsClient, AmountViewModelBuilder viewModelBuilder)
     {
         _budgetsClient = budgetsClient;
         _viewModelBuilder = viewModelBuilder;
     }
-    
+
     public async Task<ConsoleTable> Handle(SpareMoneyCommand request, CancellationToken cancellationToken)
     {
         var budgets = await _budgetsClient.GetBudgets();

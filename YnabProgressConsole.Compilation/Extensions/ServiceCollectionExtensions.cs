@@ -9,6 +9,6 @@ public static class ServiceCollectionExtensions
         => serviceCollection
             .AddSingleton<TransactionMemoOccurrenceViewModelBuilder>()
             .AddSingleton<TransactionYearAverageViewModelBuilder>()
-            .AddSingleton<CompanyDeductedBalanceViewModelBuilder>()
+            .AddSingleton<AmountViewModelBuilder>()
             .AddSingleton<TransactionMonthFlaggedViewModelBuilder>();
 }

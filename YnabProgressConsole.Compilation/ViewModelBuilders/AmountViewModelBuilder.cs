@@ -3,7 +3,7 @@ using YnabProgressConsole.Compilation.Formatters;
 
 namespace YnabProgressConsole.Compilation.ViewModelBuilders;
 
-public class CompanyDeductedBalanceViewModelBuilder : ViewModelBuilder<CategoryDeductedBalanceAggregator, decimal>
+public class AmountViewModelBuilder : ViewModelBuilder<CategoryDeductedBalanceAggregator, decimal>
 {
     protected override List<List<object>> BuildRows(decimal aggregates)
     {
