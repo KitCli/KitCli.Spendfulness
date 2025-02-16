@@ -9,41 +9,13 @@ namespace YnabProgressConsole.Compilation.ViewModelBuilders;
 public class TransactionMemoOccurrenceViewModelBuilder : 
     ViewModelBuilder<TransactionMemoOccurrenceAggregator, IEnumerable<TransactionMemoOccurrenceAggregate>>
 {
-    private string? _payeeNameFilter;
-    private int? _minimumOccurrencesFilter;
-    
-    public TransactionMemoOccurrenceViewModelBuilder AddPayeeNameFilter(string payeeNameFilter)
-    {
-        _payeeNameFilter = payeeNameFilter;
-        return this;
-    }
-
-    public TransactionMemoOccurrenceViewModelBuilder AddMinimumOccurrencesFilter(int minimumOccurrences)
-    {
-        _minimumOccurrencesFilter = minimumOccurrences;
-        return this;
-    }
-    
     protected override List<List<object>> BuildRows(IEnumerable<TransactionMemoOccurrenceAggregate> aggregates)
-    {
-         if (_payeeNameFilter != null)
-         {
-             aggregates = aggregates
-                 .FilterByPayeeName(_payeeNameFilter);
-         }
+        => aggregates
+                // TODO: This is not the responsibility of the view model.
+            .OrderBySortOrder(ViewModelSortOrder, aggregate => aggregate.MemoOccurrence)
+            .Select(BuildMemoOccurrenceRow)
+            .ToList();
 
-         if (_minimumOccurrencesFilter.HasValue)
-         {
-             aggregates = aggregates
-                 .FilterByMinimumOccurrences(_minimumOccurrencesFilter.Value);
-         } 
-         
-         return aggregates
-             .OrderBySortOrder(ViewModelSortOrder, aggregate => aggregate.MemoOccurrence)
-             .Select(BuildMemoOccurrenceRow)
-             .ToList();
-    }
-    
     private List<object> BuildMemoOccurrenceRow(TransactionMemoOccurrenceAggregate aggregate)
     {
         var flowSanitisedAmount = TransactionFlowSanitiser.Sanitise(aggregate.AverageAmount);

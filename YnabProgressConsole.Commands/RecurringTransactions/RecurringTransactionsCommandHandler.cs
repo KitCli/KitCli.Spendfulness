@@ -1,4 +1,5 @@
 using ConsoleTables;
+using Ynab;
 using Ynab.Clients;
 using Ynab.Extensions;
 using YnabProgressConsole.Compilation.Aggregator;
@@ -26,6 +27,23 @@ public class RecurringTransactionsCommandHandler : CommandHandler, ICommandHandl
         var budgets = await _budgetsClient.GetBudgets();
         var budget =  budgets.First();
         
+        var transactions = await GetTransactions(budget, command);
+
+        var aggregator = new TransactionMemoOccurrenceAggregator(transactions);
+
+        _builder
+            .AddAggregator(aggregator)
+            .AddColumnNames(TransactionMemoOccurrenceViewModel.GetColumnNames());
+
+        var viewModel = _builder
+            .AddSortOrder(ViewModelSortOrder.Descending)
+            .Build();
+
+        return Compile(viewModel);
+    }
+    
+    private async Task<IEnumerable<Transaction>> GetTransactions(Budget budget, RecurringTransactionsCommand command)
+    {
         var transactions = await budget.GetTransactions();
 
         if (command.From.HasValue)
@@ -38,24 +56,11 @@ public class RecurringTransactionsCommandHandler : CommandHandler, ICommandHandl
             transactions = transactions.FilterTo(command.To.Value);
         }
 
-        var aggregator = new TransactionMemoOccurrenceAggregator(transactions);
-
-        _builder
-            .AddAggregator(aggregator)
-            .AddColumnNames(TransactionMemoOccurrenceViewModel.GetColumnNames());
-
         if (command.PayeeName != null)
         {
-            _builder.AddPayeeNameFilter(command.PayeeName);
+            transactions = transactions.FilterByPayeeName(command.PayeeName);
         }
         
-        var minimumOccurrences = command.MinimumOccurrences ?? DefaultMinimumOccurrences;
-
-        var viewModel = _builder
-            .AddMinimumOccurrencesFilter(minimumOccurrences)
-            .AddSortOrder(ViewModelSortOrder.Descending)
-            .Build();
-
-        return Compile(viewModel);
+        return transactions;
     }
 }
