@@ -1,5 +1,6 @@
 using ConsoleTables;
 using Ynab.Clients;
+using Ynab.Extensions;
 using YnabProgressConsole.Compilation.Aggregator;
 using YnabProgressConsole.Compilation.ViewModelBuilders;
 using YnabProgressConsole.Compilation.ViewModels;
@@ -26,6 +27,16 @@ public class RecurringTransactionsCommandHandler : CommandHandler, ICommandHandl
         var budget =  budgets.First();
         
         var transactions = await budget.GetTransactions();
+
+        if (command.From.HasValue)
+        {
+            transactions = transactions.FilterFrom(command.From.Value);
+        }
+
+        if (command.To.HasValue)
+        {
+            transactions = transactions.FilterTo(command.To.Value);
+        }
 
         var aggregator = new TransactionMemoOccurrenceAggregator(transactions);
 
