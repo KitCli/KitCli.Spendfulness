@@ -7,7 +7,8 @@ namespace Ynab.Extensions;
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddYnab(this IServiceCollection serviceCollection) 
-        => serviceCollection.AddHttpClient()
+        => serviceCollection
+            .AddHttpClient()
             .AddSingleton<YnabHttpClientFactory>()
             .AddSingleton<BudgetsClient>();
 }

@@ -2,7 +2,7 @@ namespace Ynab.Extensions;
 
 public static class AccountExtensions
 {
-    public static IEnumerable<Account> FilterToChecking(
-        this IEnumerable<Account> accounts)
-            => accounts.Where(account => account is { OnBudget: true, Closed: false });
+    public static IEnumerable<Account> FilterByType(
+        this IEnumerable<Account> accounts, params AccountType[] types)
+            => accounts.Where(account => types.Contains(account.Type));
 }

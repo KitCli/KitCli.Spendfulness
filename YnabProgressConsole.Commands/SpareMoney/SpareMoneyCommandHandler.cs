@@ -26,16 +26,16 @@ public class SpareMoneyCommandHandler : CommandHandler, ICommandHandler<SpareMon
         var budget = budgets.First();
 
         var accounts = await budget.GetAccounts();
-        var checkingAccounts = accounts.FilterToChecking();
+        var filteredAccounts = accounts.FilterByType(AccountType.Checking, AccountType.Savings);
 
         if (command.MinusSavings.HasValue && command.MinusSavings.Value)
         {
-            checkingAccounts = checkingAccounts.Where(account => !account.Name.StartsWith("Racer"));
+            filteredAccounts = filteredAccounts.Where(account => account.Type == AccountType.Checking);
         }
     
         var criticalCategoryGroups = await GetCriticalCategoryGroups(budget);
     
-        var aggregator = new CategoryDeductedBalanceAggregator(checkingAccounts, criticalCategoryGroups);
+        var aggregator = new CategoryDeductedBalanceAggregator(filteredAccounts, criticalCategoryGroups);
     
         var viewModel = _viewModelBuilder
             .AddAggregator(aggregator)
