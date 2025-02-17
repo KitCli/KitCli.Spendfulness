@@ -7,6 +7,9 @@ public record AccountResponse
     [JsonPropertyName("name")]
     public required string Name { get; set; }
     
+    [JsonPropertyName("type")]
+    public AccountType Type { get; set; }
+    
     [JsonPropertyName("balance")]
     public required int Balance { get; set; }
     

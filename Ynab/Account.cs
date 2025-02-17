@@ -8,6 +8,7 @@ public class Account(AccountsClient accountsClient, AccountResponse accountRespo
 {
     private readonly AccountsClient _accountsClient = accountsClient;
     public string Name => accountResponse.Name;
+    public AccountType Type => accountResponse.Type;
     public decimal Balance => MilliunitSanitiser.Calculate(accountResponse.Balance);
     public decimal ClearedBalance => MilliunitSanitiser.Calculate(accountResponse.ClearedBalance);
     public bool OnBudget => accountResponse.OnBudget;
