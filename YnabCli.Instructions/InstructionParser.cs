@@ -12,7 +12,7 @@ public class InstructionParser(IEnumerable<IInstructionArgumentBuilder> instruct
         return new Instruction(tokens.PrefixToken, tokens.NameToken, arguments);
     }
 
-    private IEnumerable<InstructionArgument> MapInstructionArguments(Dictionary<string, string> argumentTokens)
+    private IEnumerable<InstructionArgument> MapInstructionArguments(Dictionary<string, string?> argumentTokens)
     {
         foreach (var argumentToken in argumentTokens)
         {

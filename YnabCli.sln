@@ -8,7 +8,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 		LICENSE = LICENSE
-		CONCEPTS.md = CONCEPTS.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YnabCli.ViewModels", "YnabCli.ViewModels\YnabCli.ViewModels.csproj", "{D6DDBC52-9946-434B-814E-536E8E4D49CB}"
@@ -24,6 +23,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ynab.Tests", "Ynab.Tests\Ynab.Tests.csproj", "{603D8C36-71AF-423D-B27D-F78C3B09EA0B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YnabCli.ViewModels.Tests", "YnabCli.ViewModels.Tests\YnabCli.ViewModels.Tests.csproj", "{E72E9E9F-C093-4924-AFF2-67E1E46F1039}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ADR", "ADR", "{B5381D3F-A87C-459E-BE0F-27B0AC6A1D56}"
+	ProjectSection(SolutionItems) = preProject
+		ADR\ADR01-Null-ArgumentValue-In-InstructionArgumentBuilders.md = ADR\ADR01-Null-ArgumentValue-In-InstructionArgumentBuilders.md
+		CONCEPTS.md = CONCEPTS.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

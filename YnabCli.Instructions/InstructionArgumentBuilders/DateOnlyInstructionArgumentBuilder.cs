@@ -2,14 +2,14 @@ using YnabCli.Instructions.InstructionArguments;
 
 namespace YnabCli.Instructions.InstructionArgumentBuilders;
 
-public class DateOnlyInstructionArgumentBuilder : IInstructionArgumentBuilder
+public class DateOnlyInstructionArgumentBuilder : NoDefaultInstructionArgumentBuilder, IInstructionArgumentBuilder
 {
-    public bool For(string argumentValue)
-        => DateTime.TryParse(argumentValue, out _);
+    public bool For(string? argumentValue) => DateTime.TryParse(argumentValue, out _);
 
-    public InstructionArgument Create(string argumentName, string argumentValue)
+    public InstructionArgument Create(string argumentName, string? argumentValue)
     {
-        var argumentDate = DateTime.Parse(argumentValue);
+        var validArgumentValue = GetValidValue(argumentName, argumentValue);
+        var argumentDate = DateTime.Parse(validArgumentValue);
         var argumentDateOnly = DateOnly.FromDateTime(argumentDate);
 
         return new TypedInstructionArgument<DateOnly>(argumentName, argumentDateOnly);

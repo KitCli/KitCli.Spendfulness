@@ -36,7 +36,7 @@ public class InstructionTokenParser
         return terminalInput.Substring(1, indexOfEndOfNameToken);
     }
 
-    private Dictionary<string, string> ParseArgumentTokens(
+    private Dictionary<string, string?> ParseArgumentTokens(
         string terminalInput, int indexAfterNameToken, bool includesInputBeyondNameToken)
     {
         var indexOfStartOfRemainingInput = indexAfterNameToken + 1;
@@ -52,18 +52,21 @@ public class InstructionTokenParser
             .ToDictionary(kvp => kvp.Key, split => split.Value);
     }
 
-    private KeyValuePair<string, string> SplitArgumentInput(string terminalArgumentInput)
+    private static KeyValuePair<string, string?> SplitArgumentInput(string terminalArgumentInput)
     {
         // e.g. --payee-name Subway Something Something
         var firstIndexOfSpace = terminalArgumentInput.IndexOf(DefaultSpaceCharacter);
         
-        var argumentName = terminalArgumentInput.Substring(0, firstIndexOfSpace);
+        var argumentNameEndIndex = firstIndexOfSpace == -1
+            ? terminalArgumentInput.Length
+            : firstIndexOfSpace;
+
+        var argumentName = terminalArgumentInput.Substring(0, argumentNameEndIndex);
+
+        var argumentValue = firstIndexOfSpace == -1
+            ? null
+            : terminalArgumentInput[argumentNameEndIndex..].Trim();
         
-        var indexOfStartOfArgumentValue = firstIndexOfSpace + 1;
-        var argumentValue = terminalArgumentInput
-            .Substring(indexOfStartOfArgumentValue)
-            .Trim();
-        
-        return new KeyValuePair<string, string>(argumentName, argumentValue);
+        return new KeyValuePair<string, string?>(argumentName, argumentValue);
     }
 }

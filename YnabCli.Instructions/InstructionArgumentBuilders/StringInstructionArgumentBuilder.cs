@@ -3,14 +3,20 @@ using YnabCli.Instructions.InstructionArguments;
 
 namespace YnabCli.Instructions.InstructionArgumentBuilders;
 
-public class StringInstructionArgumentBuilder : IInstructionArgumentBuilder
+public class StringInstructionArgumentBuilder : NoDefaultInstructionArgumentBuilder, IInstructionArgumentBuilder
 {
-    public bool For(string argumentValue)
-        => argumentValue
-            .ToCharArray()
-            .Where(x => !char.IsWhiteSpace(x))
-            .All(char.IsLetter);
+    public bool For(string? argumentValue)
+    {
+        if (argumentValue == null) return false;
+        
+        var characters = argumentValue.ToCharArray();
+        var nonWhiteSpacecharacters = characters.Where(c => !char.IsWhiteSpace(c));
+        return nonWhiteSpacecharacters.Any(char.IsLetter);
+    }
 
-    public InstructionArgument Create(string argumentName, string argumentValue)
-        => new TypedInstructionArgument<string>(argumentName, argumentValue);
+    public InstructionArgument Create(string argumentName, string? argumentValue)
+    {
+        var validArgumentValue = GetValidValue(argumentName, argumentValue);
+        return new TypedInstructionArgument<string>(argumentName, validArgumentValue);
+    }
 }

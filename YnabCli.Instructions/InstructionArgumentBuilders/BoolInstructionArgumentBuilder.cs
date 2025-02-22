@@ -4,11 +4,15 @@ namespace YnabCli.Instructions.InstructionArgumentBuilders;
 
 public class BoolInstructionArgumentBuilder : IInstructionArgumentBuilder
 {
-    public bool For(string argumentValue) => bool.TryParse(argumentValue, out _);
+    public bool For(string? argumentValue) => true;
 
-    public InstructionArgument Create(string argumentName, string argumentValue)
+    public InstructionArgument Create(string argumentName, string? argumentValue)
     {
-        var argumentBool = bool.Parse(argumentValue);
-        return new TypedInstructionArgument<bool>(argumentName, argumentBool);
+        if (bool.TryParse(argumentValue, out var argumentBool))
+        {
+            return new TypedInstructionArgument<bool>(argumentName, argumentBool);
+        }
+        
+        return new TypedInstructionArgument<bool>(argumentName, true);
     }
 }
