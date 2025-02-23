@@ -1,17 +1,20 @@
 using NUnit.Framework;
-using YnabCli.Instructions.Parsers;
+using YnabCli.Instructions.Extraction;
+using YnabCli.Instructions.Indexers;
 
 namespace YnabCli.Instructions.Tests;
 
 [TestFixture]
-public class LegacyInstructionTokenParserTests
+public class InstructionTokenExtractorTests
 {
-    private LegacyInstructionTokenParser _legacyInstructionTokenParser;
+    private InstructionTokenIndexer _instructionTokenIndexer;
+    private InstructionTokenExtractor _legacyInstructionTokenExtractor;
 
     [SetUp]
     public void SetUp()
     {
-        _legacyInstructionTokenParser = new LegacyInstructionTokenParser();
+        _instructionTokenIndexer = new InstructionTokenIndexer();
+        _legacyInstructionTokenExtractor = new InstructionTokenExtractor(_instructionTokenIndexer);
     }
     
     [Test]
@@ -19,9 +22,9 @@ public class LegacyInstructionTokenParserTests
     {
         var input = $"/command";
         
-        var result = _legacyInstructionTokenParser.Parse(input);
+        var result = _legacyInstructionTokenExtractor.Extract(input);
         
-        Assert.That(result.CommandPrefixToken, Is.EqualTo("/"));
+        Assert.That(result.PrefixToken, Is.EqualTo("/"));
     }
     
     [Test]
@@ -29,9 +32,19 @@ public class LegacyInstructionTokenParserTests
     {
         var input = $"/command";
         
-        var result = _legacyInstructionTokenParser.Parse(input);
+        var result = _legacyInstructionTokenExtractor.Extract(input);
         
-        Assert.That(result.CommandNameToken, Is.EqualTo("command"));
+        Assert.That(result.NameToken, Is.EqualTo("command"));
+    }
+
+    [Test]
+    public void GivenInputStringWithSubCommand_WhenParse_ReturnsInstructionWithSubCommand()
+    {
+        var input = $"/command sub-command";
+        
+        var result = _legacyInstructionTokenExtractor.Extract(input);
+        
+        Assert.That(result.SubNameToken, Is.EqualTo("sub-command"));
     }
 
     [Test]
@@ -39,9 +52,9 @@ public class LegacyInstructionTokenParserTests
     {
         var input = $"/command --argumentOne hello world";
         
-        var result = _legacyInstructionTokenParser.Parse(input);
+        var result = _legacyInstructionTokenExtractor.Extract(input);
         
-        Assert.That(result.CommandNameToken, Is.EqualTo("command"));
+        Assert.That(result.NameToken, Is.EqualTo("command"));
     }
     
     
@@ -52,7 +65,7 @@ public class LegacyInstructionTokenParserTests
         
         var input = $"/command --{argumentName}";
         
-        var result = _legacyInstructionTokenParser.Parse(input);
+        var result = _legacyInstructionTokenExtractor.Extract(input);
         
         var resultingArgument = result.ArgumentTokens.First();
         
@@ -68,7 +81,7 @@ public class LegacyInstructionTokenParserTests
         
         var input = $"/command --{argumentName} {argumentValue}";
         
-        var result = _legacyInstructionTokenParser.Parse(input);
+        var result = _legacyInstructionTokenExtractor.Extract(input);
         
         var resultingArgument = result.ArgumentTokens.First();
         
@@ -86,7 +99,7 @@ public class LegacyInstructionTokenParserTests
         
         var input = $"/command --{argumentOneName} {argumentOneValue} --{argumentTwoName} {argumentTwoValue}";
         
-        var result = _legacyInstructionTokenParser.Parse(input);
+        var result = _legacyInstructionTokenExtractor.Extract(input);
 
         var resultingArgumentOne = result.ArgumentTokens.FirstOrDefault();
         
@@ -109,7 +122,7 @@ public class LegacyInstructionTokenParserTests
         
         var input = $"/command --{argumentOneName} {argumentOneValue} --{argumentTwoName} {argumentTwoValue}";
         
-        var result = _legacyInstructionTokenParser.Parse(input);
+        var result = _legacyInstructionTokenExtractor.Extract(input);
         
         var resultingArgumentOne = result.ArgumentTokens.FirstOrDefault();
         

@@ -1,5 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using YnabCli.Instructions.Builders;
+using YnabCli.Instructions.Extraction;
+using YnabCli.Instructions.Indexers;
 using YnabCli.Instructions.Parsers;
 
 namespace YnabCli.Instructions;
@@ -13,7 +15,8 @@ public static class ServiceCollectionExtensions
             .AddSingleton<IInstructionArgumentBuilder, IntInstructionArgumentBuilder>()
             .AddSingleton<IInstructionArgumentBuilder, DateOnlyInstructionArgumentBuilder>()
             .AddSingleton<IInstructionArgumentBuilder, BoolInstructionArgumentBuilder>()
-            .AddSingleton<LegacyInstructionTokenParser>()
+            .AddSingleton<InstructionTokenIndexer>()
+            .AddSingleton<InstructionTokenExtractor>()
             .AddSingleton<InstructionParser>();
 
 }

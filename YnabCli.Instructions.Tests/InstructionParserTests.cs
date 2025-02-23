@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using YnabCli.Instructions.Arguments;
 using YnabCli.Instructions.Builders;
+using YnabCli.Instructions.Extraction;
 using YnabCli.Instructions.Parsers;
 
 namespace YnabCli.Instructions.Tests;
@@ -28,7 +29,11 @@ public class InstructionParserTests
     {
         var prefix = "/";
         
-        var tokens = new LegacyInstructionTokens(prefix, string.Empty, new Dictionary<string, string?>());
+        var tokens = new InstructionTokenExtraction(
+            prefix, 
+            string.Empty, 
+            string.Empty,
+            new Dictionary<string, string?>());
         
         var result = _parser.Parse(tokens);
         
@@ -40,11 +45,31 @@ public class InstructionParserTests
     {
         var name = "/";
         
-        var tokens = new LegacyInstructionTokens(string.Empty, name, new Dictionary<string, string?>());
+        var tokens = new InstructionTokenExtraction(
+            string.Empty,
+            name, 
+            string.Empty,
+            new Dictionary<string, string?>());
         
         var result = _parser.Parse(tokens);
         
         Assert.That(result.Name, Is.EqualTo(name));
+    }
+
+    [Test]
+    public void GivenExtractionWithSubNae_WhenParse_ThenReturnsInstructionWithSubNae()
+    {
+        var subname = "help";
+        
+        var tokens = new InstructionTokenExtraction(
+            string.Empty,
+            string.Empty, 
+            subname,
+            new Dictionary<string, string?>());
+        
+        var result = _parser.Parse(tokens);
+        
+        Assert.That(result.SubName, Is.EqualTo(subname));
     }
 
     [Test]
@@ -53,10 +78,14 @@ public class InstructionParserTests
         var argumentName = "argumentName";
         var arvumentValue = "arvumentValue";
         
-        var tokens = new LegacyInstructionTokens(string.Empty, string.Empty, new Dictionary<string, string?>
-        {
-            { argumentName, arvumentValue }
-        });
+        var tokens = new InstructionTokenExtraction(
+            string.Empty, 
+            string.Empty, 
+            string.Empty,
+            new Dictionary<string, string?>
+            {
+                { argumentName, arvumentValue }
+            });
         
         var result = _parser.Parse(tokens);
 
@@ -74,10 +103,14 @@ public class InstructionParserTests
         var argumentName = "argumentName";
         var arvumentValue = "1";
         
-        var tokens = new LegacyInstructionTokens(string.Empty, string.Empty, new Dictionary<string, string?>
-        {
-            { argumentName, arvumentValue }
-        });
+        var tokens = new InstructionTokenExtraction(
+            string.Empty, 
+            string.Empty,
+            string.Empty,
+            new Dictionary<string, string?>
+            {
+                { argumentName, arvumentValue }
+            });
         
         var result = _parser.Parse(tokens);
 

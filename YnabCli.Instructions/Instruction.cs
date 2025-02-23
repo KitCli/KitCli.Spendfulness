@@ -4,5 +4,6 @@ namespace YnabCli.Instructions;
 
 public record Instruction(
     string? Prefix,
-    string Name,
-    IEnumerable<InstructionArgument> Arguments);
+    string? Name,
+    string? SubName,
+    IEnumerable<InstructionArgument>? Arguments);

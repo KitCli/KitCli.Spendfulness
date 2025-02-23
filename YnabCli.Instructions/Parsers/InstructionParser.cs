@@ -1,26 +1,21 @@
-using YnabCli.Instructions.Arguments;
 using YnabCli.Instructions.Builders;
+using YnabCli.Instructions.Extraction;
 
 namespace YnabCli.Instructions.Parsers;
 
 public class InstructionParser(IEnumerable<IInstructionArgumentBuilder> instructionArgumentBuilders)
 {
-    public Instruction Parse(LegacyInstructionTokens tokens)
+    public Instruction Parse(InstructionTokenExtraction tokenExtraction)
     {
-        var arguments = MapInstructionArguments(tokens.ArgumentTokens);
+        var arguments = tokenExtraction.ArgumentTokens
+            .Select(token => instructionArgumentBuilders
+                .First(builder => builder.For(token.Value))
+                .Create(token.Key, token.Value));
 
-        return new Instruction(tokens.CommandPrefixToken, tokens.CommandNameToken, arguments);
-    }
-
-    private IEnumerable<InstructionArgument> MapInstructionArguments(Dictionary<string, string?> argumentTokens)
-    {
-        foreach (var argumentToken in argumentTokens)
-        {
-            var argument = instructionArgumentBuilders
-                .First(x => x.For(argumentToken.Value))
-                .Create(argumentToken.Key, argumentToken.Value);
-            
-            yield return argument;
-        }
+        return new Instruction(
+            tokenExtraction.PrefixToken,
+            tokenExtraction.NameToken,
+            tokenExtraction.SubNameToken,
+            arguments);
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using YnabCli.Commands;
 using YnabCli.Commands.Clear;
 using YnabCli.Commands.Exit;
-using YnabCli.Instructions;
+using YnabCli.Instructions.Extraction;
 using YnabCli.Instructions.Parsers;
 
 namespace YnabCli;
@@ -14,7 +14,7 @@ public class ConsoleApplication(IServiceProvider serviceProvider)
     {
         PrintToConsole("Welcome to YnabCli!");
 
-        var instructionTokenParser = serviceProvider.GetRequiredService<LegacyInstructionTokenParser>();
+        var instructionTokenExtractor = serviceProvider.GetRequiredService<InstructionTokenExtractor>();
         var instructionParser = serviceProvider.GetRequiredService<InstructionParser>();
         var mediator = serviceProvider.GetRequiredService<IMediator>();
 
@@ -31,15 +31,15 @@ public class ConsoleApplication(IServiceProvider serviceProvider)
                 continue;
             }
 
-            var tokens = instructionTokenParser.Parse(input);
-            if (tokens.CommandNameToken is ExitCommand.CommandName or ExitCommand.ShorthandCommandName)
+            var tokens = instructionTokenExtractor.Extract(input);
+            if (tokens.NameToken is ExitCommand.CommandName or ExitCommand.ShorthandCommandName)
             {
                 PrintToConsole("Exiting...");
                 noExitCommand = false;
                 continue;
             }
             
-            if (tokens.CommandNameToken is ClearCommand.CommandName or ClearCommand.ShorthandCommandName)
+            if (tokens.NameToken is ClearCommand.CommandName or ClearCommand.ShorthandCommandName)
             {
                 ClearTheConsole();
                 continue;
