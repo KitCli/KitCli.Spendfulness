@@ -18,7 +18,7 @@ public class IgnoreEmptyStringNullableEnumConverter : JsonConverterFactory
         return underlyingType.IsEnum; // Replace with whatever check is appropriate
     }
 
-    public override JsonConverter? CreateConverter(Type typeToConvert, JsonSerializerOptions options)
+    public override JsonConverter CreateConverter(Type typeToConvert, JsonSerializerOptions options)
     {
         Type underlyingType = typeToConvert.GetGenericArguments()[0];
         Type converterType = typeof(IgnoreEmptyStringNullableEnumConverter<>).MakeGenericType(underlyingType);

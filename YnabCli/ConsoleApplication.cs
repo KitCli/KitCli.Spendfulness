@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using YnabCli.Commands;
 using YnabCli.Commands.Clear;
 using YnabCli.Commands.Exit;
-using YnabCli.Instructions.Extraction;
 using YnabCli.Instructions.Parsers;
 
 namespace YnabCli;
