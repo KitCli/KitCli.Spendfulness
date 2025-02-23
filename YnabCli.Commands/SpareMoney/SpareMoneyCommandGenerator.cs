@@ -4,7 +4,7 @@ namespace YnabCli.Commands.SpareMoney;
 
 public class SpareMoneyCommandGenerator : ICommandGenerator, ITypedCommandGenerator<SpareMoneyCommand>
 {
-    public ICommand Generate(List<InstructionArgument> arguments)
+    public ICommand Generate(string? subCommandName, List<InstructionArgument> arguments)
     {
         var minusArgument = arguments.OfCurrencyType(SpareMoneyCommand.ArgumentNames.Minus);
         var minusSavingsArgument = arguments.OfType<bool>(SpareMoneyCommand.ArgumentNames.MinusSavings);

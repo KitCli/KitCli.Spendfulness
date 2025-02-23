@@ -46,11 +46,6 @@ public class ConsoleApplication(IServiceProvider serviceProvider)
             }
             
             var instruction = instructionParser.Parse(tokens);
-            if (instruction.Prefix is null)
-            {
-                PrintToConsole("Commands must have a '/' prefix.");
-                continue;
-            }
             
             var generator = serviceProvider.GetKeyedService<ICommandGenerator>(instruction.Name);
             if (generator == null)
@@ -59,8 +54,8 @@ public class ConsoleApplication(IServiceProvider serviceProvider)
                 continue;
             }
             
-            var command = generator.Generate(instruction.Arguments.ToList());
-
+            var command = generator.Generate(instruction.SubName, instruction.Arguments.ToList());
+            
             var table = await mediator.Send(command);
 
             PrintToConsole(table.ToString());

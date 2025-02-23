@@ -6,4 +6,4 @@ public record Instruction(
     string? Prefix,
     string? Name,
     string? SubName,
-    IEnumerable<InstructionArgument>? Arguments);
+    IEnumerable<InstructionArgument> Arguments);

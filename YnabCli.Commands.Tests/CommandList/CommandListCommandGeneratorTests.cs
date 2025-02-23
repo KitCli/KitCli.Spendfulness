@@ -13,7 +13,7 @@ public class CommandListCommandGeneratorTests
 
         var arguments = new List<InstructionArgument>();
         
-        var result = generator.Generate(arguments);
+        var result = generator.Generate(string.Empty, arguments);
         
         Assert.That(result, Is.TypeOf<CommandListCommand>());
     }

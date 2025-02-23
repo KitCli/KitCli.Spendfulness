@@ -4,5 +4,5 @@ namespace YnabCli.Commands;
 
 public interface ICommandGenerator
 {
-    ICommand Generate(List<InstructionArgument> arguments);
+    ICommand Generate(string? subCommandName, List<InstructionArgument> arguments);
 }
