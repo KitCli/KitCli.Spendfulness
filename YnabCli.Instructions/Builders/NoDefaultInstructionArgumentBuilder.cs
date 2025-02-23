@@ -1,4 +1,4 @@
-namespace YnabCli.Instructions.InstructionArgumentBuilders;
+namespace YnabCli.Instructions.Builders;
 
 public abstract class NoDefaultInstructionArgumentBuilder
 {

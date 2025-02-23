@@ -1,4 +1,4 @@
-namespace YnabCli.Instructions.InstructionArguments;
+namespace YnabCli.Instructions.Arguments;
 
 public static class InstructionArgumentExtensions
 {

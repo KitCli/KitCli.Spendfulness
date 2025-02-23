@@ -1,7 +1,7 @@
-using YnabCli.Instructions.InstructionArgumentBuilders;
-using YnabCli.Instructions.InstructionArguments;
+using YnabCli.Instructions.Arguments;
+using YnabCli.Instructions.Builders;
 
-namespace YnabCli.Instructions;
+namespace YnabCli.Instructions.Parsers;
 
 public class InstructionParser(IEnumerable<IInstructionArgumentBuilder> instructionArgumentBuilders)
 {

@@ -1,6 +1,6 @@
-namespace YnabCli.Instructions;
+namespace YnabCli.Instructions.Parsers;
 
-public class InstructionTokenParser
+public class LegacyInstructionTokenParser
 {
     private const string DefaultNamePrefix = "/";
     private const string DefaultArgumentPrefix = "--";

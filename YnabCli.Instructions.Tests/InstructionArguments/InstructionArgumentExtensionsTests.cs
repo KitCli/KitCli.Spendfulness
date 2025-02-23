@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using YnabCli.Instructions.InstructionArguments;
+using YnabCli.Instructions.Arguments;
 
 namespace YnabCli.Instructions.Tests.InstructionArguments;
 

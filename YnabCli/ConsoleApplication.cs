@@ -4,6 +4,7 @@ using YnabCli.Commands;
 using YnabCli.Commands.Clear;
 using YnabCli.Commands.Exit;
 using YnabCli.Instructions;
+using YnabCli.Instructions.Parsers;
 
 namespace YnabCli;
 
@@ -13,7 +14,7 @@ public class ConsoleApplication(IServiceProvider serviceProvider)
     {
         PrintToConsole("Welcome to YnabCli!");
 
-        var instructionTokenParser = serviceProvider.GetRequiredService<InstructionTokenParser>();
+        var instructionTokenParser = serviceProvider.GetRequiredService<LegacyInstructionTokenParser>();
         var instructionParser = serviceProvider.GetRequiredService<InstructionParser>();
         var mediator = serviceProvider.GetRequiredService<IMediator>();
 

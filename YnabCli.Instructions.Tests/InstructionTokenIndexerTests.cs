@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using YnabCli.Instructions.Indexing;
+using YnabCli.Instructions.Indexers;
 
 namespace YnabCli.Instructions.Tests;
 

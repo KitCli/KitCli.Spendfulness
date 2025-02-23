@@ -1,6 +1,7 @@
 using NUnit.Framework;
-using YnabCli.Instructions.InstructionArgumentBuilders;
-using YnabCli.Instructions.InstructionArguments;
+using YnabCli.Instructions.Arguments;
+using YnabCli.Instructions.Builders;
+using YnabCli.Instructions.Parsers;
 
 namespace YnabCli.Instructions.Tests;
 

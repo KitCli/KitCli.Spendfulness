@@ -1,4 +1,4 @@
-using YnabCli.Instructions.InstructionArguments;
+using YnabCli.Instructions.Arguments;
 
 namespace YnabCli.Commands;
 

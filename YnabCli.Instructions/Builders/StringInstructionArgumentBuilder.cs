@@ -1,7 +1,7 @@
 
-using YnabCli.Instructions.InstructionArguments;
+using YnabCli.Instructions.Arguments;
 
-namespace YnabCli.Instructions.InstructionArgumentBuilders;
+namespace YnabCli.Instructions.Builders;
 
 public class StringInstructionArgumentBuilder : NoDefaultInstructionArgumentBuilder, IInstructionArgumentBuilder
 {

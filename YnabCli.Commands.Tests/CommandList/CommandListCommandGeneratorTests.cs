@@ -1,5 +1,5 @@
 using YnabCli.Commands.CommandList;
-using YnabCli.Instructions.InstructionArguments;
+using YnabCli.Instructions.Arguments;
 
 namespace YnabCli.Commands.Tests.CommandList;
 

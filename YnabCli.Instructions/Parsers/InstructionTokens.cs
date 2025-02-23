@@ -1,4 +1,4 @@
-namespace YnabCli.Instructions;
+namespace YnabCli.Instructions.Parsers;
 
 public record InstructionTokens(
     string? CommandPrefixToken,
