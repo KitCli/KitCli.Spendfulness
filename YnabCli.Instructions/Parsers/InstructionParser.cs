@@ -5,7 +5,7 @@ namespace YnabCli.Instructions.Parsers;
 
 public class InstructionParser(IEnumerable<IInstructionArgumentBuilder> instructionArgumentBuilders)
 {
-    public Instruction Parse(InstructionTokens tokens)
+    public Instruction Parse(LegacyInstructionTokens tokens)
     {
         var arguments = MapInstructionArguments(tokens.ArgumentTokens);
 

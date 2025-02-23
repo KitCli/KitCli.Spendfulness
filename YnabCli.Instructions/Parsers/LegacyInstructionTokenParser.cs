@@ -1,12 +1,13 @@
 namespace YnabCli.Instructions.Parsers;
 
+[Obsolete("This does not support sub commands.")]
 public class LegacyInstructionTokenParser
 {
     private const string DefaultNamePrefix = "/";
     private const string DefaultArgumentPrefix = "--";
     private const char DefaultSpaceCharacter = ' ';
     
-    public InstructionTokens Parse(string terminalInput)
+    public LegacyInstructionTokens Parse(string terminalInput)
     {
         var includesInputBeyondNameToken = terminalInput.Contains(DefaultSpaceCharacter);
         
@@ -21,7 +22,7 @@ public class LegacyInstructionTokenParser
         var argumentTokens = ParseArgumentTokens(
             terminalInput, indexAfterNameToken, includesInputBeyondNameToken);
 
-        return new InstructionTokens(namePrefixToken, nameToken, argumentTokens);
+        return new LegacyInstructionTokens(namePrefixToken, nameToken, argumentTokens);
     }
 
     private string? ParseNamePrefixToken(string terminalInput)
