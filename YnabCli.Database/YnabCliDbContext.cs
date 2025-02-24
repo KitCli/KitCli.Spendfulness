@@ -20,4 +20,18 @@ public class YnabCliDbContext : DbContext
         optionsBuilder.UseSqlite("Data Source=YnabCli.db");
         optionsBuilder.LogTo(Console.WriteLine);
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder
+            .Entity<SettingType>()
+            .HasData(new List<SettingType>
+            {
+                new()
+                {
+                    Id = 1,
+                    Name = "YnabApiKey"
+                }
+            });
+    }
 }

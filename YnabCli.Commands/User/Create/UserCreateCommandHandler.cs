@@ -1,4 +1,5 @@
 using ConsoleTables;
+using Microsoft.EntityFrameworkCore;
 using YnabCli.Database;
 
 namespace YnabCli.Commands.User.Create;
@@ -14,9 +15,12 @@ public class UserCreateCommandHandler : CommandHandler, ICommandHandler<UserCrea
 
     public async Task<ConsoleTable> Handle(UserCreateCommand command, CancellationToken cancellationToken)
     {
+        var activeUser = await _dbContext.Users.FirstOrDefaultAsync(u => u.Active, cancellationToken);
+        
         var user = new YnabCli.Database.Users.User
         {
             Name = command.UserName,
+            Active = activeUser == null 
         };
         
         await _dbContext.Users.AddAsync(user, cancellationToken);

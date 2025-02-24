@@ -1,4 +1,6 @@
+using YnabCli.Commands.User.Active;
 using YnabCli.Commands.User.Create;
+using YnabCli.Commands.User.Switch;
 using YnabCli.Instructions.Arguments;
 
 namespace YnabCli.Commands.User;
@@ -7,16 +9,32 @@ public class UserCommandGenerator : ICommandGenerator, ITypedCommandGenerator<Us
 {
     public ICommand Generate(string? subCommandName, List<InstructionArgument> arguments)
     {
-        if (subCommandName == UserCommand.SubCommandNames.Create)
+        return subCommandName switch
         {
-            var userNameArgument = arguments.OfType<string>(UserCreateCommand.ArugmentNames.UserName);
+            UserCommand.SubCommandNames.Create => GenerateCreateCommand(arguments),
+            UserCommand.SubCommandNames.Switch => GenerateSwitchCommand(arguments),
+            UserCommand.SubCommandNames.Active => new UserActiveCommand(),
+            _ => new UserCommand()
+        };
+    }
 
-            return new UserCreateCommand
-            {
-                UserName = userNameArgument?.ArgumentValue
-            };
-        }
-        
-        return new UserCommand();
+    private UserCreateCommand GenerateCreateCommand(List<InstructionArgument> arguments)
+    {
+        var userNameArgument = arguments.OfType<string>(UserCreateCommand.ArugmentNames.UserName);
+
+        return new UserCreateCommand
+        {
+            UserName = userNameArgument?.ArgumentValue
+        };
+    }
+
+    private UserSwitchCommand GenerateSwitchCommand(List<InstructionArgument> arguments)
+    {
+        var userNameArgument = arguments.OfType<string>(UserCreateCommand.ArugmentNames.UserName);
+
+        return new UserSwitchCommand
+        {
+            UserName = userNameArgument?.ArgumentValue
+        };
     }
 }
