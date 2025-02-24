@@ -12,6 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\YnabCli.Database\YnabCli.Database.csproj" />
       <ProjectReference Include="..\YnabCli.ViewModels\YnabCli.ViewModels.csproj" />
       <ProjectReference Include="..\YnabCli.Instructions\YnabCli.Instructions.csproj" />
     </ItemGroup>

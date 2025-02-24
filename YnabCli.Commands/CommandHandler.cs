@@ -22,4 +22,16 @@ public abstract class CommandHandler
         
         return table;
     }
+
+    protected static ConsoleTable CompileMessage(string message)
+    {
+        return new ConsoleTable
+        {
+            Columns = { message },
+            Options =
+            {
+                EnableCount = false
+            }
+        };
+    }
 }
