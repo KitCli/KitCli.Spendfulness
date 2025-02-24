@@ -3,7 +3,7 @@ using Ynab.Responses.Accounts;
 
 namespace Ynab.Clients;
 
-public class AccountsClient(YnabHttpClientFactory ynabHttpClientFactory, string parentApiPath)
+public class AccountsClient(YnabHttpClientBuilder ynabHttpClientBuilder, string parentApiPath)
     : YnabApiClient
 {
     private const string AccountsApiPath = "accounts";
@@ -15,5 +15,5 @@ public class AccountsClient(YnabHttpClientFactory ynabHttpClientFactory, string 
     }
     
     protected override HttpClient GetHttpClient() => 
-        ynabHttpClientFactory.Create(parentApiPath, AccountsApiPath);
+        ynabHttpClientBuilder.Build(parentApiPath, AccountsApiPath);
 }

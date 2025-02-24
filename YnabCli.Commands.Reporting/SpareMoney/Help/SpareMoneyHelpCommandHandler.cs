@@ -1,6 +1,6 @@
 using ConsoleTables;
 
-namespace YnabCli.Commands.Reporting.SpareMoney;
+namespace YnabCli.Commands.Reporting.SpareMoney.Help;
 
 public class SpareMoneyHelpCommandHandler(CommandHelpViewModelBuilder commandHelpViewModelBuilder)
     : CommandHandler, ICommandHandler<SpareMoneyHelpCommand>

@@ -8,7 +8,9 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddYnabCommands(this IServiceCollection serviceCollection)
     {
-        return serviceCollection.AddSingleton<CommandHelpViewModelBuilder>();
+        return serviceCollection
+            .AddSingleton<BudgetsClientFactory>()
+            .AddSingleton<CommandHelpViewModelBuilder>();
     }
 
     public static IServiceCollection AddMediatRCommandsAndHandlers(this IServiceCollection serviceCollection, Assembly assembly)

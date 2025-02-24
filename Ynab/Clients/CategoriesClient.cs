@@ -3,7 +3,7 @@ using Ynab.Responses.Categories;
 
 namespace Ynab.Clients;
 
-public class CategoriesClient(YnabHttpClientFactory ynabHttpClientFactory, string parentApiPath)
+public class CategoriesClient(YnabHttpClientBuilder ynabHttpClientBuilder, string parentApiPath)
     : YnabApiClient
 {
     private const string CategoriesApiPath = "categories";
@@ -15,5 +15,5 @@ public class CategoriesClient(YnabHttpClientFactory ynabHttpClientFactory, strin
     }
     
     protected override HttpClient GetHttpClient() =>
-        ynabHttpClientFactory.Create(parentApiPath, CategoriesApiPath);
+        ynabHttpClientBuilder.Build(parentApiPath, CategoriesApiPath);
 }

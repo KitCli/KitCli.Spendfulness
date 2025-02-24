@@ -2,6 +2,8 @@ using ConsoleTables;
 using Ynab;
 using Ynab.Clients;
 using Ynab.Extensions;
+using Ynab.Http;
+using YnabCli.Database;
 using YnabCli.ViewModels.Aggregator;
 using YnabCli.ViewModels.ViewModelBuilders;
 using YnabCli.ViewModels.ViewModels;
@@ -10,20 +12,23 @@ namespace YnabCli.Commands.Reporting.RecurringTransactions;
 
 public class RecurringTransactionsCommandHandler : CommandHandler, ICommandHandler<RecurringTransactionsCommand>
 {
-    private readonly BudgetsClient _budgetsClient;
-    private readonly TransactionMemoOccurrenceViewModelBuilder _builder;
-    private const int DefaultMinimumOccurrences = 2;
+    private readonly BudgetsClientFactory _budgetsClientFactory;
+    private readonly TransactionMemoOccurrenceViewModelBuilder _viewModelBuilder;
 
     public RecurringTransactionsCommandHandler(
-        BudgetsClient budgetsClient,
-        TransactionMemoOccurrenceViewModelBuilder builder)
+        BudgetsClientFactory budgetsClientFactory,
+        TransactionMemoOccurrenceViewModelBuilder viewModelBuilder)
     {
-        _budgetsClient = budgetsClient;
-        _builder = builder;
+        _budgetsClientFactory = budgetsClientFactory;
+        _viewModelBuilder = viewModelBuilder;
     }
+
+    private const int DefaultMinimumOccurrences = 2;
+    
 
     public async Task<ConsoleTable> Handle(RecurringTransactionsCommand command, CancellationToken cancellationToken)
     {
+        var _budgetsClient = await _budgetsClientFactory.Create();
         var budgets = await _budgetsClient.GetBudgets();
         var budget =  budgets.First();
         
@@ -31,11 +36,11 @@ public class RecurringTransactionsCommandHandler : CommandHandler, ICommandHandl
 
         var aggregator = new TransactionMemoOccurrenceAggregator(transactions);
 
-        _builder
+        _viewModelBuilder
             .AddAggregator(aggregator)
             .AddColumnNames(TransactionMemoOccurrenceViewModel.GetColumnNames());
 
-        var viewModel = _builder
+        var viewModel = _viewModelBuilder
             .AddMinimumOccurrencesFilter(command.MinimumOccurrences ?? DefaultMinimumOccurrences)
             .AddSortOrder(ViewModelSortOrder.Descending)
             .Build();

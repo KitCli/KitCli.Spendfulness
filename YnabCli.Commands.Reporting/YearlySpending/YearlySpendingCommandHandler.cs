@@ -1,5 +1,4 @@
 using ConsoleTables;
-using Ynab.Clients;
 using YnabCli.ViewModels.Aggregator;
 using YnabCli.ViewModels.ViewModelBuilders;
 
@@ -7,18 +6,19 @@ namespace YnabCli.Commands.Reporting.YearlySpending;
 
 public class YearlySpendingCommandHandler : CommandHandler, ICommandHandler<YearlySpendingCommand>
 {
-    private readonly BudgetsClient _budgetsClient;
+    private readonly BudgetsClientFactory _budgetsesClientFactory;
     private readonly CategoryYearAverageViewModelBuilder _viewModelBuilder;
-    
-    public YearlySpendingCommandHandler(BudgetsClient budgetsClient, CategoryYearAverageViewModelBuilder viewModelBuilder)
+
+    public YearlySpendingCommandHandler(BudgetsClientFactory budgetsesClientFactory, CategoryYearAverageViewModelBuilder viewModelBuilder)
     {
-        _budgetsClient = budgetsClient;
+        _budgetsesClientFactory = budgetsesClientFactory;
         _viewModelBuilder = viewModelBuilder;
     }
 
     public async Task<ConsoleTable> Handle(YearlySpendingCommand request, CancellationToken cancellationToken)
     {
-        var budgets = await _budgetsClient.GetBudgets();
+        var budgetsClient = await _budgetsesClientFactory.Create();
+        var budgets = await budgetsClient.GetBudgets();
 
         var budget = budgets.First();
         

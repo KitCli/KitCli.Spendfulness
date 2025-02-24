@@ -3,7 +3,7 @@ using Ynab.Responses.ScheduledTransactions;
 
 namespace Ynab.Clients;
 
-public class ScheduledTransactionsClient(YnabHttpClientFactory ynabHttpClientFactory, string parentApiPath)
+public class ScheduledTransactionsClient(YnabHttpClientBuilder ynabHttpClientBuilder, string parentApiPath)
     : YnabApiClient
 {
     private const string ScheduledTransactionsPath = "scheduled_transactions";
@@ -15,5 +15,5 @@ public class ScheduledTransactionsClient(YnabHttpClientFactory ynabHttpClientFac
     }
     
     protected override HttpClient GetHttpClient()
-        => ynabHttpClientFactory.Create(parentApiPath, ScheduledTransactionsPath);
+        => ynabHttpClientBuilder.Build(parentApiPath, ScheduledTransactionsPath);
 }

@@ -1,4 +1,4 @@
-namespace YnabCli.Commands.Reporting.SpareMoney;
+namespace YnabCli.Commands.Reporting.SpareMoney.Help;
 
 public class SpareMoneyCommandHelpAggregator : CommandHelpAggregator
 {

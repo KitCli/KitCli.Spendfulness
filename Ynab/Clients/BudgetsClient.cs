@@ -3,7 +3,7 @@ using Ynab.Responses.Budgets;
 
 namespace Ynab.Clients;
 
-public class BudgetsClient(YnabHttpClientFactory ynabHttpClientFactory) : YnabApiClient
+public class BudgetsClient(YnabHttpClientBuilder ynabHttpClientBuilder) : YnabApiClient
 {
     private const string BudgetsApiPath = "budgets";
 
@@ -19,10 +19,10 @@ public class BudgetsClient(YnabHttpClientFactory ynabHttpClientFactory) : YnabAp
         {
             var parentApiPath = $"{BudgetsApiPath}/{budgetResponse.Id}";
             
-            var accounts = new AccountsClient(ynabHttpClientFactory, parentApiPath);
-            var categories = new CategoriesClient(ynabHttpClientFactory, parentApiPath);
-            var transactions = new TransactionsClient(ynabHttpClientFactory, parentApiPath);
-            var scheduledTransactions = new ScheduledTransactionsClient(ynabHttpClientFactory, parentApiPath);
+            var accounts = new AccountsClient(ynabHttpClientBuilder, parentApiPath);
+            var categories = new CategoriesClient(ynabHttpClientBuilder, parentApiPath);
+            var transactions = new TransactionsClient(ynabHttpClientBuilder, parentApiPath);
+            var scheduledTransactions = new ScheduledTransactionsClient(ynabHttpClientBuilder, parentApiPath);
 
             yield return new Budget(
                 accounts,
@@ -33,5 +33,5 @@ public class BudgetsClient(YnabHttpClientFactory ynabHttpClientFactory) : YnabAp
         }
     }
 
-    protected override HttpClient GetHttpClient() => ynabHttpClientFactory.Create();
+    protected override HttpClient GetHttpClient() => ynabHttpClientBuilder.Build();
 }

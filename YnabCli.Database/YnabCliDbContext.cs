@@ -30,7 +30,7 @@ public class YnabCliDbContext : DbContext
                 new()
                 {
                     Id = 1,
-                    Name = "YnabApiKey"
+                    Name = nameof(SettingTypeNames.YnabApiKey)
                 }
             });
     }
