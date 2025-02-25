@@ -127,6 +127,8 @@ public class InstructionTokenIndexerTests
     [TestCase("/command-example sub-command-example --argument-example hello world", "--argument-example hello world")]
     [TestCase("/command-example sub-command-example --argument-example hello world --argument-two", "--argument-example hello world --argument-two")]
     [TestCase("/command-example sub-command-example --argument-example hello world --argument-two 1", "--argument-example hello world --argument-two 1")]
+    [TestCase("/command-example sub-command-example --argument-example true --argument-two 1", "--argument-example true --argument-two 1")]
+    [TestCase("/command-example sub-command-example --argument-example --argument-two 1", "--argument-example --argument-two 1")]
     public void GivenInputString_WhenIndex_ReturnsCorrectIndexesForArgumentTokens(string input, string expectedMatch)
     {
         var result = _instructionTokenIndexer.Index(input);

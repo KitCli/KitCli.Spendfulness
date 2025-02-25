@@ -55,7 +55,9 @@ public class InstructionTokenExtractor
 
         var argumentTokens = argumentInput.Split(InstructionConstants.DefaultArgumentPrefix);
         
-        var validArgumentTokens = argumentTokens.Where(i => !string.IsNullOrWhiteSpace(i));
+        var validArgumentTokens = argumentTokens
+            .Where(i => !string.IsNullOrWhiteSpace(i))
+            .Select(i => i.Trim());
         
         var parsedArgumentTokens = validArgumentTokens.Select(ParseArgumentInput);
         

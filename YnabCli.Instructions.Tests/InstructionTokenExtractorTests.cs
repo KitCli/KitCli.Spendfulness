@@ -230,4 +230,39 @@ public class InstructionTokenExtractorTests
         Assert.That(resultingArgumentTwo.Key, Is.EqualTo(argumentTwoName));
         Assert.That(resultingArgumentTwo.Value, Is.EqualTo(argumentTwoValue));
     }
+    
+    [Test]
+    public void GivenInputString_WhenParse_ReturnsInstructionWithNulLArgumentValue()
+    {
+        var argumentOneName = "argumentOne";
+        var argumentTwoName = "argumentTwo";
+        var argumentTwoValue = "1";
+        
+        var input = $"/command --{argumentOneName} --{argumentTwoName} {argumentTwoValue}";
+        
+        var indexes = new InstructionTokenIndexes
+        {
+            PrefixTokenIndexed = true,
+            PrefixTokenStartIndex = 0,
+            PrefixTokenEndIndex = 1,
+            NameTokenIndexed = true,
+            NameTokenStartIndex = 1,
+            NameTokenEndIndex = 7,
+            ArgumentTokensIndexed = true,
+            ArgumentTokensStartIndex = 9,
+            ArgumentTokensEndIndex = input.Length,
+        };
+        
+        var result = _legacyInstructionTokenExtractor.Extract(indexes, input);
+        
+        var resultingArgumentOne = result.ArgumentTokens.FirstOrDefault();
+        
+        Assert.That(resultingArgumentOne.Key, Is.EqualTo(argumentOneName));
+        Assert.That(resultingArgumentOne.Value, Is.Null);
+        
+        var resultingArgumentTwo = result.ArgumentTokens.LastOrDefault();
+        
+        Assert.That(resultingArgumentTwo.Key, Is.EqualTo(argumentTwoName));
+        Assert.That(resultingArgumentTwo.Value, Is.EqualTo(argumentTwoValue));
+    }
 }
