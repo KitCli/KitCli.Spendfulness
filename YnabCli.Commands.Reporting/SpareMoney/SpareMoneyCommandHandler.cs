@@ -2,6 +2,8 @@ using ConsoleTables;
 using Ynab;
 using Ynab.Clients;
 using Ynab.Extensions;
+using Ynab.Responses.Accounts;
+using Ynab.Sanitisers;
 using YnabCli.ViewModels.Aggregator;
 using YnabCli.ViewModels.ViewModelBuilders;
 
@@ -29,6 +31,21 @@ public class SpareMoneyCommandHandler : CommandHandler, ICommandHandler<SpareMon
 
         var accounts = await budget.GetAccounts();
         var filteredAccounts = accounts.FilterByType(AccountType.Checking, AccountType.Savings);
+
+        if (command.Add.HasValue)
+        {
+            var milliunit = MilliunitSanitiser.Desanitise(command.Add.Value);
+            
+            var placeholderResponse = new AccountResponse
+            {
+                Type = AccountType.Checking,
+                ClearedBalance = milliunit
+            };
+            
+            var placeholderAccount = new Account(placeholderResponse);
+
+            filteredAccounts = filteredAccounts.Concat([placeholderAccount]);
+        }
 
         if (command.MinusSavings.HasValue && command.MinusSavings.Value)
         {

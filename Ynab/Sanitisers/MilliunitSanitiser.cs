@@ -10,4 +10,10 @@ public static class MilliunitSanitiser
     /// <param name="milliunits"></param>
     /// <returns></returns>
     public static decimal Calculate(int milliunits) => milliunits / ConversationRate;
+    
+    public static int Desanitise(decimal currency)
+    {
+        var conversion = currency * ConversationRate;
+        return (int)conversion;
+    }
 }

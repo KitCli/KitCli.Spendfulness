@@ -17,11 +17,13 @@ public class SpareMoneyCommandGenerator : ICommandGenerator, ITypedCommandGenera
 
     private static SpareMoneyCommand GenerateDefaultCommand(List<InstructionArgument> arguments)
     {
+        var addArgument = arguments.OfCurrencyType(SpareMoneyCommand.ArgumentNames.Add);
         var minusArgument = arguments.OfCurrencyType(SpareMoneyCommand.ArgumentNames.Minus);
         var minusSavingsArgument = arguments.OfType<bool>(SpareMoneyCommand.ArgumentNames.MinusSavings);
 
         return new SpareMoneyCommand
         {
+            Add = addArgument?.ArgumentValue,
             Minus = minusArgument?.ArgumentValue,
             MinusSavings = minusSavingsArgument?.ArgumentValue
         };
