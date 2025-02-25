@@ -11,7 +11,7 @@ public class AccountsClient(YnabHttpClientBuilder ynabHttpClientBuilder, string 
     public async Task<IEnumerable<Account>> GetAccounts()
     {
         var response = await Get<GetAccountsResponseData>(string.Empty);
-        return response.Data.Accounts.Select(a => new Account(this, a));
+        return response.Data.Accounts.Select(a => new ConnectedAccount(this, a));
     }
     
     protected override HttpClient GetHttpClient() => 
