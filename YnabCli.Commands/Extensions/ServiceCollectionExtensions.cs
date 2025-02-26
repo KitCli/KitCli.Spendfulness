@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using YnabCli.Commands.Builders;
 using YnabCli.Commands.Factories;
 using YnabCli.Commands.Generators;
+using YnabCli.Instructions;
 
 namespace YnabCli.Commands.Extensions;
 
@@ -27,17 +28,16 @@ public static class ServiceCollectionExtensions
             var genericInterfaceType = implementationType.GetRequiredFirstGenericInterface();
             
             var typeForReferencedCommand = genericInterfaceType.GenericTypeArguments.First();
-
-            var commandNameField = typeForReferencedCommand.GetRequiredField(nameof(CommandListCommand.CommandName));
-            var alternateCommandNamesField = typeForReferencedCommand.GetRequiredField(nameof(CommandListCommand.ShorthandCommandName));
             
-            var commandNameValue = commandNameField.GetValue(typeForReferencedCommand);
-            var shorthandCommandName = alternateCommandNamesField.GetValue(typeForReferencedCommand);
+            var name = typeForReferencedCommand.Name.Replace("Command", string.Empty);
 
+            var commandName = name.ToLowerSplitString(InstructionConstants.DefaultCommandNameSeparator);
+            var shorthandCommandName = name.ToLowerTitleCharacters();
+            
             serviceCollection
                 .AddKeyedSingleton(
                     typeof(ICommandGenerator),
-                    commandNameValue,
+                    commandName,
                     implementationType)
                 .AddKeyedSingleton(
                     typeof(ICommandGenerator),
