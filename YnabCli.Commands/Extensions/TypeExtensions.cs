@@ -1,6 +1,7 @@
 using System.Reflection;
+using YnabCli.Commands.Generators;
 
-namespace YnabCli.Commands;
+namespace YnabCli.Commands.Extensions;
 
 public static class TypeExtensions
 {

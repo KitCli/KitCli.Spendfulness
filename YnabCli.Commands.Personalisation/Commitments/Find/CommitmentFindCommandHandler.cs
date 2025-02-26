@@ -1,5 +1,6 @@
 using ConsoleTables;
 using Ynab.Clients;
+using YnabCli.Commands.Handlers;
 using YnabCli.Database;
 
 namespace YnabCli.Commands.Personalisation.Commitments.Find;

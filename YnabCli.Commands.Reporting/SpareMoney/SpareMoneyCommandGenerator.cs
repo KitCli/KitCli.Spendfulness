@@ -1,3 +1,4 @@
+using YnabCli.Commands.Generators;
 using YnabCli.Commands.Reporting.SpareMoney.Help;
 using YnabCli.Instructions.Arguments;
 

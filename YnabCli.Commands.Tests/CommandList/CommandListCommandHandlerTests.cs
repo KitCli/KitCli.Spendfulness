@@ -1,5 +1,5 @@
 using ConsoleTables;
-using YnabCli.Commands.CommandList;
+using YnabCli.Commands.Handlers;
 
 namespace YnabCli.Commands.Tests.CommandList;
 

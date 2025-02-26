@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace YnabCli.Commands;
+namespace YnabCli.Commands.Extensions;
 
 public static class AssemblyExtensions
 {

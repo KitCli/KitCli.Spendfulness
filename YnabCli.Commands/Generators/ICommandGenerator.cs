@@ -1,6 +1,6 @@
 using YnabCli.Instructions.Arguments;
 
-namespace YnabCli.Commands;
+namespace YnabCli.Commands.Generators;
 
 public interface ICommandGenerator
 {

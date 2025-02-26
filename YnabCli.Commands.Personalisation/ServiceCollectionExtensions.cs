@@ -1,5 +1,6 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using YnabCli.Commands.Extensions;
 using YnabCli.Commands.Personalisation.Databases;
 
 namespace YnabCli.Commands.Personalisation;

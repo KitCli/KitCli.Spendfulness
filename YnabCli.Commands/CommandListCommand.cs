@@ -1,4 +1,4 @@
-namespace YnabCli.Commands.CommandList;
+namespace YnabCli.Commands;
 
 public class CommandListCommand : ICommand
 {

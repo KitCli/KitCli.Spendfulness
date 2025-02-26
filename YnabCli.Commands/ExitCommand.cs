@@ -1,4 +1,4 @@
-namespace YnabCli.Commands.Exit;
+namespace YnabCli.Commands;
 
 public class ExitCommand : ICommand
 {

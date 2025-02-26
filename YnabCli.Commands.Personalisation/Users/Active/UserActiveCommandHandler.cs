@@ -1,5 +1,6 @@
 using ConsoleTables;
 using Microsoft.EntityFrameworkCore;
+using YnabCli.Commands.Handlers;
 using YnabCli.Database;
 
 namespace YnabCli.Commands.Personalisation.Users.Active;

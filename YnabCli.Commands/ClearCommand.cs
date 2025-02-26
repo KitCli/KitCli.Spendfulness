@@ -1,4 +1,4 @@
-namespace YnabCli.Commands.Clear;
+namespace YnabCli.Commands;
 
 public class ClearCommand
 {

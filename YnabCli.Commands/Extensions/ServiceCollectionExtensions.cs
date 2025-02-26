@@ -1,8 +1,10 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
-using YnabCli.Commands.CommandList;
+using YnabCli.Commands.Builders;
+using YnabCli.Commands.Factories;
+using YnabCli.Commands.Generators;
 
-namespace YnabCli.Commands;
+namespace YnabCli.Commands.Extensions;
 
 public static class ServiceCollectionExtensions
 {

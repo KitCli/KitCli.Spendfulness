@@ -1,7 +1,7 @@
 using ConsoleTables;
 using YnabCli.ViewModels.ViewModels;
 
-namespace YnabCli.Commands.CommandList;
+namespace YnabCli.Commands.Handlers;
 
 public class CommandListCommandHandler : CommandHandler, ICommandHandler<CommandListCommand>
 {

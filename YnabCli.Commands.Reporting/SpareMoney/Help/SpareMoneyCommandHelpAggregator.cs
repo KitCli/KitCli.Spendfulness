@@ -1,3 +1,6 @@
+using YnabCli.Commands.Aggregate;
+using YnabCli.Commands.Aggregator;
+
 namespace YnabCli.Commands.Reporting.SpareMoney.Help;
 
 public class SpareMoneyCommandHelpAggregator : CommandHelpAggregator

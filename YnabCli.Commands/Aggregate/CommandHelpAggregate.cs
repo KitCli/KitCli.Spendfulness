@@ -1,4 +1,4 @@
-namespace YnabCli.Commands;
+namespace YnabCli.Commands.Aggregate;
 
 public record CommandHelpAggregate(
     string Call,

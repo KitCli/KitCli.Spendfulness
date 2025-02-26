@@ -1,6 +1,6 @@
 using YnabCli.Instructions.Arguments;
 
-namespace YnabCli.Commands.CommandList;
+namespace YnabCli.Commands.Generators;
 
 public class CommandListCommandGenerator : ICommandGenerator, ITypedCommandGenerator<CommandListCommand>
 {

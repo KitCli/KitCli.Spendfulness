@@ -1,6 +1,7 @@
+using YnabCli.Commands.Aggregate;
 using YnabCli.ViewModels.Aggregator;
 
-namespace YnabCli.Commands;
+namespace YnabCli.Commands.Aggregator;
 
 public abstract class CommandHelpAggregator : Aggregator<List<CommandHelpAggregate>>
 {

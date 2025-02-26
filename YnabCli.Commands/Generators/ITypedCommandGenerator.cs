@@ -1,4 +1,4 @@
-namespace YnabCli.Commands;
+namespace YnabCli.Commands.Generators;
 
 public interface ITypedCommandGenerator<TCommand> where TCommand : ICommand
 {

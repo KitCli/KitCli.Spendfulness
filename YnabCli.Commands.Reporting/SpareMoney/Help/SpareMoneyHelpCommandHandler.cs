@@ -1,4 +1,6 @@
 using ConsoleTables;
+using YnabCli.Commands.Builders;
+using YnabCli.Commands.Handlers;
 
 namespace YnabCli.Commands.Reporting.SpareMoney.Help;
 

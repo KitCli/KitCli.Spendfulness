@@ -1,8 +1,9 @@
 using Ynab.Clients;
 using Ynab.Http;
+using YnabCli.Commands.Extensions;
 using YnabCli.Database;
 
-namespace YnabCli.Commands;
+namespace YnabCli.Commands.Factories;
 
 public class BudgetsClientFactory(UnitOfWork unitOfWork, YnabHttpClientBuilder httpClientBuilder)
 {

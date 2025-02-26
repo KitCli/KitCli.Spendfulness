@@ -1,4 +1,5 @@
 using ConsoleTables;
+using YnabCli.Commands.Handlers;
 
 namespace YnabCli.Commands.Personalisation.Settings;
 

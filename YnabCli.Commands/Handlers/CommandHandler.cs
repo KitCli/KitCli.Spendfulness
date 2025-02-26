@@ -1,9 +1,7 @@
 using ConsoleTables;
-using Ynab.Http;
-using YnabCli.Database;
 using YnabCli.ViewModels.ViewModels;
 
-namespace YnabCli.Commands;
+namespace YnabCli.Commands.Handlers;
 
 public abstract class CommandHandler
 {

@@ -1,3 +1,4 @@
+using YnabCli.Commands.Generators;
 using YnabCli.Commands.Personalisation.Users.Active;
 using YnabCli.Commands.Personalisation.Users.Create;
 using YnabCli.Commands.Personalisation.Users.Switch;

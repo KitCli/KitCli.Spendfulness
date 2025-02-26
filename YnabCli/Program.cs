@@ -2,6 +2,7 @@
 using Ynab.Extensions;
 using YnabCli;
 using YnabCli.Commands;
+using YnabCli.Commands.Extensions;
 using YnabCli.Commands.Personalisation;
 using YnabCli.Commands.Reporting;
 using YnabCli.Database;
