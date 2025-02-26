@@ -13,12 +13,14 @@ public static class TransactionByMemoOccurrenceByPayeeNameExtensions
             foreach (var transactionSubGroup in transactionGroup.TransactionsByMemoOccurrences)
             {
                 var averageAmount = transactionSubGroup.Transactions.Average(o => o.Amount);
+                var totalAmount = transactionSubGroup.Transactions.Sum(o => o.Amount);
                 
                 var occurrence = new TransactionMemoOccurrenceAggregate(
                     transactionGroup.PayeeName,
                     transactionSubGroup.Memo,
                     transactionSubGroup.MemoOccurence,
-                    averageAmount);
+                    averageAmount,
+                    totalAmount);
                 
                 yield return occurrence;
             }

@@ -4,4 +4,5 @@ public record TransactionMemoOccurrenceAggregate(
     string PayeeName,
     string? Memo,
     int MemoOccurrence,
-    decimal AverageAmount);
+    decimal AverageAmount,
+    decimal TotalAmount);

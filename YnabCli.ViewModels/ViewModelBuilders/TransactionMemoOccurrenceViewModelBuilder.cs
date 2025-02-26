@@ -32,15 +32,19 @@ public class TransactionMemoOccurrenceViewModelBuilder :
 
     private List<object> BuildMemoOccurrenceRow(TransactionMemoOccurrenceAggregate aggregate)
     {
-        var flowSanitisedAmount = TransactionFlowSanitiser.Sanitise(aggregate.AverageAmount);
-        var displayableAverageAmount = CurrencyDisplayFormatter.Format(flowSanitisedAmount);
+        var flowSanitisedAverageAmount = TransactionFlowSanitiser.Sanitise(aggregate.AverageAmount);
+        var displayableAverageAmount = CurrencyDisplayFormatter.Format(flowSanitisedAverageAmount);
+        
+        var flowSanitisedTotalAmount = TransactionFlowSanitiser.Sanitise(aggregate.TotalAmount);
+        var displayableTotalAmount = CurrencyDisplayFormatter.Format(flowSanitisedTotalAmount);
 
         return
         [
             aggregate.PayeeName,
             aggregate.Memo ?? string.Empty,
             aggregate.MemoOccurrence,
-            displayableAverageAmount
+            displayableAverageAmount,
+            displayableTotalAmount
         ];
     }
 }
