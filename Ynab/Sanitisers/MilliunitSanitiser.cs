@@ -10,6 +10,14 @@ public static class MilliunitSanitiser
     /// <param name="milliunits"></param>
     /// <returns></returns>
     public static decimal Calculate(int milliunits) => milliunits / ConversationRate;
+
+    public static decimal? Calculate(int? milliunits)
+    {
+        if (milliunits.HasValue)
+            return Calculate(milliunits.Value);
+
+        return null;
+    }
     
     public static int Desanitise(decimal currency)
     {
