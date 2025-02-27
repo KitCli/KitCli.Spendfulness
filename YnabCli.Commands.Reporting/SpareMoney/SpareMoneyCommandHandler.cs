@@ -13,23 +13,20 @@ namespace YnabCli.Commands.Reporting.SpareMoney;
 
 public class SpareMoneyCommandHandler : CommandHandler, ICommandHandler<SpareMoneyCommand>
 {
-    private readonly BudgetsClientFactory _budgetsClientFactory;
+    private readonly CommandBudgetGetter _budgetGetter;
     private readonly AmountViewModelBuilder _viewModelBuilder;
 
     public SpareMoneyCommandHandler(
-        BudgetsClientFactory budgetsClientFactory,
+        CommandBudgetGetter budgetGetter,
         AmountViewModelBuilder viewModelBuilder)
     {
-        _budgetsClientFactory = budgetsClientFactory;
+        _budgetGetter = budgetGetter;
         _viewModelBuilder = viewModelBuilder;
     }
 
     public async Task<ConsoleTable> Handle(SpareMoneyCommand command, CancellationToken cancellationToken)
     {
-        var budgetsClient = await _budgetsClientFactory.Create();
-        var budgets = await budgetsClient.GetBudgets();
-    
-        var budget = budgets.First();
+        var budget =  await _budgetGetter.Get();
 
         var accounts = await budget.GetAccounts();
         var filteredAccounts = accounts.FilterByType(AccountType.Checking, AccountType.Savings);

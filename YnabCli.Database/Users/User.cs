@@ -1,3 +1,4 @@
+using YnabCli.Database.Commitments;
 using YnabCli.Database.Settings;
 
 namespace YnabCli.Database.Users;
@@ -8,4 +9,9 @@ public class User
     public required string Name { get; set; }
     public bool Active { get; set; }
     public ICollection<Setting> Settings { get; set; }
+    public ICollection<Commitment> Commitments { get; set; }
+
+    public string? YnabApiToken => Settings.AsString(SettingTypeNames.YnabApiKey);
+    
+    public Guid? DefaultBudgetId => Settings.AsGuid(SettingTypeNames.DefaultBudgetId);
 }

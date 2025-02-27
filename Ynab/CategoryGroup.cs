@@ -25,10 +25,9 @@ public class CategoryGroup
     /// <summary>
     /// Money in these categories available to spend.
     /// </summary>
-    public decimal Available => _categoryGroupResponse.Categories.Sum(category =>
-        MilliunitSanitiser.Calculate(category.Available));
+    public decimal Available
+        => _categoryGroupResponse.Categories.Sum(category => MilliunitSanitiser.Calculate(category.Available));
     
-    public IEnumerable<Guid> GetCategoryIds() => Categories
-        .Where(category => category.Id.HasValue)
-        .Select(category => category.Id.Value);
+    public IEnumerable<Guid> GetCategoryIds()
+        => Categories.Select(category => category.Id);
 }

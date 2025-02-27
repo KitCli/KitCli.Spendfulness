@@ -12,7 +12,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddCommands(this IServiceCollection serviceCollection)
     {
         return serviceCollection
-            .AddSingleton<BudgetsClientFactory>()
+            .AddSingleton<CommandBudgetGetter>()
             .AddSingleton<CommandHelpViewModelBuilder>();
     }
 

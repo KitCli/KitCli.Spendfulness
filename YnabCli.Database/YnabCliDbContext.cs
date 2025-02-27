@@ -12,12 +12,14 @@ public class YnabCliDbContext : DbContext
     public DbSet<Setting> Settings { get; set; }
     public DbSet<SettingType> SettingTypes { get; set; }
     public DbSet<Commitment> Commitments { get; set; }
-    public DbSet<CommitmentType> CommitmentTypes { get; set; }
     public DbSet<Milestone> Milestones { get; set; }
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite("Data Source=YnabCli.db");
+        var profileDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        var cliDbPath = $"{profileDirectoryPath}//YnabCli.db";
+        
+        optionsBuilder.UseSqlite($"Data Source={cliDbPath}");
         // optionsBuilder.LogTo(Console.WriteLine);
     }
 

@@ -10,7 +10,8 @@ public class Budget(
     ScheduledTransactionsClient scheduledTransactionsClient,
     BudgetResponse budget)
 {
-    private readonly BudgetResponse _budget = budget;
+    public Guid Id => budget.Id;
+
     public Task<IEnumerable<Account>> GetAccounts()
         => accountsClient.GetAccounts();
 

@@ -11,22 +11,20 @@ namespace YnabCli.Commands.Reporting.FlagChanges;
 
 public class FlagChangesCommandHandler : CommandHandler, ICommandHandler<FlagChangesCommand>
 {
-    private readonly BudgetsClientFactory _budgetsClientFactory;
+    private readonly CommandBudgetGetter _budgetGetter;
     private readonly TransactionMonthFlaggedViewModelBuilder _viewModelBuilder;
 
     public FlagChangesCommandHandler(
-        BudgetsClientFactory budgetsClientFactory,
+        CommandBudgetGetter budgetGetter,
         TransactionMonthFlaggedViewModelBuilder viewModelBuilder)
     {
-        _budgetsClientFactory = budgetsClientFactory;
+        _budgetGetter = budgetGetter;
         _viewModelBuilder = viewModelBuilder;
     }
 
     public async Task<ConsoleTable> Handle(FlagChangesCommand command, CancellationToken cancellationToken)
     {
-        var budgetsClient = await _budgetsClientFactory.Create();
-        var budgets = await budgetsClient.GetBudgets();
-        var budget = budgets.First();
+        var budget = await _budgetGetter.Get();
         
         var categoryGroups = await budget.GetCategoryGroups();
         var transactions = await budget.GetTransactions();

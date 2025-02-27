@@ -14,14 +14,14 @@ namespace YnabCli.Commands.Reporting.RecurringTransactions;
 
 public class RecurringTransactionsCommandHandler : CommandHandler, ICommandHandler<RecurringTransactionsCommand>
 {
-    private readonly BudgetsClientFactory _budgetsClientFactory;
+    private readonly CommandBudgetGetter _budgetGetter;
     private readonly TransactionMemoOccurrenceViewModelBuilder _viewModelBuilder;
 
     public RecurringTransactionsCommandHandler(
-        BudgetsClientFactory budgetsClientFactory,
+        CommandBudgetGetter budgetGetter,
         TransactionMemoOccurrenceViewModelBuilder viewModelBuilder)
     {
-        _budgetsClientFactory = budgetsClientFactory;
+        _budgetGetter = budgetGetter;
         _viewModelBuilder = viewModelBuilder;
     }
 
@@ -30,9 +30,7 @@ public class RecurringTransactionsCommandHandler : CommandHandler, ICommandHandl
 
     public async Task<ConsoleTable> Handle(RecurringTransactionsCommand command, CancellationToken cancellationToken)
     {
-        var _budgetsClient = await _budgetsClientFactory.Create();
-        var budgets = await _budgetsClient.GetBudgets();
-        var budget =  budgets.First();
+        var budget =  await _budgetGetter.Get();
         
         var transactions = await GetTransactions(budget, command);
 
