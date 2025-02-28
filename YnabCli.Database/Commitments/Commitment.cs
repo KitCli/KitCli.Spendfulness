@@ -12,4 +12,6 @@ public class Commitment
     public decimal Needed { get; set; }
     public required User User { get; set; }
     public required Guid YnabCategoryId { get; set; }
+    
+    public decimal Target => Funded + Needed;
 }

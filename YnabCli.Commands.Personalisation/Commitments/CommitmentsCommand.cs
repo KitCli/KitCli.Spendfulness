@@ -1,6 +1,6 @@
 namespace YnabCli.Commands.Personalisation.Commitments;
 
-public class CommitmentCommand : ICommand
+public class CommitmentsCommand : ICommand
 {
     public static class SubCommandNames
     {

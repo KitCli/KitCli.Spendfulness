@@ -9,6 +9,12 @@ public static class IdentifierSanitiser
         var monthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(date.Month);
         return $"{monthName} {date.Year}";
     }
+
+    public static string SanitiseForMonth(DateOnly dateOnly)
+    {
+        var monthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(dateOnly.Month);
+        return $"{monthName} {dateOnly.Year}";
+    }
     
     public static string SanitiseForYear(DateTime date) => date.Year.ToString();
     

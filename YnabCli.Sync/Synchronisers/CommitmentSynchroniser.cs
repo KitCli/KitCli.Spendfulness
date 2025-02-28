@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Hosting;
 using Ynab;
 using Ynab.Extensions;
+using YnabCli.Abstractions;
 using YnabCli.Database;
 using YnabCli.Database.Commitments;
 using YnabCli.Database.Users;
@@ -17,50 +18,62 @@ public class CommitmentSynchroniser(BudgetGetter budgetGetter, UnitOfWork unitOf
         
         var categoryGroups = await budget.GetCategoryGroups();
         var farmCategoryGroups = categoryGroups
-            .FilterToFarmCategories();
+            .FilterToFarmCategories()
+            .ToList();
 
-        foreach (var farmCategoryGroup in farmCategoryGroups)
+        if (!farmCategoryGroups.Any())
         {
-            SyncCommitment(user, farmCategoryGroup.Categories);
+            throw new YnabCliException("No Farm Category Groups");
+        }
+        
+        var categories = farmCategoryGroups
+            .SelectMany(cg => cg.Categories)
+            .ToList();
+
+        var clone = new List<Commitment>(user.Commitments.ToList());
+
+        foreach (var commitment in clone)
+        {
+            var category = categories.FirstOrDefault(cg => cg.Name.Equals(commitment.Name));
+            
+            PerformSync(user, commitment, category);
         }
         
         PrintToConsole($"Finalising Sync...");
         await unitOfWork.Save();
     }
 
-    private void SyncCommitment(User user, IEnumerable<Category> categories)
+    private void PerformSync(User user, Commitment? commitment, Category? category)
     {
-        foreach (var category in categories)
+        if (commitment is null && category is { HasGoal: false })
         {
-            var commitment = user.Commitments
-                .FirstOrDefault(commitment => commitment.YnabCategoryId == category.Id);
-            
-            if (commitment is not null && !category.HasGoal)
-            {
-                PrintToConsole($"Removing Commitment for: {category.Name}");
-                user.Commitments.Remove(commitment);
-            }
-            
-            if (commitment is not null && category.HasGoal)
-            {
-                PrintToConsole($"Updating Commitment for: {category.Name}");
-                UpdateCommitment(commitment, category);
+            PrintToConsole($"Skipping for: {category.Name}"); 
 
-                continue;
-            }
-            
-            if (!category.HasGoal)
-            {
-                PrintToConsole($"Skipping for: {category.Name}");
-                continue;
-            }
-                
+            return;
+        }
+        
+        if (commitment is null && category is { HasGoal: true})
+        {
             PrintToConsole($"Adding a New Commitment for: {category.Name}");
             AddCommitmentToUser(user, category);
         }
+
+        if (commitment is not null && category is { HasGoal: true })
+        {
+            PrintToConsole($"Updating Commitment for: {category.Name}");
+            UpdateCommitment(commitment, category);
+
+            return;
+        }
+        
+        if (commitment is not null && category is null)
+        {
+            PrintToConsole($"Removing Commitment for: {commitment.Name}");
+            user.Commitments.Remove(commitment);
+        }
     }
     
-    private void AddCommitmentToUser(User user, Category category)
+    private static void AddCommitmentToUser(User user, Category category)
     {
         var commitment = new Commitment
         {
@@ -77,7 +90,7 @@ public class CommitmentSynchroniser(BudgetGetter budgetGetter, UnitOfWork unitOf
     }
 
 
-    private void UpdateCommitment(Commitment commitment, Category category)
+    private static void UpdateCommitment(Commitment commitment, Category category)
     {
         commitment.Name = category.Name;
         commitment.Funded = category.GoalOverallFunded.Value;

@@ -15,9 +15,15 @@ public static class PercentageCalculator
         
 
         // (20 / 60) * 100 = 33.33
-        var percentage = difference / originalValue * 100;
+        var percentage = DoPercentageCalculation(difference, originalValue);
         
         // (int)33.33 = 33
         return (int)percentage;
     }
+    
+    public static int Calculate(decimal current, decimal maximum)
+        => (int)DoPercentageCalculation(current, maximum);
+
+    private static decimal DoPercentageCalculation(decimal current, decimal maximum)
+        => current / maximum * 100;
 }

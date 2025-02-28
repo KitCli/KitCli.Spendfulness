@@ -1,4 +1,5 @@
 using Ynab;
+using YnabCli.Database.Commitments;
 
 namespace YnabCli.ViewModels.Aggregator;
 
@@ -7,12 +8,14 @@ public abstract class Aggregator<TAggregation>
     protected IEnumerable<Account> Accounts { get; } 
     protected IEnumerable<CategoryGroup> CategoryGroups { get; }
     protected IEnumerable<Transaction> Transactions { get; }
+    protected ICollection<Commitment> Commitments { get; }
 
     protected Aggregator()
     {
         Accounts = new List<Account>();
         CategoryGroups = new List<CategoryGroup>();
         Transactions = new List<Transaction>();
+        Commitments = new List<Commitment>();
     }
 
     protected Aggregator(IEnumerable<Account> accounts, IEnumerable<CategoryGroup> categoryGroups)
@@ -20,6 +23,7 @@ public abstract class Aggregator<TAggregation>
         Accounts = accounts;
         CategoryGroups = categoryGroups;
         Transactions = new List<Transaction>();
+        Commitments = new List<Commitment>();
     }
 
     protected Aggregator(IEnumerable<CategoryGroup> categoryGroups, IEnumerable<Transaction> transactions)
@@ -27,6 +31,7 @@ public abstract class Aggregator<TAggregation>
         Accounts = new List<Account>();
         CategoryGroups = categoryGroups;
         Transactions = transactions;
+        Commitments = new List<Commitment>();
     }
 
     protected Aggregator(IEnumerable<Transaction> transactions)
@@ -34,6 +39,15 @@ public abstract class Aggregator<TAggregation>
         Accounts = new List<Account>();
         CategoryGroups = new List<CategoryGroup>();
         Transactions = transactions;
+        Commitments = new List<Commitment>();
+    }
+
+    protected Aggregator(ICollection<Commitment> commitments)
+    {
+        Accounts = new List<Account>();
+        CategoryGroups = new List<CategoryGroup>();
+        Transactions = new List<Transaction>();
+        Commitments = commitments;
     }
 
     public abstract TAggregation Aggregate();

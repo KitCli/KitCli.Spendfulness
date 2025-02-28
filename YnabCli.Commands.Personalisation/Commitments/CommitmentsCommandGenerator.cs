@@ -4,14 +4,14 @@ using YnabCli.Instructions.Arguments;
 
 namespace YnabCli.Commands.Personalisation.Commitments;
 
-public class CommitmentCommandGenerator : ICommandGenerator, ITypedCommandGenerator<CommitmentCommand>
+public class CommitmentsCommandGenerator : ICommandGenerator, ITypedCommandGenerator<CommitmentsCommand>
 {
     public ICommand Generate(string? subCommandName, List<InstructionArgument> arguments)
     {
         return subCommandName switch
         {
-            CommitmentCommand.SubCommandNames.Find => new CommitmentFindCommand(),
-            _ => new CommitmentCommand(),
+            CommitmentsCommand.SubCommandNames.Find => new CommitmentFindCommand(),
+            _ => new CommitmentsCommand(),
         };
     }
 }

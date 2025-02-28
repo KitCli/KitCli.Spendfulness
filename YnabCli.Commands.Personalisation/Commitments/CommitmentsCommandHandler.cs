@@ -1,0 +1,23 @@
+using ConsoleTables;
+using YnabCli.Commands.Handlers;
+using YnabCli.Database;
+using YnabCli.ViewModels.Aggregator;
+using YnabCli.ViewModels.ViewModelBuilders;
+
+namespace YnabCli.Commands.Personalisation.Commitments;
+
+public class CommitmentsCommandHandler(UnitOfWork unitOfWork) : CommandHandler, ICommandHandler<CommitmentsCommand>
+{
+    public async Task<ConsoleTable> Handle(CommitmentsCommand request, CancellationToken cancellationToken)
+    {
+        var user = await unitOfWork.GetActiveUser();
+
+        var aggregator = new CommitmentsAggregator(user.Commitments);
+        
+        var viewModel = new CommitmentsViewModelBuilder()
+            .AddAggregator(aggregator)
+            .Build();
+
+        return Compile(viewModel);
+    }
+}
