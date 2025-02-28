@@ -13,6 +13,9 @@ public class CategoryGroup(CategoryGroupResponse categoryGroupResponse)
     public decimal Available
         => categoryGroupResponse.Categories.Sum(category => MilliunitSanitiser.Calculate(category.Available));
     
+    public IEnumerable<Category> Categories
+        => categoryGroupResponse.Categories.Select(category => new Category(category));
+    
     public IEnumerable<Guid> GetCategoryIds()
         => categoryGroupResponse.Categories.Select(category => category.Id);
 }
