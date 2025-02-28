@@ -24,7 +24,7 @@ public class AccountsCommandGenerator : ICommandGenerator, ITypedCommandGenerato
         return new AccountsIdentifyCommand
         {
             YnabAccountName = nameArgument.ArgumentValue,
-            AccountAccountTypeName = typeArgument.ArgumentValue,
+            CustomAccountTypeName = typeArgument.ArgumentValue,
         };
     }
 }

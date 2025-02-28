@@ -1,5 +1,6 @@
 using ConsoleTables;
 using Ynab.Extensions;
+using YnabCli.Commands.Exceptions;
 using YnabCli.Commands.Factories;
 using YnabCli.Commands.Handlers;
 using YnabCli.Database;
@@ -29,13 +30,17 @@ public class AccountsIdentifyCommandHandler : CommandHandler, ICommandHandler<Ac
         var account = accounts.Find(command.YnabAccountName);
         if (account == null)
         {
-            throw new Exception("Account not found");
+            throw new CommandException(
+                CommandExceptionCode.DataWhenHandingNotFound,
+                "Account not found");
         }
         
-        var type = accountTypes.Find(command.AccountAccountTypeName);
+        var type = accountTypes.Find(command.CustomAccountTypeName);
         if (type == null)
         {
-            throw new Exception("Invalid type passed");
+            throw new CommandException(
+                CommandExceptionCode.DataWhenHandingNotFound,
+                "Name of a custom account type not found");
         }
 
         var accountAccountType = user.CustomAccountTypes.Find(account.Id);

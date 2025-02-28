@@ -1,3 +1,5 @@
+using YnabCli.Instructions.Exceptions;
+
 namespace YnabCli.Instructions.Arguments;
 
 public static class InstructionArgumentExtensions
@@ -16,7 +18,8 @@ public static class InstructionArgumentExtensions
 
         if (argument is null)
         {
-            throw new ArgumentException($"Argument '{argumentName}' is required.");
+            throw new InstructionException(InstructionExceptionCode.ArgumentIsRequired,
+                $"Argument '{argumentName}' is required for this command.");
         }
         
         return argument;

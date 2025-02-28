@@ -40,6 +40,7 @@ public abstract class ViewModelBuilder<TAggregator, TAggregation> : IViewModelBu
     {
         if (_aggregator is null)
         {
+            // This is genuinely an exceptional circumstance.
             throw new InvalidOperationException("You must provide at least one aggregator");
         }
         

@@ -34,7 +34,8 @@ public class TransactionMonthFlaggedAggregator(IEnumerable<CategoryGroup> catego
         var firstGroup = transactionGroups.First();
         if (firstGroup is null)
         {
-            throw new Exception("Could not do this");
+            // This is genuinely exceptional circumstances.
+            throw new InvalidOperationException("No first group found");
         }
 
         var amountAggregates = EvaluateFirstSubGroups(firstGroup.TransactionsByFlags);

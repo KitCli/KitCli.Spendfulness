@@ -13,7 +13,7 @@ public class User
     public ICollection<Commitment> Commitments { get; set; }
     public ICollection<AccountCustomAccountType> CustomAccountTypes { get; set; } = new List<AccountCustomAccountType>();
 
-    public string? YnabApiToken => Settings.AsString(SettingTypeNames.YnabApiKey);
+    public string? YnabApiKey => Settings.AsString(SettingTypeNames.YnabApiKey);
     
     public Guid? DefaultBudgetId => Settings.AsGuid(SettingTypeNames.DefaultBudgetId);
 }

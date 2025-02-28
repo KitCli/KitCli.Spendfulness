@@ -1,8 +1,8 @@
-using Ynab;
 using Ynab.Clients;
 using Ynab.Connected;
 using Ynab.Http;
 using YnabCli.Database;
+using YnabCli.Database.Users;
 
 namespace YnabCli.Sync;
 
@@ -13,15 +13,15 @@ public class BudgetGetter(UnitOfWork unitOfWork, YnabHttpClientBuilder httpClien
         var activeUser = await unitOfWork.GetActiveUser();
         if (activeUser == null)
         {
-            throw new Exception("No active user");
+            throw new YnabCliDbException(YnabCliDbExceptionCode.DataNotFound, "No active user found");
         }
         
-        if (activeUser.YnabApiToken is null)
+        if (activeUser.YnabApiKey is null)
         {
-            throw new Exception("No ynab api token");
+            throw new YnabCliDbException(YnabCliDbExceptionCode.DataNotFound, $"No {nameof(User.YnabApiKey)} setting");
         }
         
-        var builder = httpClientBuilder.WithBearerToken(activeUser.YnabApiToken);
+        var builder = httpClientBuilder.WithBearerToken(activeUser.YnabApiKey);
         var budgetClient = new BudgetsClient(builder);
         
         var budgets = await budgetClient.GetBudgets();

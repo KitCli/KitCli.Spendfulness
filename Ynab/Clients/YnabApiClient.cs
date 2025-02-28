@@ -2,7 +2,9 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Ynab.Converters;
+using Ynab.Exceptions;
 using Ynab.Http;
+using NotImplementedException = System.NotImplementedException;
 
 namespace Ynab.Clients;
 
@@ -19,7 +21,8 @@ public class YnabApiClient
     
     protected virtual HttpClient GetHttpClient()
     {
-        throw new Exception("No override");
+        // This is genuine exceptional circumstances.
+        throw new NotImplementedException();
     }
 
     protected async Task<YnabHttpResponseContent<TApiResponse>> Get<TApiResponse>(string url) where TApiResponse : class
@@ -33,7 +36,7 @@ public class YnabApiClient
         var responseContent = await response.Content.ReadFromJsonAsync<YnabHttpResponseContent<TApiResponse>>(_jsonOptions);
         if (responseContent is null)
         {
-            throw new NullReferenceException("Response is null");
+            throw new YnabExceptin(YnabExceptionCode.ApiResponseIsEmpty, $"No response on {url}");
         }
         
         return responseContent;

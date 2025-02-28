@@ -1,6 +1,5 @@
 using Ynab;
 using Ynab.Collections;
-using Ynab.Connected;
 using Ynab.Extensions;
 using YnabCli.ViewModels.Aggregates;
 using YnabCli.ViewModels.Calculators;
@@ -30,7 +29,8 @@ public class TransactionYearAverageAggregator(IEnumerable<Transaction> transacti
         var firstGroup = transactionGroups.FirstOrDefault();
         if (firstGroup == null)
         {
-            throw new Exception("Could not do this");
+            // This is genuinely exceptional circumstances.
+            throw new InvalidOperationException("No first group found");
         }
         
         var averageAmount = firstGroup.Transactions.Average(x => x.Amount);

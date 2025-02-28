@@ -9,5 +9,5 @@ public class AccountsIdentifyCommand : ICommand
     }
     
     public string YnabAccountName { get; set; }
-    public string AccountAccountTypeName { get; set; }
+    public string CustomAccountTypeName { get; set; }
 }
