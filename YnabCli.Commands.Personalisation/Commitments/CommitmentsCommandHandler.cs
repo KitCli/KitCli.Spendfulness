@@ -15,7 +15,7 @@ public class CommitmentsCommandHandler(UnitOfWork unitOfWork) : CommandHandler, 
         var aggregator = new CommitmentsAggregator(user.Commitments);
         
         var viewModel = new CommitmentsViewModelBuilder()
-            .AddAggregator(aggregator)
+            .WithAggregator(aggregator)
             .Build();
 
         return Compile(viewModel);

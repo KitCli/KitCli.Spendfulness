@@ -18,5 +18,4 @@ public static class ServiceCollectionExtensions
             .AddSingleton<InstructionTokenIndexer>()
             .AddSingleton<InstructionTokenExtractor>()
             .AddSingleton<InstructionParser>();
-
 }

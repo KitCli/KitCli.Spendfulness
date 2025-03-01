@@ -45,8 +45,8 @@ public class FlagChangesCommandHandler : CommandHandler, ICommandHandler<FlagCha
         var aggregator = new TransactionMonthFlaggedAggregator(categoryGroups, castedTransactions);
         
         var viewModel = _viewModelBuilder
-            .AddAggregator(aggregator)
-            .AddColumnNames(TransactionMonthFlaggedViewModel.GetColumnNames())
+            .WithAggregator(aggregator)
+            .WithColumnNames(TransactionMonthFlaggedViewModel.GetColumnNames())
             .Build();
         
         return Compile(viewModel);

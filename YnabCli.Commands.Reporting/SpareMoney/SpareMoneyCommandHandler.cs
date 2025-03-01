@@ -58,13 +58,13 @@ public class SpareMoneyCommandHandler : CommandHandler, ICommandHandler<SpareMon
         var aggregator = new CategoryDeductedBalanceAggregator(filteredAccounts, criticalCategoryGroups);
 
         _viewModelBuilder
-            .AddAggregator(aggregator)
-            .AddColumnNames(["Spare Money"])
-            .AddRowCount(false);
+            .WithAggregator(aggregator)
+            .WithColumnNames(["Spare Money"])
+            .WithRowCount(false);
 
         if (command.Minus.HasValue)
         {
-            _viewModelBuilder.AddMinus(command.Minus.Value);
+            _viewModelBuilder.WithSubtraction(command.Minus.Value);
         }
 
         var viewModel = _viewModelBuilder.Build();

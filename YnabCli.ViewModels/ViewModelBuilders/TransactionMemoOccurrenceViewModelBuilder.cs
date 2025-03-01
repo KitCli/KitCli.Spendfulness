@@ -11,7 +11,7 @@ public class TransactionMemoOccurrenceViewModelBuilder :
 {
     private int? _minimumOccurrences;
     
-    public TransactionMemoOccurrenceViewModelBuilder AddMinimumOccurrencesFilter(int? minimumOccurrences)
+    public TransactionMemoOccurrenceViewModelBuilder WithMinimumOccurrencesFilter(int? minimumOccurrences)
     {
         _minimumOccurrences = minimumOccurrences;
         return this;

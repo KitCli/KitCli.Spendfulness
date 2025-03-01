@@ -12,8 +12,8 @@ public class SpareMoneyHelpCommandHandler(CommandHelpViewModelBuilder commandHel
         var aggregator = new SpareMoneyCommandHelpAggregator();
         
         var viewModel = commandHelpViewModelBuilder
-            .AddAggregator(aggregator)
-            .AddRowCount(false)
+            .WithAggregator(aggregator)
+            .WithRowCount(false)
             .Build();
         
         var compilation = Compile(viewModel);

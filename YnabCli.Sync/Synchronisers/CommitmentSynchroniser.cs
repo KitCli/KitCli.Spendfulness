@@ -34,7 +34,7 @@ public class CommitmentSynchroniser(BudgetGetter budgetGetter, UnitOfWork unitOf
 
         foreach (var commitment in clone)
         {
-            var category = categories.FirstOrDefault(cg => cg.Name.Equals(commitment.Name));
+            var category = categories.FirstOrDefault(cg => cg.Name == commitment.Name);
             
             PerformSync(user, commitment, category);
         }

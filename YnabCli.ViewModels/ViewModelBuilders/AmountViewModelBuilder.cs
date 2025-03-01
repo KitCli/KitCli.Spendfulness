@@ -7,7 +7,7 @@ public class AmountViewModelBuilder : ViewModelBuilder<CategoryDeductedBalanceAg
 {
     private decimal? _minus;
 
-    public AmountViewModelBuilder AddMinus(decimal minus)
+    public AmountViewModelBuilder WithSubtraction(decimal minus)
     {
         _minus = minus;
         return this;

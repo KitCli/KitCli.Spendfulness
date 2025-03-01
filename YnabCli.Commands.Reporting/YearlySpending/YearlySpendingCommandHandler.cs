@@ -26,7 +26,7 @@ public class YearlySpendingCommandHandler : CommandHandler, ICommandHandler<Year
         var aggregator = new CategoryYearAverageAggregator(transactions);
 
         var viewModel = _viewModelBuilder
-            .AddAggregator(aggregator)
+            .WithAggregator(aggregator)
             .Build();
 
         return Compile(viewModel);

@@ -12,25 +12,25 @@ public abstract class ViewModelBuilder<TAggregator, TAggregation> : IViewModelBu
     private TAggregator? _aggregator;
     private bool _showRowCount = true;
 
-    public IViewModelBuilder<TAggregator, TAggregation> AddAggregator(TAggregator aggregator)
+    public IViewModelBuilder<TAggregator, TAggregation> WithAggregator(TAggregator aggregator)
     {
         _aggregator = aggregator;
         return GetCurrentBuilder();
     }
 
-    public IViewModelBuilder<TAggregator, TAggregation> AddColumnNames(List<string> columnNames)
+    public IViewModelBuilder<TAggregator, TAggregation> WithColumnNames(List<string> columnNames)
     {
         ColumnNames = columnNames;
         return GetCurrentBuilder();
     }
 
-    public IViewModelBuilder<TAggregator, TAggregation> AddSortOrder(ViewModelSortOrder viewModelSortOrder)
+    public IViewModelBuilder<TAggregator, TAggregation> WithSortOrder(ViewModelSortOrder viewModelSortOrder)
     {
         ViewModelSortOrder = viewModelSortOrder;
         return GetCurrentBuilder();
     }
 
-    public IViewModelBuilder<TAggregator, TAggregation> AddRowCount(bool showRowCount)
+    public IViewModelBuilder<TAggregator, TAggregation> WithRowCount(bool showRowCount)
     {
         _showRowCount = showRowCount;
         return GetCurrentBuilder();
