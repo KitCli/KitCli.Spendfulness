@@ -29,7 +29,6 @@ public class YearlyPayCommandHandler : CommandHandler, ICommandHandler<YearlyPay
 
         var viewModel = _averageViewModelBuilder
             .WithAggregator(aggregator)
-            .WithColumnNames(TransactionYearAverageViewModel.GetColumnNames())
             .WithRowCount(false)
             .Build();
 

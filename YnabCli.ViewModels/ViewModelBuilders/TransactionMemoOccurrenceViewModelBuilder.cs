@@ -3,6 +3,7 @@ using YnabCli.ViewModels.Aggregates;
 using YnabCli.ViewModels.Aggregator;
 using YnabCli.ViewModels.Extensions;
 using YnabCli.ViewModels.Formatters;
+using YnabCli.ViewModels.ViewModels;
 
 namespace YnabCli.ViewModels.ViewModelBuilders;
 
@@ -16,6 +17,9 @@ public class TransactionMemoOccurrenceViewModelBuilder :
         _minimumOccurrences = minimumOccurrences;
         return this;
     }
+
+    protected override List<string> BuildColumnNames(IEnumerable<TransactionMemoOccurrenceAggregate> evaluation)
+        => TransactionMemoOccurrenceViewModel.GetColumnNames();
 
     protected override List<List<object>> BuildRows(IEnumerable<TransactionMemoOccurrenceAggregate> aggregates)
     {

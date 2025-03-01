@@ -46,7 +46,6 @@ public class FlagChangesCommandHandler : CommandHandler, ICommandHandler<FlagCha
         
         var viewModel = _viewModelBuilder
             .WithAggregator(aggregator)
-            .WithColumnNames(TransactionMonthFlaggedViewModel.GetColumnNames())
             .Build();
         
         return Compile(viewModel);

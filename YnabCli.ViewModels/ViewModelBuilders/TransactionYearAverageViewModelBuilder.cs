@@ -1,12 +1,16 @@
 using YnabCli.ViewModels.Aggregates;
 using YnabCli.ViewModels.Aggregator;
 using YnabCli.ViewModels.Formatters;
+using YnabCli.ViewModels.ViewModels;
 
 namespace YnabCli.ViewModels.ViewModelBuilders;
 
 public class TransactionYearAverageViewModelBuilder :
     ViewModelBuilder<TransactionYearAverageAggregator, IEnumerable<TransactionYearAverageAggregate>>
 {
+    protected override List<string> BuildColumnNames(IEnumerable<TransactionYearAverageAggregate> evaluation)
+        => TransactionMemoOccurrenceViewModel.GetColumnNames();
+
     protected override List<List<object>> BuildRows(IEnumerable<TransactionYearAverageAggregate> aggregates)
     {
         var rows = BuildMultipleRows(aggregates);

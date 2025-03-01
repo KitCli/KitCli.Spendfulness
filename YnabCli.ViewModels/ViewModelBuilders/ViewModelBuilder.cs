@@ -7,7 +7,6 @@ public abstract class ViewModelBuilder<TAggregator, TAggregation> : IViewModelBu
     where TAggregator : Aggregator<TAggregation>
     where TAggregation : notnull
 {
-    protected List<string> ColumnNames = [];
     protected ViewModelSortOrder ViewModelSortOrder = ViewModelSortOrder.Ascending;
     private TAggregator? _aggregator;
     private bool _showRowCount = true;
@@ -15,12 +14,6 @@ public abstract class ViewModelBuilder<TAggregator, TAggregation> : IViewModelBu
     public IViewModelBuilder<TAggregator, TAggregation> WithAggregator(TAggregator aggregator)
     {
         _aggregator = aggregator;
-        return GetCurrentBuilder();
-    }
-
-    public IViewModelBuilder<TAggregator, TAggregation> WithColumnNames(List<string> columnNames)
-    {
-        ColumnNames = columnNames;
         return GetCurrentBuilder();
     }
 
@@ -52,7 +45,7 @@ public abstract class ViewModelBuilder<TAggregator, TAggregation> : IViewModelBu
         return BuildViewModel(columns, rows);
     }
     
-    protected virtual List<string> BuildColumnNames(TAggregation evaluation) => ColumnNames;
+    protected virtual List<string> BuildColumnNames(TAggregation evaluation) => [];
     
     protected abstract List<List<object>> BuildRows(TAggregation aggregates);
 

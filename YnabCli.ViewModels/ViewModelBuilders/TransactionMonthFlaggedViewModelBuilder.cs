@@ -1,6 +1,7 @@
 using YnabCli.ViewModels.Aggregates;
 using YnabCli.ViewModels.Aggregator;
 using YnabCli.ViewModels.Formatters;
+using YnabCli.ViewModels.ViewModels;
 
 namespace YnabCli.ViewModels.ViewModelBuilders;
 
@@ -17,7 +18,10 @@ public class TransactionMonthFlaggedViewModelBuilder
             .Distinct()
             .ToList();
         
-        return ColumnNames.Concat(_flagNames).ToList();
+        return TransactionMonthFlaggedViewModel
+            .GetColumnNames()
+            .Concat(_flagNames)
+            .ToList();
     }
 
     protected override List<List<object>> BuildRows(IEnumerable<TransactionMonthFlaggedAggregate> aggregates)

@@ -15,33 +15,35 @@ public class CategoryYearAverageViewModelBuilder :
         var highestYearsAggregate = aggregatesIndexed
             .First(y => y.AverageAmountByYears.Count == highestYearsCount);
 
-        ColumnNames.Add("Category Name");
-        ColumnNames.AddRange(highestYearsAggregate.AverageAmountByYears.Keys);
-
-        return ColumnNames;
+        return new List<string> { "Category Name" }
+            .Concat(highestYearsAggregate.AverageAmountByYears.Keys)
+            .ToList();
     }
 
     protected override List<List<object>> BuildRows(IEnumerable<CategoryYearAverageAggregate> aggregates)
     {
+        var aggregatesIndexed = aggregates.ToList();
+        var columnNames = BuildColumnNames(aggregatesIndexed);
+        
         var rows = new List<List<object>>();
 
-        foreach (var aggregate in aggregates)
+        foreach (var aggregate in aggregatesIndexed)
         {
-            var currentRow = BuildIndividualRow(aggregate);
+            var currentRow = BuildIndividualRow(columnNames, aggregate);
             rows.AddRange(currentRow.ToList());
         }
 
         return rows;
     }
 
-    private IEnumerable<object> BuildIndividualRow(CategoryYearAverageAggregate aggregate)
+    private IEnumerable<object> BuildIndividualRow(List<string> columnNames, CategoryYearAverageAggregate aggregate)
     {
         yield return aggregate.CategoryName;
         
         // Skip 1 for the default 'Category Name' column
-        for (var i = 1; i < ColumnNames.Count; i++)
+        for (var i = 1; i < columnNames.Count; i++)
         {
-            var columnName = ColumnNames[i];
+            var columnName = columnNames[i];
 
             if (!aggregate.AverageAmountByYears.TryGetValue(columnName, out var amount))
             {

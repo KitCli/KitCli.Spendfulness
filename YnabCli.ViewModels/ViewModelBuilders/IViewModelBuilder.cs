@@ -9,8 +9,6 @@ public interface IViewModelBuilder<in TAggregator, TAggregation>
 {
     IViewModelBuilder<TAggregator, TAggregation> WithAggregator(TAggregator aggregator);
     
-    IViewModelBuilder<TAggregator, TAggregation> WithColumnNames(List<string> columnNames);
-    
     IViewModelBuilder<TAggregator, TAggregation> WithSortOrder(ViewModelSortOrder viewModelSortOrder);
 
     IViewModelBuilder<TAggregator, TAggregation> WithRowCount(bool showRowCount);

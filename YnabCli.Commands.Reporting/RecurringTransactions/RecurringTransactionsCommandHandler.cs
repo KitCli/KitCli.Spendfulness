@@ -34,9 +34,7 @@ public class RecurringTransactionsCommandHandler : CommandHandler, ICommandHandl
 
         var aggregator = new TransactionMemoOccurrenceAggregator(transactions);
 
-        _viewModelBuilder
-            .WithAggregator(aggregator)
-            .WithColumnNames(TransactionMemoOccurrenceViewModel.GetColumnNames());
+        _viewModelBuilder.WithAggregator(aggregator);
 
         var viewModel = _viewModelBuilder
             .WithMinimumOccurrencesFilter(command.MinimumOccurrences ?? DefaultMinimumOccurrences)

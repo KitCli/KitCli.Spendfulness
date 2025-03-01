@@ -59,7 +59,6 @@ public class SpareMoneyCommandHandler : CommandHandler, ICommandHandler<SpareMon
 
         _viewModelBuilder
             .WithAggregator(aggregator)
-            .WithColumnNames(["Spare Money"])
             .WithRowCount(false);
 
         if (command.Minus.HasValue)
@@ -68,6 +67,7 @@ public class SpareMoneyCommandHandler : CommandHandler, ICommandHandler<SpareMon
         }
 
         var viewModel = _viewModelBuilder.Build();
+        viewModel.Columns = ["Spare Money"];
 
         return Compile(viewModel);
     }
