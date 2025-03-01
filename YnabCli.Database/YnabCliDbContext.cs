@@ -15,7 +15,7 @@ public class YnabCliDbContext : DbContext
     public DbSet<Commitment> Commitments { get; set; }
     public DbSet<Milestone> Milestones { get; set; }
     public DbSet<CustomAccountType> CustomAccountTypes { get; set; }
-    public DbSet<AccountCustomAccountType> AccountAccountTypes { get; set; }
+    public DbSet<AccountAttributes> AccountAccountTypes { get; set; }
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

@@ -49,7 +49,7 @@ public class AccountsIdentifyCommandHandler : CommandHandler, ICommandHandler<Ac
             accountAccountType.CustomAccountType = type;
         }
 
-        var newAccountAccountType = new AccountCustomAccountType
+        var newAccountAccountType = new AccountAttributes
         {
             YnabAccountId = account.Id,
             CustomAccountType = type,

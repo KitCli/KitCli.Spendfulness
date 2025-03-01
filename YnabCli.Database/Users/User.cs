@@ -13,8 +13,8 @@ public class User
         = new List<Setting>();
     public ICollection<Commitment> Commitments { get; set; }
         = new List<Commitment>();
-    public ICollection<AccountCustomAccountType> CustomAccountTypes { get; set; }
-        = new List<AccountCustomAccountType>();
+    public ICollection<AccountAttributes> CustomAccountTypes { get; set; }
+        = new List<AccountAttributes>();
 
     public string? YnabApiKey => Settings.AsString(SettingTypeNames.YnabApiKey);
     
