@@ -12,14 +12,14 @@ namespace YnabCli.Commands.Reporting.RecurringTransactions;
 
 public class RecurringTransactionsCommandHandler : CommandHandler, ICommandHandler<RecurringTransactionsCommand>
 {
-    private readonly CommandBudgetGetter _budgetGetter;
+    private readonly DbBudgetClient _budgetClient;
     private readonly TransactionMemoOccurrenceViewModelBuilder _viewModelBuilder;
 
     public RecurringTransactionsCommandHandler(
-        CommandBudgetGetter budgetGetter,
+        DbBudgetClient budgetClient,
         TransactionMemoOccurrenceViewModelBuilder viewModelBuilder)
     {
-        _budgetGetter = budgetGetter;
+        _budgetClient = budgetClient;
         _viewModelBuilder = viewModelBuilder;
     }
 
@@ -38,7 +38,7 @@ public class RecurringTransactionsCommandHandler : CommandHandler, ICommandHandl
 
     private async Task<ListAggregator<TransactionMemoOccurrenceAggregate>> PrepareAggregator(RecurringTransactionsCommand command)
     {
-        var budget =  await _budgetGetter.Get();
+        var budget =  await _budgetClient.GetDefaultBudget();
         var transactions = await budget.GetTransactions();
         
         var aggregator = new TransactionMemoOccurrenceAggregator(transactions)

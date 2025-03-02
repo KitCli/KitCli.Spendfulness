@@ -8,18 +8,18 @@ namespace YnabCli.Commands.Reporting.YearlyPay;
 
 public class YearlyPayCommandHandler : CommandHandler, ICommandHandler<YearlyPayCommand>
 {
-    private readonly CommandBudgetGetter _budgetGetter;
+    private readonly DbBudgetClient _budgetClient;
     private readonly TransactionYearAverageViewModelBuilder _averageViewModelBuilder;
 
-    public YearlyPayCommandHandler(CommandBudgetGetter budgetGetter, TransactionYearAverageViewModelBuilder averageViewModelBuilder)
+    public YearlyPayCommandHandler(DbBudgetClient budgetClient, TransactionYearAverageViewModelBuilder averageViewModelBuilder)
     {
-        _budgetGetter = budgetGetter;
+        _budgetClient = budgetClient;
         _averageViewModelBuilder = averageViewModelBuilder;
     }
 
     public async Task<ConsoleTable> Handle(YearlyPayCommand request, CancellationToken cancellationToken)
     {
-        var budget =  await _budgetGetter.Get();
+        var budget =  await _budgetClient.GetDefaultBudget();
         
         var transactions = await budget.GetTransactions();
         

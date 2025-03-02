@@ -6,9 +6,9 @@ using YnabCli.Database.Users;
 
 namespace YnabCli.Commands.Factories;
 
-public class CommandBudgetGetter(YnabCliDb db, YnabHttpClientBuilder httpClientBuilder)
+public class DbBudgetClient(YnabCliDb db, YnabHttpClientBuilder httpClientBuilder)
 {
-    public async Task<ConnectedBudget> Get()
+    public async Task<ConnectedBudget> GetDefaultBudget()
     {
         var activeUser = await db.GetActiveUser();
         if (activeUser == null)
