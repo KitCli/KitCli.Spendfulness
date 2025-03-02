@@ -11,8 +11,8 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddInstructions(this IServiceCollection serviceCollection)
         => serviceCollection
             .AddSingleton<IInstructionArgumentBuilder, StringInstructionArgumentBuilder>()
-            .AddSingleton<IInstructionArgumentBuilder, DecimalInstructionArgumentBuilder>()
             .AddSingleton<IInstructionArgumentBuilder, IntInstructionArgumentBuilder>()
+            .AddSingleton<IInstructionArgumentBuilder, DecimalInstructionArgumentBuilder>()
             .AddSingleton<IInstructionArgumentBuilder, DateOnlyInstructionArgumentBuilder>()
             .AddSingleton<IInstructionArgumentBuilder, BoolInstructionArgumentBuilder>()
             .AddSingleton<InstructionTokenIndexer>()

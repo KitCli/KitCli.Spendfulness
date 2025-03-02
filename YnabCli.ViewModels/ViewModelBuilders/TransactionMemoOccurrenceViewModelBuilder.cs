@@ -10,29 +10,14 @@ namespace YnabCli.ViewModels.ViewModelBuilders;
 public class TransactionMemoOccurrenceViewModelBuilder : 
     ViewModelBuilder<TransactionMemoOccurrenceAggregator, IEnumerable<TransactionMemoOccurrenceAggregate>>
 {
-    private int? _minimumOccurrences;
-    
-    public TransactionMemoOccurrenceViewModelBuilder WithMinimumOccurrencesFilter(int? minimumOccurrences)
-    {
-        _minimumOccurrences = minimumOccurrences;
-        return this;
-    }
-
     protected override List<string> BuildColumnNames(IEnumerable<TransactionMemoOccurrenceAggregate> evaluation)
         => TransactionMemoOccurrenceViewModel.GetColumnNames();
 
     protected override List<List<object>> BuildRows(IEnumerable<TransactionMemoOccurrenceAggregate> aggregates)
-    {
-        if (_minimumOccurrences.HasValue)
-        {
-            aggregates = aggregates.FilterByMinimumOccurrences(_minimumOccurrences.Value);
-        }
-        
-        return aggregates
+        => aggregates
             .OrderBySortOrder(ViewModelSortOrder, aggregate => aggregate.MemoOccurrence)
             .Select(BuildMemoOccurrenceRow)
             .ToList();
-    }
 
     private List<object> BuildMemoOccurrenceRow(TransactionMemoOccurrenceAggregate aggregate)
     {

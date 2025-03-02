@@ -5,6 +5,7 @@ using Ynab.Extensions;
 using YnabCli.Commands.Factories;
 using YnabCli.Commands.Handlers;
 using YnabCli.ViewModels.Aggregator;
+using YnabCli.ViewModels.Extensions;
 using YnabCli.ViewModels.ViewModelBuilders;
 using YnabCli.ViewModels.ViewModels;
 
@@ -33,11 +34,13 @@ public class RecurringTransactionsCommandHandler : CommandHandler, ICommandHandl
         var transactions = await GetTransactions(budget, command);
 
         var aggregator = new TransactionMemoOccurrenceAggregator(transactions);
+        
+        aggregator.AddAggregationFilter(x =>
+            x.FilterByMinimumOccurrences(command.MinimumOccurrences ?? DefaultMinimumOccurrences));
 
         _viewModelBuilder.WithAggregator(aggregator);
 
         var viewModel = _viewModelBuilder
-            .WithMinimumOccurrencesFilter(command.MinimumOccurrences ?? DefaultMinimumOccurrences)
             .WithSortOrder(ViewModelSortOrder.Descending)
             .Build();
 

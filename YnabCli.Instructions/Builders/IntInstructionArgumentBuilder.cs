@@ -4,13 +4,7 @@ namespace YnabCli.Instructions.Builders;
 
 public class IntInstructionArgumentBuilder : NoDefaultInstructionArgumentBuilder, IInstructionArgumentBuilder
 {
-    public bool For(string? argumentValue)
-    {
-        if (argumentValue == null) return false;
-        
-        var characters = argumentValue.ToCharArray();
-        return characters.All(char.IsNumber);
-    }
+    public bool For(string? argumentValue) => argumentValue != null && int.TryParse(argumentValue, out _);
 
     public InstructionArgument Create(string argumentName, string? argumentValue)
     {
