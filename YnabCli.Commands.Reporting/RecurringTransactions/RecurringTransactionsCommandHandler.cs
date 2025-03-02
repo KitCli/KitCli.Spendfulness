@@ -27,7 +27,7 @@ public class RecurringTransactionsCommandHandler : CommandHandler, ICommandHandl
     
     public async Task<ConsoleTable> Handle(RecurringTransactionsCommand command, CancellationToken cancellationToken)
     {
-        var aggregator = await GetAggregator(command);
+        var aggregator = await PrepareAggregator(command);
 
         var viewModel = _viewModelBuilder
             .WithAggregator(aggregator)
@@ -36,31 +36,32 @@ public class RecurringTransactionsCommandHandler : CommandHandler, ICommandHandl
         return Compile(viewModel);
     }
 
-    private async Task<ListAggregator<TransactionMemoOccurrenceAggregate>> GetAggregator(RecurringTransactionsCommand command)
+    private async Task<ListAggregator<TransactionMemoOccurrenceAggregate>> PrepareAggregator(RecurringTransactionsCommand command)
     {
         var budget =  await _budgetGetter.Get();
         var transactions = await budget.GetTransactions();
-
-        var nonSplitTransactions = transactions.FilterOutCategories([YnabConstants.SplitCategoryId]);
         
+        var aggregator = new TransactionMemoOccurrenceAggregator(transactions)
+            .WhereTransactions(ts => ts.FilterOutCategories([YnabConstants.SplitCategoryId]));
+
         if (command.From.HasValue)
         {
-            nonSplitTransactions = nonSplitTransactions.FilterFrom(command.From.Value);
+            aggregator.WhereTransactions(ts => ts.FilterFrom(command.From.Value));
         }
-
+        
         if (command.To.HasValue)
         {
-            nonSplitTransactions = nonSplitTransactions.FilterTo(command.To.Value);
+            aggregator.WhereTransactions(ts => ts.FilterTo(command.To.Value));
         }
 
         if (command.PayeeName != null)
         {
-            nonSplitTransactions = nonSplitTransactions.FilterByPayeeName(command.PayeeName);
+            aggregator.WhereTransactions(ts => ts.FilterByPayeeName(command.PayeeName));
         }
         
-        return new TransactionMemoOccurrenceAggregator(nonSplitTransactions)
-            .AddAggregationOperation(a => FilterByMinimumOccurrences(command.MinimumOccurrences, a))
-            .AddAggregationOperation(SortByMinimumOccurrence);
+        return aggregator
+            .WhereAggregates(a => FilterByMinimumOccurrences(command.MinimumOccurrences, a))
+            .WhereAggregates(SortByMinimumOccurrence);
     }
 
     private IEnumerable<TransactionMemoOccurrenceAggregate> FilterByMinimumOccurrences(int? minimumOccurrences,

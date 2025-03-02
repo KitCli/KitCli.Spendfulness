@@ -7,7 +7,7 @@ public abstract class Aggregator<TAggregation>
 {
     protected IEnumerable<Account> Accounts { get; } 
     protected IEnumerable<CategoryGroup> CategoryGroups { get; }
-    protected IEnumerable<Transaction> Transactions { get; }
+    protected IEnumerable<Transaction> Transactions { get; set; }
     protected ICollection<Commitment> Commitments { get; }
 
     protected Aggregator()

@@ -19,7 +19,8 @@ public class TransactionMemoOccurrenceAggregator(IEnumerable<Transaction> transa
 
 public abstract class ListAggregator<TAggregate> : Aggregator<IEnumerable<TAggregate>>
 {
-    private readonly List<Func<IEnumerable<TAggregate>, IEnumerable<TAggregate>>> _operationFunctions = [];
+    private readonly List<Func<IEnumerable<Transaction>, IEnumerable<Transaction>>> _transactionOperationFunctions = [];
+    private readonly List<Func<IEnumerable<TAggregate>, IEnumerable<TAggregate>>> _aggregationOperationFunctions = [];
 
     protected ListAggregator(IEnumerable<Transaction> transactions)
         : base(transactions)
@@ -28,22 +29,30 @@ public abstract class ListAggregator<TAggregate> : Aggregator<IEnumerable<TAggre
 
     public override IEnumerable<TAggregate> Aggregate()
     {
-        // TODO: Pre-aggregation filters
+        foreach (var transactionOperationFunction in _transactionOperationFunctions)
+        {
+            Transactions = transactionOperationFunction(Transactions);
+        }
         
         var specificAggregation = ListAggregate();
-
-        // TODO: Post-aggregation filters
-        foreach (var operationFunction in _operationFunctions)
+        
+        foreach (var aggregationOperationFunction in _aggregationOperationFunctions)
         {
-            specificAggregation = operationFunction(specificAggregation);
+            specificAggregation = aggregationOperationFunction(specificAggregation);
         }
         
         return specificAggregation;
     }
 
-    public ListAggregator<TAggregate> AddAggregationOperation(Func<IEnumerable<TAggregate>, IEnumerable<TAggregate>> filter)
+    public ListAggregator<TAggregate> WhereTransactions(Func<IEnumerable<Transaction>, IEnumerable<Transaction>> operationFunction)
     {
-        _operationFunctions.Add(filter);
+        _transactionOperationFunctions.Add(operationFunction);
+        return this;
+    }
+
+    public ListAggregator<TAggregate> WhereAggregates(Func<IEnumerable<TAggregate>, IEnumerable<TAggregate>> operationFunction)
+    {
+        _aggregationOperationFunctions.Add(operationFunction);
         return this;
     }
 
