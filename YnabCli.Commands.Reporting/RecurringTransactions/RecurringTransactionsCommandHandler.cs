@@ -1,6 +1,5 @@
 using ConsoleTables;
 using Ynab;
-using Ynab.Connected;
 using Ynab.Extensions;
 using YnabCli.Commands.Factories;
 using YnabCli.Commands.Handlers;
@@ -8,7 +7,6 @@ using YnabCli.ViewModels.Aggregates;
 using YnabCli.ViewModels.Aggregator;
 using YnabCli.ViewModels.Extensions;
 using YnabCli.ViewModels.ViewModelBuilders;
-using YnabCli.ViewModels.ViewModels;
 
 namespace YnabCli.Commands.Reporting.RecurringTransactions;
 
@@ -29,13 +27,7 @@ public class RecurringTransactionsCommandHandler : CommandHandler, ICommandHandl
     
     public async Task<ConsoleTable> Handle(RecurringTransactionsCommand command, CancellationToken cancellationToken)
     {
-        var budget =  await _budgetGetter.Get();
-        
-        var transactions = await GetTransactions(budget, command);
-
-        var aggregator = new TransactionMemoOccurrenceAggregator(transactions)
-            .AddAggregationOperation(a => FilterByMinimumOccurrences(command.MinimumOccurrences, a))
-            .AddAggregationOperation(SortByMinimumOccurrence);
+        var aggregator = await GetAggregator(command);
 
         var viewModel = _viewModelBuilder
             .WithAggregator(aggregator)
@@ -43,31 +35,32 @@ public class RecurringTransactionsCommandHandler : CommandHandler, ICommandHandl
 
         return Compile(viewModel);
     }
-    
-    private async Task<IEnumerable<Transaction>> GetTransactions(ConnectedBudget connectedBudget, RecurringTransactionsCommand command)
+
+    private async Task<ListAggregator<TransactionMemoOccurrenceAggregate>> GetAggregator(RecurringTransactionsCommand command)
     {
-        var transactions = await connectedBudget.GetTransactions();
+        var budget =  await _budgetGetter.Get();
+        var transactions = await budget.GetTransactions();
 
-        var splitCategoryId = Guid.Parse("26330e86-4711-41f9-bd3e-a1c983da936a");
-
-        var castedTransactions = transactions.FilterOutCategories([splitCategoryId]);
-
+        var nonSplitTransactions = transactions.FilterOutCategories([YnabConstants.SplitCategoryId]);
+        
         if (command.From.HasValue)
         {
-            castedTransactions = castedTransactions.FilterFrom(command.From.Value);
+            nonSplitTransactions = nonSplitTransactions.FilterFrom(command.From.Value);
         }
 
         if (command.To.HasValue)
         {
-            castedTransactions = castedTransactions.FilterTo(command.To.Value);
+            nonSplitTransactions = nonSplitTransactions.FilterTo(command.To.Value);
         }
 
         if (command.PayeeName != null)
         {
-            castedTransactions = castedTransactions.FilterByPayeeName(command.PayeeName);
+            nonSplitTransactions = nonSplitTransactions.FilterByPayeeName(command.PayeeName);
         }
         
-        return castedTransactions;
+        return new TransactionMemoOccurrenceAggregator(nonSplitTransactions)
+            .AddAggregationOperation(a => FilterByMinimumOccurrences(command.MinimumOccurrences, a))
+            .AddAggregationOperation(SortByMinimumOccurrence);
     }
 
     private IEnumerable<TransactionMemoOccurrenceAggregate> FilterByMinimumOccurrences(int? minimumOccurrences,
