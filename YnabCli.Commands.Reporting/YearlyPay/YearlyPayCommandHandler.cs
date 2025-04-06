@@ -23,7 +23,7 @@ public class YearlyPayCommandHandler : CommandHandler, ICommandHandler<YearlyPay
         
         var transactions = await budget.GetTransactions();
         
-        var aggregator = new TransactionYearAverageAggregator(transactions);
+        var aggregator = new LegacyTransactionYearAverageAggregator(transactions);
 
         var viewModel = _averageViewModelBuilder
             .WithAggregator(aggregator)
