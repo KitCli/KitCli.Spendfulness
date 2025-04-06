@@ -12,11 +12,11 @@ namespace YnabCli.Commands.Reporting.RecurringTransactions;
 
 public class RecurringTransactionsCommandHandler : CommandHandler, ICommandHandler<RecurringTransactionsCommand>
 {
-    private readonly DbBudgetClient _budgetClient;
+    private readonly ConfiguredBudgetClient _budgetClient;
     private readonly TransactionMemoOccurrenceViewModelBuilder _viewModelBuilder;
 
     public RecurringTransactionsCommandHandler(
-        DbBudgetClient budgetClient,
+        ConfiguredBudgetClient budgetClient,
         TransactionMemoOccurrenceViewModelBuilder viewModelBuilder)
     {
         _budgetClient = budgetClient;

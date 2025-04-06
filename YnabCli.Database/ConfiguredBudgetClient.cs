@@ -5,7 +5,7 @@ using YnabCli.Database.Users;
 
 namespace YnabCli.Database;
 
-public class DbBudgetClient(YnabCliDb db, YnabHttpClientBuilder httpClientBuilder)
+public class ConfiguredBudgetClient(YnabCliDb db, YnabHttpClientBuilder httpClientBuilder)
 {
     public async Task<ConnectedBudget> GetDefaultBudget()
     {
@@ -25,11 +25,8 @@ public class DbBudgetClient(YnabCliDb db, YnabHttpClientBuilder httpClientBuilde
         
         var budgets = await budgetClient.GetBudgets();
         
-        if (activeUser.DefaultBudgetId is null)
-        {
-            return budgets.First();
-        }
-        
-        return budgets.First(budget => budget.Id == activeUser.DefaultBudgetId);
+        return activeUser.DefaultBudgetId is null
+            ? budgets.First()
+            : budgets.First(budget => budget.Id == activeUser.DefaultBudgetId);
     }
 }

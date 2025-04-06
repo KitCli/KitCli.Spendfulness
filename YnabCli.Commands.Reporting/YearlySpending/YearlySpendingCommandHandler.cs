@@ -8,10 +8,10 @@ namespace YnabCli.Commands.Reporting.YearlySpending;
 
 public class YearlySpendingCommandHandler : CommandHandler, ICommandHandler<YearlySpendingCommand>
 {
-    private readonly DbBudgetClient _budgetClient;
+    private readonly ConfiguredBudgetClient _budgetClient;
     private readonly CategoryYearAverageViewModelBuilder _viewModelBuilder;
 
-    public YearlySpendingCommandHandler(DbBudgetClient budgetClient, CategoryYearAverageViewModelBuilder viewModelBuilder)
+    public YearlySpendingCommandHandler(ConfiguredBudgetClient budgetClient, CategoryYearAverageViewModelBuilder viewModelBuilder)
     {
         _budgetClient = budgetClient;
         _viewModelBuilder = viewModelBuilder;

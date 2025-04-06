@@ -13,11 +13,11 @@ namespace YnabCli.Commands.Reporting.SpareMoney;
 
 public class SpareMoneyCommandHandler : CommandHandler, ICommandHandler<SpareMoneyCommand>
 {
-    private readonly DbBudgetClient _budgetClient;
+    private readonly ConfiguredBudgetClient _budgetClient;
     private readonly AmountViewModelBuilder _viewModelBuilder;
 
     public SpareMoneyCommandHandler(
-        DbBudgetClient budgetClient,
+        ConfiguredBudgetClient budgetClient,
         AmountViewModelBuilder viewModelBuilder)
     {
         _budgetClient = budgetClient;

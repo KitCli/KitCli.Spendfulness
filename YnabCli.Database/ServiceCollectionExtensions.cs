@@ -8,5 +8,5 @@ public static class ServiceCollectionExtensions
         => services
             .AddDbContext<YnabCliDbContext>()
             .AddSingleton<YnabCliDb>()
-            .AddSingleton<DbBudgetClient>();
+            .AddSingleton<ConfiguredBudgetClient>();
 }

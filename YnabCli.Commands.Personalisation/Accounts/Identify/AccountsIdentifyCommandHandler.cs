@@ -10,12 +10,12 @@ namespace YnabCli.Commands.Personalisation.Accounts.Identify;
 public class AccountsIdentifyCommandHandler : CommandHandler, ICommandHandler<AccountsIdentifyCommand>
 {
     private readonly YnabCliDb _db;
-    private readonly DbBudgetClient _dbBudgetClient;
+    private readonly ConfiguredBudgetClient _configuredBudgetClient;
 
-    public AccountsIdentifyCommandHandler(YnabCliDb db, DbBudgetClient dbBudgetClient)
+    public AccountsIdentifyCommandHandler(YnabCliDb db, ConfiguredBudgetClient configuredBudgetClient)
     {
         _db = db;
-        _dbBudgetClient = dbBudgetClient;
+        _configuredBudgetClient = configuredBudgetClient;
     }
 
     public async Task<ConsoleTable> Handle(AccountsIdentifyCommand command, CancellationToken cancellationToken)
@@ -23,7 +23,7 @@ public class AccountsIdentifyCommandHandler : CommandHandler, ICommandHandler<Ac
         var user = await _db.GetActiveUser();
         var accountTypes = await _db.GetAccountTypes();
         
-        var budget = await _dbBudgetClient.GetDefaultBudget();
+        var budget = await _configuredBudgetClient.GetDefaultBudget();
         var accounts = await budget.GetAccounts();
 
         var account = accounts.Find(command.YnabAccountName);

@@ -10,11 +10,11 @@ namespace YnabCli.Commands.Reporting.FlagChanges;
 
 public class FlagChangesCommandHandler : CommandHandler, ICommandHandler<FlagChangesCommand>
 {
-    private readonly DbBudgetClient _budgetClient;
+    private readonly ConfiguredBudgetClient _budgetClient;
     private readonly TransactionMonthFlaggedViewModelBuilder _viewModelBuilder;
 
     public FlagChangesCommandHandler(
-        DbBudgetClient budgetClient,
+        ConfiguredBudgetClient budgetClient,
         TransactionMonthFlaggedViewModelBuilder viewModelBuilder)
     {
         _budgetClient = budgetClient;
