@@ -3,7 +3,7 @@ using YnabCli.ViewModels.Formatters;
 
 namespace YnabCli.ViewModels.ViewModelBuilders;
 
-public class AmountViewModelBuilder : ViewModelBuilder<CategoryDeductedBalanceAggregator, decimal>
+public class AmountViewModelBuilder : ViewModelBuilder<AmountAggregator, decimal>
 {
     private decimal? _minus;
 

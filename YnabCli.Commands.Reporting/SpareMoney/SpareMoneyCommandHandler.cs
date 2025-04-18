@@ -55,7 +55,7 @@ public class SpareMoneyCommandHandler : CommandHandler, ICommandHandler<SpareMon
     
         var criticalCategoryGroups = await GetCriticalCategoryGroups(budget);
     
-        var aggregator = new CategoryDeductedBalanceAggregator(filteredAccounts, criticalCategoryGroups);
+        var aggregator = new CategoryDeductedAmountAggregator(filteredAccounts, criticalCategoryGroups);
 
         _viewModelBuilder
             .WithAggregator(aggregator)
