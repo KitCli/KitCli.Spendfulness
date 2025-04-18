@@ -4,7 +4,7 @@ using Ynab.Extensions;
 using YnabCli.ViewModels.Aggregates;
 using YnabCli.ViewModels.Calculators;
 
-namespace YnabCli.ViewModels.Aggregator;
+namespace YnabCli.ViewModels.Aggregator.ListAggregators;
 
 public class TransactionYearAverageAggregator(IEnumerable<Transaction> transactions)
     : ListAggregator<TransactionYearAverageAggregate>(transactions)

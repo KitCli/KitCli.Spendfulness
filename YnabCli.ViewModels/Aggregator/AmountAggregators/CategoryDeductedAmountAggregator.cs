@@ -1,6 +1,6 @@
 using Ynab;
 
-namespace YnabCli.ViewModels.Aggregator;
+namespace YnabCli.ViewModels.Aggregator.AmountAggregators;
 
 public class CategoryDeductedAmountAggregator(IEnumerable<Account> accounts, IEnumerable<CategoryGroup> categoryGroups)
     : AmountAggregator(accounts, categoryGroups)

@@ -1,5 +1,6 @@
 using YnabCli.ViewModels.Aggregates;
 using YnabCli.ViewModels.Aggregator;
+using YnabCli.ViewModels.Aggregator.ListAggregators;
 using YnabCli.ViewModels.Formatters;
 using YnabCli.ViewModels.ViewModels;
 

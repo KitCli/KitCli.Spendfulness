@@ -1,5 +1,6 @@
 using YnabCli.Commands.Aggregate;
 using YnabCli.ViewModels.Aggregator;
+using YnabCli.ViewModels.Aggregator.AmountAggregators;
 
 namespace YnabCli.Commands.Aggregator;
 

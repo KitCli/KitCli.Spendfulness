@@ -1,6 +1,7 @@
 using Ynab;
+using YnabCli.ViewModels.Aggregator.AmountAggregators;
 
-namespace YnabCli.ViewModels.Aggregator;
+namespace YnabCli.ViewModels.Aggregator.ListAggregators;
 
 public abstract class ListAggregator<TAggregate> : Aggregator<IEnumerable<TAggregate>>
 {

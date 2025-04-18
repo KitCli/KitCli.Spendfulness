@@ -2,6 +2,7 @@ using Ynab;
 using Ynab.Collections;
 using Ynab.Extensions;
 using YnabCli.ViewModels.Aggregates;
+using YnabCli.ViewModels.Aggregator.AmountAggregators;
 using YnabCli.ViewModels.Calculators;
 
 namespace YnabCli.ViewModels.Aggregator;

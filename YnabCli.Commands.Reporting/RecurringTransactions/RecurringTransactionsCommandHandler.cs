@@ -5,6 +5,7 @@ using YnabCli.Commands.Handlers;
 using YnabCli.Database;
 using YnabCli.ViewModels.Aggregates;
 using YnabCli.ViewModels.Aggregator;
+using YnabCli.ViewModels.Aggregator.ListAggregators;
 using YnabCli.ViewModels.Extensions;
 using YnabCli.ViewModels.ViewModelBuilders;
 

@@ -3,7 +3,7 @@ using Ynab.Extensions;
 using YnabCli.ViewModels.Aggregates;
 using YnabCli.ViewModels.Extensions;
 
-namespace YnabCli.ViewModels.Aggregator;
+namespace YnabCli.ViewModels.Aggregator.ListAggregators;
 
 public class TransactionMemoOccurrenceAggregator(IEnumerable<Transaction> transactions)
     : ListAggregator<TransactionMemoOccurrenceAggregate>(transactions)

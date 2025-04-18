@@ -1,4 +1,5 @@
 using YnabCli.Database.Commitments;
+using YnabCli.ViewModels.Aggregator.AmountAggregators;
 
 namespace YnabCli.ViewModels.Aggregator;
 
