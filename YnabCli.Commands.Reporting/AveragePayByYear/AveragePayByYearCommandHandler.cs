@@ -38,7 +38,7 @@ public class AveragePayByYearCommandHandler : CommandHandler, ICommandHandler<Av
         
         var transactions = await budget.GetTransactions();
         
-        var aggregator = new TransactionPerYearAverageAggregator(transactions);
+        var aggregator = new TransactionAveragePerYearAggregator(transactions);
 
         aggregator
             .BeforeAggregation(t => t.FilterToInflow())

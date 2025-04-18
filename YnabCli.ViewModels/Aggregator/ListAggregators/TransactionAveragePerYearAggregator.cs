@@ -6,7 +6,7 @@ using YnabCli.ViewModels.Calculators;
 
 namespace YnabCli.ViewModels.Aggregator.ListAggregators;
 
-public class TransactionPerYearAverageAggregator(IEnumerable<Transaction> transactions)
+public class TransactionAveragePerYearAggregator(IEnumerable<Transaction> transactions)
     : ListAggregator<TransactionYearAverageAggregate>(transactions)
 {
     protected override IEnumerable<TransactionYearAverageAggregate> ListAggregate()
