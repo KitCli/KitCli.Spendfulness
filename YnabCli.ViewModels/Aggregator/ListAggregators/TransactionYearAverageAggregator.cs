@@ -47,9 +47,7 @@ public class TransactionYearAverageAggregator(IEnumerable<Transaction> transacti
             var priorGroupAverage = priorGroup.Transactions.Average(x => x.Amount);
             var currentGroupAverage = currentGroup.Transactions.Average(x => x.Amount);
             
-            var percentageChange = PercentageCalculator.CalculateChange(
-                currentGroupAverage,
-                priorGroupAverage);
+            var percentageChange = PercentageCalculator.CalculateChange(priorGroupAverage, currentGroupAverage);
             
             yield return new TransactionYearAverageAggregate(currentGroup.Year, currentGroupAverage, percentageChange);
         }
