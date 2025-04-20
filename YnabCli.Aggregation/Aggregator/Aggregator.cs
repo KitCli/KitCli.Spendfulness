@@ -35,6 +35,14 @@ public abstract class Aggregator<TAggregation>
         Commitments = new List<Commitment>();
     }
 
+    protected Aggregator(IEnumerable<CategoryGroup> categoryGroups)
+    {
+        Accounts = new List<Account>();
+        CategoryGroups = categoryGroups;
+        Transactions = new List<Transaction>();
+        Commitments = new List<Commitment>();
+    }
+
     protected Aggregator(IEnumerable<Transaction> transactions)
     {
         Accounts = new List<Account>();
