@@ -10,6 +10,9 @@ public abstract class Aggregator<TAggregation>
     protected IEnumerable<CategoryGroup> CategoryGroups { get; }
     protected IEnumerable<Transaction> Transactions { get; set; }
     protected ICollection<Commitment> Commitments { get; }
+    
+    private readonly List<Func<IEnumerable<Account>, IEnumerable<Account>>> _accountOperationFunctions = [];
+    private readonly List<Func<IEnumerable<Transaction>, IEnumerable<Transaction>>> _transactionOperationFunctions = [];
 
     protected Aggregator()
     {
@@ -59,5 +62,32 @@ public abstract class Aggregator<TAggregation>
         Commitments = commitments;
     }
 
-    public abstract TAggregation Aggregate();
+    protected abstract TAggregation GenerateAggregate();
+
+    public TAggregation Aggregate()
+    {
+        foreach (var accountOperationFunction in _accountOperationFunctions)
+        {
+            Accounts = accountOperationFunction(Accounts);
+        }
+        
+        foreach (var transactionOperationFunction in _transactionOperationFunctions)
+        {
+            Transactions = transactionOperationFunction(Transactions);
+        }
+        
+        return GenerateAggregate();
+    }
+    
+    public Aggregator<TAggregation> BeforeAggregation(Func<IEnumerable<Transaction>, IEnumerable<Transaction>> operationFunction)
+    {
+        _transactionOperationFunctions.Add(operationFunction);
+        return this;
+    }
+
+    public Aggregator<TAggregation> BeforeAggregation(Func<IEnumerable<Account>, IEnumerable<Account>> operationFunction)
+    {
+        _accountOperationFunctions.Add(operationFunction);
+        return this;
+    }
 }

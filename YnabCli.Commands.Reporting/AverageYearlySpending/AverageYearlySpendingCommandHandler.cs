@@ -7,20 +7,12 @@ using YnabCli.ViewModels.ViewModelBuilders;
 
 namespace YnabCli.Commands.Reporting.AverageYearlySpending;
 
-public class AverageYearlySpendingCommandHandler : CommandHandler, ICommandHandler<AverageYearlySpendingCommand>
+public class AverageYearlySpendingCommandHandler(ConfiguredBudgetClient configuredBudgetClient)
+    : CommandHandler, ICommandHandler<AverageYearlySpendingCommand>
 {
-    private readonly ConfiguredBudgetClient _configuredBudgetClient;
-    private readonly TransactionYearAverageViewModelBuilder _transactionYearAverageViewModelBuilder;
-
-    public AverageYearlySpendingCommandHandler(ConfiguredBudgetClient configuredBudgetClient, TransactionYearAverageViewModelBuilder transactionYearAverageViewModelBuilder)
-    {
-        _configuredBudgetClient = configuredBudgetClient;
-        _transactionYearAverageViewModelBuilder = transactionYearAverageViewModelBuilder;
-    }
-
     public async Task<ConsoleTable> Handle(AverageYearlySpendingCommand request, CancellationToken cancellationToken)
     {
-        var budget =  await _configuredBudgetClient.GetDefaultBudget();
+        var budget =  await configuredBudgetClient.GetDefaultBudget();
         
         var transactions = await budget.GetTransactions();
 
@@ -28,7 +20,7 @@ public class AverageYearlySpendingCommandHandler : CommandHandler, ICommandHandl
             .BeforeAggregation(y => y.FilterToSpending())
             .BeforeAggregation(y => y.FilterToOutflow());
         
-        var viewModel = _transactionYearAverageViewModelBuilder
+        var viewModel = new TransactionYearAverageViewModelBuilder()
             .WithAggregator(aggregator)
             .Build();
         

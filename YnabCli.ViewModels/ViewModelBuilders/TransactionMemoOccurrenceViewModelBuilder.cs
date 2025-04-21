@@ -1,13 +1,12 @@
 using Ynab.Sanitisers;
 using YnabCli.Aggregation.Aggregates;
-using YnabCli.Aggregation.Aggregator.ListAggregators;
 using YnabCli.ViewModels.Formatters;
 using YnabCli.ViewModels.ViewModels;
 
 namespace YnabCli.ViewModels.ViewModelBuilders;
 
 public class TransactionMemoOccurrenceViewModelBuilder : 
-    ViewModelBuilder<ListAggregator<TransactionMemoOccurrenceAggregate>, IEnumerable<TransactionMemoOccurrenceAggregate>>
+    ViewModelBuilder<IEnumerable<TransactionMemoOccurrenceAggregate>>
 {
     protected override List<string> BuildColumnNames(IEnumerable<TransactionMemoOccurrenceAggregate> evaluation)
         => TransactionMemoOccurrenceViewModel.GetColumnNames();

@@ -5,8 +5,7 @@ using YnabCli.ViewModels.ViewModels;
 
 namespace YnabCli.ViewModels.ViewModelBuilders;
 
-public class TransactionYearAverageViewModelBuilder :
-    ViewModelBuilder<ListAggregator<TransactionYearAverageAggregate>, IEnumerable<TransactionYearAverageAggregate>>
+public class TransactionYearAverageViewModelBuilder : ViewModelBuilder<IEnumerable<TransactionYearAverageAggregate>>
 {
     protected override List<string> BuildColumnNames(IEnumerable<TransactionYearAverageAggregate> evaluation)
         => TransactionYearAverageViewModel.GetColumnNames();

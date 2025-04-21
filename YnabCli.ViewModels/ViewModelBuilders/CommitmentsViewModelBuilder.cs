@@ -7,7 +7,7 @@ using YnabCli.ViewModels.Formatters;
 
 namespace YnabCli.ViewModels.ViewModelBuilders;
 
-public class CommitmentsViewModelBuilder : ViewModelBuilder<CommitmentsAggregator, IEnumerable<Commitment>>
+public class CommitmentsViewModelBuilder : ViewModelBuilder<IEnumerable<Commitment>>
 {
     protected override List<string> BuildColumnNames(IEnumerable<Commitment> evaluation)
         => [

@@ -4,8 +4,7 @@ using YnabCli.ViewModels.ViewModels;
 
 namespace YnabCli.ViewModels.ViewModelBuilders;
 
-public class CategoryViewModelBuilder
-    : ViewModelBuilder<CategoryAggregator, IEnumerable<CategoryAggregate>>
+public class CategoryViewModelBuilder : ViewModelBuilder<IEnumerable<CategoryAggregate>>
 {
     protected override List<string> BuildColumnNames(IEnumerable<CategoryAggregate> evaluation)
         => CategoryViewModel.GetColumnNames();

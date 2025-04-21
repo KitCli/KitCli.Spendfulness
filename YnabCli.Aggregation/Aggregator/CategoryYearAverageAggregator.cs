@@ -8,7 +8,7 @@ namespace YnabCli.Aggregation.Aggregator;
 public class CategoryYearAverageAggregator(IEnumerable<Transaction> transactions)
     : Aggregator<IEnumerable<CategoryYearAverageAggregate>>(transactions)
 {
-    public override IEnumerable<CategoryYearAverageAggregate> Aggregate()
+    protected override IEnumerable<CategoryYearAverageAggregate> GenerateAggregate()
     {
         var transactionGroups = Transactions
             .GroupByCategory()

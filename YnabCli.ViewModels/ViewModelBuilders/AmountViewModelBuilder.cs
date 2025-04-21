@@ -1,12 +1,13 @@
-using YnabCli.Aggregation.Aggregator.AmountAggregators;
+using YnabCli.Aggregation.Aggregator;
 using YnabCli.ViewModels.Formatters;
 
 namespace YnabCli.ViewModels.ViewModelBuilders;
 
-public class AmountViewModelBuilder : ViewModelBuilder<AmountAggregator, decimal>
+public class AmountViewModelBuilder : ViewModelBuilder<decimal>
 {
     private decimal? _minus;
 
+    // TODO: I dont like this!
     public AmountViewModelBuilder WithSubtraction(decimal minus)
     {
         _minus = minus;

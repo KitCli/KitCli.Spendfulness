@@ -3,27 +3,26 @@ using YnabCli.ViewModels.ViewModels;
 
 namespace YnabCli.ViewModels.ViewModelBuilders;
 
-public abstract class ViewModelBuilder<TAggregator, TAggregation> : IViewModelBuilder<TAggregator, TAggregation>
-    where TAggregator : Aggregator<TAggregation>
+public abstract class ViewModelBuilder<TAggregation> : IViewModelBuilder<TAggregation>
     where TAggregation : notnull
 {
     protected ViewModelSortOrder ViewModelSortOrder = ViewModelSortOrder.Ascending;
-    private TAggregator? _aggregator;
+    private Aggregator<TAggregation>? _aggregator;
     private bool _showRowCount = true;
 
-    public IViewModelBuilder<TAggregator, TAggregation> WithAggregator(TAggregator aggregator)
+    public IViewModelBuilder<TAggregation> WithAggregator(Aggregator<TAggregation> aggregator)
     {
         _aggregator = aggregator;
         return GetCurrentBuilder();
     }
 
-    public IViewModelBuilder<TAggregator, TAggregation> WithSortOrder(ViewModelSortOrder viewModelSortOrder)
+    public IViewModelBuilder<TAggregation> WithSortOrder(ViewModelSortOrder viewModelSortOrder)
     {
         ViewModelSortOrder = viewModelSortOrder;
         return GetCurrentBuilder();
     }
 
-    public IViewModelBuilder<TAggregator, TAggregation> WithRowCount(bool showRowCount)
+    public IViewModelBuilder<TAggregation> WithRowCount(bool showRowCount)
     {
         _showRowCount = showRowCount;
         return GetCurrentBuilder();
@@ -36,7 +35,7 @@ public abstract class ViewModelBuilder<TAggregator, TAggregation> : IViewModelBu
             // This is genuinely an exceptional circumstance.
             throw new InvalidOperationException("You must provide at least one aggregator");
         }
-        
+
         var evaluation = _aggregator.Aggregate();
 
         var columns = BuildColumnNames(evaluation);
@@ -59,10 +58,9 @@ public abstract class ViewModelBuilder<TAggregator, TAggregation> : IViewModelBu
         };
     }
 
-    private IViewModelBuilder<TAggregator, TAggregation> GetCurrentBuilder()
+    private IViewModelBuilder<TAggregation> GetCurrentBuilder()
     {
-        var current = this as IViewModelBuilder<TAggregator, TAggregation>;
-        if (current is null)
+        if (this is not IViewModelBuilder<TAggregation> current)
         {
             throw new Exception("Attempted to return a non-IViewModelBuilder superclass of ViewModelBuilder");
         }

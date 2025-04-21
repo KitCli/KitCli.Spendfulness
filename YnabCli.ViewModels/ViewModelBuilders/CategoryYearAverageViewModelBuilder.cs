@@ -4,8 +4,7 @@ using YnabCli.ViewModels.Formatters;
 
 namespace YnabCli.ViewModels.ViewModelBuilders;
 
-public class CategoryYearAverageViewModelBuilder : 
-    ViewModelBuilder<CategoryYearAverageAggregator, IEnumerable<CategoryYearAverageAggregate>>
+public class CategoryYearAverageViewModelBuilder : ViewModelBuilder<IEnumerable<CategoryYearAverageAggregate>>
 {
     protected override List<string> BuildColumnNames(IEnumerable<CategoryYearAverageAggregate> evaluation)
     {

@@ -9,9 +9,7 @@ namespace YnabCli.Aggregation.Aggregator;
 public class TransactionMonthFlaggedAggregator(IEnumerable<CategoryGroup> categoryGroups, IEnumerable<Transaction> transactions)
     : Aggregator<IEnumerable<TransactionMonthFlaggedAggregate>>(categoryGroups, transactions)
 {
-    
-    
-    public override IEnumerable<TransactionMonthFlaggedAggregate> Aggregate()
+    protected override IEnumerable<TransactionMonthFlaggedAggregate> GenerateAggregate()
     {
         var spendingCategoryIds = CategoryGroups
             .FilterToSpendingCategories()

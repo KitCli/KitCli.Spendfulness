@@ -43,8 +43,9 @@ public class RecurringTransactionsCommandHandler : CommandHandler, ICommandHandl
         var budget =  await _budgetClient.GetDefaultBudget();
         var transactions = await budget.GetTransactions();
         
-        var aggregator = new TransactionMemoOccurrenceAggregator(transactions)
-            .BeforeAggregation(ts => ts.FilterOutCategories([YnabConstants.SplitCategoryId]));
+        var aggregator = new TransactionMemoOccurrenceAggregator(transactions);
+            
+        aggregator.BeforeAggregation(ts => ts.FilterOutCategories([YnabConstants.SplitCategoryId]));
 
         if (command.From.HasValue)
         {
