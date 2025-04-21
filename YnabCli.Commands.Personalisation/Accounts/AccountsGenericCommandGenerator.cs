@@ -4,7 +4,7 @@ using YnabCli.Instructions.Arguments;
 
 namespace YnabCli.Commands.Personalisation.Accounts;
 
-public class AccountsCommandGenerator : ICommandGenerator, ITypedCommandGenerator<AccountsCommand>
+public class AccountsGenericCommandGenerator : ICommandGenerator<AccountsCommand>
 {
     public ICommand Generate(string? subCommandName, List<InstructionArgument> arguments)
     {

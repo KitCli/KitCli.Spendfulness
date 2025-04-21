@@ -3,7 +3,7 @@ using YnabCli.Instructions.Arguments;
 
 namespace YnabCli.Commands.Personalisation.Categories;
 
-public class CategoriesCommandGenerator : ICommandGenerator, ITypedCommandGenerator<CategoriesCommand>
+public class CategoriesGenericCommandGenerator : ICommandGenerator<CategoriesCommand>
 {
     public ICommand Generate(string? subCommandName, List<InstructionArgument> arguments)
     {

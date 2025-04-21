@@ -21,7 +21,7 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddCommandGenerators(this IServiceCollection serviceCollection, Assembly assembly)
     {
-        var implementationTypes = assembly.WhereClassTypesImplementType(typeof(ICommandGenerator));
+        var implementationTypes = assembly.WhereClassTypesImplementType(typeof(IGenericCommandGenerator));
         
         foreach (var implementationType in implementationTypes)
         {
@@ -33,14 +33,14 @@ public static class ServiceCollectionExtensions
 
             var commandName = name.ToLowerSplitString(InstructionConstants.DefaultCommandNameSeparator);
             var shorthandCommandName = name.ToLowerTitleCharacters();
-            
+
             serviceCollection
                 .AddKeyedSingleton(
-                    typeof(ICommandGenerator),
+                    typeof(IGenericCommandGenerator),
                     commandName,
                     implementationType)
                 .AddKeyedSingleton(
-                    typeof(ICommandGenerator),
+                    typeof(IGenericCommandGenerator),
                     shorthandCommandName,
                     implementationType);
         }

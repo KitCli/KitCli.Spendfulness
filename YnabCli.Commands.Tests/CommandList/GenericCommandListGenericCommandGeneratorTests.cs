@@ -4,12 +4,12 @@ using YnabCli.Instructions.Arguments;
 namespace YnabCli.Commands.Tests.CommandList;
 
 [TestFixture]
-public class CommandListCommandGeneratorTests
+public class GenericCommandListGenericCommandGeneratorTests
 {
     [Test]
     public void GivenAnyArguments_WhenGenerate_ReturnsCommandListCommand()
     {
-        var generator = new CommandListCommandGenerator();
+        var generator = new GenericCommandListGenericCommandGenerator();
 
         var arguments = new List<InstructionArgument>();
         

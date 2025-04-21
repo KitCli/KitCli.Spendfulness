@@ -5,7 +5,7 @@ using YnabCli.Instructions.Arguments;
 
 namespace YnabCli.Commands.Personalisation.Settings;
 
-public class SettingsCommandGenerator : ICommandGenerator, ITypedCommandGenerator<SettingsCommand>
+public class SettingsGenericCommandGenerator : ICommandGenerator<SettingsCommand>
 {
     public ICommand Generate(string? subCommandName, List<InstructionArgument> arguments)
     {

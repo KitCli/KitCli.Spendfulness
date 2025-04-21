@@ -4,7 +4,7 @@ using YnabCli.Instructions.Arguments;
 
 namespace YnabCli.Commands.Personalisation.Databases;
 
-public class DatabaseCommandGenerator : ICommandGenerator, ITypedCommandGenerator<DatabaseCommand>
+public class DatabaseGenericCommandGenerator : ICommandGenerator<DatabaseCommand>
 {
     public ICommand Generate(string? subCommandName, List<InstructionArgument> arguments)
     {

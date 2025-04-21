@@ -6,7 +6,7 @@ using YnabCli.Instructions.Arguments;
 
 namespace YnabCli.Commands.Personalisation.Users;
 
-public class UserCommandGenerator : ICommandGenerator, ITypedCommandGenerator<UserCommand>
+public class UserGenericCommandGenerator : ICommandGenerator<UserCommand>
 {
     public ICommand Generate(string? subCommandName, List<InstructionArgument> arguments)
     {

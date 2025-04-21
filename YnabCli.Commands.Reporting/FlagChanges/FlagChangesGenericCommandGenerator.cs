@@ -3,7 +3,7 @@ using YnabCli.Instructions.Arguments;
 
 namespace YnabCli.Commands.Reporting.FlagChanges;
 
-public class FlagChangesCommandGenerator : ICommandGenerator, ITypedCommandGenerator<FlagChangesCommand>
+public class FlagChangesGenericCommandGenerator : ICommandGenerator<FlagChangesCommand>
 {
     public ICommand Generate(string? subCommandName, List<InstructionArgument> arguments)
     {

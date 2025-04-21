@@ -8,22 +8,12 @@ using YnabCli.ViewModels.ViewModelBuilders;
 
 namespace YnabCli.Commands.Reporting.FlagChanges;
 
-public class FlagChangesCommandHandler : CommandHandler, ICommandHandler<FlagChangesCommand>
+public class FlagChangesCommandHandler(ConfiguredBudgetClient configuredBudgetClient)
+    : CommandHandler, ICommandHandler<FlagChangesCommand>
 {
-    private readonly ConfiguredBudgetClient _budgetClient;
-    private readonly TransactionMonthFlaggedViewModelBuilder _viewModelBuilder;
-
-    public FlagChangesCommandHandler(
-        ConfiguredBudgetClient budgetClient,
-        TransactionMonthFlaggedViewModelBuilder viewModelBuilder)
-    {
-        _budgetClient = budgetClient;
-        _viewModelBuilder = viewModelBuilder;
-    }
-
     public async Task<ConsoleTable> Handle(FlagChangesCommand command, CancellationToken cancellationToken)
     {
-        var budget = await _budgetClient.GetDefaultBudget();
+        var budget = await configuredBudgetClient.GetDefaultBudget();
         
         var categoryGroups = await budget.GetCategoryGroups();
         var transactions = await budget.GetTransactions();
@@ -43,7 +33,7 @@ public class FlagChangesCommandHandler : CommandHandler, ICommandHandler<FlagCha
         
         var aggregator = new TransactionMonthFlaggedAggregator(categoryGroups, castedTransactions);
         
-        var viewModel = _viewModelBuilder
+        var viewModel = new TransactionMonthFlaggedViewModelBuilder()
             .WithAggregator(aggregator)
             .Build();
         

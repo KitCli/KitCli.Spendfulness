@@ -4,7 +4,7 @@ using YnabCli.Instructions.Arguments;
 
 namespace YnabCli.Commands.Personalisation.Commitments;
 
-public class CommitmentsCommandGenerator : ICommandGenerator, ITypedCommandGenerator<CommitmentsCommand>
+public class CommitmentsGenericCommandGenerator : ICommandGenerator<CommitmentsCommand>
 {
     public ICommand Generate(string? subCommandName, List<InstructionArgument> arguments)
     {

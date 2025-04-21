@@ -4,7 +4,7 @@ using YnabCli.Instructions.Arguments;
 
 namespace YnabCli.Commands.Reporting.SpareMoney;
 
-public class SpareMoneyCommandGenerator : ICommandGenerator, ITypedCommandGenerator<SpareMoneyCommand>
+public class SpareMoneyGenericCommandGenerator : ICommandGenerator<SpareMoneyCommand>
 {
     public ICommand Generate(string? subCommandName, List<InstructionArgument> arguments)
     {

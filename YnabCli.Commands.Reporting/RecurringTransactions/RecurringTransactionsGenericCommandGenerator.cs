@@ -3,7 +3,7 @@ using YnabCli.Instructions.Arguments;
 
 namespace YnabCli.Commands.Reporting.RecurringTransactions;
 
-public class RecurringTransactionsCommandGenerator : ICommandGenerator, ITypedCommandGenerator<RecurringTransactionsCommand>
+public class RecurringTransactionsGenericCommandGenerator : ICommandGenerator<RecurringTransactionsCommand>
 {
     public ICommand Generate(string? subCommandName, List<InstructionArgument> arguments)
     {
