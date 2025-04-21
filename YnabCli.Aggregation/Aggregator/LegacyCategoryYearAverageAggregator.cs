@@ -9,9 +9,9 @@ namespace YnabCli.Aggregation.Aggregator;
 
 [Obsolete("Please do not use this method.")]
 public class LegacyCategoryYearAverageAggregator(IEnumerable<Transaction> transactions)
-    : Aggregator<IEnumerable<CategoryYearAverageAggregate>>(transactions)
+    : Aggregator<IEnumerable<LegacyCategoryYearAverageAggregate>>(transactions)
 {
-    protected override IEnumerable<CategoryYearAverageAggregate> GenerateAggregate()
+    protected override IEnumerable<LegacyCategoryYearAverageAggregate> GenerateAggregate()
     {
         var transactionGroups = Transactions
             .GroupByCategory()
@@ -21,7 +21,7 @@ public class LegacyCategoryYearAverageAggregator(IEnumerable<Transaction> transa
     }
 
     // TODO: I wonder if this could be an extension...
-    private IEnumerable<CategoryYearAverageAggregate> MapToAggregate(
+    private IEnumerable<LegacyCategoryYearAverageAggregate> MapToAggregate(
         IEnumerable<TransactionsByYearByCategory> transactionGroups)
     {
         foreach (var transactionGroup in transactionGroups)
@@ -32,7 +32,7 @@ public class LegacyCategoryYearAverageAggregator(IEnumerable<Transaction> transa
                     transactionByYear => transactionByYear.Year,
                     transactionByYear => transactionByYear.Transactions.Average(t => t.Amount));
 
-            yield return new CategoryYearAverageAggregate(transactionGroup.CategoryName, averageAmountByYears);
+            yield return new LegacyCategoryYearAverageAggregate(transactionGroup.CategoryName, averageAmountByYears);
         }
     }
 }
