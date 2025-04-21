@@ -5,5 +5,6 @@ public class AccountsCommand : ICommand
     public static class SubCommandNames
     {
         public const string Identify = "identify";
+        public const string Create = "create";
     }
 }

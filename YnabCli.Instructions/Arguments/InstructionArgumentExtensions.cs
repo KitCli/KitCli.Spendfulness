@@ -11,6 +11,7 @@ public static class InstructionArgumentExtensions
                 .OfType<TypedInstructionArgument<TArgumentType>>()
                 .FirstOrDefault();
 
+    // TODO: Im not sure this returning the type is even worth it? Just return the value?
     public static TypedInstructionArgument<TArgumentType> OfRequiredType<TArgumentType>(
         this IEnumerable<InstructionArgument> arguments, string argumentName) where TArgumentType : notnull
     {
