@@ -16,6 +16,14 @@ public static class TransactionExtensions
         this IEnumerable<Transaction> transactions, IEnumerable<Guid> categoryIds) 
             => FilterToCategories(transactions, categoryIds.ToArray());
 
+    public static IEnumerable<Transaction> FilterOutTransfers(
+        this IEnumerable<Transaction> transactions)
+            => transactions.Where(transaction => !transaction.IsTransfer);
+    
+    public static IEnumerable<Transaction> FilterOutAutomations(
+        this IEnumerable<Transaction> transactions)
+             => transactions.Where(transaction => !YnabConstants.AutomatedPayeeNames.Contains(transaction.PayeeName));
+    
     public static IEnumerable<Transaction> FilterOutCategories(
         this IEnumerable<Transaction> transactions, IEnumerable<Guid> categoryIds)
             => transactions.Where(transaction => transaction.CategoryId.HasValue &&

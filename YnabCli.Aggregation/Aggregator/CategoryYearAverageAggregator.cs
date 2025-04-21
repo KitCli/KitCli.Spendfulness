@@ -5,6 +5,7 @@ using YnabCli.Aggregation.Aggregates;
 
 namespace YnabCli.Aggregation.Aggregator;
 
+// TODO: This should be a list aggregator.
 public class CategoryYearAverageAggregator(IEnumerable<Transaction> transactions)
     : Aggregator<IEnumerable<CategoryYearAverageAggregate>>(transactions)
 {
@@ -17,6 +18,7 @@ public class CategoryYearAverageAggregator(IEnumerable<Transaction> transactions
         return MapToAggregate(transactionGroups);
     }
 
+    // TODO: I wonder if this could be an extension...
     private IEnumerable<CategoryYearAverageAggregate> MapToAggregate(
         IEnumerable<TransactionsByYearByCategory> transactionGroups)
     {
