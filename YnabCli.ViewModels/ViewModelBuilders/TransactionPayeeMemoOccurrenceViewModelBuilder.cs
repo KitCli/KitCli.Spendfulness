@@ -5,7 +5,7 @@ using YnabCli.ViewModels.ViewModels;
 
 namespace YnabCli.ViewModels.ViewModelBuilders;
 
-public class TransactionMemoOccurrenceViewModelBuilder : 
+public class TransactionPayeeMemoOccurrenceViewModelBuilder : 
     ViewModelBuilder<IEnumerable<TransactionPayeeMemoOccurrenceAggregate>>
 {
     protected override List<string> BuildColumnNames(IEnumerable<TransactionPayeeMemoOccurrenceAggregate> evaluation)

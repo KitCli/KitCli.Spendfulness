@@ -10,26 +10,16 @@ using YnabCli.ViewModels.ViewModelBuilders;
 
 namespace YnabCli.Commands.Reporting.RecurringTransactions;
 
-public class RecurringTransactionsCommandHandler : CommandHandler, ICommandHandler<RecurringTransactionsCommand>
+public class RecurringTransactionsCommandHandler(ConfiguredBudgetClient budgetClient)
+    : CommandHandler, ICommandHandler<RecurringTransactionsCommand>
 {
-    private readonly ConfiguredBudgetClient _budgetClient;
-    private readonly TransactionMemoOccurrenceViewModelBuilder _viewModelBuilder;
-
-    public RecurringTransactionsCommandHandler(
-        ConfiguredBudgetClient budgetClient,
-        TransactionMemoOccurrenceViewModelBuilder viewModelBuilder)
-    {
-        _budgetClient = budgetClient;
-        _viewModelBuilder = viewModelBuilder;
-    }
-
     private const int DefaultMinimumOccurrences = 2;
     
     public async Task<ConsoleTable> Handle(RecurringTransactionsCommand command, CancellationToken cancellationToken)
     {
         var aggregator = await PrepareAggregator(command);
 
-        var viewModel = _viewModelBuilder
+        var viewModel = new TransactionPayeeMemoOccurrenceViewModelBuilder()
             .WithAggregator(aggregator)
             .Build();
 
@@ -38,7 +28,7 @@ public class RecurringTransactionsCommandHandler : CommandHandler, ICommandHandl
 
     private async Task<ListAggregator<TransactionPayeeMemoOccurrenceAggregate>> PrepareAggregator(RecurringTransactionsCommand command)
     {
-        var budget =  await _budgetClient.GetDefaultBudget();
+        var budget =  await budgetClient.GetDefaultBudget();
         var transactions = await budget.GetTransactions();
         
         var aggregator = new TransactionPayeeMemoOccurrenceAggregator(transactions);
