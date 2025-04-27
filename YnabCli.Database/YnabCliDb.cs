@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Query;
 using YnabCli.Database.Accounts;
 using YnabCli.Database.Commitments;
-using YnabCli.Database.SpendingSamples;
 using YnabCli.Database.Users;
 
 namespace YnabCli.Database;

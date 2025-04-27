@@ -4,11 +4,10 @@ using System.Text.Json.Serialization;
 using Ynab.Converters;
 using Ynab.Exceptions;
 using Ynab.Http;
-using NotImplementedException = System.NotImplementedException;
 
 namespace Ynab.Clients;
 
-public class YnabApiClient
+public abstract class YnabApiClient
 {
     private readonly JsonSerializerOptions _jsonOptions = new(JsonSerializerDefaults.Web)
     {
@@ -18,12 +17,8 @@ public class YnabApiClient
             new IgnoreEmptyStringNullableEnumConverter()
         }
     };
-    
-    protected virtual HttpClient GetHttpClient()
-    {
-        // This is genuine exceptional circumstances.
-        throw new NotImplementedException();
-    }
+
+    protected abstract HttpClient GetHttpClient();
 
     protected async Task<YnabHttpResponseContent<TApiResponse>> Get<TApiResponse>(string url) where TApiResponse : class
     {

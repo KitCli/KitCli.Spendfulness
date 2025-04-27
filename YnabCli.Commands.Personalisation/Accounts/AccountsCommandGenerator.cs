@@ -1,5 +1,4 @@
 using YnabCli.Commands.Generators;
-using YnabCli.Commands.Personalisation.Accounts.Create;
 using YnabCli.Commands.Personalisation.Accounts.Identify;
 using YnabCli.Instructions.Arguments;
 
@@ -11,7 +10,6 @@ public class AccountsCommandGenerator : ICommandGenerator<AccountsCommand>
         => subCommandName switch
         {
             AccountsCommand.SubCommandNames.Identify => GenerateIdentifyCommand(arguments),
-            AccountsCommand.SubCommandNames.Create => GenerateCreateCommand(arguments),
             _ => new AccountsCommand()
         };
 
@@ -21,13 +19,5 @@ public class AccountsCommandGenerator : ICommandGenerator<AccountsCommand>
         var typeArgument = arguments.OfRequiredType<string>(AccountsIdentifyCommand.ArgumentNames.Type);
 
         return new AccountsIdentifyCommand(nameArgument.ArgumentValue, typeArgument.ArgumentValue);
-    }
-
-    private AccountsCreateCommand GenerateCreateCommand(List<InstructionArgument> arguments)
-    {
-        var nameArgument = arguments.OfRequiredType<string>(AccountsCreateCommand.ArgumentNames.Name);
-        var typeArgument = arguments.OfRequiredType<string>(AccountsCreateCommand.ArgumentNames.Type);
-
-        return new AccountsCreateCommand(nameArgument.ArgumentValue, typeArgument.ArgumentValue);
     }
 }

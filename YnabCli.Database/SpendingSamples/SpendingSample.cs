@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace YnabCli.Database.SpendingSamples;
 
 /// <summary>
@@ -22,7 +24,8 @@ public class SpendingSample
     /// <summary>
     /// What the spending happened on.
     /// </summary>
-    public string YnabMemo { get; set; }
+    [MaxLength(1000)]
+    public required string YnabMemo { get; set; }
     
     
     public ICollection<SpendingSamplePrices> Prices { get; set; } = new List<SpendingSamplePrices>();

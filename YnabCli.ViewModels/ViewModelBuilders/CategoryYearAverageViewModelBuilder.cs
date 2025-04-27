@@ -3,9 +3,9 @@ using YnabCli.ViewModels.Formatters;
 
 namespace YnabCli.ViewModels.ViewModelBuilders;
 
-public class CategoryYearAverageViewModelBuilder : ViewModelBuilder<IEnumerable<LegacyCategoryYearAverageAggregate>>
+public class CategoryYearAverageViewModelBuilder : ViewModelBuilder<IEnumerable<CategoryYearAverageAggregate>>
 {
-    protected override List<string> BuildColumnNames(IEnumerable<LegacyCategoryYearAverageAggregate> evaluation)
+    protected override List<string> BuildColumnNames(IEnumerable<CategoryYearAverageAggregate> evaluation)
     {
         var aggregatesIndexed = evaluation.ToList();
         
@@ -18,7 +18,7 @@ public class CategoryYearAverageViewModelBuilder : ViewModelBuilder<IEnumerable<
             .ToList();
     }
 
-    protected override List<List<object>> BuildRows(IEnumerable<LegacyCategoryYearAverageAggregate> aggregates)
+    protected override List<List<object>> BuildRows(IEnumerable<CategoryYearAverageAggregate> aggregates)
     {
         var aggregatesIndexed = aggregates.ToList();
         var columnNames = BuildColumnNames(aggregatesIndexed);
@@ -34,7 +34,7 @@ public class CategoryYearAverageViewModelBuilder : ViewModelBuilder<IEnumerable<
         return rows;
     }
 
-    private IEnumerable<object> BuildIndividualRow(List<string> columnNames, LegacyCategoryYearAverageAggregate aggregate)
+    private IEnumerable<object> BuildIndividualRow(List<string> columnNames, CategoryYearAverageAggregate aggregate)
     {
         yield return aggregate.CategoryName;
         

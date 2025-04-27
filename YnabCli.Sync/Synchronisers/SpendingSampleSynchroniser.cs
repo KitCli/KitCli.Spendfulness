@@ -44,9 +44,9 @@ public class SpendingSampleSynchroniser(ConfiguredBudgetClient configuredBudgetC
                     
                     var completelyNewSample = new SpendingSample
                     {
-                        YnabPayeeId = unsampledSubTransaction.PayeeId.Value,
-                        YnabCategoryId = unsampledSubTransaction.CategoryId.Value,
-                        YnabMemo = unsampledSubTransaction.Memo,
+                        YnabPayeeId = unsampledSubTransaction.PayeeId!.Value,
+                        YnabCategoryId = unsampledSubTransaction.CategoryId!.Value,
+                        YnabMemo = unsampledSubTransaction.Memo!,
                         Prices = new List<SpendingSamplePrices>
                         {
                             new SpendingSamplePrices

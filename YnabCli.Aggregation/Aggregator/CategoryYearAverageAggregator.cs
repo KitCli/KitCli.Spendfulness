@@ -7,11 +7,10 @@ namespace YnabCli.Aggregation.Aggregator;
 
 // TODO: This should be a list aggregator.
 
-[Obsolete("Please do not use this method.")]
-public class LegacyCategoryYearAverageAggregator(IEnumerable<Transaction> transactions)
-    : Aggregator<IEnumerable<LegacyCategoryYearAverageAggregate>>(transactions)
+public class CategoryYearAverageAggregator(IEnumerable<Transaction> transactions)
+    : Aggregator<IEnumerable<CategoryYearAverageAggregate>>(transactions)
 {
-    protected override IEnumerable<LegacyCategoryYearAverageAggregate> GenerateAggregate()
+    protected override IEnumerable<CategoryYearAverageAggregate> GenerateAggregate()
          => Transactions
                 .GroupByCategory()
                 .GroupByYear()

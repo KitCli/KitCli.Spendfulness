@@ -1,20 +1,18 @@
-using Ynab.Connected;
 using Ynab.Http;
 using Ynab.Responses.Transactions;
 
 namespace Ynab.Clients;
 
-public class TransactionsClient(YnabHttpClientBuilder ynabHttpClientBuilder, string parentApiPath) : YnabApiClient
+public class TransactionsClient(YnabHttpClientBuilder builder, string parentApiPath) : YnabApiClient
 {
     private const string TransactionsApiPath = "transactions";
 
-    public async Task<IEnumerable<ConnectedTransaction>> GetTransactions()
+    public async Task<IEnumerable<Transaction>> GetTransactions()
     {
         var response = await Get<GetTransactionsResponseData>(TransactionsApiPath);
-        return response.Data.Transactions.Select(t => new ConnectedTransaction(this, t));
+        return response.Data.Transactions.Select(t => new Transaction(t));
     }
     
-    protected override HttpClient GetHttpClient()
-        => ynabHttpClientBuilder.Build(parentApiPath,  TransactionsApiPath);
+    protected override HttpClient GetHttpClient() => builder.Build(parentApiPath,  TransactionsApiPath);
 }
 

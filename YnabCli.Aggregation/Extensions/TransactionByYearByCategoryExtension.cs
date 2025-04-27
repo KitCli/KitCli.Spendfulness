@@ -5,7 +5,7 @@ namespace YnabCli.Aggregation.Extensions;
 
 public static class TransactionByYearByCategoryExtension
 {
-    public static IEnumerable<LegacyCategoryYearAverageAggregate> AggregateYearAverages(
+    public static IEnumerable<CategoryYearAverageAggregate> AggregateYearAverages(
         this IEnumerable<TransactionsByYearByCategory> transactionGroups)
     {
         foreach (var transactionGroup in transactionGroups)
@@ -16,7 +16,7 @@ public static class TransactionByYearByCategoryExtension
                     transactionByYear => transactionByYear.Year,
                     transactionByYear => transactionByYear.Transactions.Average(t => t.Amount));
 
-            yield return new LegacyCategoryYearAverageAggregate(transactionGroup.CategoryName, averageAmountByYears);
+            yield return new CategoryYearAverageAggregate(transactionGroup.CategoryName, averageAmountByYears);
         }
     }
 }

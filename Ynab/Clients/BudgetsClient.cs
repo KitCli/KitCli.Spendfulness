@@ -4,7 +4,7 @@ using Ynab.Responses.Budgets;
 
 namespace Ynab.Clients;
 
-public class BudgetsClient(YnabHttpClientBuilder ynabHttpClientBuilder) : YnabApiClient
+public class BudgetsClient(YnabHttpClientBuilder builder) : YnabApiClient
 {
     private const string BudgetsApiPath = "budgets";
 
@@ -20,19 +20,17 @@ public class BudgetsClient(YnabHttpClientBuilder ynabHttpClientBuilder) : YnabAp
         {
             var parentApiPath = $"{BudgetsApiPath}/{budgetResponse.Id}";
             
-            var accounts = new AccountsClient(ynabHttpClientBuilder, parentApiPath);
-            var categories = new CategoriesClient(ynabHttpClientBuilder, parentApiPath);
-            var transactions = new TransactionsClient(ynabHttpClientBuilder, parentApiPath);
-            var scheduledTransactions = new ScheduledTransactionsClient(ynabHttpClientBuilder, parentApiPath);
+            var accounts = new AccountsClient(builder, parentApiPath);
+            var categories = new CategoriesClient(builder, parentApiPath);
+            var transactions = new TransactionsClient(builder, parentApiPath);
 
             yield return new ConnectedBudget(
                 accounts,
                 categories,
                 transactions,
-                scheduledTransactions,
                 budgetResponse);
         }
     }
 
-    protected override HttpClient GetHttpClient() => ynabHttpClientBuilder.Build();
+    protected override HttpClient GetHttpClient() => builder.Build();
 }
