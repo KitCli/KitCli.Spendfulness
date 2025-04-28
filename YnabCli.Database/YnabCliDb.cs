@@ -1,8 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Query;
 using YnabCli.Database.Accounts;
-using YnabCli.Database.Commitments;
 using YnabCli.Database.SpendingSamples;
 using YnabCli.Database.Users;
 
@@ -12,7 +10,13 @@ public class YnabCliDb(YnabCliDbContext ynabCliDbContext)
 {
     public readonly YnabCliDbContext Context = ynabCliDbContext;
     
-    public Task<User> GetActiveUser() => GetUserIncludable().FirstAsync(u => u.Active);
+    public Task<User> GetActiveUser() => 
+        Context
+            .Users
+            .Include(u => u.Settings)
+            .ThenInclude(s => s.Type)
+            .Include(u => u.Commitments)
+            .FirstAsync(u => u.Active);
     
     public Task<List<CustomAccountType>> GetAccountTypes()
         => Context
@@ -45,11 +49,4 @@ public class YnabCliDb(YnabCliDbContext ynabCliDbContext)
     }
 
     public Task Save() => Context.SaveChangesAsync();
-
-    private IIncludableQueryable<User, ICollection<Commitment>> GetUserIncludable()
-        => Context
-            .Users
-            .Include(u => u.Settings)
-            .ThenInclude(s => s.Type)
-            .Include(u => u.Commitments);
 }
