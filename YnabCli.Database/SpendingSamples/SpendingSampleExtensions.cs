@@ -1,11 +1,14 @@
 using Ynab;
-using YnabCli.Database.SpendingSamples;
 
-namespace YnabCli.Database;
+namespace YnabCli.Database.SpendingSamples;
 
 public static class SpendingSampleExtensions
 {
-    public static bool Matches(this SpendingSample sample, Transaction transaction)
+    /// <summary>
+    /// Matches a Transaction based on its payee, most recent price, and used category ids.
+    /// </summary>
+    ///  TODO: This is for matching un-split transactions with samples.
+    public static bool SimilarTo(this SpendingSample sample, Transaction transaction)
     {
         var mostRecentSampleTotal = sample.Matches.Sum(x => x.MostRecentPrice.Amount);
         
@@ -16,11 +19,11 @@ public static class SpendingSampleExtensions
         // Payee is the same, though not sure this matters.
         return sample.YnabPayeeId == transaction.PayeeId && 
                
-               // Transaction amount equals or can be inclusive
-               mostRecentSampleTotal <= transaction.Amount && 
-               
                // Transaction is categorised like one of the matches
                transaction.CategoryId.HasValue &&
-               allCategoryIds.Contains(transaction.CategoryId.Value);
+               allCategoryIds.Contains(transaction.CategoryId.Value) &&
+               
+               // Transaction amount equals or can be inclusive
+               mostRecentSampleTotal <= transaction.Amount;
     }
 }

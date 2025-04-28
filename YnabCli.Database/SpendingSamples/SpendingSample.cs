@@ -10,8 +10,9 @@ public class SpendingSample
     
     public Guid YnabPayeeId { get; set; }
 
+    // Which transaction this Spending Sample was derived from. 
     [MaxLength(50)]
-    public required string YnabTransactionDerivedFromId { get; set; }
+    public string? YnabTransactionId { get; set; }
 
-    public ICollection<SpendingSampleMatch> Matches { get; set; } = [];
+    public ICollection<SpendingSampleMatchCriteria> Matches { get; set; } = [];
 }

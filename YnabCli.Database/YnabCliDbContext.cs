@@ -15,9 +15,11 @@ public class YnabCliDbContext : DbContext
     public DbSet<SettingType> SettingTypes { get; set; }
     public DbSet<Commitment> Commitments { get; set; }
     public DbSet<Milestone> Milestones { get; set; }
+    
+    
     public DbSet<SpendingSample> SpendingSamples { get; set; }
-    public DbSet<SpendingSampleMatch> SpendingSampleMatches { get; set; }
-    public DbSet<SpendingSampleMatchPrice> SpendingSampleMatchPrices { get; set; }
+    public DbSet<SpendingSampleMatchCriteria> SpendingSampleMatchCriteria { get; set; }
+    public DbSet<SpendingSampleMatchCriteriaPrice> SpendingSampleMatchCriteriaPrices { get; set; }
     public DbSet<CustomAccountType> CustomAccountTypes { get; set; }
     public DbSet<AccountAttributes> AccountAccountTypes { get; set; }
     
@@ -44,7 +46,7 @@ public class YnabCliDbContext : DbContext
             });
         
         modelBuilder
-            .Entity<SpendingSampleMatch>()
+            .Entity<SpendingSampleMatchCriteria>()
             .Ignore(x => x.MostRecentPrice);
 
         modelBuilder

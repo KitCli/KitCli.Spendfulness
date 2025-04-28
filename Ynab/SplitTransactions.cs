@@ -3,7 +3,7 @@ using Ynab.Sanitisers;
 
 namespace Ynab;
 
-// TODO: Hate that this is called 'sub'
+// TODO: Hate that this is plural...
 public class SplitTransactions(SplitTransactionResponse splitTransactionResponse)
 {
     public string Id => splitTransactionResponse.Id;
@@ -17,4 +17,6 @@ public class SplitTransactions(SplitTransactionResponse splitTransactionResponse
     
     public bool InCategories(IEnumerable<Guid> categoryIds)
         => CategoryId.HasValue && categoryIds.Contains(CategoryId.Value);
+    
+    public bool IsFullyFormed => this is { PayeeId: not null, CategoryId: not null, Memo: not null };
 }

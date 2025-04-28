@@ -2,6 +2,7 @@ using ConsoleTables;
 using Microsoft.EntityFrameworkCore;
 using YnabCli.Commands.Handlers;
 using YnabCli.Database;
+using YnabCli.Database.SpendingSamples;
 
 namespace YnabCli.Commands.Personalisation.Samples.Matches;
 
@@ -25,7 +26,7 @@ public class SamplesMatchesCommandHandler(ConfiguredBudgetClient configuredBudge
         // TODO: Turn this into an aggregator?
         // TODO: Create an aggregate that is <sampleId, MatchCount>
         var _ = samples
-            .Where(sample => sample.Matches(transaction))
+            .Where(sample => sample.SimilarTo(transaction))
             .ToList();
         
         // Step 4: Show in a view model.
