@@ -16,8 +16,13 @@ public static class SpendingSampleExtensions
             .Select(x => x.YnabCategoryId)
             .Distinct();
         
+        var allPayeeIds = sample.Matches
+            .Select(x => x.YnabPayeeId)
+            .Distinct();
+        
         // Payee is the same, though not sure this matters.
-        return sample.YnabPayeeId == transaction.PayeeId && 
+        return transaction.PayeeId.HasValue &&
+               allPayeeIds.Contains(transaction.PayeeId.Value) &&
                
                // Transaction is categorised like one of the matches
                transaction.CategoryId.HasValue &&

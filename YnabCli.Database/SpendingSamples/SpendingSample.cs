@@ -7,8 +7,6 @@ public class SpendingSample
     public Guid Id { get; set; }
     
     public DateTime Created { get; set; }
-    
-    public Guid YnabPayeeId { get; set; }
 
     // Which transaction this Spending Sample was derived from. 
     [MaxLength(50)]

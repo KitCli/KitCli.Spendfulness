@@ -14,7 +14,7 @@ public class DerivableSpendingSampleSynchroniser(ConfiguredBudgetClient configur
         PrintToConsole("Syncing Spending Samples ...");
 
         var unsampledTransactions = await GetUnsampledTransactions();
-        if (!unsampledTransactions.Any())
+        if (unsampledTransactions.Count == 0)
         {
             PrintToConsole("No unsampled transactions found, exiting ...");
             return;
@@ -31,10 +31,12 @@ public class DerivableSpendingSampleSynchroniser(ConfiguredBudgetClient configur
         // TODO: Add support for 'SpendingSampleImport' timing and filter transactions on it.
         var transactions = await budget.GetTransactions();
 
-        var sampledTransactionIds = await db.GetDerivedSpendingSamples();
+        var sampledTransactionIds = await db.GetDerivedSpendingSampleTransactionIds();
         
         return transactions
-            .Where(t => t.SplitTransactions.AllFullyFormed() && !sampledTransactionIds.Contains(t.Id))
+            .Where(t => t.SplitTransactions.Any() && 
+                        t.SplitTransactions.AllFullyFormed() && 
+                        !sampledTransactionIds.Contains(t.Id))
             .ToList();
     }
     
@@ -69,11 +71,13 @@ public class DerivableSpendingSampleSynchroniser(ConfiguredBudgetClient configur
             {
                 Created = DateTime.UtcNow,
                 YnabTransactionId = unsampledTransaction.Id,
-                YnabPayeeId = unsampledTransaction.PayeeId!.Value,
                 Matches = foundMatchCriteria
             };
             
             db.Context.SpendingSamples.Add(sample);
         }
+
+        await db.Save();
+        PrintToConsole("Syncing Spending Samples complete");
     }
 }

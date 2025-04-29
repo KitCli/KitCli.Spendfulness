@@ -22,8 +22,8 @@ public class YnabCliDb(YnabCliDbContext ynabCliDbContext)
         => Context
             .CustomAccountTypes
             .ToListAsync();
-    
-    public Task<List<string>> GetDerivedSpendingSamples()
+
+    public Task<List<string>> GetDerivedSpendingSampleTransactionIds()
         => Context
             .SpendingSamples
             .Where(ss => ss.YnabTransactionId != null)
