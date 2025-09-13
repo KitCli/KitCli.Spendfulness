@@ -20,38 +20,41 @@ public abstract class YnabApiClient
 
     protected abstract HttpClient GetHttpClient();
 
-    protected async Task<YnabHttpResponseContent<TApiResponse>> Get<TApiResponse>(string url) where TApiResponse : class
+    protected async Task<YnabHttpResponseContent<TApiResponse>> Get<TApiResponse>(string url)
+        where TApiResponse : class
     {
         var client = GetHttpClient();
-        
         var response = await client.GetAsync(url);
-        
         response.EnsureSuccessStatusCode();
-        
-        var responseContent = await response.Content.ReadFromJsonAsync<YnabHttpResponseContent<TApiResponse>>(_jsonOptions);
-        if (responseContent is null)
-        {
-            throw new YnabException(YnabExceptionCode.ApiResponseIsEmpty, $"No response on {url}");
-        }
-        
-        return responseContent;
+        return await ReadResponseContent<TApiResponse>(response, url);
     }
 
-    protected async Task<YnabHttpResponseContent<TApiResponse>> Post<TApiResponse>(string url, object payload) where TApiResponse : class
+    protected async Task<YnabHttpResponseContent<TApiResponse>> Post<TApiRequest, TApiResponse>(string url, TApiRequest payload)
+        where TApiRequest : class where TApiResponse : class
     {
         var client = GetHttpClient();
-
         var response = await client.PostAsJsonAsync(url, payload, _jsonOptions);
-
         response.EnsureSuccessStatusCode();
+        return await ReadResponseContent<TApiResponse>(response, url);
+    }
 
+    protected async Task<YnabHttpResponseContent<TApiResponse>> Patch<TApiRequest, TApiResponse>(string url, TApiRequest payload) 
+        where TApiRequest : class where TApiResponse : class
+    {
+        var client = GetHttpClient();
+        var response = await client.PatchAsJsonAsync(url, payload, _jsonOptions);
+        response.EnsureSuccessStatusCode();
+        return await ReadResponseContent<TApiResponse>(response, url);
+    }
+
+    private async Task<YnabHttpResponseContent<TApiResponse>> ReadResponseContent<TApiResponse>(HttpResponseMessage response, string url)
+        where TApiResponse : class
+    {
         var responseContent = await response.Content.ReadFromJsonAsync<YnabHttpResponseContent<TApiResponse>>(_jsonOptions);
-
         if (responseContent is null)
         {
             throw new YnabException(YnabExceptionCode.ApiResponseIsEmpty, $"No response on {url}");
         }
-
         return responseContent;
     }
 }

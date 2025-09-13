@@ -1,4 +1,5 @@
 using Ynab.Http;
+using Ynab.Requests.Transactions;
 using Ynab.Responses.Transactions;
 
 namespace Ynab.Clients;
@@ -17,6 +18,25 @@ public class TransactionsClient(YnabHttpClientBuilder builder, string parentApiP
     {
         var response = await Get<GetTransactionResponse>($"{TransactionsApiPath}/{id}");
         return new Transaction(response.Data.Transaction);
+    }
+
+    public async Task<IEnumerable<Transaction>> UpdateTransactions(IEnumerable<UpdatedTransaction> transactions)
+    {
+        // TODO: some kind of mapper.
+        var requests = transactions
+            .Select(transaction => new TransactionRequest
+            {
+                Id = transaction.Id,
+                AccountId = transaction.AccountId
+            });
+
+        var request = new UpdateTransactionRequest
+        {
+            Transactions = requests
+        };
+        
+        var response = await Patch<UpdateTransactionRequest, GetTransactionsResponse>(TransactionsApiPath, request);
+        return response.Data.Transactions.Select(transaction => new Transaction(transaction));
     }
     
     protected override HttpClient GetHttpClient() => builder.Build(parentApiPath,  TransactionsApiPath);

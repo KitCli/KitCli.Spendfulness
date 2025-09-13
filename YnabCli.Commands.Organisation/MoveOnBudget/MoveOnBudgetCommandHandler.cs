@@ -20,17 +20,12 @@ public class MoveOnBudgetCommandHandler(ConfiguredBudgetClient budgetClient) : I
         var createdAccount =  await budget.CreateAccount(newAccount);
         
         var transactions = await accountToMove.GetTransactions();
-        //
-        // if (!transactions.Any())
-        // {
-        //     // TODO: Migrate to use exceptions consistent with other handlers.
-        //     throw new InvalidOperationException("Cannot move an account with no transactions.");
-        // }
-        //
-        // foreach (var transaction in transactions)
-        // {
-        //     
-        // }
+
+        var transactionIds = transactions
+            .Where(t => t.Memo != AutomatedMemos.StartingBalance)
+            .Select(t => t.Id);
+        
+
         
         // TODO: Migrate transactions.
         // TODO: Delete old transactions.
