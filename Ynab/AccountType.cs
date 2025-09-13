@@ -5,7 +5,14 @@ public enum AccountType
     Checking,
     Savings,
     CreditCard,
-    Mortgage,
+    Cash,
+    LineOfCredit,
     OtherAsset,
+    OtherLiability,
+    Mortgage,
+    AutoLoan,
+    StudentLoan,
+    PersonalLoan,
+    MedicalDebt,
     OtherDebt
 }
