@@ -1,4 +1,5 @@
 using Ynab.Clients;
+using Ynab.Mappers;
 using Ynab.Responses.Budgets;
 
 namespace Ynab.Connected;
@@ -30,27 +31,28 @@ public class ConnectedBudget : Budget
     public Task<Transaction> GetTransaction(string id) => _transactionsClient.GetTransaction(id);
     public Task<ConnectedAccount> CreateAccount(NewAccount newAccount) => _accountsClient.CreateAccount(newAccount);
     
-    public async Task MoveAllTransactions(ConnectedAccount originalAccount, ConnectedAccount newAccount)
+    public async Task MoveAccountTransactions(ConnectedAccount fromAccount, ConnectedAccount toAccount)
     {
-        var transactionsTask = originalAccount.GetTransactions();
-        var scheduledTransactionsTask = originalAccount.GetScheduledTransactions();
+        var transactionsTask = fromAccount.GetTransactions();
+        var scheduledTransactionsTask = fromAccount.GetScheduledTransactions();
         
         await Task.WhenAll(transactionsTask, scheduledTransactionsTask);
-
-        // TODO: Move to mapper.
+        
         var transactionsToMove = transactionsTask
             .Result
-            .Where(transaction => transaction.PayeeName != AutomatedPayeeNames.StartingBalance)
-            .Select(transaction => new MovedTransaction(transaction.Id, newAccount.Id))
-            .ToList();
-        
-        var scheduledTransactionsMoveTasks = scheduledTransactionsTask
+            .Where(t => t.PayeeName != AutomatedPayeeNames.StartingBalance)
+            .ToMovedTransactions(toAccount.Id);
+
+        var scheduledTransactionsToMove = scheduledTransactionsTask
             .Result
-            .Select(scheduledTransaction => new MovedScheduledTransaction(scheduledTransaction.Id, newAccount.Id))
-            .Select(movedScheduledTransaction => _scheduledTransactionsClient.MoveTransaction(movedScheduledTransaction))
-            .ToList();
+            .ToMovedTransactions(toAccount.Id);
+
+        var scheduledTransactionMoveTasks = scheduledTransactionsToMove
+            .Select(movedScheduledTransaction =>
+                _scheduledTransactionsClient.MoveTransaction(movedScheduledTransaction));
         
-        await Task.WhenAll(scheduledTransactionsMoveTasks);
+        await Task.WhenAll(scheduledTransactionMoveTasks);
         _  = await _transactionsClient.MoveTransactions(transactionsToMove);
     }
+    
 }

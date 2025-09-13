@@ -30,7 +30,7 @@ public class CopyOnBudgetCommandHandler(ConfiguredBudgetClient budgetClient) : C
 
         var createdAccount =  await budget.CreateAccount(newAccount);
         
-        await budget.MoveAllTransactions(originalAccount, createdAccount);
+        await budget.MoveAccountTransactions(originalAccount, createdAccount);
 
         return CompileMessage($"Copied Account: {originalAccount.Name} On Budget");
     }
