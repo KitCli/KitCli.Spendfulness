@@ -1,7 +1,6 @@
 namespace Ynab;
 
-public class MovedScheduledTransaction
-{
-    public string Id { get; init; }
-    public Guid AccountId { get; init; }
-}
+public record MovedScheduledTransaction(
+    string Id,
+    Guid AccountId
+);

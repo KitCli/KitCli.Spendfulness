@@ -4,6 +4,9 @@ namespace Ynab.Responses.ScheduledTransactions;
 
 public class ScheduledTransactionsResponse
 {
+    [JsonPropertyName("id")]
+    public string Id { get; set; }
+
     [JsonPropertyName("memo")]
     public string? Memo { get; set; }
     
