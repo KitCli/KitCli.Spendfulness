@@ -5,8 +5,8 @@ namespace Ynab.Requests.ScheduledTransactions;
 public class ScheduledTransactionRequest
 {
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    public required string Id { get; set; }
     
     [JsonPropertyName("account_id")]
-    public Guid AccountId { get; set; }
+    public required Guid AccountId { get; set; }
 }

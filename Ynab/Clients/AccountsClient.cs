@@ -1,7 +1,7 @@
 using Ynab.Connected;
 using Ynab.Http;
+using Ynab.Mappers;
 using Ynab.Responses.Accounts;
-using Ynab.Sanitisers;
 
 namespace Ynab.Clients;
 
@@ -23,17 +23,7 @@ public class AccountsClient(YnabHttpClientBuilder builder, string parentApiPath)
     
     public async Task<ConnectedAccount> CreateAccount(NewAccount newAccount)
     {
-        // TODO: Should I use some kind of mapper?
-        var request = new CreateAccountRequest
-        {
-            Account = new AccountRequest
-            {
-                Name = newAccount.Name,
-                Type = newAccount.Type,
-                Balance = newAccount.Balance
-            }
-        };
-
+        var request = new CreateAccountRequest(newAccount.ToAccountRequest());
         var response = await Post<CreateAccountRequest, CreateAccountResponse>(AccountsApiPath, request);
         return ConvertAccountResponseToConnectedAccount(response.Data.Account);
     }
