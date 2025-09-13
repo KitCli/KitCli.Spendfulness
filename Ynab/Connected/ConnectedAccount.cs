@@ -17,11 +17,10 @@ public class ConnectedAccount : Account
         _scheduledTransactionsClient = scheduledTransactionsClient;
     }
 
-
     public async Task<IEnumerable<Transaction>> GetTransactions()
     {
         var transactions = await _transactionsClient.GetTransactions();
-        return transactions.Where(t => t.AccountId == Id);
+        return transactions.Where(transaction => transaction.AccountId == Id);
     }
 
     public async Task<IEnumerable<ScheduledTransaction>> GetScheduledTransactions()

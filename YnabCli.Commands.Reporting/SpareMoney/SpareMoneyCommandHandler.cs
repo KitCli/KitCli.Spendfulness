@@ -60,7 +60,7 @@ public class SpareMoneyCommandHandler(ConfiguredBudgetClient configuredBudgetCli
 
     private IEnumerable<Account> AddPlaceholderAccountForAddition(IEnumerable<Account> accounts, decimal amount)
     {
-        var milliunit = MilliunitSanitiser.Desanitise(amount);
+        var milliunit = MilliunitConverter.PoundsToMilliunit(amount);
         
         var placeholderResponse = new AccountResponse
         {

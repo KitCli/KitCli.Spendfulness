@@ -11,7 +11,7 @@ public class CategoryGroup(CategoryGroupResponse categoryGroupResponse)
     /// Money in these categories available to spend.
     /// </summary>
     public decimal Available
-        => categoryGroupResponse.Categories.Sum(category => MilliunitSanitiser.Calculate(category.Available));
+        => categoryGroupResponse.Categories.Sum(category => MilliunitConverter.Calculate(category.Available));
     
     public IEnumerable<Category> Categories
         => categoryGroupResponse.Categories.Select(category => new Category(category));

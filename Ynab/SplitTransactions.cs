@@ -8,7 +8,7 @@ public class SplitTransactions(SplitTransactionResponse splitTransactionResponse
 {
     public string Id => splitTransactionResponse.Id;
     public string? Memo => splitTransactionResponse.Memo;
-    public decimal Amount => MilliunitSanitiser.Calculate(splitTransactionResponse.Amount);
+    public decimal Amount => MilliunitConverter.Calculate(splitTransactionResponse.Amount);
     public Guid? PayeeId => splitTransactionResponse.PayeeId;
     public string PayeeName => splitTransactionResponse.PayeeName;
     public Guid? CategoryId => splitTransactionResponse.CategoryId;
