@@ -60,14 +60,16 @@ public class SpareMoneyCommandHandler(ConfiguredBudgetClient configuredBudgetCli
 
     private IEnumerable<Account> AddPlaceholderAccountForAddition(IEnumerable<Account> accounts, decimal amount)
     {
-        var milliunit = MilliunitSanitiser.Desanitise(amount);
+        var milliunit = MilliunitConverter.PoundsToMilliunit(amount);
         
         var placeholderResponse = new AccountResponse
         {
             Id = Guid.Empty,
             Name = nameof(SpareMoneyCommand),
             Type = AccountType.Checking,
-            ClearedBalance = milliunit
+            ClearedBalance = milliunit,
+            OnBudget = false,
+            Closed = false
         };
         
         var account = new Account(placeholderResponse);

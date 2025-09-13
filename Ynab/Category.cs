@@ -10,8 +10,8 @@ public class Category(CategoryResponse categoryResponse)
     public int GoalTarget => categoryResponse.GoalTarget;
     public DateOnly? GoalCreationMonth => categoryResponse.GoalCreationMonth;
     public DateOnly? GoalTargetMonth => categoryResponse.GoalTargetMonth;
-    public decimal? GoalOverallFunded => MilliunitSanitiser.Calculate(categoryResponse.GoalOverallFunded);
-    public decimal? GoalOverallLeft => MilliunitSanitiser.Calculate(categoryResponse.GoalOverallLeft);
+    public decimal? GoalOverallFunded => MilliunitConverter.MilliunitToPounds(categoryResponse.GoalOverallFunded);
+    public decimal? GoalOverallLeft => MilliunitConverter.MilliunitToPounds(categoryResponse.GoalOverallLeft);
     
     public bool HasGoal => GoalTarget > 0;
 }

@@ -3,8 +3,10 @@ using Ynab.Sanitisers;
 
 namespace Ynab;
 
-public abstract class ScheduledTransaction(ScheduledTransactionsResponse scheduledTransactionsResponse)
+public class ScheduledTransaction(ScheduledTransactionsResponse scheduledTransactionsResponse)
 {
-    public decimal Amount => MilliunitSanitiser.Calculate(scheduledTransactionsResponse.Amount);
+    public string Id => scheduledTransactionsResponse.Id;
+    public decimal Amount => MilliunitConverter.Calculate(scheduledTransactionsResponse.Amount);
     public DateTime NextOccurence => scheduledTransactionsResponse.NextOccurence;
+    public Guid AccountId => scheduledTransactionsResponse.AccountId;
 }

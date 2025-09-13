@@ -20,7 +20,7 @@ public class TransactionByMemoOccurrenceByPayeeNameExtensionsTests
             .AggregatePayeeMemoOccurrences()
             .First();
         
-        var sanitisedAmount = MilliunitSanitiser.Calculate(response.Amount);
+        var sanitisedAmount = MilliunitConverter.Calculate(response.Amount);
         
         Assert.That(aggregate.PayeeName, Is.EqualTo(response.PayeeName));
         Assert.That(aggregate.Memo, Is.EqualTo(response.Memo));

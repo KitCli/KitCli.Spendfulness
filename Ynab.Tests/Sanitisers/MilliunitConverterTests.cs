@@ -3,7 +3,7 @@ using Ynab.Sanitisers;
 namespace Ynab.Tests.Sanitisers;
 
 [TestFixture]
-public class MilliunitSanitiserTests
+public class MilliunitConverterTests
 {
     [Test]
     public void GivenMillunitValue_WhenCalculate_ConvertsToDecimal()
@@ -12,7 +12,7 @@ public class MilliunitSanitiserTests
         var convertedToEquivelant = expectedValue * 1000m;
         var milliunitValue = (int)convertedToEquivelant;
 
-        var result = MilliunitSanitiser.Calculate(milliunitValue);
+        var result = MilliunitConverter.Calculate(milliunitValue);
 
         Assert.That(result, Is.EqualTo(expectedValue));
     }
