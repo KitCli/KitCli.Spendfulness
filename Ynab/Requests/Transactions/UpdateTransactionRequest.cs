@@ -5,5 +5,5 @@ namespace Ynab.Requests.Transactions;
 public class UpdateTransactionRequest
 {
     [JsonPropertyName("transactions")]
-    public IEnumerable<TransactionRequest> Transactions { get; set; }
+    public required IEnumerable<TransactionRequest> Transactions { get; set; }
 }

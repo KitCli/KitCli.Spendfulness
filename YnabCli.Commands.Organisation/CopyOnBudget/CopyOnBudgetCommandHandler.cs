@@ -2,7 +2,6 @@ using ConsoleTables;
 using Ynab;
 using Ynab.Exceptions;
 using YnabCli.Commands.Handlers;
-using YnabCli.Commands.Organisation.MoveOnBudget;
 using YnabCli.Database;
 
 namespace YnabCli.Commands.Organisation.CopyOnBudget;

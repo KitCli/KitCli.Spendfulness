@@ -15,6 +15,18 @@ public static class ServiceCollectionExtensions
             .AddSingleton<ConfiguredBudgetClient>()
             .AddSingleton<CommandHelpViewModelBuilder>();
     }
+    
+    public static IServiceCollection AddCommandsFromAssembly(this IServiceCollection serviceCollection, Assembly? assembly) 
+    {
+        if (assembly == null)
+        {
+            throw new NullReferenceException("No Assembly Containing ICommand Implementation");
+        }
+
+        return serviceCollection
+            .AddCommandGenerators(assembly)
+            .AddMediatRCommandsAndHandlers(assembly);
+    }
 
     public static IServiceCollection AddMediatRCommandsAndHandlers(this IServiceCollection serviceCollection, Assembly assembly)
         => serviceCollection.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(assembly));

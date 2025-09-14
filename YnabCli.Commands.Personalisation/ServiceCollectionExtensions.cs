@@ -9,14 +9,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddPersonalisationCommands(this IServiceCollection serviceCollection)
     {
-        var commandsAssembly = Assembly.GetAssembly(typeof(DatabaseCommand));
-        if (commandsAssembly == null)
-        {
-            throw new NullReferenceException("No Assembly Containing ICommand Implementation");
-        }
-
-        return serviceCollection
-            .AddCommandGenerators(commandsAssembly)
-            .AddMediatRCommandsAndHandlers(commandsAssembly);
+        var personalisationCommandsAssembly = Assembly.GetAssembly(typeof(DatabaseCommand));
+        return serviceCollection.AddCommandsFromAssembly(personalisationCommandsAssembly);
     }
 }

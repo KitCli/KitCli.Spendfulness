@@ -1,11 +1,11 @@
-namespace YnabCli.Commands.Organisation.MoveOnBudget;
+namespace YnabCli.Commands.Organisation.CopyOnBudget;
 
-public class CopyOnBudgetCommand : ICommand
+public class CopyOnBudgetCommand(Guid accountId) : ICommand
 {
     public static class ArgumentNames
     {
         public const string AccountId = "account-id";
     }
 
-    public Guid AccountId { get; init; }
+    public Guid AccountId { get; init; } = accountId;
 }

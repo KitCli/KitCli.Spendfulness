@@ -11,5 +11,5 @@ public class GetScheduledTransactionsResponseData
 public class GetScheduledTransactionResponseData
 {
     [JsonPropertyName("scheduled_transaction")]
-    public ScheduledTransactionsResponse ScheduledTransaction { get; set; }
+    public required ScheduledTransactionsResponse ScheduledTransaction { get; set; }
 }
