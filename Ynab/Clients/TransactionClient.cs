@@ -1,44 +1,31 @@
 using Ynab.Http;
+using Ynab.Mappers;
 using Ynab.Requests.Transactions;
 using Ynab.Responses.Transactions;
 
 namespace Ynab.Clients;
 
-public class TransactionClient(YnabHttpClientBuilder builder, string parentApiPath) : YnabApiClient
+public class TransactionClient(YnabHttpClientBuilder builder, string ynabBudgetApiPath) : YnabApiClient
 {
-    private const string TransactionsApiPath = "transactions";
-
     public async Task<IEnumerable<Transaction>> GetTransactions()
     {
-        var response = await Get<GetTransactionsResponse>(TransactionsApiPath);
+        var response = await Get<GetTransactionsResponse>(string.Empty);
         return response.Data.Transactions.Select(t => new Transaction(t));
     }
 
-    public async Task<Transaction> GetTransaction(string id)
+    public async Task<Transaction> GetTransaction(string transactionId)
     {
-        var response = await Get<GetTransactionResponse>($"{TransactionsApiPath}/{id}");
+        var response = await Get<GetTransactionResponse>($"{transactionId}");
         return new Transaction(response.Data.Transaction);
     }
 
     public async Task<IEnumerable<Transaction>> MoveTransactions(IEnumerable<MovedTransaction> movedTransactions)
     {
-        // TODO: some kind of mapper.
-        var requests = movedTransactions
-            .Select(transaction => new TransactionRequest
-            {
-                Id = transaction.Id,
-                AccountId = transaction.AccountId
-            });
-
-        var request = new UpdateTransactionRequest
-        {
-            Transactions = requests
-        };
-        
-        var response = await Patch<UpdateTransactionRequest, GetTransactionsResponse>(TransactionsApiPath, request);
+        var request = new UpdateTransactionRequest(movedTransactions.ToTransactionRequests());
+        var response = await Patch<UpdateTransactionRequest, GetTransactionsResponse>(string.Empty, request);
         return response.Data.Transactions.Select(transaction => new Transaction(transaction));
     }
     
-    protected override HttpClient GetHttpClient() => builder.Build(parentApiPath,  TransactionsApiPath);
+    protected override HttpClient GetHttpClient() => builder.Build(ynabBudgetApiPath,  YnabApiPath.Transactions);
 }
 

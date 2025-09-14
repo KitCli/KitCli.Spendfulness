@@ -1,4 +1,5 @@
 using Ynab.Http;
+using Ynab.Mappers;
 using Ynab.Requests.ScheduledTransactions;
 using Ynab.Responses.ScheduledTransactions;
 
@@ -15,17 +16,7 @@ public class ScheduledTransactionClient(YnabHttpClientBuilder builder, string yn
     public async Task<ScheduledTransaction> MoveTransaction(MovedScheduledTransaction movedScheduledTransaction)
     {
         var requestUrl = $"{movedScheduledTransaction.Id}";
-        
-        // TODO: Some kind of mapper.
-        var request = new UpdateScheduledTransactionRequest
-        {
-            ScheduledTransaction = new ScheduledTransactionRequest
-            {
-                Id = movedScheduledTransaction.Id,
-                AccountId = movedScheduledTransaction.AccountId
-            }
-        };
-         
+        var request = new UpdateScheduledTransactionRequest(movedScheduledTransaction.ToScheduledTransactionRequest());
         var response = await Put<UpdateScheduledTransactionRequest, GetScheduledTransactionResponseData>(requestUrl, request);
         return new ScheduledTransaction(response.Data.ScheduledTransaction);
     }

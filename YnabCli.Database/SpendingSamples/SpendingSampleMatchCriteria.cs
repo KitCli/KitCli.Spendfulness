@@ -36,6 +36,7 @@ public class SpendingSampleMatchCriteria
         .OrderBy(price => price.EffectiveFrom)
         .First();
 
+    // TODO: Move me to a mapper.
     public static SpendingSampleMatchCriteria CreateFrom(SplitTransactions transaction) 
         => new()
         {

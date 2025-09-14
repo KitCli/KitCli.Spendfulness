@@ -9,7 +9,6 @@ public class AccountClient(YnabHttpClientBuilder builder, string ynabBudgetApiPa
 {
     public async Task<IEnumerable<Account>> GetAccounts()
     {
-        // TODO: Can i do thid without string.Empty
         var response = await Get<GetAccountsResponseData>(string.Empty);
         return response.Data.Accounts.Select(a => new Account(a));
     }
@@ -23,7 +22,6 @@ public class AccountClient(YnabHttpClientBuilder builder, string ynabBudgetApiPa
     public async Task<ConnectedAccount> CreateAccount(NewAccount newAccount)
     {
         var request = new CreateAccountRequest(newAccount.ToAccountRequest());
-        // TODO: Can i do thid without string.Empty
         var response = await Post<CreateAccountRequest, CreateAccountResponse>(string.Empty, request);
         return ConvertAccountResponseToConnectedAccount(response.Data.Account);
     }

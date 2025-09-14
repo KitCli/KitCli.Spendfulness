@@ -2,8 +2,8 @@ using System.Text.Json.Serialization;
 
 namespace Ynab.Requests.ScheduledTransactions;
 
-public class UpdateScheduledTransactionRequest
+public class UpdateScheduledTransactionRequest(ScheduledTransactionRequest scheduledTransactionRequest)
 {
     [JsonPropertyName("scheduled_transaction")]
-    public required ScheduledTransactionRequest ScheduledTransaction { get; set; }
+    public ScheduledTransactionRequest ScheduledTransaction { get; set; } = scheduledTransactionRequest;
 }

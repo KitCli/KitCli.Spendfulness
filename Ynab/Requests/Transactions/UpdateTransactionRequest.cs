@@ -2,8 +2,8 @@ using System.Text.Json.Serialization;
 
 namespace Ynab.Requests.Transactions;
 
-public class UpdateTransactionRequest
+public class UpdateTransactionRequest(IEnumerable<TransactionRequest> transactions)
 {
     [JsonPropertyName("transactions")]
-    public required IEnumerable<TransactionRequest> Transactions { get; set; }
+    public IEnumerable<TransactionRequest> Transactions { get; set; } = transactions;
 }

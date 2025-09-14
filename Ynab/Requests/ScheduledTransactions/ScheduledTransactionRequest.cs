@@ -2,11 +2,11 @@ using System.Text.Json.Serialization;
 
 namespace Ynab.Requests.ScheduledTransactions;
 
-public class ScheduledTransactionRequest
+public class ScheduledTransactionRequest(string id, Guid accountId)
 {
     [JsonPropertyName("id")]
-    public required string Id { get; set; }
-    
+    public string Id { get; set; } = id;
+
     [JsonPropertyName("account_id")]
-    public required Guid AccountId { get; set; }
+    public Guid AccountId { get; set; } = accountId;
 }
