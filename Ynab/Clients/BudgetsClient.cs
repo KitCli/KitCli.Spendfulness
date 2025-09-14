@@ -6,11 +6,9 @@ namespace Ynab.Clients;
 
 public class BudgetsClient(YnabHttpClientBuilder builder) : YnabApiClient
 {
-    private const string BudgetsApiPath = "budgets";
-
     public async Task<IEnumerable<ConnectedBudget>> GetBudgets()
     {
-        var response = await Get<GetBudgetsResponseData>(BudgetsApiPath);
+        var response = await Get<GetBudgetsResponseData>(string.Empty);
         return ConvertBudgetResponsesToWrappers(response.Data.Budgets);
     }
 
@@ -18,21 +16,24 @@ public class BudgetsClient(YnabHttpClientBuilder builder) : YnabApiClient
     {
         foreach (var budgetResponse in budgetResponses)
         {
-            var parentApiPath = $"{BudgetsApiPath}/{budgetResponse.Id}";
+            var ynabBudgetApiPath = $"{YnabApiPath.Budgets}/{budgetResponse.Id}";
             
-            var accounts = new AccountsClient(builder, parentApiPath);
-            var categories = new CategoriesClient(builder, parentApiPath);
-            var transactions = new TransactionsClient(builder, parentApiPath);
-            var scheduledTransactions = new ScheduledTransactionClient(builder, parentApiPath);
+            var accountClient = new AccountClient(builder, ynabBudgetApiPath);
+            var categoryClient = new CategoryClient(builder, ynabBudgetApiPath);
+            var transactionClient = new TransactionClient(builder, ynabBudgetApiPath);
+            var scheduledTransactionClient = new ScheduledTransactionClient(builder, ynabBudgetApiPath);
 
             yield return new ConnectedBudget(
-                accounts,
-                categories,
-                transactions,
-                scheduledTransactions,
+                accountClient,
+                categoryClient,
+                transactionClient,
+                scheduledTransactionClient,
                 budgetResponse);
         }
     }
 
-    protected override HttpClient GetHttpClient() => builder.Build();
+    protected override HttpClient GetHttpClient() => builder.Build(
+        // is already http://ynab.api/v1/
+        null,
+        YnabApiPath.Budgets);
 }

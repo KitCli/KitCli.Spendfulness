@@ -5,27 +5,27 @@ namespace Ynab.Connected;
 
 public class ConnectedAccount : Account
 {
-    private readonly TransactionsClient _transactionsClient;
+    private readonly TransactionClient _transactionClient;
     private readonly ScheduledTransactionClient _scheduledTransactionsClient;
 
     public ConnectedAccount(
-        TransactionsClient transactionsClient,
+        TransactionClient transactionClient,
         ScheduledTransactionClient scheduledTransactionsClient,
         AccountResponse accountResponse) : base(accountResponse)
     {
-        _transactionsClient = transactionsClient;
+        _transactionClient = transactionClient;
         _scheduledTransactionsClient = scheduledTransactionsClient;
     }
 
     public async Task<IEnumerable<Transaction>> GetTransactions()
     {
-        var transactions = await _transactionsClient.GetTransactions();
+        var transactions = await _transactionClient.GetTransactions();
         return transactions.Where(transaction => transaction.AccountId == Id);
     }
 
     public async Task<IEnumerable<ScheduledTransaction>> GetScheduledTransactions()
     {
-        var scheduledTransactions = await _scheduledTransactionsClient.GetScheduledTransactions();
+        var scheduledTransactions = await _scheduledTransactionsClient.GetAll();
         return scheduledTransactions.Where(st => st.AccountId == Id);
     }
 }

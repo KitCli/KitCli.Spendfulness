@@ -6,30 +6,30 @@ namespace Ynab.Connected;
 
 public class ConnectedBudget : Budget
 {
-    private readonly AccountsClient _accountsClient;
-    private readonly CategoriesClient _categoriesClient;
-    private readonly TransactionsClient _transactionsClient;
+    private readonly AccountClient _accountClient;
+    private readonly CategoryClient _categoryClient;
+    private readonly TransactionClient _transactionClient;
     private readonly ScheduledTransactionClient _scheduledTransactionsClient;
 
     public ConnectedBudget(
-        AccountsClient accountsClient,
-        CategoriesClient categoriesClient,
-        TransactionsClient transactionsClient,
+        AccountClient accountClient,
+        CategoryClient categoryClient,
+        TransactionClient transactionClient,
         ScheduledTransactionClient scheduledTransactionsClient,
         BudgetResponse budgetResponse) : base(budgetResponse)
     {
-        _accountsClient = accountsClient;
-        _categoriesClient = categoriesClient;
-        _transactionsClient = transactionsClient;
+        _accountClient = accountClient;
+        _categoryClient = categoryClient;
+        _transactionClient = transactionClient;
         _scheduledTransactionsClient = scheduledTransactionsClient;
     }
 
-    public Task<IEnumerable<Account>> GetAccounts() => _accountsClient.GetAccounts();
-    public Task<ConnectedAccount> GetAccount(Guid id) => _accountsClient.GetAccount(id);
-    public Task<IEnumerable<CategoryGroup>> GetCategoryGroups() => _categoriesClient.GetCategoryGroups();
-    public Task<IEnumerable<Transaction>> GetTransactions() => _transactionsClient.GetTransactions();
-    public Task<Transaction> GetTransaction(string id) => _transactionsClient.GetTransaction(id);
-    public Task<ConnectedAccount> CreateAccount(NewAccount newAccount) => _accountsClient.CreateAccount(newAccount);
+    public Task<IEnumerable<Account>> GetAccounts() => _accountClient.GetAccounts();
+    public Task<ConnectedAccount> GetAccount(Guid id) => _accountClient.GetAccount(id);
+    public Task<IEnumerable<CategoryGroup>> GetCategoryGroups() => _categoryClient.GetCategoryGroups();
+    public Task<IEnumerable<Transaction>> GetTransactions() => _transactionClient.GetTransactions();
+    public Task<Transaction> GetTransaction(string id) => _transactionClient.GetTransaction(id);
+    public Task<ConnectedAccount> CreateAccount(NewAccount newAccount) => _accountClient.CreateAccount(newAccount);
     
     public async Task MoveAccountTransactions(ConnectedAccount fromAccount, ConnectedAccount toAccount)
     {
@@ -52,7 +52,7 @@ public class ConnectedBudget : Budget
                 _scheduledTransactionsClient.MoveTransaction(movedScheduledTransaction));
         
         await Task.WhenAll(scheduledTransactionMoveTasks);
-        _  = await _transactionsClient.MoveTransactions(transactionsToMove);
+        _  = await _transactionClient.MoveTransactions(transactionsToMove);
     }
     
 }
