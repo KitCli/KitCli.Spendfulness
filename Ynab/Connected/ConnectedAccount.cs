@@ -19,7 +19,7 @@ public class ConnectedAccount : Account
 
     public async Task<IEnumerable<Transaction>> GetTransactions()
     {
-        var transactions = await _transactionClient.GetTransactions();
+        var transactions = await _transactionClient.GetAll();
         return transactions.Where(transaction => transaction.AccountId == Id);
     }
 

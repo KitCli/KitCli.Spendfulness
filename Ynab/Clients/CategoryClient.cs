@@ -5,10 +5,10 @@ namespace Ynab.Clients;
 
 public class CategoryClient(YnabHttpClientBuilder builder, string ynabBudgetApiPath) : YnabApiClient
 {
-    public async Task<IEnumerable<CategoryGroup>> GetCategoryGroups()
+    public async Task<IEnumerable<CategoryGroup>> GetAll()
     {
         var response = await Get<GetCategoriesResponseData>(string.Empty);
-        return response.Data.CategoryGroups.Select(cg => new CategoryGroup(cg));
+        return response.Data.CategoryGroups.Select(categoryGroup => new CategoryGroup(categoryGroup));
     }
     
     protected override HttpClient GetHttpClient() => builder.Build(ynabBudgetApiPath, YnabApiPath.Categories);

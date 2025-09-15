@@ -7,19 +7,19 @@ namespace Ynab.Clients;
 
 public class TransactionClient(YnabHttpClientBuilder builder, string ynabBudgetApiPath) : YnabApiClient
 {
-    public async Task<IEnumerable<Transaction>> GetTransactions()
+    public async Task<IEnumerable<Transaction>> GetAll()
     {
         var response = await Get<GetTransactionsResponse>(string.Empty);
-        return response.Data.Transactions.Select(t => new Transaction(t));
+        return response.Data.Transactions.Select(transaction => new Transaction(transaction));
     }
 
-    public async Task<Transaction> GetTransaction(string transactionId)
+    public async Task<Transaction> Get(string transactionId)
     {
         var response = await Get<GetTransactionResponse>($"{transactionId}");
         return new Transaction(response.Data.Transaction);
     }
 
-    public async Task<IEnumerable<Transaction>> MoveTransactions(IEnumerable<MovedTransaction> movedTransactions)
+    public async Task<IEnumerable<Transaction>> Move(IEnumerable<MovedTransaction> movedTransactions)
     {
         var request = new UpdateTransactionRequest(movedTransactions.ToTransactionRequests());
         var response = await Patch<UpdateTransactionRequest, GetTransactionsResponse>(string.Empty, request);
