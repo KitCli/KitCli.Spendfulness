@@ -1,19 +1,19 @@
+using Cli.Instructions.Arguments;
 using YnabCli.Commands.Generators;
 using YnabCli.Commands.Personalisation.Transactions.List;
-using YnabCli.Instructions.Arguments;
 
 namespace YnabCli.Commands.Personalisation.Transactions;
 
 public class TransactionCommandGenerator : ICommandGenerator<TransactionsCommand>
 {
-    public ICommand Generate(string? subCommandName, List<InstructionArgument> arguments)
+    public ICommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
         => subCommandName switch
         {
             TransactionsCommand.SubCommandNames.List => CreateListCommand(arguments),
             _ => new TransactionsListCommand(),
         };
 
-    private TransactionsListCommand CreateListCommand(List<InstructionArgument> arguments)
+    private TransactionsListCommand CreateListCommand(List<ConsoleInstructionArgument> arguments)
     {
         var payeeNameArgument = arguments.OfType<string>(TransactionsListCommand.ArgumentNames.PayeeName);
 

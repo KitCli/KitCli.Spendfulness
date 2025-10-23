@@ -1,13 +1,13 @@
+using Cli.Instructions.Arguments;
 using YnabCli.Commands.Generators;
 using YnabCli.Commands.Personalisation.Settings.Create;
 using YnabCli.Commands.Personalisation.Settings.View;
-using YnabCli.Instructions.Arguments;
 
 namespace YnabCli.Commands.Personalisation.Settings;
 
 public class SettingsGenericCommandGenerator : ICommandGenerator<SettingsCommand>
 {
-    public ICommand Generate(string? subCommandName, List<InstructionArgument> arguments)
+    public ICommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
     {
         return subCommandName switch
         {
@@ -17,7 +17,7 @@ public class SettingsGenericCommandGenerator : ICommandGenerator<SettingsCommand
         };
     }
 
-    private SettingCreateCommand GenerateCreateCommand(List<InstructionArgument> arguments)
+    private SettingCreateCommand GenerateCreateCommand(List<ConsoleInstructionArgument> arguments)
     {
         var nameArgument = arguments.OfRequiredType<string>(SettingCreateCommand.ArgumentNames.Type);
         var valueArgument = arguments.OfRequiredType<string>(SettingCreateCommand.ArgumentNames.Value);

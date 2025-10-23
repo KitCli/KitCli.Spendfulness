@@ -1,12 +1,12 @@
+using Cli.Instructions.Arguments;
 using YnabCli.Commands.Generators;
 using YnabCli.Commands.Reporting.SpareMoney.Help;
-using YnabCli.Instructions.Arguments;
 
 namespace YnabCli.Commands.Reporting.SpareMoney;
 
 public class SpareMoneyGenericCommandGenerator : ICommandGenerator<SpareMoneyCommand>
 {
-    public ICommand Generate(string? subCommandName, List<InstructionArgument> arguments)
+    public ICommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
     {
         if (subCommandName == SpareMoneyCommand.SubCommandNames.Help)
         {
@@ -16,7 +16,7 @@ public class SpareMoneyGenericCommandGenerator : ICommandGenerator<SpareMoneyCom
         return GenerateDefaultCommand(arguments);
     }
 
-    private static SpareMoneyCommand GenerateDefaultCommand(List<InstructionArgument> arguments)
+    private static SpareMoneyCommand GenerateDefaultCommand(List<ConsoleInstructionArgument> arguments)
     {
         var addArgument = arguments.OfCurrencyType(SpareMoneyCommand.ArgumentNames.Add);
         var minusArgument = arguments.OfCurrencyType(SpareMoneyCommand.ArgumentNames.Minus);

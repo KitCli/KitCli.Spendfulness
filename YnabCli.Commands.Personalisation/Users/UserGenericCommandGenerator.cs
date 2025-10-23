@@ -1,14 +1,14 @@
+using Cli.Instructions.Arguments;
 using YnabCli.Commands.Generators;
 using YnabCli.Commands.Personalisation.Users.Active;
 using YnabCli.Commands.Personalisation.Users.Create;
 using YnabCli.Commands.Personalisation.Users.Switch;
-using YnabCli.Instructions.Arguments;
 
 namespace YnabCli.Commands.Personalisation.Users;
 
 public class UserGenericCommandGenerator : ICommandGenerator<UserCommand>
 {
-    public ICommand Generate(string? subCommandName, List<InstructionArgument> arguments)
+    public ICommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
     {
         return subCommandName switch
         {
@@ -19,7 +19,7 @@ public class UserGenericCommandGenerator : ICommandGenerator<UserCommand>
         };
     }
 
-    private UserCreateCommand GenerateCreateCommand(List<InstructionArgument> arguments)
+    private UserCreateCommand GenerateCreateCommand(List<ConsoleInstructionArgument> arguments)
     {
         var userNameArgument = arguments.OfRequiredType<string>(UserCreateCommand.ArugmentNames.UserName);
 
@@ -29,7 +29,7 @@ public class UserGenericCommandGenerator : ICommandGenerator<UserCommand>
         };
     }
 
-    private UserSwitchCommand GenerateSwitchCommand(List<InstructionArgument> arguments)
+    private UserSwitchCommand GenerateSwitchCommand(List<ConsoleInstructionArgument> arguments)
     {
         var userNameArgument = arguments.OfRequiredType<string>(UserCreateCommand.ArugmentNames.UserName);
 

@@ -1,11 +1,11 @@
+using Cli.Instructions.Arguments;
 using YnabCli.Commands.Generators;
-using YnabCli.Instructions.Arguments;
 
 namespace YnabCli.Commands.Reporting.AverageYearlySpending;
 
 public class AverageYearlySpendingCommandGenerator : ICommandGenerator<AverageYearlySpendingCommand>
 {
-    public ICommand Generate(string? subCommandName, List<InstructionArgument> arguments)
+    public ICommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
     {
         return new AverageYearlySpendingCommand();
     }

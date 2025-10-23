@@ -1,5 +1,5 @@
+using Cli.Instructions.Arguments;
 using YnabCli.Commands.Generators;
-using YnabCli.Instructions.Arguments;
 
 namespace YnabCli.Commands.Tests.CommandList;
 
@@ -11,7 +11,7 @@ public class GenericCommandListGenericCommandGeneratorTests
     {
         var generator = new GenericCommandListGenericCommandGenerator();
 
-        var arguments = new List<InstructionArgument>();
+        var arguments = new List<ConsoleInstructionArgument>();
         
         var result = generator.Generate(string.Empty, arguments);
         

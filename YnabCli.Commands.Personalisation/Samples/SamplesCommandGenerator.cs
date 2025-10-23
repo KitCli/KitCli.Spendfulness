@@ -1,19 +1,19 @@
+using Cli.Instructions.Arguments;
 using YnabCli.Commands.Generators;
 using YnabCli.Commands.Personalisation.Samples.Matches;
-using YnabCli.Instructions.Arguments;
 
 namespace YnabCli.Commands.Personalisation.Samples;
 
 public class SamplesCommandGenerator : ICommandGenerator<SamplesCommand>
 {
-    public ICommand Generate(string? subCommandName, List<InstructionArgument> arguments)
+    public ICommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
         => subCommandName switch
         {
             SamplesCommand.SubCommandNames.Matches => GetMatchesCommand(arguments),
             _ => new SamplesCommand()
         };
 
-    private SamplesMatchesCommand GetMatchesCommand(List<InstructionArgument> arguments)
+    private SamplesMatchesCommand GetMatchesCommand(List<ConsoleInstructionArgument> arguments)
     {
         var trnasactionIdArgument = arguments
             .OfRequiredStringFrom<Guid, string>(SamplesMatchesCommand.ArgumentNames.TransactionId);

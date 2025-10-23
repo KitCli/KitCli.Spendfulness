@@ -1,19 +1,19 @@
+using Cli.Instructions.Arguments;
 using YnabCli.Commands.Generators;
 using YnabCli.Commands.Personalisation.Accounts.Identify;
-using YnabCli.Instructions.Arguments;
 
 namespace YnabCli.Commands.Personalisation.Accounts;
 
 public class AccountsCommandGenerator : ICommandGenerator<AccountsCommand>
 {
-    public ICommand Generate(string? subCommandName, List<InstructionArgument> arguments)
+    public ICommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
         => subCommandName switch
         {
             AccountsCommand.SubCommandNames.Identify => GenerateIdentifyCommand(arguments),
             _ => new AccountsCommand()
         };
 
-    private  AccountsIdentifyCommand GenerateIdentifyCommand(List<InstructionArgument> arguments)
+    private  AccountsIdentifyCommand GenerateIdentifyCommand(List<ConsoleInstructionArgument> arguments)
     {
         var nameArgument = arguments.OfRequiredType<string>(AccountsIdentifyCommand.ArgumentNames.Name);
         var typeArgument = arguments.OfRequiredType<string>(AccountsIdentifyCommand.ArgumentNames.Type);

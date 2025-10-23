@@ -15,9 +15,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YnabCli.ViewModels", "YnabC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YnabCli.Commands", "YnabCli.Commands\YnabCli.Commands.csproj", "{A856A1D8-73AB-47EA-8D8C-F53880052A16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YnabCli.Instructions", "YnabCli.Instructions\YnabCli.Instructions.csproj", "{3DAF9443-CB74-4549-8032-551259B306FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cli.Instructions", "Cli.Instructions\Cli.Instructions.csproj", "{3DAF9443-CB74-4549-8032-551259B306FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YnabCli.Instructions.Tests", "YnabCli.Instructions.Tests\YnabCli.Instructions.Tests.csproj", "{93506C09-B06A-4498-AA93-836C22677798}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cli.Instructions.Tests", "Cli.Instructions.Tests\Cli.Instructions.Tests.csproj", "{93506C09-B06A-4498-AA93-836C22677798}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YnabCli.Commands.Tests", "YnabCli.Commands.Tests\YnabCli.Commands.Tests.csproj", "{7EAF17CD-C47E-4573-A658-2D8F1C7AA1FC}"
 EndProject

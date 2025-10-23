@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Cli.Instructions.Extensions;
+using Microsoft.Extensions.DependencyInjection;
 using Ynab.Extensions;
 using YnabCli;
 using YnabCli.Commands.Extensions;
@@ -6,7 +7,6 @@ using YnabCli.Commands.Organisation;
 using YnabCli.Commands.Personalisation;
 using YnabCli.Commands.Reporting;
 using YnabCli.Database;
-using YnabCli.Instructions.Extensions;
 
 var serviceProvider = new ServiceCollection()
     .AddYnab() // Speak to the YNAB API

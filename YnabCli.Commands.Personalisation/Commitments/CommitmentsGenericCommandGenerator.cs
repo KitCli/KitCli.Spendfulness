@@ -1,12 +1,12 @@
+using Cli.Instructions.Arguments;
 using YnabCli.Commands.Generators;
 using YnabCli.Commands.Personalisation.Commitments.Find;
-using YnabCli.Instructions.Arguments;
 
 namespace YnabCli.Commands.Personalisation.Commitments;
 
 public class CommitmentsGenericCommandGenerator : ICommandGenerator<CommitmentsCommand>
 {
-    public ICommand Generate(string? subCommandName, List<InstructionArgument> arguments)
+    public ICommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
     {
         return subCommandName switch
         {

@@ -1,11 +1,11 @@
+using Cli.Instructions.Arguments;
 using YnabCli.Commands.Generators;
-using YnabCli.Instructions.Arguments;
 
 namespace YnabCli.Commands.Organisation.CopyOnBudget;
 
 public class CopyOnBudgetCommandGenerator : ICommandGenerator<CopyOnBudgetCommand>
 {
-    public ICommand Generate(string? subCommandName, List<InstructionArgument> arguments)
+    public ICommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
     {
         var accountIdArgument = arguments.OfRequiredType<Guid>(CopyOnBudgetCommand.ArgumentNames.AccountId);
 

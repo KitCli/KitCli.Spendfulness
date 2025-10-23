@@ -1,11 +1,11 @@
+using Cli.Instructions.Arguments;
 using YnabCli.Commands.Generators;
-using YnabCli.Instructions.Arguments;
 
 namespace YnabCli.Commands.Reporting.RecurringTransactions;
 
 public class RecurringTransactionsGenericCommandGenerator : ICommandGenerator<RecurringTransactionsCommand>
 {
-    public ICommand Generate(string? subCommandName, List<InstructionArgument> arguments)
+    public ICommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
     {
         var fromArgument = arguments
             .OfType<DateOnly>(RecurringTransactionsCommand.ArgumentNames.From);

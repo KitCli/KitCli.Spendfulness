@@ -1,10 +1,10 @@
-using YnabCli.Instructions.Arguments;
+using Cli.Instructions.Arguments;
 
 namespace YnabCli.Commands.Generators;
 
 public class GenericCommandListGenericCommandGenerator : ICommandGenerator<CommandListCommand>
 {
-    public ICommand Generate(string? subCommandName, List<InstructionArgument> arguments)
+    public ICommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
     {
         return new CommandListCommand();
     }

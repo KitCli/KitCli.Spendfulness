@@ -1,10 +1,10 @@
+using Cli.Instructions.Parsers;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Ynab.Exceptions;
 using YnabCli.Abstractions;
 using YnabCli.Commands;
 using YnabCli.Commands.Generators;
-using YnabCli.Instructions.Parsers;
 
 namespace YnabCli;
 
@@ -12,7 +12,7 @@ public class ConsoleApplication(IServiceProvider serviceProvider)
 {
     public async Task Run()
     {
-        var instructionParser = serviceProvider.GetRequiredService<InstructionParser>();
+        var instructionParser = serviceProvider.GetRequiredService<ConsoleInstructionParser>();
         var mediator = serviceProvider.GetRequiredService<IMediator>();
         
         PrintToConsole("Welcome to YnabCli!");

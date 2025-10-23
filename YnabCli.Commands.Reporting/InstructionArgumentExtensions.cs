@@ -1,11 +1,11 @@
-using YnabCli.Instructions.Arguments;
+using Cli.Instructions.Arguments;
 
 namespace YnabCli.Commands.Reporting;
 
 public static class InstructionArgumentExtensions
 {
-    public static TypedInstructionArgument<decimal>? OfCurrencyType(
-        this List<InstructionArgument> arguments, string argumentName)
+    public static TypedConsoleInstructionArgument<decimal>? OfCurrencyType(
+        this List<ConsoleInstructionArgument> arguments, string argumentName)
     {
         var minusIntArgument = arguments.OfType<int>(argumentName);
         if (minusIntArgument == null)
@@ -13,7 +13,7 @@ public static class InstructionArgumentExtensions
             return arguments.OfType<decimal>(argumentName);
         }
 
-        return new TypedInstructionArgument<decimal>(
+        return new TypedConsoleInstructionArgument<decimal>(
             minusIntArgument.ArgumentName,
             minusIntArgument.ArgumentValue);
     }

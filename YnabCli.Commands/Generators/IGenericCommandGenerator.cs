@@ -1,8 +1,8 @@
-using YnabCli.Instructions.Arguments;
+using Cli.Instructions.Arguments;
 
 namespace YnabCli.Commands.Generators;
 
 public interface IGenericCommandGenerator
 {
-    ICommand Generate(string? subCommandName, List<InstructionArgument> arguments);
+    ICommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments);
 }
