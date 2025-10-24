@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Ynab.Extensions;
 
 var serviceProvider = new ServiceCollection()
-    .AddCli<YnabCliApp>()
+    .AddCli<SpendfulnessCli>()
     .AddYnab() // Speak to the YNAB API
     .AddDb() // Store data in an SQLite databaase.
     .AddCommands() // Convert them into MediatR requests
@@ -22,6 +22,6 @@ var serviceProvider = new ServiceCollection()
     .AddConsoleInstructions() // Understand terminal commands
     .BuildServiceProvider();
 
-var cliApp = serviceProvider.GetRequiredService<CliApp>();
+var cliApp = serviceProvider.GetRequiredService<OriginalCli>();
 
 await cliApp.Run();

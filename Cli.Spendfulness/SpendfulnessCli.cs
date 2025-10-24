@@ -4,25 +4,25 @@ using Cli.Workflow;
 
 namespace Cli.Spendfulness;
 
-public class YnabCliApp : CliApp
+public class SpendfulnessCli : OriginalCli
 {
-    public YnabCliApp(CliWorkflow cliWorkflow, CliCommandOutcomeIo cliCommandOutcomeIo)
-        : base(cliWorkflow, cliCommandOutcomeIo)
+    public SpendfulnessCli(CliWorkflow workflow, CliCommandOutcomeIo io)
+        : base(workflow, io)
     {
     }
 
-    protected override void OnRun(CliWorkflow cliWorkflow, CliIo cliIo)
+    protected override void OnRun(CliWorkflow workflow, CliIo io)
     {
-        cliIo.Say($"New world CLI started");
+        io.Say($"New world CLI started");
     }
 
-    protected override void OnRunCreated(CliWorkflowRun cliWorkflowRun, CliIo cliIo)
+    protected override void OnRunCreated(CliWorkflowRun workflowRun, CliIo io)
     {
-        cliIo.Say($"New world CLI run created");
+        io.Say($"New world CLI run created");
     }
 
-    protected override void OnRunStarted(CliWorkflowRun cliWorkflowRun, CliIo cliIo)
+    protected override void OnRunStarted(CliWorkflowRun workflowRun, CliIo io)
     {
-        cliIo.Say($"New world CLI run started");
+        io.Say($"New world CLI run started");
     }
 }
