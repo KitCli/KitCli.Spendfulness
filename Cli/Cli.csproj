@@ -8,7 +8,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Cli.Commands.Abstractions\Cli.Commands.Abstractions.csproj" />
-      <ProjectReference Include="..\Cli.Commands\Cli.Commands.csproj" />
       <ProjectReference Include="..\Cli.Instructions\Cli.Instructions.csproj" />
       <ProjectReference Include="..\Cli.Workflow\Cli.Workflow.csproj" />
     </ItemGroup>
