@@ -10,7 +10,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddOrganisationCommands(this IServiceCollection serviceCollection)
     {
-        var organisationCommandsAssembly = Assembly.GetAssembly(typeof(CopyOnBudgetCommand));
+        var organisationCommandsAssembly = Assembly.GetAssembly(typeof(CopyOnBudgetCliCommand));
         return serviceCollection.AddCommandsFromAssembly(organisationCommandsAssembly);
     }
 }

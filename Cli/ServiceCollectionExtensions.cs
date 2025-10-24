@@ -14,7 +14,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddCli<TCliApp>(this IServiceCollection serviceCollection) where TCliApp : OriginalCli
     {
         serviceCollection.AddCliInstructions();
-        serviceCollection.AddCommandsFromAssembly(typeof(ExitCommand).Assembly);
+        serviceCollection.AddCommandsFromAssembly(typeof(ExitCliCommand).Assembly);
         
         serviceCollection.AddSingleton<CliWorkflowCommandProvider>();
         serviceCollection.AddSingleton<CliWorkflow>();

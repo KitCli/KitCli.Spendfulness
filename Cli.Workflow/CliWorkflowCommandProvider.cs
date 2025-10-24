@@ -7,7 +7,7 @@ namespace Cli.Workflow;
 
 public class CliWorkflowCommandProvider(IServiceProvider serviceProvider)
 {
-    public ICommand GetCommand(ConsoleInstruction instruction)
+    public ICliCommand GetCommand(ConsoleInstruction instruction)
     {
         if (string.IsNullOrEmpty(instruction.Name))
         {

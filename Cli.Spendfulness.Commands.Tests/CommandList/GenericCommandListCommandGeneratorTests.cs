@@ -15,6 +15,6 @@ public class GenericCommandListCommandGeneratorTests
         
         var result = generator.Generate(string.Empty, arguments);
         
-        Assert.That(result, Is.TypeOf<CommandListCommand>());
+        Assert.That(result, Is.TypeOf<CliCommandListCliCommand>());
     }
 }

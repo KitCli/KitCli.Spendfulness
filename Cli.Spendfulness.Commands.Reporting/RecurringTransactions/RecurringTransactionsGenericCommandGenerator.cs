@@ -4,23 +4,23 @@ using Cli.Instructions.Arguments;
 
 namespace Cli.Ynab.Commands.Reporting.RecurringTransactions;
 
-public class RecurringTransactionsGenericCommandGenerator : ICommandGenerator<RecurringTransactionsCommand>
+public class RecurringTransactionsGenericCommandGenerator : ICommandGenerator<RecurringTransactionsCliCommand>
 {
-    public ICommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
+    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
     {
         var fromArgument = arguments
-            .OfType<DateOnly>(RecurringTransactionsCommand.ArgumentNames.From);
+            .OfType<DateOnly>(RecurringTransactionsCliCommand.ArgumentNames.From);
         
         var toArgument = arguments
-            .OfType<DateOnly>(RecurringTransactionsCommand.ArgumentNames.To);
+            .OfType<DateOnly>(RecurringTransactionsCliCommand.ArgumentNames.To);
         
         var payeeNameArgument = arguments
-            .OfType<string>(RecurringTransactionsCommand.ArgumentNames.PayeeName);
+            .OfType<string>(RecurringTransactionsCliCommand.ArgumentNames.PayeeName);
         
         var minimumOccurrencesArgument = arguments
-            .OfType<int>(RecurringTransactionsCommand.ArgumentNames.MinimumOccurrences);
+            .OfType<int>(RecurringTransactionsCliCommand.ArgumentNames.MinimumOccurrences);
 
-        return new RecurringTransactionsCommand
+        return new RecurringTransactionsCliCommand
         {
             From = fromArgument?.ArgumentValue,
             To = toArgument?.ArgumentValue,

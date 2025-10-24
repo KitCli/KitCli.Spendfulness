@@ -9,7 +9,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddReportingCommands(this IServiceCollection serviceCollection)
     {
-        var reportingCommandsAssembly = Assembly.GetAssembly(typeof(SpareMoneyCommand));
+        var reportingCommandsAssembly = Assembly.GetAssembly(typeof(SpareMoneyCliCommand));
         return serviceCollection.AddCommandsFromAssembly(reportingCommandsAssembly);
     }
 }

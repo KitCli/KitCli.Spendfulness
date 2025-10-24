@@ -3,10 +3,10 @@ using Cli.Instructions.Abstractions;
 
 namespace Cli.Commands;
 
-public class ExitCommandGenerator : ICommandGenerator<ExitCommand>
+public class ExitCommandGenerator : ICommandGenerator<ExitCliCommand>
 {
-    public ICommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
+    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
     {
-        return new ExitCommand();
+        return new ExitCliCommand();
     }
 }

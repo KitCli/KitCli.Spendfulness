@@ -10,7 +10,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddPersonalisationCommands(this IServiceCollection serviceCollection)
     {
-        var personalisationCommandsAssembly = Assembly.GetAssembly(typeof(DatabaseCommand));
+        var personalisationCommandsAssembly = Assembly.GetAssembly(typeof(DatabaseCliCommand));
         return serviceCollection.AddCommandsFromAssembly(personalisationCommandsAssembly);
     }
 }

@@ -5,14 +5,14 @@ using Cli.Spendfulness.Commands.Personalisation.Commitments.Find;
 
 namespace Cli.Spendfulness.Commands.Personalisation.Commitments;
 
-public class CommitmentsGenericCommandGenerator : ICommandGenerator<CommitmentsCommand>
+public class CommitmentsGenericCommandGenerator : ICommandGenerator<CommitmentsCliCommand>
 {
-    public ICommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
+    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
     {
         return subCommandName switch
         {
-            CommitmentsCommand.SubCommandNames.Find => new CommitmentFindCommand(),
-            _ => new CommitmentsCommand(),
+            CommitmentsCliCommand.SubCommandNames.Find => new CommitmentFindCliCommand(),
+            _ => new CommitmentsCliCommand(),
         };
     }
 }

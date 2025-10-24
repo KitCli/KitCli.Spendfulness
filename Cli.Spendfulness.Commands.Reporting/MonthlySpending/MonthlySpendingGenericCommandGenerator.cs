@@ -4,13 +4,13 @@ using Cli.Instructions.Arguments;
 
 namespace Cli.Ynab.Commands.Reporting.MonthlySpending;
 
-public class MonthlySpendingGenericCommandGenerator : ICommandGenerator<MonthlySpendingCommand>
+public class MonthlySpendingGenericCommandGenerator : ICommandGenerator<MonthlySpendingCliCommand>
 {
-    public ICommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
+    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
     {
-        var categoryIdArgument = arguments.OfType<Guid>(MonthlySpendingCommand.ArgumentNames.CategoryId);
+        var categoryIdArgument = arguments.OfType<Guid>(MonthlySpendingCliCommand.ArgumentNames.CategoryId);
 
-        return new MonthlySpendingCommand
+        return new MonthlySpendingCliCommand
         {
             CategoryId = categoryIdArgument?.ArgumentValue
         };

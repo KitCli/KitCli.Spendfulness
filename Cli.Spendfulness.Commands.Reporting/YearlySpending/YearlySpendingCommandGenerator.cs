@@ -3,7 +3,7 @@ using Cli.Instructions.Abstractions;
 
 namespace Cli.Ynab.Commands.Reporting.YearlySpending;
 
-public class YearlySpendingCommandGenerator : ICommandGenerator<YearlySpendingCommand>
+public class YearlySpendingCommandGenerator : ICommandGenerator<YearlySpendingCliCommand>
 {
-    public ICommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments) => new YearlySpendingCommand();
+    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments) => new YearlySpendingCliCommand();
 }

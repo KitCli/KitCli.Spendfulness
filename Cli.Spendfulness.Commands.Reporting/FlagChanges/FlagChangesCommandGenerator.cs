@@ -4,15 +4,15 @@ using Cli.Instructions.Arguments;
 
 namespace Cli.Ynab.Commands.Reporting.FlagChanges;
 
-public class FlagChangesCommandGenerator : ICommandGenerator<FlagChangesCommand>
+public class FlagChangesCommandGenerator : ICommandGenerator<FlagChangesCliCommand>
 {
-    public ICommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
+    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
     {
         // TODO: I dont like that this isnt more generic!
-        var from = arguments.OfType<DateOnly>(FlagChangesCommand.ArgumentNames.From);
-        var to = arguments.OfType<DateOnly>(FlagChangesCommand.ArgumentNames.To);
+        var from = arguments.OfType<DateOnly>(FlagChangesCliCommand.ArgumentNames.From);
+        var to = arguments.OfType<DateOnly>(FlagChangesCliCommand.ArgumentNames.To);
 
-        return new FlagChangesCommand
+        return new FlagChangesCliCommand
         {
             From = from?.ArgumentValue,
             To = to?.ArgumentValue

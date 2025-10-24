@@ -4,12 +4,12 @@ using Cli.Instructions.Arguments;
 
 namespace Cli.Spendfulness.Commands.Organisation.CopyOnBudget;
 
-public class CopyOnBudgetCommandGenerator : ICommandGenerator<CopyOnBudgetCommand>
+public class CopyOnBudgetCommandGenerator : ICommandGenerator<CopyOnBudgetCliCommand>
 {
-    public ICommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
+    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
     {
-        var accountIdArgument = arguments.OfRequiredType<Guid>(CopyOnBudgetCommand.ArgumentNames.AccountId);
+        var accountIdArgument = arguments.OfRequiredType<Guid>(CopyOnBudgetCliCommand.ArgumentNames.AccountId);
 
-        return new CopyOnBudgetCommand(accountIdArgument.ArgumentValue);
+        return new CopyOnBudgetCliCommand(accountIdArgument.ArgumentValue);
     }
 }

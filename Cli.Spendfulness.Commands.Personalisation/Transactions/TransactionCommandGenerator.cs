@@ -5,20 +5,20 @@ using Cli.Spendfulness.Commands.Personalisation.Transactions.List;
 
 namespace Cli.Spendfulness.Commands.Personalisation.Transactions;
 
-public class TransactionCommandGenerator : ICommandGenerator<TransactionsCommand>
+public class TransactionCommandGenerator : ICommandGenerator<TransactionsCliCommand>
 {
-    public ICommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
+    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
         => subCommandName switch
         {
-            TransactionsCommand.SubCommandNames.List => CreateListCommand(arguments),
-            _ => new TransactionsListCommand(),
+            TransactionsCliCommand.SubCommandNames.List => CreateListCommand(arguments),
+            _ => new TransactionsListCliCommand(),
         };
 
-    private TransactionsListCommand CreateListCommand(List<ConsoleInstructionArgument> arguments)
+    private TransactionsListCliCommand CreateListCommand(List<ConsoleInstructionArgument> arguments)
     {
-        var payeeNameArgument = arguments.OfType<string>(TransactionsListCommand.ArgumentNames.PayeeName);
+        var payeeNameArgument = arguments.OfType<string>(TransactionsListCliCommand.ArgumentNames.PayeeName);
 
-        return new TransactionsListCommand
+        return new TransactionsListCliCommand
         {
             PayeeName = payeeNameArgument?.ArgumentValue
         };

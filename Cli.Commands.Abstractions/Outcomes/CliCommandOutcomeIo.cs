@@ -32,6 +32,6 @@ public class CliCommandOutcomeIo : CliIo
     public void Say(CliCommandOutputOutcome outputOutcome)
         => Say(outputOutcome.Output);
     
-    public void Say(CliCommandNothingOutcome nothingOutcome)
+    public void Say(CliCommandNothingOutcome cliCommandNothingOutcome)
         => Say("Command not found.");
 }

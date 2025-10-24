@@ -5,21 +5,21 @@ using Cli.Spendfulness.Commands.Personalisation.Samples.Matches;
 
 namespace Cli.Spendfulness.Commands.Personalisation.Samples;
 
-public class SamplesCommandGenerator : ICommandGenerator<SamplesCommand>
+public class SamplesCommandGenerator : ICommandGenerator<SamplesCliCommand>
 {
-    public ICommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
+    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
         => subCommandName switch
         {
-            SamplesCommand.SubCommandNames.Matches => GetMatchesCommand(arguments),
-            _ => new SamplesCommand()
+            SamplesCliCommand.SubCommandNames.Matches => GetMatchesCommand(arguments),
+            _ => new SamplesCliCommand()
         };
 
-    private SamplesMatchesCommand GetMatchesCommand(List<ConsoleInstructionArgument> arguments)
+    private SamplesMatchesCliCommand GetMatchesCommand(List<ConsoleInstructionArgument> arguments)
     {
         var trnasactionIdArgument = arguments
-            .OfRequiredStringFrom<Guid, string>(SamplesMatchesCommand.ArgumentNames.TransactionId);
+            .OfRequiredStringFrom<Guid, string>(SamplesMatchesCliCommand.ArgumentNames.TransactionId);
 
-        return new SamplesMatchesCommand
+        return new SamplesMatchesCliCommand
         {
             TransactionId = trnasactionIdArgument.ArgumentValue
         };

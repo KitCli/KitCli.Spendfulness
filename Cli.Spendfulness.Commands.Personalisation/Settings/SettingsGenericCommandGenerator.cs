@@ -6,24 +6,24 @@ using Cli.Spendfulness.Commands.Personalisation.Settings.View;
 
 namespace Cli.Spendfulness.Commands.Personalisation.Settings;
 
-public class SettingsGenericCommandGenerator : ICommandGenerator<SettingsCommand>
+public class SettingsGenericCommandGenerator : ICommandGenerator<SettingsCliCommand>
 {
-    public ICommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
+    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
     {
         return subCommandName switch
         {
-            SettingsCommand.SubCommandNames.Create => GenerateCreateCommand(arguments),
-            SettingsCommand.SubCommandNames.View => new SettingsViewCommand(),
-            _ => new SettingsCommand()
+            SettingsCliCommand.SubCommandNames.Create => GenerateCreateCommand(arguments),
+            SettingsCliCommand.SubCommandNames.View => new SettingsViewCliCommand(),
+            _ => new SettingsCliCommand()
         };
     }
 
-    private SettingCreateCommand GenerateCreateCommand(List<ConsoleInstructionArgument> arguments)
+    private SettingCreateCliCommand GenerateCreateCommand(List<ConsoleInstructionArgument> arguments)
     {
-        var nameArgument = arguments.OfRequiredType<string>(SettingCreateCommand.ArgumentNames.Type);
-        var valueArgument = arguments.OfRequiredType<string>(SettingCreateCommand.ArgumentNames.Value);
+        var nameArgument = arguments.OfRequiredType<string>(SettingCreateCliCommand.ArgumentNames.Type);
+        var valueArgument = arguments.OfRequiredType<string>(SettingCreateCliCommand.ArgumentNames.Value);
 
-        return new SettingCreateCommand
+        return new SettingCreateCliCommand
         {
             Type = nameArgument.ArgumentValue,
             Value = valueArgument.ArgumentValue,

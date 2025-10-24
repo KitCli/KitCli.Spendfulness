@@ -1,0 +1,48 @@
+using Cli.Commands.Abstractions;
+using Cli.Commands.Abstractions.Outcomes;
+using Cli.Spendfulness.Aggregation.Aggregates;
+using Cli.Spendfulness.Aggregation.Aggregator.ListAggregators;
+using Cli.Spendfulness.CliTables.ViewModelBuilders;
+using Cli.Spendfulness.Database;
+using Ynab.Extensions;
+
+namespace Cli.Ynab.Commands.Reporting.MonthlySpending;
+
+public class MonthlySpendingCliCliCommandHandler: CliCommandHandler, ICliCommandHandler<MonthlySpendingCliCommand>
+{
+    private readonly ConfiguredBudgetClient _configuredBudgetClient;
+    private readonly TransactionMonthChangeCliTableBuilder _transactionMonthChangeCliTableBuilder;
+
+    public MonthlySpendingCliCliCommandHandler(ConfiguredBudgetClient configuredBudgetClient, TransactionMonthChangeCliTableBuilder transactionMonthChangeCliTableBuilder)
+    {
+        _configuredBudgetClient = configuredBudgetClient;
+        _transactionMonthChangeCliTableBuilder = transactionMonthChangeCliTableBuilder;
+    }
+
+    public async Task<CliCommandOutcome> Handle(MonthlySpendingCliCommand cliCommand, CancellationToken cancellationToken)
+    {
+        var aggregator = await PrepareAggregator(cliCommand);
+
+        var viewModel = _transactionMonthChangeCliTableBuilder
+            .WithAggregator(aggregator)
+            .Build();
+        
+        return Compile(viewModel);
+    }
+
+    private async Task<ListYnabAggregator<TransactionMonthTotalAggregate>> PrepareAggregator(MonthlySpendingCliCommand cliCommand)
+    {
+        var budget = await _configuredBudgetClient.GetDefaultBudget();
+
+        var transactions = await budget.GetTransactions();
+
+        var aggregator = new TransactionMonthTotalYnabAggregator(transactions);
+
+        if (cliCommand.CategoryId.HasValue)
+        {
+            aggregator.BeforeAggregation(o => o.FilterToCategories(cliCommand.CategoryId.Value));
+        }
+        
+        return aggregator;
+    }
+}

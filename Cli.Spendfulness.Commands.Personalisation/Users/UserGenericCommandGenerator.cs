@@ -7,34 +7,34 @@ using Cli.Spendfulness.Commands.Personalisation.Users.Switch;
 
 namespace Cli.Spendfulness.Commands.Personalisation.Users;
 
-public class UserGenericCommandGenerator : ICommandGenerator<UserCommand>
+public class UserGenericCommandGenerator : ICommandGenerator<UserCliCommand>
 {
-    public ICommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
+    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
     {
         return subCommandName switch
         {
-            UserCommand.SubCommandNames.Create => GenerateCreateCommand(arguments),
-            UserCommand.SubCommandNames.Switch => GenerateSwitchCommand(arguments),
-            UserCommand.SubCommandNames.Active => new UserActiveCommand(),
-            _ => new UserCommand()
+            UserCliCommand.SubCommandNames.Create => GenerateCreateCommand(arguments),
+            UserCliCommand.SubCommandNames.Switch => GenerateSwitchCommand(arguments),
+            UserCliCommand.SubCommandNames.Active => new UserActiveCliCommand(),
+            _ => new UserCliCommand()
         };
     }
 
-    private UserCreateCommand GenerateCreateCommand(List<ConsoleInstructionArgument> arguments)
+    private UserCreateCliCommand GenerateCreateCommand(List<ConsoleInstructionArgument> arguments)
     {
-        var userNameArgument = arguments.OfRequiredType<string>(UserCreateCommand.ArugmentNames.UserName);
+        var userNameArgument = arguments.OfRequiredType<string>(UserCreateCliCommand.ArugmentNames.UserName);
 
-        return new UserCreateCommand
+        return new UserCreateCliCommand
         {
             UserName = userNameArgument.ArgumentValue
         };
     }
 
-    private UserSwitchCommand GenerateSwitchCommand(List<ConsoleInstructionArgument> arguments)
+    private UserSwitchCliCommand GenerateSwitchCommand(List<ConsoleInstructionArgument> arguments)
     {
-        var userNameArgument = arguments.OfRequiredType<string>(UserCreateCommand.ArugmentNames.UserName);
+        var userNameArgument = arguments.OfRequiredType<string>(UserCreateCliCommand.ArugmentNames.UserName);
 
-        return new UserSwitchCommand
+        return new UserSwitchCliCommand
         {
             UserName = userNameArgument.ArgumentValue
         };

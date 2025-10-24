@@ -4,15 +4,15 @@ using Cli.Spendfulness.Commands.Personalisation.Databases.Create;
 
 namespace Cli.Spendfulness.Commands.Personalisation.Databases;
 
-public class DatabaseGenericCommandGenerator : ICommandGenerator<DatabaseCommand>
+public class DatabaseGenericCommandGenerator : ICommandGenerator<DatabaseCliCommand>
 {
-    public ICommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
+    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
     {
-        if (subCommandName == DatabaseCommand.SubCommandNames.Create)
+        if (subCommandName == DatabaseCliCommand.SubCommandNames.Create)
         {
-            return new DatabaseCreateCommand();
+            return new DatabaseCreateCliCommand();
         }
         
-        return new DatabaseCommand();
+        return new DatabaseCliCommand();
     }
 }

@@ -3,10 +3,10 @@ using Cli.Instructions.Abstractions;
 
 namespace Cli.Spendfulness.Commands.Personalisation.Categories;
 
-public class CategoriesGenericCommandGenerator : ICommandGenerator<CategoriesCommand>
+public class CategoriesGenericCommandGenerator : ICommandGenerator<CategoriesCliCommand>
 {
-    public ICommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
+    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
     {
-        return new CategoriesCommand();
+        return new CategoriesCliCommand();
     }
 }
