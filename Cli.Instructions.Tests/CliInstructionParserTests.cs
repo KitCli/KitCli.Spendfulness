@@ -55,7 +55,7 @@ public class CliInstructionParserTests
     {
         var result = _parser.Parse("/name subname");
         
-        Assert.That(result.SubName, Is.EqualTo("subname"));
+        Assert.That(result.SubInstructionName, Is.EqualTo("subname"));
     }
 
     [Test]
@@ -64,7 +64,7 @@ public class CliInstructionParserTests
         var result = _parser.Parse("/command --argument-one hello world");
 
         var argument = result.Arguments
-            .OfType<TypedConsoleInstructionArgument<string>>()
+            .OfType<TypedCliInstructionArgument<string>>()
             .FirstOrDefault();
         
         Assert.That(argument, Is.Not.Null);
@@ -77,7 +77,7 @@ public class CliInstructionParserTests
         var result = _parser.Parse("/name --argument-one 1");
 
         var argument = result.Arguments
-            .OfType<TypedConsoleInstructionArgument<int>>()
+            .OfType<TypedCliInstructionArgument<int>>()
             .FirstOrDefault();
         
         Assert.That(argument, Is.Not.Null);

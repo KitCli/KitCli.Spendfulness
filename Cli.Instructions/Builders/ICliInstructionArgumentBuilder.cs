@@ -6,5 +6,5 @@ public interface ICliInstructionArgumentBuilder
 {
     bool For(string? argumentValue);
 
-    ConsoleInstructionArgument Create(string argumentName, string? argumentValue);
+    CliInstructionArgument Create(string argumentName, string? argumentValue);
 }

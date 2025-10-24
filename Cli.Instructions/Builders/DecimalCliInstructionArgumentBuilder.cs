@@ -7,10 +7,10 @@ public class DecimalCliInstructionArgumentBuilder : NoDefaultInstructionArgument
 {
     public bool For(string? argumentValue) => decimal.TryParse(argumentValue, out _);
 
-    public ConsoleInstructionArgument Create(string argumentName, string? argumentValue)
+    public CliInstructionArgument Create(string argumentName, string? argumentValue)
     {
         var validArgumentValue = GetValidValue(argumentName, argumentValue);
         var parsedArgumentValue = decimal.Parse(validArgumentValue);
-        return new TypedConsoleInstructionArgument<decimal>(argumentName, parsedArgumentValue);
+        return new TypedCliInstructionArgument<decimal>(argumentName, parsedArgumentValue);
     }
 }

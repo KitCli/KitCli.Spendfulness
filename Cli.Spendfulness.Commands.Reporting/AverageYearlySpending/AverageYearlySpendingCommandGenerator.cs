@@ -5,7 +5,7 @@ namespace Cli.Ynab.Commands.Reporting.AverageYearlySpending;
 
 public class AverageYearlySpendingCommandGenerator : ICommandGenerator<AverageYearlySpendingCliCommand>
 {
-    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
+    public ICliCommand Generate(CliInstruction instruction)
     {
         return new AverageYearlySpendingCliCommand();
     }

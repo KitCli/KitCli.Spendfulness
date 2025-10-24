@@ -9,18 +9,16 @@ namespace Cli.Spendfulness.Commands.Personalisation.Users;
 
 public class UserGenericCommandGenerator : ICommandGenerator<UserCliCommand>
 {
-    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
-    {
-        return subCommandName switch
+    public ICliCommand Generate(CliInstruction instruction) 
+        => instruction.SubInstructionName switch
         {
-            UserCliCommand.SubCommandNames.Create => GenerateCreateCommand(arguments),
-            UserCliCommand.SubCommandNames.Switch => GenerateSwitchCommand(arguments),
+            UserCliCommand.SubCommandNames.Create => GenerateCreateCommand(instruction.Arguments),
+            UserCliCommand.SubCommandNames.Switch => GenerateSwitchCommand(instruction.Arguments),
             UserCliCommand.SubCommandNames.Active => new UserActiveCliCommand(),
             _ => new UserCliCommand()
         };
-    }
 
-    private UserCreateCliCommand GenerateCreateCommand(List<ConsoleInstructionArgument> arguments)
+    private UserCreateCliCommand GenerateCreateCommand(List<CliInstructionArgument> arguments)
     {
         var userNameArgument = arguments.OfRequiredType<string>(UserCreateCliCommand.ArugmentNames.UserName);
 
@@ -30,7 +28,7 @@ public class UserGenericCommandGenerator : ICommandGenerator<UserCliCommand>
         };
     }
 
-    private UserSwitchCliCommand GenerateSwitchCommand(List<ConsoleInstructionArgument> arguments)
+    private UserSwitchCliCommand GenerateSwitchCommand(List<CliInstructionArgument> arguments)
     {
         var userNameArgument = arguments.OfRequiredType<string>(UserCreateCliCommand.ArugmentNames.UserName);
 

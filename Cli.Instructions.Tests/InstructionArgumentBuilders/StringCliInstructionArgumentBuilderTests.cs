@@ -14,7 +14,7 @@ public class StringCliInstructionArgumentBuilderTests
         
         var result = builder.Create(string.Empty, "test test test");
 
-        var typed = result as TypedConsoleInstructionArgument<string>;
+        var typed = result as TypedCliInstructionArgument<string>;
         
         Assert.That(typed, Is.Not.Null);
         Assert.That(typed.ArgumentValue, Is.EqualTo("test test test"));

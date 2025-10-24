@@ -7,12 +7,10 @@ namespace Cli.Spendfulness.Commands.Personalisation.Commitments;
 
 public class CommitmentsGenericCommandGenerator : ICommandGenerator<CommitmentsCliCommand>
 {
-    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
-    {
-        return subCommandName switch
+    public ICliCommand Generate(CliInstruction instruction) =>
+        instruction.SubInstructionName switch
         {
             CommitmentsCliCommand.SubCommandNames.Find => new CommitmentFindCliCommand(),
             _ => new CommitmentsCliCommand(),
         };
-    }
 }

@@ -1,6 +1,6 @@
 namespace Cli.Instructions.Abstractions;
 
-public class ConsoleInstructionArgument(string argumentName)
+public class CliInstructionArgument(string argumentName)
 {
     public string ArgumentName { get; set; } = argumentName;
 }

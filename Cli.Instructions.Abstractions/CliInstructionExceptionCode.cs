@@ -1,6 +1,6 @@
 namespace Cli.Instructions.Abstractions;
 
-public enum ConsoleInstructionExceptionCode
+public enum CliInstructionExceptionCode
 {
     ArgumentIsRequired,
 }

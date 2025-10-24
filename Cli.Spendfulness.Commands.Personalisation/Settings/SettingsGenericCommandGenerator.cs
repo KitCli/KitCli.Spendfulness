@@ -8,17 +8,15 @@ namespace Cli.Spendfulness.Commands.Personalisation.Settings;
 
 public class SettingsGenericCommandGenerator : ICommandGenerator<SettingsCliCommand>
 {
-    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
-    {
-        return subCommandName switch
+    public ICliCommand Generate(CliInstruction instruction)
+        => instruction.SubInstructionName switch
         {
-            SettingsCliCommand.SubCommandNames.Create => GenerateCreateCommand(arguments),
+            SettingsCliCommand.SubCommandNames.Create => GenerateCreateCommand(instruction.Arguments),
             SettingsCliCommand.SubCommandNames.View => new SettingsViewCliCommand(),
             _ => new SettingsCliCommand()
         };
-    }
-
-    private SettingCreateCliCommand GenerateCreateCommand(List<ConsoleInstructionArgument> arguments)
+    
+    private SettingCreateCliCommand GenerateCreateCommand(List<CliInstructionArgument> arguments)
     {
         var nameArgument = arguments.OfRequiredType<string>(SettingCreateCliCommand.ArgumentNames.Type);
         var valueArgument = arguments.OfRequiredType<string>(SettingCreateCliCommand.ArgumentNames.Value);

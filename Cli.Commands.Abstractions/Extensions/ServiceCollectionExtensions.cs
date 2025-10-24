@@ -33,7 +33,7 @@ public static class ServiceCollectionExtensions
             
             var name = typeForReferencedCommand.Name.Replace("Command", string.Empty);
             
-            var commandName = name.ToLowerSplitString(ConsoleInstructionConstants.DefaultCommandNameSeparator);
+            var commandName = name.ToLowerSplitString(CliInstructionConstants.DefaultCommandNameSeparator);
             var shorthandCommandName = name.ToLowerTitleCharacters();
 
             serviceCollection

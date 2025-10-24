@@ -13,9 +13,9 @@ public class StringCliInstructionArgumentBuilder : NoDefaultInstructionArgumentB
         return argumentValue.AnyLetters() && !bool.TryParse(argumentValue, out _);
     }
 
-    public ConsoleInstructionArgument Create(string argumentName, string? argumentValue)
+    public CliInstructionArgument Create(string argumentName, string? argumentValue)
     {
         var validArgumentValue = GetValidValue(argumentName, argumentValue);
-        return new TypedConsoleInstructionArgument<string>(argumentName, validArgumentValue);
+        return new TypedCliInstructionArgument<string>(argumentName, validArgumentValue);
     }
 }

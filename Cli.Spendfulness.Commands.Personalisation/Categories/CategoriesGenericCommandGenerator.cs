@@ -5,7 +5,7 @@ namespace Cli.Spendfulness.Commands.Personalisation.Categories;
 
 public class CategoriesGenericCommandGenerator : ICommandGenerator<CategoriesCliCommand>
 {
-    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
+    public ICliCommand Generate(CliInstruction instruction)
     {
         return new CategoriesCliCommand();
     }

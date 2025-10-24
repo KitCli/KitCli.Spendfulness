@@ -5,8 +5,5 @@ namespace Cli.Commands;
 
 public class ExitCommandGenerator : ICommandGenerator<ExitCliCommand>
 {
-    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
-    {
-        return new ExitCliCommand();
-    }
+    public ICliCommand Generate(CliInstruction instruction) => new ExitCliCommand();
 }

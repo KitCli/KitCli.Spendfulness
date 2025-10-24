@@ -6,18 +6,22 @@ namespace Cli.Ynab.Commands.Reporting.RecurringTransactions;
 
 public class RecurringTransactionsGenericCommandGenerator : ICommandGenerator<RecurringTransactionsCliCommand>
 {
-    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
+    public ICliCommand Generate(CliInstruction instruction)
     {
-        var fromArgument = arguments
+        var fromArgument = instruction
+            .Arguments
             .OfType<DateOnly>(RecurringTransactionsCliCommand.ArgumentNames.From);
         
-        var toArgument = arguments
+        var toArgument = instruction
+            .Arguments
             .OfType<DateOnly>(RecurringTransactionsCliCommand.ArgumentNames.To);
         
-        var payeeNameArgument = arguments
+        var payeeNameArgument = instruction
+            .Arguments
             .OfType<string>(RecurringTransactionsCliCommand.ArgumentNames.PayeeName);
         
-        var minimumOccurrencesArgument = arguments
+        var minimumOccurrencesArgument = instruction
+            .Arguments
             .OfType<int>(RecurringTransactionsCliCommand.ArgumentNames.MinimumOccurrences);
 
         return new RecurringTransactionsCliCommand

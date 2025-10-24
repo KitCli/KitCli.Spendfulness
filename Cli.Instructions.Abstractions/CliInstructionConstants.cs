@@ -1,6 +1,6 @@
 namespace Cli.Instructions.Abstractions;
 
-public static class ConsoleInstructionConstants
+public static class CliInstructionConstants
 {
     public const char DefaultCommandNameSeparator = '-';
     public const string DefaultNamePrefix = "/";

@@ -6,13 +6,10 @@ namespace Cli.Spendfulness.Commands.Personalisation.Databases;
 
 public class DatabaseGenericCommandGenerator : ICommandGenerator<DatabaseCliCommand>
 {
-    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
-    {
-        if (subCommandName == DatabaseCliCommand.SubCommandNames.Create)
+    public ICliCommand Generate(CliInstruction instruction) =>
+        instruction.SubInstructionName switch
         {
-            return new DatabaseCreateCliCommand();
-        }
-        
-        return new DatabaseCliCommand();
-    }
+            DatabaseCliCommand.SubCommandNames.Create => new DatabaseCreateCliCommand(),
+            _ => new DatabaseCliCommand()
+        };
 }

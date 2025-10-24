@@ -7,14 +7,14 @@ namespace Cli.Spendfulness.Commands.Personalisation.Accounts;
 
 public class AccountsCommandGenerator : ICommandGenerator<AccountsCliCommand>
 {
-    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
-        => subCommandName switch
+    public ICliCommand Generate(CliInstruction instruction)
+        => instruction.SubInstructionName switch
         {
-            AccountsCliCommand.SubCommandNames.Identify => GenerateIdentifyCommand(arguments),
+            AccountsCliCommand.SubCommandNames.Identify => GenerateIdentifyCommand(instruction.Arguments),
             _ => new AccountsCliCommand()
         };
-
-    private  AccountsIdentifyCliCommand GenerateIdentifyCommand(List<ConsoleInstructionArgument> arguments)
+    
+    private  AccountsIdentifyCliCommand GenerateIdentifyCommand(List<CliInstructionArgument> arguments)
     {
         var nameArgument = arguments.OfRequiredType<string>(AccountsIdentifyCliCommand.ArgumentNames.Name);
         var typeArgument = arguments.OfRequiredType<string>(AccountsIdentifyCliCommand.ArgumentNames.Type);

@@ -7,13 +7,13 @@ public class BoolCliInstructionArgumentBuilder : ICliInstructionArgumentBuilder
 {
     public bool For(string? argumentValue) => true;
 
-    public ConsoleInstructionArgument Create(string argumentName, string? argumentValue)
+    public CliInstructionArgument Create(string argumentName, string? argumentValue)
     {
         if (bool.TryParse(argumentValue, out var argumentBool))
         {
-            return new TypedConsoleInstructionArgument<bool>(argumentName, argumentBool);
+            return new TypedCliInstructionArgument<bool>(argumentName, argumentBool);
         }
         
-        return new TypedConsoleInstructionArgument<bool>(argumentName, true);
+        return new TypedCliInstructionArgument<bool>(argumentName, true);
     }
 }

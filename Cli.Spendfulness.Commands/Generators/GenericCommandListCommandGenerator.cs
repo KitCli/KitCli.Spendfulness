@@ -5,7 +5,7 @@ namespace Cli.Spendfulness.Commands.Generators;
 
 public class GenericCommandListCommandGenerator : ICommandGenerator<CliCommandListCliCommand>
 {
-    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
+    public ICliCommand Generate(CliInstruction instruction)
     {
         return new CliCommandListCliCommand();
     }

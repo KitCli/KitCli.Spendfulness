@@ -6,10 +6,11 @@ namespace Cli.Spendfulness.Commands.Organisation.CopyOnBudget;
 
 public class CopyOnBudgetCommandGenerator : ICommandGenerator<CopyOnBudgetCliCommand>
 {
-    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
+    public ICliCommand Generate(CliInstruction instruction)
     {
-        var accountIdArgument = arguments.OfRequiredType<Guid>(CopyOnBudgetCliCommand.ArgumentNames.AccountId);
-
+        var accountIdArgument = instruction.Arguments
+            .OfRequiredType<Guid>(CopyOnBudgetCliCommand.ArgumentNames.AccountId);
+        
         return new CopyOnBudgetCliCommand(accountIdArgument.ArgumentValue);
     }
 }

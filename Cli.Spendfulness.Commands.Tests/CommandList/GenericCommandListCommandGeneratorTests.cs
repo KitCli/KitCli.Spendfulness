@@ -11,9 +11,13 @@ public class GenericCommandListCommandGeneratorTests
     {
         var generator = new GenericCommandListCommandGenerator();
 
-        var arguments = new List<ConsoleInstructionArgument>();
+        var instruction = new CliInstruction(
+            string.Empty,
+            string.Empty,
+            string.Empty, 
+            []);
         
-        var result = generator.Generate(string.Empty, arguments);
+        var result = generator.Generate(instruction);
         
         Assert.That(result, Is.TypeOf<CliCommandListCliCommand>());
     }

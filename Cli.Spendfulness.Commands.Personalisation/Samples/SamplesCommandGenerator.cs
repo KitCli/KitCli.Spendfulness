@@ -7,14 +7,14 @@ namespace Cli.Spendfulness.Commands.Personalisation.Samples;
 
 public class SamplesCommandGenerator : ICommandGenerator<SamplesCliCommand>
 {
-    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
-        => subCommandName switch
+    public ICliCommand Generate(CliInstruction instruction)
+        => instruction.SubInstructionName switch
         {
-            SamplesCliCommand.SubCommandNames.Matches => GetMatchesCommand(arguments),
+            SamplesCliCommand.SubCommandNames.Matches => GetMatchesCommand(instruction.Arguments),
             _ => new SamplesCliCommand()
         };
-
-    private SamplesMatchesCliCommand GetMatchesCommand(List<ConsoleInstructionArgument> arguments)
+    
+    private SamplesMatchesCliCommand GetMatchesCommand(List<CliInstructionArgument> arguments)
     {
         var trnasactionIdArgument = arguments
             .OfRequiredStringFrom<Guid, string>(SamplesMatchesCliCommand.ArgumentNames.TransactionId);
@@ -24,4 +24,5 @@ public class SamplesCommandGenerator : ICommandGenerator<SamplesCliCommand>
             TransactionId = trnasactionIdArgument.ArgumentValue
         };
     }
+
 }

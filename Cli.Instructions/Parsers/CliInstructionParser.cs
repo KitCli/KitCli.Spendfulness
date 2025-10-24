@@ -22,18 +22,19 @@ public class CliInstructionParser
         _instructionArgumentBuilders = instructionArgumentBuilders;
     }
 
-    public ConsoleInstruction Parse(string terminalInput)
+    public CliInstruction Parse(string terminalInput)
     {
         var indexes = _cliInstructionTokenIndexer.Index(terminalInput);
         var extraction = _cliInstructionTokenExtractor.Extract(indexes, terminalInput);
-        
+
         var arguments = extraction
             .ArgumentTokens
             .Select(token => _instructionArgumentBuilders
                 .First(builder => builder.For(token.Value))
-                .Create(token.Key, token.Value));
+                .Create(token.Key, token.Value))
+            .ToList();
         
-        return new ConsoleInstruction(
+        return new CliInstruction(
             extraction.PrefixToken,
             extraction.NameToken,
             extraction.SubNameToken,

@@ -8,7 +8,7 @@ namespace Cli.Instructions.Tests.InstructionArguments;
 [TestFixture]
 public class ConsoleInstructionArgumentExtensionsTests
 {
-    private List<ConsoleInstructionArgument> _arguments;
+    private List<CliInstructionArgument> _arguments;
 
     [OneTimeSetUp]
     public void OneTimeSetUp()
@@ -17,11 +17,11 @@ public class ConsoleInstructionArgumentExtensionsTests
         
         _arguments =
         [
-            new TypedConsoleInstructionArgument<string>("argumentOne", "hello"),
-            new TypedConsoleInstructionArgument<int>("argumentTwo", 12345),
-            new TypedConsoleInstructionArgument<bool>("argumentThree", true),
-            new TypedConsoleInstructionArgument<decimal>("argumentFour", 12.0m),
-            new TypedConsoleInstructionArgument<DateOnly>("argumentFive", DateOnly.FromDateTime(dateOnly))
+            new TypedCliInstructionArgument<string>("argumentOne", "hello"),
+            new TypedCliInstructionArgument<int>("argumentTwo", 12345),
+            new TypedCliInstructionArgument<bool>("argumentThree", true),
+            new TypedCliInstructionArgument<decimal>("argumentFour", 12.0m),
+            new TypedCliInstructionArgument<DateOnly>("argumentFive", DateOnly.FromDateTime(dateOnly))
         ];
     }
     

@@ -19,7 +19,7 @@ public class CliInstructionTokenExtractor
     {
         if (!indexes.PrefixTokenIndexed)
         {
-            throw new ArgumentNullException($"Commands must contain a {ConsoleInstructionConstants.DefaultNamePrefix}");
+            throw new ArgumentNullException($"Commands must contain a {CliInstructionConstants.DefaultNamePrefix}");
         }
 
         return terminalInput[indexes.PrefixTokenStartIndex..indexes.PrefixTokenEndIndex];
@@ -54,7 +54,7 @@ public class CliInstructionTokenExtractor
         
         var argumentInput = terminalInput[indexes.ArgumentTokensStartIndex..indexes.ArgumentTokensEndIndex];
 
-        var argumentTokens = argumentInput.Split(ConsoleInstructionConstants.DefaultArgumentPrefix);
+        var argumentTokens = argumentInput.Split(CliInstructionConstants.DefaultArgumentPrefix);
         
         var validArgumentTokens = argumentTokens
             .Where(i => !string.IsNullOrWhiteSpace(i))
@@ -68,7 +68,7 @@ public class CliInstructionTokenExtractor
     private static KeyValuePair<string, string?> ParseArgumentInput(string terminalArgumentInput)
     {
         // e.g. --payee-name Subway Something Something
-        var firstIndexOfSpace = terminalArgumentInput.IndexOf(ConsoleInstructionConstants.DefaultSpaceCharacter);
+        var firstIndexOfSpace = terminalArgumentInput.IndexOf(CliInstructionConstants.DefaultSpaceCharacter);
         
         var argumentNameEndIndex = firstIndexOfSpace == -1
             ? terminalArgumentInput.Length

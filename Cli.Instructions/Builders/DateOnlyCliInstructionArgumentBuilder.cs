@@ -7,12 +7,12 @@ public class DateOnlyCliInstructionArgumentBuilder : NoDefaultInstructionArgumen
 {
     public bool For(string? argumentValue) => DateTime.TryParse(argumentValue, out _);
 
-    public ConsoleInstructionArgument Create(string argumentName, string? argumentValue)
+    public CliInstructionArgument Create(string argumentName, string? argumentValue)
     {
         var validArgumentValue = GetValidValue(argumentName, argumentValue);
         var argumentDate = DateTime.Parse(validArgumentValue);
         var argumentDateOnly = DateOnly.FromDateTime(argumentDate);
 
-        return new TypedConsoleInstructionArgument<DateOnly>(argumentName, argumentDateOnly);
+        return new TypedCliInstructionArgument<DateOnly>(argumentName, argumentDateOnly);
     }
 }

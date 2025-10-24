@@ -7,10 +7,10 @@ public class GuidCliInstructionArgumentBuilder : NoDefaultInstructionArgumentBui
 {
     public bool For(string? argumentValue) => Guid.TryParse(argumentValue, out _);
 
-    public ConsoleInstructionArgument Create(string argumentName, string? argumentValue)
+    public CliInstructionArgument Create(string argumentName, string? argumentValue)
     {
         var validArgumentValue = GetValidValue(argumentName, argumentValue);
         var parsedArgumentValue = Guid.Parse(validArgumentValue);
-        return new TypedConsoleInstructionArgument<Guid>(argumentName, parsedArgumentValue);
+        return new TypedCliInstructionArgument<Guid>(argumentName, parsedArgumentValue);
     }
 }

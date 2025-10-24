@@ -7,7 +7,7 @@ namespace Cli.Workflow;
 
 public class CliWorkflowCommandProvider(IServiceProvider serviceProvider)
 {
-    public ICliCommand GetCommand(ConsoleInstruction instruction)
+    public ICliCommand GetCommand(CliInstruction instruction)
     {
         if (string.IsNullOrEmpty(instruction.Name))
         {
@@ -20,6 +20,6 @@ public class CliWorkflowCommandProvider(IServiceProvider serviceProvider)
             throw new NoCommandGeneratorException("Did not find generator for " + instruction.Name);
         }
 
-        return generator.Generate(instruction.SubName, instruction.Arguments.ToList());
+        return generator.Generate(instruction);
     }
 }

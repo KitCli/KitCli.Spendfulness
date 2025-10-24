@@ -5,8 +5,8 @@ namespace Cli.Ynab.Commands.Reporting;
 
 public static class InstructionArgumentExtensions
 {
-    public static TypedConsoleInstructionArgument<decimal>? OfCurrencyType(
-        this List<ConsoleInstructionArgument> arguments, string argumentName)
+    public static TypedCliInstructionArgument<decimal>? OfCurrencyType(
+        this List<CliInstructionArgument> arguments, string argumentName)
     {
         var minusIntArgument = arguments.OfType<int>(argumentName);
         if (minusIntArgument == null)
@@ -14,7 +14,7 @@ public static class InstructionArgumentExtensions
             return arguments.OfType<decimal>(argumentName);
         }
 
-        return new TypedConsoleInstructionArgument<decimal>(
+        return new TypedCliInstructionArgument<decimal>(
             minusIntArgument.ArgumentName,
             minusIntArgument.ArgumentValue);
     }

@@ -37,7 +37,7 @@ public class IntCliInstructionArgumentBuilderTests
     {
         var result = _intCliInstructionArgumentBuilder.Create(string.Empty, "1");
 
-        var typed = result as TypedConsoleInstructionArgument<int>;
+        var typed = result as TypedCliInstructionArgument<int>;
         
         Assert.That(typed, Is.Not.Null);
         Assert.That(typed.ArgumentValue, Is.EqualTo(1));

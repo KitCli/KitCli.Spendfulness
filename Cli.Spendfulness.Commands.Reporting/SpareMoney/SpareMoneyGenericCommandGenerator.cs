@@ -7,17 +7,14 @@ namespace Cli.Ynab.Commands.Reporting.SpareMoney;
 
 public class SpareMoneyGenericCommandGenerator : ICommandGenerator<SpareMoneyCliCommand>
 {
-    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
-    {
-        if (subCommandName == SpareMoneyCliCommand.SubCommandNames.Help)
+    public ICliCommand Generate(CliInstruction instruction) =>
+        instruction.SubInstructionName switch
         {
-            return new SpareMoneyHelpCliCommand();
-        }
-        
-        return GenerateDefaultCommand(arguments);
-    }
+            SpareMoneyCliCommand.SubCommandNames.Help => new SpareMoneyHelpCliCommand(),
+            _ => GenerateDefaultCommand(instruction.Arguments)
+        };
 
-    private static SpareMoneyCliCommand GenerateDefaultCommand(List<ConsoleInstructionArgument> arguments)
+    private static SpareMoneyCliCommand GenerateDefaultCommand(List<CliInstructionArgument> arguments)
     {
         var addArgument = arguments.OfCurrencyType(SpareMoneyCliCommand.ArgumentNames.Add);
         var minusArgument = arguments.OfCurrencyType(SpareMoneyCliCommand.ArgumentNames.Minus);

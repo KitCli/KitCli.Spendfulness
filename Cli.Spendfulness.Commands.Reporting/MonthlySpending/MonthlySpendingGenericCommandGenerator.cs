@@ -6,9 +6,11 @@ namespace Cli.Ynab.Commands.Reporting.MonthlySpending;
 
 public class MonthlySpendingGenericCommandGenerator : ICommandGenerator<MonthlySpendingCliCommand>
 {
-    public ICliCommand Generate(string? subCommandName, List<ConsoleInstructionArgument> arguments)
+    public ICliCommand Generate(CliInstruction instruction)
     {
-        var categoryIdArgument = arguments.OfType<Guid>(MonthlySpendingCliCommand.ArgumentNames.CategoryId);
+        var categoryIdArgument = instruction
+            .Arguments
+            .OfType<Guid>(MonthlySpendingCliCommand.ArgumentNames.CategoryId);
 
         return new MonthlySpendingCliCommand
         {
