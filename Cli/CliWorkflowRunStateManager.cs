@@ -9,13 +9,13 @@ public class CliWorkflowRunStateManager
     public void ChangeTo(ClIWorkflowRunState stateToChangeTo)
     {
         var mostRecentState = _stateChanges.LastOrDefault();
-        var currentState = mostRecentState?.To ?? ClIWorkflowRunState.NotInitialized;
+        var currentState = mostRecentState?.MovedTo ?? ClIWorkflowRunState.NotInitialized;
         
         // Can chnge from most recently changed to, to new state to change to.
         var possibleStateChange = PossibleStateChanges
             .Any(cliWorkflowRunStateChange =>
-                cliWorkflowRunStateChange.From == currentState && 
-                cliWorkflowRunStateChange.To == stateToChangeTo);
+                cliWorkflowRunStateChange.StartedAt == currentState && 
+                cliWorkflowRunStateChange.MovedTo == stateToChangeTo);
 
         if (!possibleStateChange)
         {
