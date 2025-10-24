@@ -1,3 +1,5 @@
+using Cli.Commands.Abstractions;
+
 namespace YnabCli.Commands.Reporting.MonthlySpending;
 
 public class MonthlySpendingCommand : ICommand

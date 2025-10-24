@@ -1,3 +1,5 @@
+using Cli.Commands.Abstractions;
+
 namespace YnabCli.Commands.Organisation.CopyOnBudget;
 
 public class CopyOnBudgetCommand(Guid accountId) : ICommand

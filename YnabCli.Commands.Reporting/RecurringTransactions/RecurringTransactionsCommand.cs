@@ -1,3 +1,5 @@
+using Cli.Commands.Abstractions;
+
 namespace YnabCli.Commands.Reporting.RecurringTransactions;
 
 public class RecurringTransactionsCommand : ICommand

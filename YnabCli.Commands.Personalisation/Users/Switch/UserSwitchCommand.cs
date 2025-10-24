@@ -1,3 +1,5 @@
+using Cli.Commands.Abstractions;
+
 namespace YnabCli.Commands.Personalisation.Users.Switch;
 
 public class UserSwitchCommand : ICommand

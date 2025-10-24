@@ -1,3 +1,5 @@
+using Cli.Commands.Abstractions;
+
 namespace YnabCli.Commands.Personalisation.Accounts.Identify;
 
 public record AccountsIdentifyCommand(string YnabAccountName, string CustomAccountTypeName) : ICommand

@@ -1,3 +1,5 @@
+using Cli.Commands.Abstractions;
+
 namespace YnabCli.Commands.Personalisation.Settings;
 
 public class SettingsCommand : ICommand

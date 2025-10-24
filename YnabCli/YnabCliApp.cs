@@ -1,3 +1,4 @@
+using Cli.Commands.Abstractions;
 using Cli.Instructions.Parsers;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
