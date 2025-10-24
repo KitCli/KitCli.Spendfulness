@@ -1,5 +1,5 @@
+using Cli.Ynab.CliTables.ViewModelBuilders;
 using YnabCli.Commands.Aggregate;
-using YnabCli.ViewModels.ViewModelBuilders;
 
 namespace YnabCli.Commands.Builders;
 

@@ -1,11 +1,9 @@
 using Cli.Commands.Abstractions;
-using Cli.Outcomes;
+using Cli.Commands.Abstractions.Outcomes;
+using Cli.Ynab.CliTables.ViewModelBuilders;
 using Ynab.Extensions;
-using YnabCli.Abstractions;
 using YnabCli.Aggregation.Aggregator.ListAggregators;
-using YnabCli.Commands.Handlers;
 using YnabCli.Database;
-using YnabCli.ViewModels.ViewModelBuilders;
 
 namespace YnabCli.Commands.Personalisation.Transactions.List;
 

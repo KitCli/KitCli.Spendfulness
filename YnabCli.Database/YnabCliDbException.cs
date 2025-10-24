@@ -1,13 +1,9 @@
-using YnabCli.Abstractions;
+using Cli.Abstractions;
 
 namespace YnabCli.Database;
 
-public class YnabCliDbException : YnabCliException
+public class YnabCliDbException(YnabCliDbExceptionCode code, string message)
+    : CliException(CliExceptionCode.Custom, message)
 {
-    public YnabCliDbExceptionCode Code { get; }
-    
-    public YnabCliDbException(YnabCliDbExceptionCode code, string message) : base(message)
-    {
-        Code = code;
-    }
+    public new YnabCliDbExceptionCode Code = code;
 }

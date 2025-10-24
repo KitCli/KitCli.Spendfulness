@@ -3,7 +3,6 @@ using Cli.Workflow;
 using Cli.Workflow.Abstractions;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using YnabCli;
 
 namespace Cli;
 

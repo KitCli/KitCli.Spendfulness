@@ -1,7 +1,6 @@
 using Cli.Commands.Abstractions;
-using Cli.Outcomes;
+using Cli.Commands.Abstractions.Outcomes;
 using ConsoleTables;
-using YnabCli.Abstractions;
 using YnabCli.Commands.Handlers;
 using YnabCli.Database;
 

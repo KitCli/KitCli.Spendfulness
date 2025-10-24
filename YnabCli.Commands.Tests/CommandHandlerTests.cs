@@ -1,4 +1,5 @@
 using Cli.Commands.Abstractions;
+using Cli.Commands.Abstractions.Outcomes;
 using Cli.ViewModel.Abstractions;
 using ConsoleTables;
 

@@ -2,11 +2,11 @@ namespace Cli.Abstractions;
 
 public enum CliExceptionCode
 {
-    // Extensions
     Workflow,
+    Instruction,
     Command,
+    Custom,
     
-    // Roots
     NoCommandGenerator,
     NoInstruction
 }

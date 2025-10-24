@@ -1,12 +1,11 @@
 using Cli.Commands.Abstractions;
-using Cli.Outcomes;
-using YnabCli.Abstractions;
+using Cli.Commands.Abstractions.Outcomes;
+using Cli.Ynab.CliTables.ViewModelBuilders;
 using YnabCli.Aggregation.Aggregator;
 using YnabCli.Commands.Handlers;
 using YnabCli.Database;
 using YnabCli.Database.Commitments;
 using YnabCli.Database.Users;
-using YnabCli.ViewModels.ViewModelBuilders;
 
 namespace YnabCli.Commands.Personalisation.Commitments;
 

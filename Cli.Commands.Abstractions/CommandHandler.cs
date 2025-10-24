@@ -1,4 +1,4 @@
-using Cli.Outcomes;
+using Cli.Commands.Abstractions.Outcomes;
 using ConsoleTables;
 
 namespace Cli.Commands.Abstractions;

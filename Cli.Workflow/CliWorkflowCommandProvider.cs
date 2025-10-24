@@ -1,4 +1,5 @@
 using Cli.Commands.Abstractions;
+using Cli.Commands.Abstractions.Exceptions;
 using Cli.Instructions.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 

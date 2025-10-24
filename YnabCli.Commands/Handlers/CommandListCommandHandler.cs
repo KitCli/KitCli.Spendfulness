@@ -1,9 +1,7 @@
 using Cli.Commands.Abstractions;
-using Cli.Outcomes;
+using Cli.Commands.Abstractions.Outcomes;
 using Cli.ViewModel.Abstractions;
 using ConsoleTables;
-using YnabCli.Abstractions;
-using YnabCli.ViewModels.ViewModels;
 
 namespace YnabCli.Commands.Handlers;
 

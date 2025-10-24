@@ -1,9 +1,6 @@
 using Cli.Commands.Abstractions;
-using Cli.Outcomes;
-using ConsoleTables;
+using Cli.Commands.Abstractions.Outcomes;
 using Microsoft.EntityFrameworkCore;
-using YnabCli.Abstractions;
-using YnabCli.Commands.Handlers;
 using YnabCli.Database;
 
 namespace YnabCli.Commands.Personalisation.Users.Create;

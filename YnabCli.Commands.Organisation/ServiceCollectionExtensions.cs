@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Cli.Commands.Abstractions;
+using Cli.Commands.Abstractions.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using YnabCli.Commands.Extensions;
 using YnabCli.Commands.Organisation.CopyOnBudget;

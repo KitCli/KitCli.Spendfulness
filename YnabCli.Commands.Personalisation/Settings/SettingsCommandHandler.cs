@@ -1,8 +1,5 @@
 using Cli.Commands.Abstractions;
-using Cli.Outcomes;
-using ConsoleTables;
-using YnabCli.Abstractions;
-using YnabCli.Commands.Handlers;
+using Cli.Commands.Abstractions.Outcomes;
 
 namespace YnabCli.Commands.Personalisation.Settings;
 

@@ -1,5 +1,7 @@
 using System.Diagnostics;
 using Cli.Commands.Abstractions;
+using Cli.Commands.Abstractions.Exceptions;
+using Cli.Commands.Abstractions.Outcomes;
 using Cli.Instructions.Parsers;
 using Cli.Workflow.Abstractions;
 using MediatR;

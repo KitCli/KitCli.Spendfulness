@@ -1,6 +1,6 @@
+using Cli.Abstractions;
 using Ynab;
 using Ynab.Extensions;
-using YnabCli.Abstractions;
 using YnabCli.Database;
 using YnabCli.Database.Commitments;
 using YnabCli.Database.Users;
@@ -39,7 +39,7 @@ public class CommitmentSynchroniser(ConfiguredBudgetClient configuredBudgetClien
 
         if (!farmCategoryGroups.Any())
         {
-            throw new YnabCliException("No Farm Category Groups");
+            throw new CliException(CliExceptionCode.Custom, "No Farm Category Groups");
         }
         
         var categories = farmCategoryGroups

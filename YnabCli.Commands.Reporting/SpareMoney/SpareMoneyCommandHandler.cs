@@ -1,16 +1,15 @@
 using Cli.Commands.Abstractions;
-using Cli.Outcomes;
+using Cli.Commands.Abstractions.Outcomes;
+using Cli.Ynab.CliTables.ViewModelBuilders;
 using ConsoleTables;
 using Ynab;
 using Ynab.Extensions;
 using Ynab.Responses.Accounts;
 using Ynab.Sanitisers;
-using YnabCli.Abstractions;
 using YnabCli.Aggregation.Aggregator;
 using YnabCli.Aggregation.Aggregator.AmountAggregators;
 using YnabCli.Commands.Handlers;
 using YnabCli.Database;
-using YnabCli.ViewModels.ViewModelBuilders;
 
 namespace YnabCli.Commands.Reporting.SpareMoney;
 

@@ -1,8 +1,7 @@
 using Cli.Commands.Abstractions;
-using Cli.Outcomes;
+using Cli.Commands.Abstractions.Outcomes;
 using ConsoleTables;
 using Microsoft.EntityFrameworkCore;
-using YnabCli.Abstractions;
 using YnabCli.Commands.Handlers;
 using YnabCli.Database;
 using YnabCli.Database.SpendingSamples;

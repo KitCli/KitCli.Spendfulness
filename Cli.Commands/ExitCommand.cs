@@ -1,5 +1,4 @@
 ﻿using Cli.Commands.Abstractions;
-using Cli.Outcomes;
 
 namespace Cli.Commands;
 
