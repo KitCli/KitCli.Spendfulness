@@ -2,35 +2,52 @@ namespace YnabCli;
 
 public abstract class CliApp
 {
+    // TODO: I can probably set this in the ServiceCollectionExtension based on class name.
     private string _cliAppName;
-    private readonly CliWorkflowEngine _workflowEngine;
+    private CliWorkflow _cliWorkflow;
 
-    public CliApp(string cliAppName, CliWorkflowEngine workflowEngine)
+    public CliApp(string cliAppName, CliWorkflow cliWorkflow)
     {
         _cliAppName = cliAppName;
-        _workflowEngine = workflowEngine;
+        _cliWorkflow = cliWorkflow;
     }
     
-    public Task Run()
+    public async Task Run()
     {
-        var workflow = _workflowEngine.CreateWorkflow(_cliAppName);
-
-        var run = workflow.CreateRun();
-
-        // do
-        // {
-        //     currentRun.
-        // }
-        // while (workflow.State == ClIWorkflowState.Running)
-        // {
-        //     
-        // }
+        await OnRun(_cliWorkflow);
         
+        while (_cliWorkflow.State != CliWorkflowState.Stopped)
+        {
+            var cliWorkflowRun = _cliWorkflow.CreateRun();
 
-        // Default state for now.
+            await OnRunCreated(cliWorkflowRun);
+            
+            // TODO: Change me to by awaited.
+            // This will ask for a command, send it to meditor.
+            var cliWorkflowRunTask =  cliWorkflowRun.Start();
+            
+            await OnRunStarted(cliWorkflowRun);
+
+            // TODO: Change to return from the run
+            var cliWorkflowRunOutcome = new CliWorkflowRunOutputOutcome("Test", new CliIo());
+            
+            // This will log something in the console.
+            cliWorkflowRunOutcome.Do();
+        }
+    }
+
+    protected virtual Task OnRun(CliWorkflow cliWorkflow)
+    {
         return Task.CompletedTask;
     }
 
-    
-    protected abstract Task RunCli();
+    protected virtual Task OnRunCreated(CliWorkflowRun cliWorkflowRun)
+    {
+        return Task.CompletedTask;
+    }
+
+    protected virtual Task OnRunStarted(CliWorkflowRun cliWorkflowRun)
+    {
+        return Task.CompletedTask;
+    }
 }

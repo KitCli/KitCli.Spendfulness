@@ -2,12 +2,10 @@ namespace YnabCli;
 
 public enum ClIWorkflowRunState
 {
-    // TODO: better name?
-    NotYetRunning,
+    Created,
     Running,
-    Stopped,
-    
     NoInput,
     NoCommand,
+    Finished,
     Exceptional,
 }

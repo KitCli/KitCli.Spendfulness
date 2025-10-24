@@ -12,14 +12,14 @@ public class CliCommandProvider(IServiceProvider serviceProvider)
         if (string.IsNullOrEmpty(instruction.Name))
         {
             // TODO: Custom command.
-            throw new Exception("No instruction entered.");
+            throw new NoInstructionException("No instruction entered.");
         }
         
         var generator = serviceProvider.GetKeyedService<IGenericCommandGenerator>(instruction.Name);
         if (generator == null)
         {
             // TODO: Custom command.
-            throw new Exception("Did not find generator for " + instruction.Name);
+            throw new NoCommandGeneratorException("Did not find generator for " + instruction.Name);
         }
 
         return generator.Generate(instruction.SubName, instruction.Arguments.ToList());

@@ -5,5 +5,7 @@ public enum YnabExceptionCode
     ApiResponseIsEmpty,
     ApiResponseIsError,
     CloseAccountCannotBeMovedOnBudget,
-    OnBudgetAccountCannotBeMovedOnBudget
+    OnBudgetAccountCannotBeMovedOnBudget,
+    NoInstruction,
+    NoCommandGenerator,
 }

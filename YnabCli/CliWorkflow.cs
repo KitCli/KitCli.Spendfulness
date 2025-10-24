@@ -7,7 +7,9 @@ namespace YnabCli;
 public class CliWorkflow
 {
     private readonly IServiceProvider _serviceProvider;
-    private List<CliWorkflowRun> _workflowRuns = new List<CliWorkflowRun>();
+    private List<CliWorkflowRun> _workflowRuns = [];
+    
+    public CliWorkflowState State = CliWorkflowState.Started;
 
     public CliWorkflow(IServiceProvider serviceProvider)
     {
@@ -30,5 +32,10 @@ public class CliWorkflow
         _workflowRuns.Add(run);
 
         return run;
+    }
+
+    public void Stop()
+    {
+        State = CliWorkflowState.Stopped;
     }
 }

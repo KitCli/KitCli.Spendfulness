@@ -15,6 +15,7 @@ public class CliWorkflowRun
     private Stopwatch _stopwatch;
     
     public ClIWorkflowRunState State { get; private set; }
+    private List<CliWorkflowRunStateChange> _stateChanges;
 
     public CliWorkflowRun(
         CliIo cliIo,
@@ -30,10 +31,11 @@ public class CliWorkflowRun
         _startTime = DateTime.Now;
         _stopwatch = new Stopwatch();
         
-        State = ClIWorkflowRunState.NotYetRunning;
+        State = ClIWorkflowRunState.Created;
     }
 
-    public async Task Run()
+    // TODO: Change me to return the outcome type.
+    public Task Start()
     {
         _stopwatch.Start();
         
@@ -42,7 +44,7 @@ public class CliWorkflowRun
         {
             _cliIO.Say($"Command '{input}' not found");
             UpdateState(ClIWorkflowRunState.NoInput);
-            return;
+            return Task.CompletedTask;
         }
         
         var instruction = _consoleInstructionParser.Parse(input);
@@ -52,21 +54,43 @@ public class CliWorkflowRun
             UpdateState(ClIWorkflowRunState.Running);
 
             var command = _commandProvider.GetCommand(instruction);
-            
-            var table = await _mediator.Send(command);
-        }
-        catch (Exception e)
-        {
-            // TODO: Split out exceptions into: & add io.says
-            // TODO: 1. NoCommandGeneratorException.
 
+            return _mediator.Send(command);
+        }
+        catch (NoInstructionException)
+        {
+            UpdateState(ClIWorkflowRunState.NoInput);
+            return CreatingNothingOutcome();
+        }
+        catch (NoCommandGeneratorException)
+        {
+            UpdateState(ClIWorkflowRunState.NoCommand);
+            return CreatingNothingOutcome();
+        }
+        catch (Exception exception)
+        {
+            _cliIO.Say("Exceptional circumstance ran into.");
+            _cliIO.Say(exception.Message);
+            
             UpdateState(ClIWorkflowRunState.Exceptional);
-            return;
+            return CreatingNothingOutcome();
         }
         finally
         {
+            UpdateState(ClIWorkflowRunState.Finished);
             _stopwatch.Stop();
         }
+    }
+
+    private Task<CliWorkflowRunNothingOutcome> CreatingNothingOutcome()
+    {
+        // TODO: Get last state of this run out.
+        // In theory, when this is executed, the finally block has not
+        // executed so the last state in the state change list
+        // will be the appropriate state to passs throgh
+        var lastStateChange = _stateChanges.Last();
+        var outcome = new CliWorkflowRunNothingOutcome(lastStateChange.To, _cliIO);
+        return Task.FromResult(outcome);
     }
     
     private void UpdateState(ClIWorkflowRunState newState)
@@ -77,16 +101,26 @@ public class CliWorkflowRun
             return;
         }
 
-        if (State == ClIWorkflowRunState.NotYetRunning && newState == ClIWorkflowRunState.Running)
+        if (State == ClIWorkflowRunState.Created && newState == ClIWorkflowRunState.Running)
         {
+            // TODO: I think this state stuff can be done a better way.
+            AddStateChange(State, newState);
             State = newState;
+            
         }
 
-        if (State == ClIWorkflowRunState.Running && newState == ClIWorkflowRunState.Stopped)
+        if (State == ClIWorkflowRunState.Running && newState == ClIWorkflowRunState.Finished)
         {
+            AddStateChange(State, newState);
             State = newState;
         }
 
         throw new Exception($"Invalid Workflow state transition: {State} > {newState}");
+    }
+
+    private void AddStateChange(ClIWorkflowRunState from, ClIWorkflowRunState to)
+    {
+        var stateChange = new CliWorkflowRunStateChange(from, to);
+        _stateChanges.Add(stateChange);
     }
 }
