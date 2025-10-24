@@ -24,15 +24,17 @@ public abstract class CliApp
             
             // TODO: Change me to by awaited.
             // This will ask for a command, send it to meditor.
-            var cliWorkflowRunTask =  cliWorkflowRun.Start();
+            var cliWorkflowRunTask =  cliWorkflowRun.Action();
             
             await OnRunStarted(cliWorkflowRun);
-
-            // TODO: Change to return from the run
-            var cliWorkflowRunOutcome = new CliWorkflowRunOutputOutcome("Test", new CliIo());
             
-            // This will log something in the console.
-            cliWorkflowRunOutcome.Do();
+            var cliWorkflowOutcome = await cliWorkflowRunTask;
+
+            // TODO: Have some outcome result thing abstraction.
+            // var cliWorkflowRunOutcome = new CliCommandOutputOutcome("Test");
+            //
+            // // This will log something in the console.
+            // cliWorkflowRunOutcome.Do();
         }
     }
 

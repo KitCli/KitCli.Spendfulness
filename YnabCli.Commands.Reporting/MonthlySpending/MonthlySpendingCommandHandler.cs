@@ -1,5 +1,6 @@
 using ConsoleTables;
 using Ynab.Extensions;
+using YnabCli.Abstractions;
 using YnabCli.Aggregation.Aggregates;
 using YnabCli.Aggregation.Aggregator.ListAggregators;
 using YnabCli.Commands.Handlers;
@@ -19,7 +20,7 @@ public class MonthlySpendingCommandHandler: CommandHandler, ICommandHandler<Mont
         _transactionMonthChangeViewModelBuilder = transactionMonthChangeViewModelBuilder;
     }
 
-    public async Task<ConsoleTable> Handle(MonthlySpendingCommand command, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome> Handle(MonthlySpendingCommand command, CancellationToken cancellationToken)
     {
         var aggregator = await PrepareAggregator(command);
 

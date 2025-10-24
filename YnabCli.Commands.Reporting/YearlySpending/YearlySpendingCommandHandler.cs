@@ -1,5 +1,6 @@
 using ConsoleTables;
 using Ynab.Extensions;
+using YnabCli.Abstractions;
 using YnabCli.Aggregation.Aggregator;
 using YnabCli.Commands.Handlers;
 using YnabCli.Database;
@@ -10,7 +11,7 @@ namespace YnabCli.Commands.Reporting.YearlySpending;
 public class YearlySpendingCommandHandler(ConfiguredBudgetClient budgetClient)
     : CommandHandler, ICommandHandler<YearlySpendingCommand>
 {
-    public async Task<ConsoleTable> Handle(YearlySpendingCommand request, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome> Handle(YearlySpendingCommand request, CancellationToken cancellationToken)
     {
         var budget =  await budgetClient.GetDefaultBudget();
         

@@ -1,4 +1,4 @@
-using ConsoleTables;
+using YnabCli.Abstractions;
 using YnabCli.Aggregation.Aggregator.ListAggregators;
 using YnabCli.Commands.Handlers;
 using YnabCli.Database;
@@ -17,7 +17,7 @@ public class CategoriesCommandHandler: CommandHandler, ICommandHandler<Categorie
         _categoryViewModelBuilder = categoryViewModelBuilder;
     }
 
-    public async Task<ConsoleTable> Handle(CategoriesCommand request, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome> Handle(CategoriesCommand request, CancellationToken cancellationToken)
     {
         var budget = await _configuredBudgetClient.GetDefaultBudget();
         

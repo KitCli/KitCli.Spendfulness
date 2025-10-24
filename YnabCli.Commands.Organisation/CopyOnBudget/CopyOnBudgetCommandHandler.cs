@@ -1,6 +1,7 @@
 using ConsoleTables;
 using Ynab;
 using Ynab.Exceptions;
+using YnabCli.Abstractions;
 using YnabCli.Commands.Handlers;
 using YnabCli.Database;
 
@@ -8,7 +9,7 @@ namespace YnabCli.Commands.Organisation.CopyOnBudget;
 
 public class CopyOnBudgetCommandHandler(ConfiguredBudgetClient budgetClient) : CommandHandler, ICommandHandler<CopyOnBudgetCommand>
 {
-    public async Task<ConsoleTable> Handle(CopyOnBudgetCommand command, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome> Handle(CopyOnBudgetCommand command, CancellationToken cancellationToken)
     {
         var budget = await budgetClient.GetDefaultBudget();
 
@@ -34,6 +35,6 @@ public class CopyOnBudgetCommandHandler(ConfiguredBudgetClient budgetClient) : C
         
         await budget.MoveAccountTransactions(originalAccount, createdAccount);
 
-        return CompileMessage($"Copied Account: {originalAccount.Name} On Budget");
+        return Compile($"Copied Account: {originalAccount.Name} On Budget");
     }
 }

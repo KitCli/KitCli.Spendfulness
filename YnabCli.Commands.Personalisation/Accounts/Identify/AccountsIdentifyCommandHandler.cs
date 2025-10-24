@@ -1,5 +1,6 @@
 using ConsoleTables;
 using Ynab.Extensions;
+using YnabCli.Abstractions;
 using YnabCli.Commands.Exceptions;
 using YnabCli.Commands.Handlers;
 using YnabCli.Database;
@@ -18,7 +19,7 @@ public class AccountsIdentifyCommandHandler : CommandHandler, ICommandHandler<Ac
         _configuredBudgetClient = configuredBudgetClient;
     }
 
-    public async Task<ConsoleTable> Handle(AccountsIdentifyCommand command, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome> Handle(AccountsIdentifyCommand command, CancellationToken cancellationToken)
     {
         var user = await _db.GetActiveUser();
         var accountTypes = await _db.GetAccountTypes();
@@ -59,6 +60,6 @@ public class AccountsIdentifyCommandHandler : CommandHandler, ICommandHandler<Ac
         
         await _db.Save();
         
-        return CompileMessage($"Account {account.Name} identified as {type.Name}.");
+        return Compile($"Account {account.Name} identified as {type.Name}.");
     }
 }

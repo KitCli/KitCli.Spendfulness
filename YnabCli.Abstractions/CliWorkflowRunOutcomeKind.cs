@@ -1,4 +1,4 @@
-namespace YnabCli;
+namespace YnabCli.Abstractions;
 
 public enum CliWorkflowRunOutcomeKind
 {

@@ -1,5 +1,5 @@
-using ConsoleTables;
 using Ynab.Extensions;
+using YnabCli.Abstractions;
 using YnabCli.Aggregation.Aggregator.ListAggregators;
 using YnabCli.Commands.Handlers;
 using YnabCli.Database;
@@ -10,7 +10,7 @@ namespace YnabCli.Commands.Personalisation.Transactions.List;
 public class TransactionListCommandHandler(ConfiguredBudgetClient configuredBudgetClient)
     : CommandHandler, ICommandHandler<TransactionsListCommand>
 {
-    public async Task<ConsoleTable> Handle(TransactionsListCommand command, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome> Handle(TransactionsListCommand command, CancellationToken cancellationToken)
     {
         var budget = await configuredBudgetClient.GetDefaultBudget();
 

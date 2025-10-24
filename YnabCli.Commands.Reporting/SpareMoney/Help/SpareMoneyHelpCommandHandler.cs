@@ -1,4 +1,5 @@
 using ConsoleTables;
+using YnabCli.Abstractions;
 using YnabCli.Commands.Builders;
 using YnabCli.Commands.Handlers;
 
@@ -7,7 +8,7 @@ namespace YnabCli.Commands.Reporting.SpareMoney.Help;
 public class SpareMoneyHelpCommandHandler(CommandHelpViewModelBuilder commandHelpViewModelBuilder)
     : CommandHandler, ICommandHandler<SpareMoneyHelpCommand>
 {
-    public Task<ConsoleTable> Handle(SpareMoneyHelpCommand request, CancellationToken cancellationToken)
+    public Task<CliCommandOutcome> Handle(SpareMoneyHelpCommand request, CancellationToken cancellationToken)
     {
         var aggregator = new SpareMoneyCommandHelpAggregator();
         
@@ -18,6 +19,6 @@ public class SpareMoneyHelpCommandHandler(CommandHelpViewModelBuilder commandHel
         
         var compilation = Compile(viewModel);
 
-        return Task.FromResult(compilation);
+        return Task.FromResult<CliCommandOutcome>(compilation);
     }
 }

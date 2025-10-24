@@ -1,5 +1,6 @@
 using ConsoleTables;
 using Microsoft.EntityFrameworkCore;
+using YnabCli.Abstractions;
 using YnabCli.Commands.Handlers;
 using YnabCli.Database;
 using YnabCli.Database.SpendingSamples;
@@ -9,7 +10,7 @@ namespace YnabCli.Commands.Personalisation.Samples.Matches;
 public class SamplesMatchesCommandHandler(ConfiguredBudgetClient configuredBudgetClient, YnabCliDb db)
     : ICommandHandler<SamplesMatchesCommand>
 {
-    public async Task<ConsoleTable> Handle(SamplesMatchesCommand request, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome> Handle(SamplesMatchesCommand request, CancellationToken cancellationToken)
     {
         var budget = await configuredBudgetClient.GetDefaultBudget();
         

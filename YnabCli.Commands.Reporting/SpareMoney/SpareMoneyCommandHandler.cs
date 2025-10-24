@@ -3,6 +3,7 @@ using Ynab;
 using Ynab.Extensions;
 using Ynab.Responses.Accounts;
 using Ynab.Sanitisers;
+using YnabCli.Abstractions;
 using YnabCli.Aggregation.Aggregator;
 using YnabCli.Aggregation.Aggregator.AmountAggregators;
 using YnabCli.Commands.Handlers;
@@ -14,7 +15,7 @@ namespace YnabCli.Commands.Reporting.SpareMoney;
 public class SpareMoneyCommandHandler(ConfiguredBudgetClient configuredBudgetClient)
     : CommandHandler, ICommandHandler<SpareMoneyCommand>
 {
-    public async Task<ConsoleTable> Handle(SpareMoneyCommand command, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome> Handle(SpareMoneyCommand command, CancellationToken cancellationToken)
     {
         var aggregator = await PrepareAggregator(command);
         

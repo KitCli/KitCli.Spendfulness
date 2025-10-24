@@ -1,4 +1,4 @@
-using ConsoleTables;
+using YnabCli.Abstractions;
 using YnabCli.Aggregation.Aggregator;
 using YnabCli.Commands.Handlers;
 using YnabCli.Database;
@@ -10,7 +10,7 @@ namespace YnabCli.Commands.Personalisation.Commitments;
 
 public class CommitmentsCommandHandler(YnabCliDb ynabCliDb) : CommandHandler, ICommandHandler<CommitmentsCommand>
 {
-    public async Task<ConsoleTable> Handle(CommitmentsCommand request, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome> Handle(CommitmentsCommand request, CancellationToken cancellationToken)
     {
         // Respect that there is a sync job.
         await ynabCliDb.Sync<User>();

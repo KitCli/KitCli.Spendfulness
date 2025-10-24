@@ -1,5 +1,6 @@
 using ConsoleTables;
 using Microsoft.EntityFrameworkCore;
+using YnabCli.Abstractions;
 using YnabCli.Commands.Handlers;
 using YnabCli.Database;
 using YnabCli.ViewModels.ViewModels;
@@ -15,7 +16,7 @@ public class SettingsVIewCommandHandler : CommandHandler, ICommandHandler<Settin
         _dbContext = dbContext;
     }
 
-    public async Task<ConsoleTable> Handle(SettingsViewCommand request, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome> Handle(SettingsViewCommand request, CancellationToken cancellationToken)
     {
         var activeUser = await _dbContext.Users
             .Include(user => user.Settings)

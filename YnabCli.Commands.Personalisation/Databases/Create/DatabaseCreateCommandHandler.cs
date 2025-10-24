@@ -1,4 +1,5 @@
 using ConsoleTables;
+using YnabCli.Abstractions;
 using YnabCli.Commands.Handlers;
 using YnabCli.Database;
 
@@ -13,10 +14,10 @@ public class DatabaseCreateCommandHandler : CommandHandler, ICommandHandler<Data
         _dbContext = dbContext;
     }
 
-    public async Task<ConsoleTable> Handle(DatabaseCreateCommand request, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome> Handle(DatabaseCreateCommand request, CancellationToken cancellationToken)
     {
         await _dbContext.Database.EnsureCreatedAsync(cancellationToken);
 
-        return CompileMessage("Database exists");
+        return Compile("Database exists");
     }
 }

@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Cli.Instructions.Parsers;
 using MediatR;
+using YnabCli.Abstractions;
 
 namespace YnabCli;
 
@@ -33,9 +34,8 @@ public class CliWorkflowRun
         
         State = ClIWorkflowRunState.Created;
     }
-
-    // TODO: Change me to return the outcome type.
-    public Task Start()
+    
+    public Task<CliCommandOutcome> Action()
     {
         _stopwatch.Start();
         
@@ -44,7 +44,7 @@ public class CliWorkflowRun
         {
             _cliIO.Say($"Command '{input}' not found");
             UpdateState(ClIWorkflowRunState.NoInput);
-            return Task.CompletedTask;
+            return CreatingNothingOutcome();
         }
         
         var instruction = _consoleInstructionParser.Parse(input);
@@ -82,15 +82,15 @@ public class CliWorkflowRun
         }
     }
 
-    private Task<CliWorkflowRunNothingOutcome> CreatingNothingOutcome()
+    private Task<CliCommandOutcome> CreatingNothingOutcome()
     {
         // TODO: Get last state of this run out.
         // In theory, when this is executed, the finally block has not
         // executed so the last state in the state change list
         // will be the appropriate state to passs throgh
         var lastStateChange = _stateChanges.Last();
-        var outcome = new CliWorkflowRunNothingOutcome(lastStateChange.To, _cliIO);
-        return Task.FromResult(outcome);
+        var outcome = new CliCommandNothingOutcome(lastStateChange.To);
+        return Task.FromResult<CliCommandOutcome>(outcome);
     }
     
     private void UpdateState(ClIWorkflowRunState newState)

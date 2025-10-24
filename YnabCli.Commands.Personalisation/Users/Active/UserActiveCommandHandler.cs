@@ -1,5 +1,6 @@
 using ConsoleTables;
 using Microsoft.EntityFrameworkCore;
+using YnabCli.Abstractions;
 using YnabCli.Commands.Handlers;
 using YnabCli.Database;
 
@@ -14,12 +15,12 @@ public class UserActiveCommandHandler : CommandHandler, ICommandHandler<UserActi
         _dbContext = dbContext;
     }
 
-    public async Task<ConsoleTable> Handle(UserActiveCommand request, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome> Handle(UserActiveCommand request, CancellationToken cancellationToken)
     {
         var activeUser = await _dbContext.Users.FirstOrDefaultAsync(u => u.Active);
         
         return activeUser != null
-            ? CompileMessage($"Active user is {activeUser.Name}")
-            : CompileMessage($"No active user.");
+            ? Compile($"Active user is {activeUser.Name}")
+            : Compile($"No active user.");
     }
 }

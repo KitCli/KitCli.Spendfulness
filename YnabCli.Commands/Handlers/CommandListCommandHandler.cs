@@ -1,11 +1,12 @@
 using ConsoleTables;
+using YnabCli.Abstractions;
 using YnabCli.ViewModels.ViewModels;
 
 namespace YnabCli.Commands.Handlers;
 
 public class CommandListCommandHandler : CommandHandler, ICommandHandler<CommandListCommand>
 {
-    public Task<ConsoleTable> Handle(CommandListCommand request, CancellationToken cancellationToken)
+    public Task<CliCommandOutcome> Handle(CommandListCommand request, CancellationToken cancellationToken)
     {
         var viewModel = new ViewModel();
         
@@ -14,7 +15,6 @@ public class CommandListCommandHandler : CommandHandler, ICommandHandler<Command
         viewModel.Rows.AddRange(["/command-list", "Gets a list of commands"]);
         
         var compilation = Compile(viewModel);
-        
-        return Task.FromResult(compilation);
+        return Task.FromResult<CliCommandOutcome>(compilation);
     }
 }

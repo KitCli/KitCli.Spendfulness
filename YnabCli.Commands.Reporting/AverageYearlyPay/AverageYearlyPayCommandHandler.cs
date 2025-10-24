@@ -1,5 +1,6 @@
 using ConsoleTables;
 using Ynab.Extensions;
+using YnabCli.Abstractions;
 using YnabCli.Aggregation.Aggregates;
 using YnabCli.Aggregation.Aggregator.ListAggregators;
 using YnabCli.Commands.Handlers;
@@ -11,7 +12,7 @@ namespace YnabCli.Commands.Reporting.AverageYearlyPay;
 public class AverageYearlyPayCommandHandler(ConfiguredBudgetClient budgetClient)
     : CommandHandler, ICommandHandler<AverageYearlyPayCommand>
 {
-    public async Task<ConsoleTable> Handle(AverageYearlyPayCommand command, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome> Handle(AverageYearlyPayCommand command, CancellationToken cancellationToken)
     {
         var aggregator = await PrepareAggregator();
 

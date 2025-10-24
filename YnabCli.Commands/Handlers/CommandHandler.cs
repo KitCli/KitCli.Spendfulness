@@ -1,11 +1,13 @@
 using ConsoleTables;
+using YnabCli.Abstractions;
 using YnabCli.ViewModels.ViewModels;
 
 namespace YnabCli.Commands.Handlers;
 
+// TODO: Rename to CliCommandHandler.
 public abstract class CommandHandler
 {
-    protected static ConsoleTable Compile(ViewModel viewModel)
+    protected static CliCommandTableOutcome Compile(ViewModel viewModel)
     {
         var table = new ConsoleTable
         {
@@ -20,18 +22,8 @@ public abstract class CommandHandler
         foreach (var row in viewModel.Rows)
             table.AddRow(row.ToArray());
         
-        return table;
+        return new CliCommandTableOutcome(table);
     }
 
-    protected static ConsoleTable CompileMessage(string message)
-    {
-        return new ConsoleTable
-        {
-            Columns = { message },
-            Options =
-            {
-                EnableCount = false
-            }
-        };
-    }
+    protected static CliCommandOutputOutcome Compile(string message) => new(message);
 }

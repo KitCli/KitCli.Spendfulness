@@ -1,6 +1,7 @@
 using Cli.Instructions.Parsers;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using YnabCli.Abstractions;
 
 namespace YnabCli;
 

@@ -1,4 +1,5 @@
 using ConsoleTables;
+using YnabCli.Abstractions;
 using YnabCli.Commands.Handlers;
 using YnabCli.ViewModels.ViewModels;
 
@@ -9,7 +10,7 @@ public class CommandHandlerTests
 {
     private class TestCommandHandler : CommandHandler
     {
-        public ConsoleTable TestCompile(ViewModel vm) => Compile(vm);
+        public CliCommandOutcome TestCompile(ViewModel vm) => Compile(vm);
     }
 
     [Test]

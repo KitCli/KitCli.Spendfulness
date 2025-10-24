@@ -1,5 +1,6 @@
 using ConsoleTables;
 using Ynab.Extensions;
+using YnabCli.Abstractions;
 using YnabCli.Aggregation.Aggregator;
 using YnabCli.Commands.Handlers;
 using YnabCli.Database;
@@ -10,7 +11,7 @@ namespace YnabCli.Commands.Reporting.FlagChanges;
 public class FlagChangesCommandHandler(ConfiguredBudgetClient configuredBudgetClient)
     : CommandHandler, ICommandHandler<FlagChangesCommand>
 {
-    public async Task<ConsoleTable> Handle(FlagChangesCommand command, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome> Handle(FlagChangesCommand command, CancellationToken cancellationToken)
     {
         var budget = await configuredBudgetClient.GetDefaultBudget();
         

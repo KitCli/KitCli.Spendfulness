@@ -1,5 +1,6 @@
 using ConsoleTables;
 using Microsoft.EntityFrameworkCore;
+using YnabCli.Abstractions;
 using YnabCli.Commands.Handlers;
 using YnabCli.Database;
 
@@ -14,13 +15,13 @@ public class UserSwitchCommandHandler : CommandHandler, ICommandHandler<UserSwit
         _dbContext = dbContext;
     }
 
-    public async Task<ConsoleTable> Handle(UserSwitchCommand command, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome> Handle(UserSwitchCommand command, CancellationToken cancellationToken)
     {
         var currentActiveUser = await _dbContext.Users.FirstAsync(u => u.Active, cancellationToken);
 
         if (currentActiveUser.Name == command.UserName)
         {
-            return CompileMessage($"User {command.UserName} already active.");
+            return Compile($"User {command.UserName} already active.");
         }
         
         var switchingToUser = await _dbContext.Users
@@ -28,7 +29,7 @@ public class UserSwitchCommandHandler : CommandHandler, ICommandHandler<UserSwit
         
         if (switchingToUser == null)
         {
-            return CompileMessage($"User {command.UserName} does not exist.");
+            return Compile($"User {command.UserName} does not exist.");
         }
         
         currentActiveUser.Active = false;
@@ -38,6 +39,6 @@ public class UserSwitchCommandHandler : CommandHandler, ICommandHandler<UserSwit
         _dbContext.Users.Update(switchingToUser);
         await _dbContext.SaveChangesAsync(cancellationToken);
         
-        return CompileMessage($"User {command.UserName} active.");
+        return Compile($"User {command.UserName} active.");
     }
 }

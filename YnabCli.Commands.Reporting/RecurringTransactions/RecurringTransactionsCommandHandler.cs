@@ -1,6 +1,7 @@
 using ConsoleTables;
 using Ynab;
 using Ynab.Extensions;
+using YnabCli.Abstractions;
 using YnabCli.Aggregation.Aggregates;
 using YnabCli.Aggregation.Aggregator.ListAggregators;
 using YnabCli.Aggregation.Extensions;
@@ -15,7 +16,7 @@ public class RecurringTransactionsCommandHandler(ConfiguredBudgetClient budgetCl
 {
     private const int DefaultMinimumOccurrences = 2;
     
-    public async Task<ConsoleTable> Handle(RecurringTransactionsCommand command, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome> Handle(RecurringTransactionsCommand command, CancellationToken cancellationToken)
     {
         var aggregator = await PrepareAggregator(command);
 
