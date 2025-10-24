@@ -11,6 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Cli.Abstractions\Cli.Abstractions.csproj" />
       <ProjectReference Include="..\YnabCli.Aggregation\YnabCli.Aggregation.csproj" />
       <ProjectReference Include="..\YnabCli.Database\YnabCli.Database.csproj" />
       <ProjectReference Include="..\Ynab\Ynab.csproj" />

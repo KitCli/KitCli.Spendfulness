@@ -1,4 +1,6 @@
-namespace Cli;
+using Cli.Abstractions;
+
+namespace Cli.Commands.Abstractions;
 
 public class NoInstructionException : CliException
 {

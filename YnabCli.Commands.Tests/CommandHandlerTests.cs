@@ -1,8 +1,6 @@
-using Cli.Outcomes;
+using Cli.Commands.Abstractions;
+using Cli.ViewModel.Abstractions;
 using ConsoleTables;
-using YnabCli.Abstractions;
-using YnabCli.Commands.Handlers;
-using YnabCli.ViewModels.ViewModels;
 
 namespace YnabCli.Commands.Tests;
 
@@ -11,13 +9,13 @@ public class CommandHandlerTests
 {
     private class TestCommandHandler : CommandHandler
     {
-        public CliCommandOutcome TestCompile(ViewModel vm) => Compile(vm);
+        public CliCommandOutcome TestCompile(CliTable vm) => Compile(vm);
     }
 
     [Test]
     public void GivenViewModel_WhenCompile_ShouldReturnConsoleTable()
     {
-        var viewModel = new ViewModel
+        var viewModel = new CliTable
         {
             Columns = ["Column1", "Column2", "Column3"],
             Rows = [new List<object>() { "Row1", "Row2", "Row3" }]

@@ -1,10 +1,10 @@
 using Cli.Commands.Abstractions;
-using Cli.Instructions;
+using Cli.Instructions.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Cli;
+namespace Cli.Workflow;
 
-public class CliCommandProvider(IServiceProvider serviceProvider)
+public class CliWorkflowCommandProvider(IServiceProvider serviceProvider)
 {
     public ICommand GetCommand(ConsoleInstruction instruction)
     {

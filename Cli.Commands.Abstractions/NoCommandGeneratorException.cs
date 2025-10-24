@@ -1,6 +1,6 @@
+using Cli.Abstractions;
 
-
-namespace Cli;
+namespace Cli.Commands.Abstractions;
 
 public class NoCommandGeneratorException : CliException
 {

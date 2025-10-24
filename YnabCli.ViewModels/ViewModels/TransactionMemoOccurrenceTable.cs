@@ -1,6 +1,8 @@
+using Cli.ViewModel.Abstractions;
+
 namespace YnabCli.ViewModels.ViewModels;
 
-public class TransactionMemoOccurrenceViewModel : ViewModel
+public class TransactionMemoOccurrenceTable : CliTable
 {
     public const string PayeeColumnName = "Payee";
     public const string MemoColumnName = "Memo";

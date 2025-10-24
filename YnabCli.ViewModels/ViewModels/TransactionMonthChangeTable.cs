@@ -1,6 +1,8 @@
+using Cli.ViewModel.Abstractions;
+
 namespace YnabCli.ViewModels.ViewModels;
 
-public class TransactionMonthChangeViewModel : ViewModel
+public class TransactionMonthChangeTable : CliTable
 {
     public const string MonthColumnName = "Yeear";
     public const string TotalAmountColumnName = "Total Amount";

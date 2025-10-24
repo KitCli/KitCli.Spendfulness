@@ -1,6 +1,6 @@
-namespace YnabCli.ViewModels.ViewModels;
+namespace Cli.ViewModel.Abstractions;
 
-public class ViewModel
+public class CliTable
 {
     public List<string> Columns { get; set; } = [];
     public List<List<object>> Rows { get; set; } = [];

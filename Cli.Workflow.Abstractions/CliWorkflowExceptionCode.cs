@@ -1,4 +1,4 @@
-namespace Cli;
+namespace Cli.Workflow.Abstractions;
 
 public enum CliWorkflowExceptionCode
 {

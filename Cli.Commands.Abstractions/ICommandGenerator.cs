@@ -1,6 +1,4 @@
-using Cli.Commands.Abstractions;
-
-namespace YnabCli.Commands.Generators;
+namespace Cli.Commands.Abstractions;
 
 // ReSharper disable once UnusedTypeParameter
 public interface ICommandGenerator<TCommand> : IGenericCommandGenerator where TCommand : ICommand

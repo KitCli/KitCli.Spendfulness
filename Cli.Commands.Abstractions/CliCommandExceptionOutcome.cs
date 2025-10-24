@@ -1,6 +1,6 @@
 using Cli.Outcomes;
 
-namespace Cli;
+namespace Cli.Commands.Abstractions;
 
 public class CliCommandExceptionOutcome(Exception exception) : CliCommandOutcome(CliWorkflowRunOutcomeKind.Exception)
 {

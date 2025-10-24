@@ -1,3 +1,5 @@
+
+using Cli.ViewModel.Abstractions;
 using YnabCli.Aggregation.Aggregator;
 using YnabCli.ViewModels.ViewModels;
 
@@ -10,6 +12,6 @@ public interface IViewModelBuilder<TAggregation> where TAggregation : notnull
     IViewModelBuilder<TAggregation> WithSortOrder(ViewModelSortOrder viewModelSortOrder);
 
     IViewModelBuilder<TAggregation> WithRowCount(bool showRowCount);
-
-    ViewModel Build();
+    
+    CliTable Build();
 }

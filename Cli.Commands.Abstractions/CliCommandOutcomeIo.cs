@@ -1,6 +1,5 @@
-using Cli.Outcomes;
 
-namespace Cli;
+namespace Cli.Commands.Abstractions;
 
 public class CliCommandOutcomeIo : CliIo
 {
@@ -29,5 +28,5 @@ public class CliCommandOutcomeIo : CliIo
         => Say(outputOutcome.Output);
     
     public void Say(CliCommandNothingOutcome nothingOutcome)
-        => Say($"Command resulted in nothing. Last state: {nothingOutcome}");
+        => Say("Command not found.");
 }

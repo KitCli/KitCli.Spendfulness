@@ -1,4 +1,5 @@
 using Cli.Instructions.Parsers;
+using Cli.Workflow;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using YnabCli;
@@ -23,7 +24,7 @@ public class CliWorkflow
         
         var consoleInstructionParser = _serviceProvider.GetRequiredService<ConsoleInstructionParser>();
         
-        var commandProvider = _serviceProvider.GetRequiredService<CliCommandProvider>();
+        var commandProvider = _serviceProvider.GetRequiredService<CliWorkflowCommandProvider>();
         
         // TODO: I'd like to remove the dependency on MediatR one day.
         var mediator = _serviceProvider.GetRequiredService<IMediator>();

@@ -1,3 +1,4 @@
+using Cli.ViewModel.Abstractions;
 using YnabCli.Aggregation.Aggregator;
 using YnabCli.ViewModels.ViewModels;
 
@@ -28,7 +29,7 @@ public abstract class ViewModelBuilder<TAggregation> : IViewModelBuilder<TAggreg
         return GetCurrentBuilder();
     }
 
-    public ViewModel Build()
+    public CliTable Build()
     {
         if (_aggregator is null)
         {
@@ -48,9 +49,9 @@ public abstract class ViewModelBuilder<TAggregation> : IViewModelBuilder<TAggreg
     
     protected abstract List<List<object>> BuildRows(TAggregation aggregates);
 
-    private ViewModel BuildViewModel(List<string> columnNames, List<List<object>> rows)
+    private CliTable BuildViewModel(List<string> columnNames, List<List<object>> rows)
     {
-        return new ViewModel
+        return new CliTable
         {
             ShowRowCount = _showRowCount,
             Columns = columnNames,

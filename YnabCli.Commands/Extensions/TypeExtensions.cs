@@ -1,4 +1,5 @@
 using System.Reflection;
+using Cli.Commands.Abstractions;
 using YnabCli.Commands.Generators;
 
 namespace YnabCli.Commands.Extensions;

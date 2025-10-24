@@ -35,7 +35,7 @@ public class YnabCliApp(IServiceProvider serviceProvider)
                 }
 
                 var instruction = instructionParser.Parse(input);
-                if (instruction.Name is ExitCommand.CommandName or ExitCommand.ShorthandCommandName)
+                if (instruction.Name is LegacyExitCommand.CommandName or LegacyExitCommand.ShorthandCommandName)
                 {
                     PrintToConsole("Exiting...");
                     noExitCommandEnteredd = false;

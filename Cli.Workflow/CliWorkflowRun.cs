@@ -1,29 +1,28 @@
 using System.Diagnostics;
+using Cli.Commands.Abstractions;
 using Cli.Instructions.Parsers;
-using Cli.Outcomes;
 using Cli.Workflow.Abstractions;
 using MediatR;
-using YnabCli;
 
-namespace Cli;
+namespace Cli.Workflow;
 
 public class CliWorkflowRun
 {
     private readonly CliWorkflowRunStateManager _stateManager;
     private readonly ConsoleInstructionParser _consoleInstructionParser;
-    private readonly CliCommandProvider _commandProvider;
+    private readonly CliWorkflowCommandProvider _workflowCommandProvider;
     private readonly IMediator _mediator;
     private readonly Stopwatch _stopwatch;
 
     public CliWorkflowRun(
         CliWorkflowRunStateManager stateManager,
         ConsoleInstructionParser consoleInstructionParser,
-        CliCommandProvider commandProvider,
+        CliWorkflowCommandProvider workflowCommandProvider,
         IMediator mediator)
     {
         _stateManager = stateManager;
         _consoleInstructionParser = consoleInstructionParser;
-        _commandProvider = commandProvider;
+        _workflowCommandProvider = workflowCommandProvider;
         _mediator = mediator;
         _stopwatch = new Stopwatch();
     }
@@ -46,7 +45,7 @@ public class CliWorkflowRun
         {
             _stateManager.ChangeTo(ClIWorkflowRunState.Running);
 
-            var command = _commandProvider.GetCommand(instruction);
+            var command = _workflowCommandProvider.GetCommand(instruction);
 
             return await _mediator.Send(command);
         }

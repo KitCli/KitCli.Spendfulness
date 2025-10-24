@@ -9,7 +9,7 @@ public class TransactionPayeeMemoOccurrenceViewModelBuilder :
     ViewModelBuilder<IEnumerable<TransactionPayeeMemoOccurrenceAggregate>>
 {
     protected override List<string> BuildColumnNames(IEnumerable<TransactionPayeeMemoOccurrenceAggregate> evaluation)
-        => TransactionMemoOccurrenceViewModel.GetColumnNames();
+        => TransactionMemoOccurrenceTable.GetColumnNames();
 
     protected override List<List<object>> BuildRows(IEnumerable<TransactionPayeeMemoOccurrenceAggregate> aggregates)
         => aggregates

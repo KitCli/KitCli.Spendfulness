@@ -1,26 +1,24 @@
 using Cli.Outcomes;
 using ConsoleTables;
-using YnabCli.Abstractions;
-using YnabCli.ViewModels.ViewModels;
 
-namespace YnabCli.Commands.Handlers;
+namespace Cli.Commands.Abstractions;
 
 // TODO: Rename to CliCommandHandler.
 public abstract class CommandHandler
 {
-    protected static CliCommandTableOutcome Compile(ViewModel viewModel)
+    protected static CliCommandTableOutcome Compile(ViewModel.Abstractions.CliTable cliTable)
     {
         var table = new ConsoleTable
         {
             Options =
             {
-                EnableCount = viewModel.ShowRowCount
+                EnableCount = cliTable.ShowRowCount
             }
         };
 
-        table.AddColumn(viewModel.Columns.ToArray());
+        table.AddColumn(cliTable.Columns.ToArray());
        
-        foreach (var row in viewModel.Rows)
+        foreach (var row in cliTable.Rows)
             table.AddRow(row.ToArray());
         
         return new CliCommandTableOutcome(table);

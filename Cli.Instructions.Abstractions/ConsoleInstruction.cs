@@ -1,6 +1,4 @@
-using Cli.Instructions.Abstractions;
-
-namespace Cli.Instructions;
+namespace Cli.Instructions.Abstractions;
 
 public record ConsoleInstruction(
     string? Prefix,

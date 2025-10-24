@@ -1,3 +1,5 @@
+using Cli.Abstractions;
+
 namespace Cli;
 
 public class CliCommandException : CliException

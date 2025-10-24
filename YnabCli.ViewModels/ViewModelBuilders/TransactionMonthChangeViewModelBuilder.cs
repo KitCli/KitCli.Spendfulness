@@ -7,7 +7,7 @@ namespace YnabCli.ViewModels.ViewModelBuilders;
 public class TransactionMonthChangeViewModelBuilder : ViewModelBuilder<IEnumerable<TransactionMonthTotalAggregate>>
 {
     protected override List<string> BuildColumnNames(IEnumerable<TransactionMonthTotalAggregate> evaluation)
-        => TransactionMonthChangeViewModel.GetColumnNames();
+        => TransactionMonthChangeTable.GetColumnNames();
 
     protected override List<List<object>> BuildRows(IEnumerable<TransactionMonthTotalAggregate> aggregates)
         => aggregates

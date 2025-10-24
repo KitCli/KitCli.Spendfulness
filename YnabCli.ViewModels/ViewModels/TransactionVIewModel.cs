@@ -1,6 +1,8 @@
+using Cli.ViewModel.Abstractions;
+
 namespace YnabCli.ViewModels.ViewModels;
 
-public abstract class TransactionVIewModel : ViewModel
+public abstract class TransactionVIewModel : CliTable
 {
     private const string TransactionIdColumnName = "Transaction ID";
     private const string OccurredColumnName = "Occurred";

@@ -1,4 +1,6 @@
+using Cli.Commands.Abstractions;
 using Cli.Outcomes;
+using Cli.ViewModel.Abstractions;
 using ConsoleTables;
 using YnabCli.Abstractions;
 using YnabCli.ViewModels.ViewModels;
@@ -9,7 +11,7 @@ public class CommandListCommandHandler : CommandHandler, ICommandHandler<Command
 {
     public Task<CliCommandOutcome> Handle(CommandListCommand request, CancellationToken cancellationToken)
     {
-        var viewModel = new ViewModel();
+        var viewModel = new CliTable();
         
         // TODO: This command list needs storing somewhere else in the future, or achieving through reflection.
         viewModel.Columns.AddRange(["Command", "Description"]);

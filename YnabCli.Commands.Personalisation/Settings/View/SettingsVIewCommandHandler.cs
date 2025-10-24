@@ -1,4 +1,6 @@
+using Cli.Commands.Abstractions;
 using Cli.Outcomes;
+using Cli.ViewModel.Abstractions;
 using ConsoleTables;
 using Microsoft.EntityFrameworkCore;
 using YnabCli.Abstractions;
@@ -33,7 +35,7 @@ public class SettingsVIewCommandHandler : CommandHandler, ICommandHandler<Settin
             })
             .ToList();
 
-        var viewModel = new ViewModel
+        var viewModel = new CliTable
         {
             Columns = ["Setting Type", "Setting Value"],
             Rows = rows
