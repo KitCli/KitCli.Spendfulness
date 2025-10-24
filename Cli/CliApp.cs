@@ -1,6 +1,6 @@
 using Cli.Commands.Abstractions;
 using Cli.Workflow;
-using YnabCli;
+using Cli.Workflow.Abstractions;
 
 namespace Cli;
 
@@ -16,37 +16,36 @@ public abstract class CliApp
     }
     
     public async Task Run()
-    {
-        await OnRun(_cliWorkflow, _cliCommandOutcomeIo);
+    { 
+        OnRun(_cliWorkflow, _cliCommandOutcomeIo);
         
         while (_cliWorkflow.State != CliWorkflowState.Stopped)
         {
             var cliWorkflowRun = _cliWorkflow.CreateRun();
-
-            await OnRunCreated(cliWorkflowRun, _cliCommandOutcomeIo);
+            
+            OnRunCreated(cliWorkflowRun, _cliCommandOutcomeIo);
             
             var ask = _cliCommandOutcomeIo.Ask();
             
             var cliWorkflowRunTask =  cliWorkflowRun.RespondToAsk(ask);
             
-            await OnRunStarted(cliWorkflowRun, _cliCommandOutcomeIo);
+            OnRunStarted(cliWorkflowRun, _cliCommandOutcomeIo);
+
+            var outcome = await cliWorkflowRunTask;
             
-            _cliCommandOutcomeIo.Say(await cliWorkflowRunTask);
+            _cliCommandOutcomeIo.Say(outcome);
         }
     }
 
-    protected virtual Task OnRun(CliWorkflow cliWorkflow, CliIo cliIo)
+    protected virtual void OnRun(CliWorkflow cliWorkflow, CliIo cliIo)
     {
-        return Task.CompletedTask;
     }
 
-    protected virtual Task OnRunCreated(CliWorkflowRun cliWorkflowRun, CliIo cliIo)
+    protected virtual void OnRunCreated(CliWorkflowRun cliWorkflowRun, CliIo cliIo)
     {
-        return Task.CompletedTask;
     }
 
-    protected virtual Task OnRunStarted(CliWorkflowRun cliWorkflowRun, CliIo cliIo)
+    protected virtual void OnRunStarted(CliWorkflowRun cliWorkflowRun, CliIo cliIo)
     {
-        return Task.CompletedTask;
     }
 }

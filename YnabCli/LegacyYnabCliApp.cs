@@ -5,12 +5,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Ynab.Exceptions;
 using YnabCli.Abstractions;
 using YnabCli.Commands;
-using YnabCli.Commands.Generators;
 
 namespace YnabCli;
 
 [Obsolete("Going to create a new one.")]
-public class YnabCliApp(IServiceProvider serviceProvider)
+public class LegacyYnabCliApp(IServiceProvider serviceProvider)
 {
     public async Task Run()
     {

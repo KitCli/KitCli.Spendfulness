@@ -15,12 +15,12 @@ var serviceProvider = new ServiceCollection()
     .AddReportingCommands() // Commands that work with YNAB data
     .AddOrganisationCommands() // Commands that help organise the data
     .AddPersonalisationCommands() // Commands for CRUD with db data
-    .AddInstructions() // Understand terminal commands
+    .AddConsoleInstructions() // Understand terminal commands
     .AddDb() // Store da
-    .AddSingleton<YnabCliApp>() // Front-end
+    .AddSingleton<LegacyYnabCliApp>() // Front-end
     .BuildServiceProvider();
 
-var app = serviceProvider.GetRequiredService<YnabCliApp>();
+var app = serviceProvider.GetRequiredService<LegacyYnabCliApp>();
 
  await app.Run();
 

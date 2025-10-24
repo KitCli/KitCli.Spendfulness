@@ -1,4 +1,4 @@
-namespace YnabCli.Commands.Extensions;
+namespace Cli.Commands.Abstractions;
 
 public static class StringExtensions
 {

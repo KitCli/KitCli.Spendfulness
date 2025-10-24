@@ -64,6 +64,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cli.Workflow", "Cli.Workflo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cli.Abstractions", "Cli.Abstractions\Cli.Abstractions.csproj", "{DB034198-8794-4A9D-89AC-E4057E5B9E41}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cli.Ynab", "Cli.Ynab\Cli.Ynab.csproj", "{3CA3D4A0-5C8C-41A1-A22B-61B9EBA19590}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -162,6 +164,10 @@ Global
 		{DB034198-8794-4A9D-89AC-E4057E5B9E41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB034198-8794-4A9D-89AC-E4057E5B9E41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB034198-8794-4A9D-89AC-E4057E5B9E41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CA3D4A0-5C8C-41A1-A22B-61B9EBA19590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CA3D4A0-5C8C-41A1-A22B-61B9EBA19590}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CA3D4A0-5C8C-41A1-A22B-61B9EBA19590}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CA3D4A0-5C8C-41A1-A22B-61B9EBA19590}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection

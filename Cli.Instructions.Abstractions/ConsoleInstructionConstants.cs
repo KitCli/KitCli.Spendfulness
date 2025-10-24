@@ -1,4 +1,4 @@
-namespace Cli.Instructions;
+namespace Cli.Instructions.Abstractions;
 
 public static class ConsoleInstructionConstants
 {

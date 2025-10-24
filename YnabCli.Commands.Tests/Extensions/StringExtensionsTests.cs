@@ -1,3 +1,4 @@
+using Cli.Commands.Abstractions;
 using YnabCli.Commands.Extensions;
 
 namespace YnabCli.Commands.Tests.Extensions;

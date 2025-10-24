@@ -1,5 +1,6 @@
 using Cli.Instructions.Parsers;
 using Cli.Workflow;
+using Cli.Workflow.Abstractions;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using YnabCli;
@@ -20,7 +21,7 @@ public class CliWorkflow
 
     public CliWorkflowRun CreateRun()
     {
-        var stateManager = _serviceProvider.GetRequiredService<CliWorkflowRunStateManager>();
+        var state = new CliWorkflowRunState();
         
         var consoleInstructionParser = _serviceProvider.GetRequiredService<ConsoleInstructionParser>();
         
@@ -30,7 +31,7 @@ public class CliWorkflow
         var mediator = _serviceProvider.GetRequiredService<IMediator>();
         
         // TODO: CLI - I dont want all of these services hanging in the run forever? 
-        var run = new CliWorkflowRun(stateManager, consoleInstructionParser, commandProvider, mediator);
+        var run = new CliWorkflowRun(state, consoleInstructionParser, commandProvider, mediator);
         
         _workflowRuns.Add(run);
 

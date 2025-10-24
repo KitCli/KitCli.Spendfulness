@@ -1,8 +1,8 @@
 using Cli.Workflow.Abstractions;
 
-namespace Cli;
+namespace Cli.Workflow;
 
-public class CliWorkflowRunStateManager
+public class CliWorkflowRunState
 {
     private readonly List<CliWorkflowRunStateChange> _stateChanges = [];
 
@@ -26,9 +26,18 @@ public class CliWorkflowRunStateManager
         _stateChanges.Add(newState);
     }
 
-    private static List<CliWorkflowRunStateChange> PossibleStateChanges =
+    // TODO: CLI - Does this matter at all?
+    private static readonly List<CliWorkflowRunStateChange> PossibleStateChanges =
     [
+        new(ClIWorkflowRunState.NotInitialized, ClIWorkflowRunState.Created),
         new(ClIWorkflowRunState.Created, ClIWorkflowRunState.Running),
+        
+        new(ClIWorkflowRunState.Running, ClIWorkflowRunState.InvalidAsk),
+        new(ClIWorkflowRunState.InvalidAsk, ClIWorkflowRunState.Finished),
+        
+        new(ClIWorkflowRunState.Running, ClIWorkflowRunState.Exceptional),
+        new(ClIWorkflowRunState.Exceptional, ClIWorkflowRunState.Finished),
+        
         new(ClIWorkflowRunState.Running, ClIWorkflowRunState.Finished)
     ];
 }

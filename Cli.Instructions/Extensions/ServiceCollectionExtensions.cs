@@ -8,7 +8,7 @@ namespace Cli.Instructions.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddInstructions(this IServiceCollection serviceCollection)
+    public static IServiceCollection AddConsoleInstructions(this IServiceCollection serviceCollection)
         => serviceCollection
             .AddSingleton<IConsoleInstructionArgumentBuilder, GuidConsoleInstructionArgumentBuilder>()
             .AddSingleton<IConsoleInstructionArgumentBuilder, StringConsoleInstructionArgumentBuilder>()

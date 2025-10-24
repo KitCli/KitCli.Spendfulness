@@ -1,3 +1,5 @@
+using Cli.Instructions.Abstractions;
+
 namespace Cli.Instructions.Indexers;
 
 public class ConsoleInstructionTokenIndexer

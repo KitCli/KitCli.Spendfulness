@@ -1,7 +1,5 @@
-namespace YnabCli;
+namespace Cli.Workflow.Abstractions;
 
-
-// TODO: Make sure to add a stop command that called .Stop() on the CliWorkflow.
 public enum CliWorkflowState
 {
     Started,

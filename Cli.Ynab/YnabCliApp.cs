@@ -1,0 +1,26 @@
+using Cli;
+using Cli.Commands.Abstractions;
+using Cli.Workflow;
+
+public class YnabCliApp : CliApp
+{
+    public YnabCliApp(CliWorkflow cliWorkflow, CliCommandOutcomeIo cliCommandOutcomeIo)
+        : base(cliWorkflow, cliCommandOutcomeIo)
+    {
+    }
+
+    protected override void OnRun(CliWorkflow cliWorkflow, CliIo cliIo)
+    {
+        cliIo.Say($"New world CLI started");
+    }
+
+    protected override void OnRunCreated(CliWorkflowRun cliWorkflowRun, CliIo cliIo)
+    {
+        cliIo.Say($"New world CLI run created");
+    }
+
+    protected override void OnRunStarted(CliWorkflowRun cliWorkflowRun, CliIo cliIo)
+    {
+        cliIo.Say($"New world CLI run started");
+    }
+}

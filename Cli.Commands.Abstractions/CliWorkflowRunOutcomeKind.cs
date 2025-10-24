@@ -2,8 +2,9 @@ namespace Cli.Outcomes;
 
 public enum CliWorkflowRunOutcomeKind
 {
-    Nothing,
+    NoCommand,
     Exception,
     Table,
-    Output
+    Output,
+    Nothing,
 }
