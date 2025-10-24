@@ -4,12 +4,12 @@ namespace Cli.Instructions.Indexers;
 
 public class CliInstructionTokenIndexer
 {
-    public ConsoleInstructionTokenIndexes Index(string terminalInput)
+    public CliInstructionTokenIndexes Index(string terminalInput)
     {
         var characters = terminalInput.ToCharArray();
         if (characters.Length == 0)
         {
-            return new ConsoleInstructionTokenIndexes
+            return new CliInstructionTokenIndexes
             {
                 PrefixTokenIndexed = false,
                 NameTokenIndexed = false,
@@ -57,7 +57,8 @@ public class CliInstructionTokenIndexer
         // e.g. /spare-money help<here> --argumentOne hello world --argumentTwo 1
         var subCommandNameEndIndex = hasArgumentTokens ? firstArgumentIndex - 1 : terminalInput.Length;
         
-        return new ConsoleInstructionTokenIndexes
+        // TODO: Dear god this is ugly.
+        return new CliInstructionTokenIndexes
         {
             PrefixTokenIndexed = hasFirstPunctuationMark,
             PrefixTokenStartIndex = firstPunctuationMarkIndex,

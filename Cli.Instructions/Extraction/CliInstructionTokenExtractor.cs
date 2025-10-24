@@ -5,37 +5,41 @@ namespace Cli.Instructions.Extraction;
 
 public class CliInstructionTokenExtractor
 {
-    public ConsoleInstructionTokenExtraction Extract(ConsoleInstructionTokenIndexes indexes, string terminalInput)
+    public CliInstructionTokenExtraction Extract(CliInstructionTokenIndexes indexes, string terminalInput)
     {
         var prefixToken = ExtractPrefixToken(indexes, terminalInput);
         var nameToken = ExtractNameToken(indexes, terminalInput);
         var subNameToken = ExtractSubNameToken(indexes, terminalInput);
         var argumentTokens = ExtractArgumentTokens(indexes, terminalInput);
         
-        return new ConsoleInstructionTokenExtraction(prefixToken, nameToken, subNameToken, argumentTokens);
+        return new CliInstructionTokenExtraction(prefixToken, nameToken, subNameToken, argumentTokens);
     }
 
-    private string ExtractPrefixToken(ConsoleInstructionTokenIndexes indexes, string terminalInput)
+    private string ExtractPrefixToken(CliInstructionTokenIndexes indexes, string terminalInput)
     {
         if (!indexes.PrefixTokenIndexed)
         {
-            throw new ArgumentNullException($"Commands must contain a {CliInstructionConstants.DefaultNamePrefix}");
+            throw new CliInstructionException(
+                CliInstructionExceptionCode.NoInstructionPrefix,
+                $"Instructions must contain a {CliInstructionConstants.DefaultNamePrefix}");
         }
 
         return terminalInput[indexes.PrefixTokenStartIndex..indexes.PrefixTokenEndIndex];
     }
 
-    private string ExtractNameToken(ConsoleInstructionTokenIndexes indexes, string terminalInput)
+    private string ExtractNameToken(CliInstructionTokenIndexes indexes, string terminalInput)
     {
         if (!indexes.NameTokenIndexed)
         {
-            throw new ArgumentNullException($"Commands must have a name");
+            throw new CliInstructionException(
+                CliInstructionExceptionCode.NoInstructionName,
+                $"Instructions must have a name");
         }
 
         return terminalInput[indexes.NameTokenStartIndex..indexes.NameTokenEndIndex];
     }
 
-    private string? ExtractSubNameToken(ConsoleInstructionTokenIndexes indexes, string terminalInput)
+    private string? ExtractSubNameToken(CliInstructionTokenIndexes indexes, string terminalInput)
     {
         if (!indexes.SubNameTokenIndexed)
         {
@@ -45,7 +49,7 @@ public class CliInstructionTokenExtractor
         return terminalInput[indexes.SubNameStartIndex..indexes.SubNameEndIndex];
     }
     
-    private static Dictionary<string, string?> ExtractArgumentTokens(ConsoleInstructionTokenIndexes indexes, string terminalInput)
+    private static Dictionary<string, string?> ExtractArgumentTokens(CliInstructionTokenIndexes indexes, string terminalInput)
     {
         if (!indexes.ArgumentTokensIndexed)
         {

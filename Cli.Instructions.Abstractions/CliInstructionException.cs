@@ -2,8 +2,13 @@ using Cli.Abstractions;
 
 namespace Cli.Instructions.Abstractions;
 
-public class CliInstructionException(CliInstructionExceptionCode code, string message)
-    : CliException(CliExceptionCode.Command, message)
+public class CliInstructionException : CliException
 {
-    public new readonly CliInstructionExceptionCode Code = code;
+    public new readonly CliInstructionExceptionCode Code;
+
+    public CliInstructionException(CliInstructionExceptionCode code, string message)
+        : base(CliExceptionCode.Instruction, message)
+    {
+        Code = code;
+    }
 }

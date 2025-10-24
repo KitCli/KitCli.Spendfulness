@@ -1,8 +1,8 @@
+using Cli.Commands;
 using Cli.Commands.Abstractions;
 using Cli.Commands.Abstractions.Outcomes;
-using Cli.Workflow;
 
-namespace Cli.Commands;
+namespace Cli.Workflow.Commands;
 
 public class ExitCliCliCommandHandler : CliCommandHandler, ICliCommandHandler<ExitCliCommand>
 {

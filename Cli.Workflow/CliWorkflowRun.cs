@@ -1,5 +1,3 @@
-using System.Diagnostics;
-using Cli.Commands.Abstractions;
 using Cli.Commands.Abstractions.Exceptions;
 using Cli.Commands.Abstractions.Outcomes;
 using Cli.Instructions.Parsers;
@@ -14,7 +12,6 @@ public class CliWorkflowRun
     private readonly CliInstructionParser _cliInstructionParser;
     private readonly CliWorkflowCommandProvider _workflowCommandProvider;
     private readonly IMediator _mediator;
-    private readonly Stopwatch _stopwatch;
 
     public CliWorkflowRun(
         CliWorkflowRunState state,
@@ -26,14 +23,12 @@ public class CliWorkflowRun
         _cliInstructionParser = cliInstructionParser;
         _workflowCommandProvider = workflowCommandProvider;
         _mediator = mediator;
-        _stopwatch = new Stopwatch();
     }
 
     public bool IsValidAsk(string? ask) => !string.IsNullOrEmpty(ask);
     
     public async Task<CliCommandOutcome> RespondToAsk(string? ask)
     {
-        _stopwatch.Start();
         _state.ChangeTo(ClIWorkflowRunStateType.Created);
         
         if (!IsValidAsk(ask))
@@ -76,7 +71,6 @@ public class CliWorkflowRun
         finally
         {
             _state.ChangeTo(ClIWorkflowRunStateType.Finished);
-            _stopwatch.Stop();
         }
     }
 }

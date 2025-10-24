@@ -1,7 +1,7 @@
 using Cli.Commands.Abstractions;
 using Cli.Instructions.Abstractions;
 
-namespace Cli.Commands;
+namespace Cli.Workflow.Commands;
 
 public class ExitCommandGenerator : ICommandGenerator<ExitCliCommand>
 {

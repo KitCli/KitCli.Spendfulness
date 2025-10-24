@@ -20,7 +20,7 @@ public class CliInstructionTokenExtractorTests
     {
         var input = $"/command";
 
-        var indexes = new ConsoleInstructionTokenIndexes
+        var indexes = new CliInstructionTokenIndexes
         {
             PrefixTokenIndexed = true,
             PrefixTokenStartIndex = 0,
@@ -40,7 +40,7 @@ public class CliInstructionTokenExtractorTests
     {
         var input = $"/command";
         
-        var indexes = new ConsoleInstructionTokenIndexes
+        var indexes = new CliInstructionTokenIndexes
         {
             PrefixTokenIndexed = true,
             PrefixTokenStartIndex = 0,
@@ -60,7 +60,7 @@ public class CliInstructionTokenExtractorTests
     {
         var input = $"/command sub-command";
         
-        var indexes = new ConsoleInstructionTokenIndexes
+        var indexes = new CliInstructionTokenIndexes
         {
             PrefixTokenIndexed = true,
             PrefixTokenStartIndex = 0,
@@ -83,7 +83,7 @@ public class CliInstructionTokenExtractorTests
     {
         var input = $"/command --argumentOne hello world";
         
-        var indexes = new ConsoleInstructionTokenIndexes
+        var indexes = new CliInstructionTokenIndexes
         {
             PrefixTokenIndexed = true,
             PrefixTokenStartIndex = 0,
@@ -109,7 +109,7 @@ public class CliInstructionTokenExtractorTests
         
         var input = $"/command --{argumentName}";
         
-        var indexes = new ConsoleInstructionTokenIndexes
+        var indexes = new CliInstructionTokenIndexes
         {
             PrefixTokenIndexed = true,
             PrefixTokenStartIndex = 0,
@@ -138,7 +138,7 @@ public class CliInstructionTokenExtractorTests
         
         var input = $"/command --{argumentName} {argumentValue}";
         
-        var indexes = new ConsoleInstructionTokenIndexes
+        var indexes = new CliInstructionTokenIndexes
         {
             PrefixTokenIndexed = true,
             PrefixTokenStartIndex = 0,
@@ -169,7 +169,7 @@ public class CliInstructionTokenExtractorTests
         
         var input = $"/command --{argumentOneName} {argumentOneValue} --{argumentTwoName} {argumentTwoValue}";
         
-        var indexes = new ConsoleInstructionTokenIndexes
+        var indexes = new CliInstructionTokenIndexes
         {
             PrefixTokenIndexed = true,
             PrefixTokenStartIndex = 0,
@@ -205,7 +205,7 @@ public class CliInstructionTokenExtractorTests
         
         var input = $"/command --{argumentOneName} {argumentOneValue} --{argumentTwoName} {argumentTwoValue}";
         
-        var indexes = new ConsoleInstructionTokenIndexes
+        var indexes = new CliInstructionTokenIndexes
         {
             PrefixTokenIndexed = true,
             PrefixTokenStartIndex = 0,
@@ -240,7 +240,7 @@ public class CliInstructionTokenExtractorTests
         
         var input = $"/command --{argumentOneName} --{argumentTwoName} {argumentTwoValue}";
         
-        var indexes = new ConsoleInstructionTokenIndexes
+        var indexes = new CliInstructionTokenIndexes
         {
             PrefixTokenIndexed = true,
             PrefixTokenStartIndex = 0,

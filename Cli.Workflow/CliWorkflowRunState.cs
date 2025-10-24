@@ -1,12 +1,28 @@
+using System.Diagnostics;
 using Cli.Workflow.Abstractions;
 
 namespace Cli.Workflow;
 
 public class CliWorkflowRunState
 {
+    private readonly Stopwatch _stopwatch = new Stopwatch();
     private readonly List<RecordedCliWorkflowRunStateChange> _recordedStateChanges = [];
 
     public void ChangeTo(ClIWorkflowRunStateType stateTypeToChangeTo)
+    {
+        var currentState = CanChangeTo(stateTypeToChangeTo);
+        
+        UpdateStopwatch(stateTypeToChangeTo);
+
+        var stateChange = new RecordedCliWorkflowRunStateChange(
+            _stopwatch.ElapsedTicks,
+            currentState, 
+            stateTypeToChangeTo);
+        
+        _recordedStateChanges.Add(stateChange);
+    }
+
+    private ClIWorkflowRunStateType CanChangeTo(ClIWorkflowRunStateType stateTypeToChangeTo)
     {
         var mostRecentState = _recordedStateChanges.LastOrDefault();
         var currentState = mostRecentState?.MovedTo ?? ClIWorkflowRunStateType.NotInitialized;
@@ -21,9 +37,21 @@ public class CliWorkflowRunState
         {
             throw new ImpossibleStateChangeException($"Invalid state change: {currentState} > {stateTypeToChangeTo}");
         }
+        
+        return currentState;
+    }
 
-        var newState = new RecordedCliWorkflowRunStateChange(DateTime.UtcNow, currentState, stateTypeToChangeTo);
-        _recordedStateChanges.Add(newState);
+    private void UpdateStopwatch(ClIWorkflowRunStateType stateTypeToChangeTo)
+    {
+        if (stateTypeToChangeTo != ClIWorkflowRunStateType.Running)
+        {
+            _stopwatch.Start();
+        }
+
+        if (stateTypeToChangeTo == ClIWorkflowRunStateType.Finished)
+        {
+            _stopwatch.Stop(); ;
+        }
     }
 
     // TODO: CLI - Does this matter at all?

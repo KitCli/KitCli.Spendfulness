@@ -3,19 +3,19 @@ using Cli.Workflow.Abstractions;
 namespace Cli.Workflow;
 
 
-public class CliWorkflowRunStateChange(ClIWorkflowRunStateType StartedAt, ClIWorkflowRunStateType MovedTo)
+public class CliWorkflowRunStateChange(ClIWorkflowRunStateType startedAt, ClIWorkflowRunStateType movedTo)
 {
-    public readonly ClIWorkflowRunStateType StartedAt = StartedAt;
-    public readonly ClIWorkflowRunStateType MovedTo = MovedTo;
+    public readonly ClIWorkflowRunStateType StartedAt = startedAt;
+    public readonly ClIWorkflowRunStateType MovedTo = movedTo;
 }
 
 public class RecordedCliWorkflowRunStateChange(
-    DateTime changedAt,
+    long ticks,
     ClIWorkflowRunStateType startedAt,
     ClIWorkflowRunStateType movedTo)
     : CliWorkflowRunStateChange(startedAt, movedTo)
 {
-    public readonly DateTime ChangedAt = changedAt;
+    public readonly long Ticks = ticks;
 }
 
     

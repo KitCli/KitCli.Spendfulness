@@ -1,6 +1,6 @@
 namespace Cli.Instructions.Indexers;
 
-public class ConsoleInstructionTokenIndexes
+public class CliInstructionTokenIndexes
 {
     public bool PrefixTokenIndexed { get; set; }
     public int PrefixTokenStartIndex { get; set; }

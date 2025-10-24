@@ -1,6 +1,6 @@
 namespace Cli.Instructions.Extraction;
 
-public record ConsoleInstructionTokenExtraction(
+public record CliInstructionTokenExtraction(
     string PrefixToken,
     string NameToken,
     string? SubNameToken,
