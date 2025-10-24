@@ -1,7 +1,7 @@
+using Cli;
+using Cli.Commands.Abstractions;
 using Cli.Instructions;
 using Microsoft.Extensions.DependencyInjection;
-using YnabCli.Commands;
-using YnabCli.Commands.Generators;
 
 namespace YnabCli;
 

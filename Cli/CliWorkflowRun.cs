@@ -1,9 +1,11 @@
 using System.Diagnostics;
 using Cli.Instructions.Parsers;
+using Cli.Outcomes;
+using Cli.Workflow.Abstractions;
 using MediatR;
-using YnabCli.Abstractions;
+using YnabCli;
 
-namespace YnabCli;
+namespace Cli;
 
 public class CliWorkflowRun
 {
@@ -11,12 +13,10 @@ public class CliWorkflowRun
     private readonly ConsoleInstructionParser _consoleInstructionParser;
     private readonly CliCommandProvider _commandProvider;
     private readonly IMediator _mediator;
-    
-    private DateTime _startTime;
-    private Stopwatch _stopwatch;
-    
-    public ClIWorkflowRunState State { get; private set; }
+
+    private ClIWorkflowRunState _state { get; set; }
     private List<CliWorkflowRunStateChange> _stateChanges;
+    private Stopwatch _stopwatch;
 
     public CliWorkflowRun(
         CliIo cliIo,
@@ -28,15 +28,13 @@ public class CliWorkflowRun
         _consoleInstructionParser = consoleInstructionParser;
         _commandProvider = commandProvider;
         _mediator = mediator;
-
-        _startTime = DateTime.Now;
-        _stopwatch = new Stopwatch();
         
-        State = ClIWorkflowRunState.Created;
+        _stopwatch = new Stopwatch();
+        _state = ClIWorkflowRunState.Created;
         _stateChanges = [];
     }
     
-    public Task<CliCommandOutcome> Action()
+    public Task<CliCommandOutcome> Execute()
     {
         _stopwatch.Start();
         
@@ -96,28 +94,28 @@ public class CliWorkflowRun
     
     private void UpdateState(ClIWorkflowRunState newState)
     {
-        // TODO: I think this state stuff can be done a better way.
+        // TODO: I think this state stuff can be done a better way. Maybe a state change abstraction.
         
-        if (State == newState)
+        if (_state == newState)
         {
             // Already in that state, no mutation needed.
             return;
         }
 
-        if (State == ClIWorkflowRunState.Created && newState == ClIWorkflowRunState.Running)
+        if (_state == ClIWorkflowRunState.Created && newState == ClIWorkflowRunState.Running)
         {
-            AddStateChange(State, newState);
-            State = newState;
+            AddStateChange(_state, newState);
+            _state = newState;
             
         }
 
-        if (State == ClIWorkflowRunState.Running && newState == ClIWorkflowRunState.Finished)
+        if (_state == ClIWorkflowRunState.Running && newState == ClIWorkflowRunState.Finished)
         {
-            AddStateChange(State, newState);
-            State = newState;
+            AddStateChange(_state, newState);
+            _state = newState;
         }
 
-        throw new Exception($"Invalid Workflow state transition: {State} > {newState}");
+        throw new Exception($"Invalid Workflow state transition: {_state} > {newState}");
     }
 
     private void AddStateChange(ClIWorkflowRunState from, ClIWorkflowRunState to)

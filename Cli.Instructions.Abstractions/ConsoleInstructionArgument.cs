@@ -1,4 +1,4 @@
-namespace Cli.Instructions.Arguments;
+namespace Cli.Instructions.Abstractions;
 
 public class ConsoleInstructionArgument(string argumentName)
 {

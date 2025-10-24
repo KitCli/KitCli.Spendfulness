@@ -1,7 +1,7 @@
+using Cli.Outcomes;
 using MediatR;
-using YnabCli.Abstractions;
 
-namespace YnabCli.Commands;
+namespace Cli.Commands.Abstractions;
 
 public interface ICommand : IRequest<CliCommandOutcome>
 {

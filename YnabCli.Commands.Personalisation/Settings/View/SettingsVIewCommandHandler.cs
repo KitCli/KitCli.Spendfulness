@@ -1,3 +1,4 @@
+using Cli.Outcomes;
 using ConsoleTables;
 using Microsoft.EntityFrameworkCore;
 using YnabCli.Abstractions;

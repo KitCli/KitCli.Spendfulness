@@ -1,6 +1,6 @@
-using Cli.Instructions.Arguments;
+using Cli.Instructions.Abstractions;
 
-namespace YnabCli.Commands.Generators;
+namespace Cli.Commands.Abstractions;
 
 public interface IGenericCommandGenerator
 {

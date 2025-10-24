@@ -1,6 +1,6 @@
-using YnabCli.Abstractions;
+using Cli.Workflow.Abstractions;
 
-namespace YnabCli;
+namespace Cli.Outcomes;
 
 public class CliCommandNothingOutcome(ClIWorkflowRunState lastCliWorkflowRunState)
     : CliCommandOutcome(CliWorkflowRunOutcomeKind.Nothing)

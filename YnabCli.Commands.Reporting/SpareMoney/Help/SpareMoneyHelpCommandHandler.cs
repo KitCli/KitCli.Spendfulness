@@ -1,3 +1,4 @@
+using Cli.Outcomes;
 using ConsoleTables;
 using YnabCli.Abstractions;
 using YnabCli.Commands.Builders;

@@ -1,6 +1,8 @@
+using Cli.Outcomes;
+using YnabCli;
 using YnabCli.Abstractions;
 
-namespace YnabCli;
+namespace Cli;
 
 public abstract class CliApp
 {
@@ -26,7 +28,7 @@ public abstract class CliApp
 
             await OnRunCreated(cliWorkflowRun);
             
-            var cliWorkflowRunTask =  cliWorkflowRun.Action();
+            var cliWorkflowRunTask =  cliWorkflowRun.Execute();
             
             await OnRunStarted(cliWorkflowRun);
             
@@ -34,6 +36,7 @@ public abstract class CliApp
         }
     }
 
+    // TODO: CLI - Move to abstraction? Extend CliIo to CliAppIo?
     private void SayOutcome(CliCommandOutcome outcome)
     {
         switch (outcome)

@@ -1,3 +1,4 @@
+using Cli.Outcomes;
 using ConsoleTables;
 using Ynab;
 using Ynab.Extensions;

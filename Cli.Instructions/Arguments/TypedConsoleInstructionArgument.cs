@@ -1,3 +1,5 @@
+using Cli.Instructions.Abstractions;
+
 namespace Cli.Instructions.Arguments;
 
 public class TypedConsoleInstructionArgument<TArgumentValue>(string argumentName, TArgumentValue argumentValue)

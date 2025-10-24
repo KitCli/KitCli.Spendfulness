@@ -1,4 +1,4 @@
-namespace YnabCli.Abstractions;
+namespace Cli.Outcomes;
 
 public class CliCommandOutputOutcome(string output) 
     : CliCommandOutcome(CliWorkflowRunOutcomeKind.Output)

@@ -1,4 +1,4 @@
-using Cli.Instructions.Arguments;
+using Cli.Instructions.Abstractions;
 
 namespace Cli.Instructions;
 

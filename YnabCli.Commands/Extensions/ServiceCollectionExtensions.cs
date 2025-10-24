@@ -1,4 +1,5 @@
 using System.Reflection;
+using Cli.Commands.Abstractions;
 using Cli.Instructions;
 using Microsoft.Extensions.DependencyInjection;
 using YnabCli.Commands.Builders;
@@ -43,7 +44,7 @@ public static class ServiceCollectionExtensions
             
             var name = typeForReferencedCommand.Name.Replace("Command", string.Empty);
 
-            var commandName = name.ToLowerSplitString(InstructionConstants.DefaultCommandNameSeparator);
+            var commandName = name.ToLowerSplitString(ConsoleInstructionConstants.DefaultCommandNameSeparator);
             var shorthandCommandName = name.ToLowerTitleCharacters();
 
             serviceCollection
