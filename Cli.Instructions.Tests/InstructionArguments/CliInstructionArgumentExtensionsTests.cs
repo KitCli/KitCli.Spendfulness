@@ -6,7 +6,7 @@ namespace Cli.Instructions.Tests.InstructionArguments;
 
 // TODO: I think we can create a generic Test Case for this.
 [TestFixture]
-public class ConsoleInstructionArgumentExtensionsTests
+public class CliInstructionArgumentExtensionsTests
 {
     private List<CliInstructionArgument> _arguments;
 

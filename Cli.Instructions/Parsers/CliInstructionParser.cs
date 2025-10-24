@@ -5,7 +5,6 @@ using Cli.Instructions.Indexers;
 
 namespace Cli.Instructions.Parsers;
 
-// TODO: Rename to CliInstructionParser
 public class CliInstructionParser
 {
     private readonly CliInstructionTokenIndexer _cliInstructionTokenIndexer;

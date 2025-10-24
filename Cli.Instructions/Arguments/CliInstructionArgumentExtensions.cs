@@ -2,7 +2,7 @@ using Cli.Instructions.Abstractions;
 
 namespace Cli.Instructions.Arguments;
 
-public static class ConsoleInstructionArgumentExtensions
+public static class CliInstructionArgumentExtensions
 {
     public static TypedCliInstructionArgument<TArgumentType>? OfType<TArgumentType>(
         this IEnumerable<CliInstructionArgument> arguments, string argumentName)
@@ -11,8 +11,7 @@ public static class ConsoleInstructionArgumentExtensions
                 .Where(argument => argument.ArgumentName == argumentName)
                 .OfType<TypedCliInstructionArgument<TArgumentType>>()
                 .FirstOrDefault();
-
-    // TODO: Im not sure this returning the type is even worth it? Just return the value?
+    
     public static TypedCliInstructionArgument<TArgumentType> OfRequiredType<TArgumentType>(
         this IEnumerable<CliInstructionArgument> arguments, string argumentName)
         where TArgumentType : notnull
