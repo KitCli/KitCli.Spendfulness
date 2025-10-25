@@ -7,11 +7,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\YnabCli.Abstractions\YnabCli.Abstractions.csproj" />
+      <ProjectReference Include="..\Cli.Instructions.Abstractions\Cli.Instructions.Abstractions.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Exceptions\" />
     </ItemGroup>
 
 </Project>

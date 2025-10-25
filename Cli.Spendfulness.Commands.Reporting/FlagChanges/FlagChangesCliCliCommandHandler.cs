@@ -1,0 +1,38 @@
+using Cli.Commands.Abstractions;
+using Cli.Commands.Abstractions.Outcomes;
+using Cli.Spendfulness.Aggregation.Aggregator;
+using Cli.Spendfulness.CliTables.ViewModelBuilders;
+using Cli.Spendfulness.Database;
+using Ynab.Extensions;
+
+namespace Cli.Ynab.Commands.Reporting.FlagChanges;
+
+public class FlagChangesCliCliCommandHandler(ConfiguredBudgetClient configuredBudgetClient)
+    : CliCommandHandler, ICliCommandHandler<FlagChangesCliCommand>
+{
+    public async Task<CliCommandOutcome> Handle(FlagChangesCliCommand cliCommand, CancellationToken cancellationToken)
+    {
+        var budget = await configuredBudgetClient.GetDefaultBudget();
+        
+        var categoryGroups = await budget.GetCategoryGroups();
+        var transactions = await budget.GetTransactions();
+
+        var aggregator = new TransactionMonthFlaggedYnabAggregator(categoryGroups, transactions);
+            
+        if (cliCommand.From.HasValue)
+        {
+            aggregator.BeforeAggregation(t => t.FilterFrom(cliCommand.From.Value));
+        }
+
+        if (cliCommand.To.HasValue)
+        {
+            aggregator.BeforeAggregation(t => t.FilterTo(cliCommand.To.Value));
+        }
+        
+        var viewModel = new TransactionMonthFlaggedCliTableBuilder()
+            .WithAggregator(aggregator)
+            .Build();
+        
+        return Compile(viewModel);
+    }
+}

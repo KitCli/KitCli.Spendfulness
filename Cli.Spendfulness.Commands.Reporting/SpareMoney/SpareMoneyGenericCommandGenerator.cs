@@ -1,0 +1,30 @@
+using Cli.Commands.Abstractions;
+using Cli.Instructions.Abstractions;
+using Cli.Instructions.Arguments;
+using Cli.Ynab.Commands.Reporting.SpareMoney.Help;
+
+namespace Cli.Ynab.Commands.Reporting.SpareMoney;
+
+public class SpareMoneyGenericCommandGenerator : ICommandGenerator<SpareMoneyCliCommand>
+{
+    public ICliCommand Generate(CliInstruction instruction) =>
+        instruction.SubInstructionName switch
+        {
+            SpareMoneyCliCommand.SubCommandNames.Help => new SpareMoneyHelpCliCommand(),
+            _ => GenerateDefaultCommand(instruction.Arguments)
+        };
+
+    private static SpareMoneyCliCommand GenerateDefaultCommand(List<CliInstructionArgument> arguments)
+    {
+        var addArgument = arguments.OfCurrencyType(SpareMoneyCliCommand.ArgumentNames.Add);
+        var minusArgument = arguments.OfCurrencyType(SpareMoneyCliCommand.ArgumentNames.Minus);
+        var minusSavingsArgument = arguments.OfType<bool>(SpareMoneyCliCommand.ArgumentNames.MinusSavings);
+
+        return new SpareMoneyCliCommand
+        {
+            Add = addArgument?.ArgumentValue,
+            Minus = minusArgument?.ArgumentValue,
+            MinusSavings = minusSavingsArgument?.ArgumentValue
+        };
+    }
+}
