@@ -6,12 +6,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cli.Spendfulness.Commands.Personalisation.Samples.Matches;
 
-public class SamplesMatchesCliCommandHandler(ConfiguredBudgetClient configuredBudgetClient, YnabCliDb db)
+public class SamplesMatchesCliCommandHandler(SpendfulnessBudgetClient spendfulnessBudgetClient, SpendfulnessDb db)
     : ICliCommandHandler<SamplesMatchesCliCommand>
 {
     public async Task<CliCommandOutcome> Handle(SamplesMatchesCliCommand request, CancellationToken cancellationToken)
     {
-        var budget = await configuredBudgetClient.GetDefaultBudget();
+        var budget = await spendfulnessBudgetClient.GetDefaultBudget();
         
         // Step 1: Get the transaction
         var transaction = await budget.GetTransaction(request.TransactionId);

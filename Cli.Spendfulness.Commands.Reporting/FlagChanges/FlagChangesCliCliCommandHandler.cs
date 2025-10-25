@@ -7,12 +7,12 @@ using Ynab.Extensions;
 
 namespace Cli.Ynab.Commands.Reporting.FlagChanges;
 
-public class FlagChangesCliCliCommandHandler(ConfiguredBudgetClient configuredBudgetClient)
+public class FlagChangesCliCliCommandHandler(SpendfulnessBudgetClient spendfulnessBudgetClient)
     : CliCommandHandler, ICliCommandHandler<FlagChangesCliCommand>
 {
     public async Task<CliCommandOutcome> Handle(FlagChangesCliCommand cliCommand, CancellationToken cancellationToken)
     {
-        var budget = await configuredBudgetClient.GetDefaultBudget();
+        var budget = await spendfulnessBudgetClient.GetDefaultBudget();
         
         var categoryGroups = await budget.GetCategoryGroups();
         var transactions = await budget.GetTransactions();

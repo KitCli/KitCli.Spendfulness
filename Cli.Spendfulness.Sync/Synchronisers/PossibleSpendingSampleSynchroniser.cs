@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace YnabCli.Sync.Synchronisers;
 
-public class PossibleSpendingSampleSynchroniser(YnabCliDb db) : Synchroniser
+public class PossibleSpendingSampleSynchroniser(SpendfulnessDb db) : Synchroniser
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {

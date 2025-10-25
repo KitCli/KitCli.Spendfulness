@@ -8,18 +8,18 @@ namespace Cli.Spendfulness.Commands.Personalisation.Categories;
 
 public class CategoriesCliCliCommandHandler: CliCommandHandler, ICliCommandHandler<CategoriesCliCommand>
 {
-    private readonly ConfiguredBudgetClient _configuredBudgetClient;
+    private readonly SpendfulnessBudgetClient _spendfulnessBudgetClient;
     private readonly CategoryCliTableBuilder _categoryCliTableBuilder;
 
-    public CategoriesCliCliCommandHandler(ConfiguredBudgetClient configuredBudgetClient, CategoryCliTableBuilder categoryCliTableBuilder)
+    public CategoriesCliCliCommandHandler(SpendfulnessBudgetClient spendfulnessBudgetClient, CategoryCliTableBuilder categoryCliTableBuilder)
     {
-        _configuredBudgetClient = configuredBudgetClient;
+        _spendfulnessBudgetClient = spendfulnessBudgetClient;
         _categoryCliTableBuilder = categoryCliTableBuilder;
     }
 
     public async Task<CliCommandOutcome> Handle(CategoriesCliCommand request, CancellationToken cancellationToken)
     {
-        var budget = await _configuredBudgetClient.GetDefaultBudget();
+        var budget = await _spendfulnessBudgetClient.GetDefaultBudget();
         
         var categoryGroups = await budget.GetCategoryGroups();
         

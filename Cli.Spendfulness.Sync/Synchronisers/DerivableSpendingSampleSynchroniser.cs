@@ -7,7 +7,7 @@ namespace YnabCli.Sync.Synchronisers;
 /// <summary>
 /// Derive any possible Spending Samples from Transactions that have already been split.
 /// </summary>
-public class DerivableSpendingSampleSynchroniser(ConfiguredBudgetClient configuredBudgetClient, YnabCliDb db) : Synchroniser
+public class DerivableSpendingSampleSynchroniser(SpendfulnessBudgetClient spendfulnessBudgetClient, SpendfulnessDb db) : Synchroniser
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -25,7 +25,7 @@ public class DerivableSpendingSampleSynchroniser(ConfiguredBudgetClient configur
 
     private async Task<List<Transaction>> GetUnsampledTransactions()
     {
-        var budget = await configuredBudgetClient.GetDefaultBudget();
+        var budget = await spendfulnessBudgetClient.GetDefaultBudget();
         PrintToConsole($"Syncing Spending Samples for Budget: {budget.Id}");
 
         // TODO: Add support for 'SpendingSampleImport' timing and filter transactions on it.

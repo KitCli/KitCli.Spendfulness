@@ -9,7 +9,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddCommands(this IServiceCollection serviceCollection)
     {
         return serviceCollection
-            .AddSingleton<ConfiguredBudgetClient>()
+            .AddSingleton<SpendfulnessBudgetClient>()
             .AddSingleton<CommandHelpCliTableBuilder>();
     }
 }

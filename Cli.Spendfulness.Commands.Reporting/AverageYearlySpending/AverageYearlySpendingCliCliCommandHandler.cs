@@ -7,12 +7,12 @@ using Ynab.Extensions;
 
 namespace Cli.Ynab.Commands.Reporting.AverageYearlySpending;
 
-public class AverageYearlySpendingCliCliCommandHandler(ConfiguredBudgetClient configuredBudgetClient)
+public class AverageYearlySpendingCliCliCommandHandler(SpendfulnessBudgetClient spendfulnessBudgetClient)
     : CliCommandHandler, ICliCommandHandler<AverageYearlySpendingCliCommand>
 {
     public async Task<CliCommandOutcome> Handle(AverageYearlySpendingCliCommand request, CancellationToken cancellationToken)
     {
-        var budget =  await configuredBudgetClient.GetDefaultBudget();
+        var budget =  await spendfulnessBudgetClient.GetDefaultBudget();
         
         var transactions = await budget.GetTransactions();
 

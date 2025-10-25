@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Cli.Spendfulness.Database;
 
-public class YnabCliDb(YnabCliDbContext ynabCliDbContext)
+public class SpendfulnessDb(YnabCliDbContext ynabCliDbContext)
 {
     public readonly YnabCliDbContext Context = ynabCliDbContext;
     

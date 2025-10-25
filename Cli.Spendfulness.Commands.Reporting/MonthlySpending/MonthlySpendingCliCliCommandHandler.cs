@@ -10,12 +10,12 @@ namespace Cli.Ynab.Commands.Reporting.MonthlySpending;
 
 public class MonthlySpendingCliCliCommandHandler: CliCommandHandler, ICliCommandHandler<MonthlySpendingCliCommand>
 {
-    private readonly ConfiguredBudgetClient _configuredBudgetClient;
+    private readonly SpendfulnessBudgetClient _spendfulnessBudgetClient;
     private readonly TransactionMonthChangeCliTableBuilder _transactionMonthChangeCliTableBuilder;
 
-    public MonthlySpendingCliCliCommandHandler(ConfiguredBudgetClient configuredBudgetClient, TransactionMonthChangeCliTableBuilder transactionMonthChangeCliTableBuilder)
+    public MonthlySpendingCliCliCommandHandler(SpendfulnessBudgetClient spendfulnessBudgetClient, TransactionMonthChangeCliTableBuilder transactionMonthChangeCliTableBuilder)
     {
-        _configuredBudgetClient = configuredBudgetClient;
+        _spendfulnessBudgetClient = spendfulnessBudgetClient;
         _transactionMonthChangeCliTableBuilder = transactionMonthChangeCliTableBuilder;
     }
 
@@ -32,7 +32,7 @@ public class MonthlySpendingCliCliCommandHandler: CliCommandHandler, ICliCommand
 
     private async Task<ListYnabAggregator<TransactionMonthTotalAggregate>> PrepareAggregator(MonthlySpendingCliCommand cliCommand)
     {
-        var budget = await _configuredBudgetClient.GetDefaultBudget();
+        var budget = await _spendfulnessBudgetClient.GetDefaultBudget();
 
         var transactions = await budget.GetTransactions();
 

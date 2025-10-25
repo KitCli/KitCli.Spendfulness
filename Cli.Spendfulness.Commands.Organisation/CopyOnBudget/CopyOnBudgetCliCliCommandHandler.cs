@@ -6,7 +6,7 @@ using Ynab.Exceptions;
 
 namespace Cli.Spendfulness.Commands.Organisation.CopyOnBudget;
 
-public class CopyOnBudgetCliCliCommandHandler(ConfiguredBudgetClient budgetClient) : CliCommandHandler, ICliCommandHandler<CopyOnBudgetCliCommand>
+public class CopyOnBudgetCliCliCommandHandler(SpendfulnessBudgetClient budgetClient) : CliCommandHandler, ICliCommandHandler<CopyOnBudgetCliCommand>
 {
     public async Task<CliCommandOutcome> Handle(CopyOnBudgetCliCommand cliCommand, CancellationToken cancellationToken)
     {

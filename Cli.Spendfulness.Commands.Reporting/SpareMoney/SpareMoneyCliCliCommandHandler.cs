@@ -11,7 +11,7 @@ using Ynab.Sanitisers;
 
 namespace Cli.Ynab.Commands.Reporting.SpareMoney;
 
-public class SpareMoneyCliCliCommandHandler(ConfiguredBudgetClient configuredBudgetClient)
+public class SpareMoneyCliCliCommandHandler(SpendfulnessBudgetClient spendfulnessBudgetClient)
     : CliCommandHandler, ICliCommandHandler<SpareMoneyCliCommand>
 {
     public async Task<CliCommandOutcome> Handle(SpareMoneyCliCommand cliCommand, CancellationToken cancellationToken)
@@ -36,7 +36,7 @@ public class SpareMoneyCliCliCommandHandler(ConfiguredBudgetClient configuredBud
 
     private async Task<YnabAggregator<decimal>> PrepareAggregator(SpareMoneyCliCommand cliCommand)
     {
-        var budget = await configuredBudgetClient.GetDefaultBudget();
+        var budget = await spendfulnessBudgetClient.GetDefaultBudget();
         
         var accounts = await budget.GetAccounts();
         var categoryGroups = await budget.GetCategoryGroups();

@@ -6,7 +6,7 @@ using Ynab.Http;
 
 namespace Cli.Spendfulness.Database;
 
-public class ConfiguredBudgetClient(YnabCliDb db, YnabHttpClientBuilder httpClientBuilder)
+public class SpendfulnessBudgetClient(SpendfulnessDb db, YnabHttpClientBuilder httpClientBuilder)
 {
     // TODO: Could this override the base?
     public async Task<ConnectedBudget> GetDefaultBudget()

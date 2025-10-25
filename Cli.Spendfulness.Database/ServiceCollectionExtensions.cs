@@ -7,6 +7,6 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddDb(this IServiceCollection services)
         => services
             .AddDbContext<YnabCliDbContext>()
-            .AddSingleton<YnabCliDb>()
-            .AddSingleton<ConfiguredBudgetClient>();
+            .AddSingleton<SpendfulnessDb>()
+            .AddSingleton<SpendfulnessBudgetClient>();
 }

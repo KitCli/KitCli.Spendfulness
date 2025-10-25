@@ -7,12 +7,12 @@ using Ynab.Extensions;
 
 namespace Cli.Spendfulness.Commands.Personalisation.Transactions.List;
 
-public class TransactionListCliCliCommandHandler(ConfiguredBudgetClient configuredBudgetClient)
+public class TransactionListCliCliCommandHandler(SpendfulnessBudgetClient spendfulnessBudgetClient)
     : CliCommandHandler, ICliCommandHandler<TransactionsListCliCommand>
 {
     public async Task<CliCommandOutcome> Handle(TransactionsListCliCommand cliCommand, CancellationToken cancellationToken)
     {
-        var budget = await configuredBudgetClient.GetDefaultBudget();
+        var budget = await spendfulnessBudgetClient.GetDefaultBudget();
 
         var transactions = await budget.GetTransactions();
 

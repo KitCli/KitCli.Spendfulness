@@ -9,13 +9,13 @@ namespace Cli.Spendfulness.Commands.Personalisation.Accounts.Identify;
 
 public class AccountsIdentifyCliCommandHandler : CliCommandHandler, ICliCommandHandler<AccountsIdentifyCliCommand>
 {
-    private readonly YnabCliDb _db;
-    private readonly ConfiguredBudgetClient _configuredBudgetClient;
+    private readonly SpendfulnessDb _db;
+    private readonly SpendfulnessBudgetClient _budget;
 
-    public AccountsIdentifyCliCommandHandler(YnabCliDb db, ConfiguredBudgetClient configuredBudgetClient)
+    public AccountsIdentifyCliCommandHandler(SpendfulnessDb db, SpendfulnessBudgetClient budget)
     {
         _db = db;
-        _configuredBudgetClient = configuredBudgetClient;
+        _budget = budget;
     }
 
     public async Task<CliCommandOutcome> Handle(AccountsIdentifyCliCommand cliCommand, CancellationToken cancellationToken)
@@ -23,7 +23,7 @@ public class AccountsIdentifyCliCommandHandler : CliCommandHandler, ICliCommandH
         var user = await _db.GetActiveUser();
         var accountTypes = await _db.GetAccountTypes();
         
-        var budget = await _configuredBudgetClient.GetDefaultBudget();
+        var budget = await _budget.GetDefaultBudget();
         var accounts = await budget.GetAccounts();
 
         var account = accounts.Find(cliCommand.YnabAccountName);

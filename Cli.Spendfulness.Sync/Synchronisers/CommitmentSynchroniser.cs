@@ -7,7 +7,7 @@ using Ynab.Extensions;
 
 namespace YnabCli.Sync.Synchronisers;
 
-public class CommitmentSynchroniser(ConfiguredBudgetClient configuredBudgetClient, YnabCliDb db) : Synchroniser
+public class CommitmentSynchroniser(SpendfulnessBudgetClient spendfulnessBudgetClient, SpendfulnessDb db) : Synchroniser
 {
     private const int DefaultSyncFrequency = 1;
     
@@ -29,7 +29,7 @@ public class CommitmentSynchroniser(ConfiguredBudgetClient configuredBudgetClien
 
     private async Task SynchroniseCommitments(User user)
     {
-        var budget = await configuredBudgetClient.GetDefaultBudget();
+        var budget = await spendfulnessBudgetClient.GetDefaultBudget();
         PrintToConsole($"Syncing Commitments for Budget: {budget.Id}");
         
         var categoryGroups = await budget.GetCategoryGroups();
