@@ -18,4 +18,7 @@ public class CustomAccountAttributeRepository
                 attribute.YnabAccountName.Equals(ynabAccountName) ||
                 attribute.YnabAccountName.Contains(ynabAccountName),
                 cancellationToken);
+    
+    public async Task Save(CustomAccountAttributes customAccountAttributes, CancellationToken cancellationToken = default)
+     => await _dbContext.CustomAccountAttributes.AddAsync(customAccountAttributes, cancellationToken);
 }

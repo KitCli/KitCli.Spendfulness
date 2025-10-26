@@ -47,5 +47,7 @@ public class SpendfulnessCli : OriginalCli
         
         _spendfulnessDbContext.SaveChanges();
         io.Say($"Saved {changes.Count()} changes.");
+        
+        io.Pause();
     }
 }

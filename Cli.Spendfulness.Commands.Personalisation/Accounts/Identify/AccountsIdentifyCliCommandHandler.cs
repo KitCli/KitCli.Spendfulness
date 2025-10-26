@@ -13,20 +13,17 @@ public class AccountsIdentifyCliCommandHandler : CliCommandHandler, ICliCommandH
     private readonly SpendfulnessBudgetClient _budgetClient;
     private readonly IEnumerable<IAccountAttributeChangeStrategy> _changeStrategies;
     private readonly CustomAccountAttributeRepository _customAccountAttributeRepository;
-    private readonly CustomAccountTypeRepository _customAccountTypeRepository;
     private readonly UserRepository _userRepository;
 
     public AccountsIdentifyCliCommandHandler(
         SpendfulnessBudgetClient budgetClient,
         IEnumerable<IAccountAttributeChangeStrategy> changeStrategies,
         CustomAccountAttributeRepository customAccountAttributeRepository,
-        CustomAccountTypeRepository customAccountTypeRepository,
         UserRepository userRepository)
     {
         _budgetClient = budgetClient;
         _changeStrategies = changeStrategies;
         _customAccountAttributeRepository = customAccountAttributeRepository;
-        _customAccountTypeRepository = customAccountTypeRepository;
         _userRepository = userRepository;
     }
 
@@ -54,17 +51,21 @@ public class AccountsIdentifyCliCommandHandler : CliCommandHandler, ICliCommandH
         // Get the account
         var budget = await _budgetClient.GetDefaultBudget();
         var accounts = await budget.GetAccounts();
-            
+
         var account = accounts.First(account => account.Name.IsSimilarTo(command.YnabAccountName));
         
         var activeUser = await _userRepository.FindActiveUser();
 
-        return new CustomAccountAttributes
+        var attribute =  new CustomAccountAttributes
         {
             YnabAccountId = account.Id,
             YnabAccountName = account.Name,
             // TODO: I assume this means it will insert it on save anyway.
             User = activeUser,
         };
+
+        await _customAccountAttributeRepository.Save(attribute);
+        
+        return attribute;
     }
 }

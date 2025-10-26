@@ -13,6 +13,9 @@ public class AccountsCommandGenerator : ICommandGenerator<AccountsCliCommand>
         {
             AccountsCliCommand.SubCommandNames.Identify => GenerateIdentifyCommand(instruction.Arguments),
             AccountsCliCommand.SubCommandNames.ReconcileRewards => GenerateReconcileRewardsCommand(instruction.Arguments),
+            
+            // TODO: Defaulting to this creates a confusing message when you input an invalid sub command.
+            // (maybe add a validator to the ICommandGenerator interface)
             _ => new AccountsCliCommand()
         };
     
@@ -31,7 +34,7 @@ public class AccountsCommandGenerator : ICommandGenerator<AccountsCliCommand>
     private AccountReconcileRewardCliCommand GenerateReconcileRewardsCommand(List<CliInstructionArgument> arguments)
     {
         var nameArgument = arguments.OfRequiredType<string>(AccountReconcileRewardCliCommand.ArgumentNames.YnabAccountName);
-        var rewardPointsArgument = arguments.OfRequiredType<long>(AccountReconcileRewardCliCommand.ArgumentNames.RewardPoints);
+        var rewardPointsArgument = arguments.OfRequiredType<int>(AccountReconcileRewardCliCommand.ArgumentNames.TotalRewardPoints);
         
         return new AccountReconcileRewardCliCommand(
             nameArgument.ArgumentValue,

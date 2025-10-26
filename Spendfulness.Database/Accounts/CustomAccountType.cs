@@ -9,3 +9,8 @@ public class CustomAccountType
     [MaxLength(2000)]
     public required string Name { get; set; }
 }
+
+public static class CustomAccountTypes
+{
+    public const string AmericanExpressRewards = "American Express Rewards";
+}
