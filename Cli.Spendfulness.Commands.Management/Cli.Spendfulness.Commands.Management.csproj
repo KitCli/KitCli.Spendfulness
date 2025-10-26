@@ -15,4 +15,8 @@
       <ProjectReference Include="..\Cli.Instructions\Cli.Instructions.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Accounts\" />
+    </ItemGroup>
+
 </Project>

@@ -1,6 +1,7 @@
 using System.Reflection;
 using Cli.Commands.Abstractions.Extensions;
 using Cli.Spendfulness.Commands.Personalisation.Accounts.Identify;
+using Cli.Spendfulness.Commands.Personalisation.Accounts.Identify.ChangeStrategies;
 using Cli.Spendfulness.Commands.Personalisation.Databases;
 using Microsoft.Extensions.DependencyInjection;
 
