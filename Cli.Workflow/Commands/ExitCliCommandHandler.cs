@@ -3,11 +3,11 @@ using Cli.Commands.Abstractions.Outcomes;
 
 namespace Cli.Workflow.Commands;
 
-public class ExitCliCliCommandHandler : CliCommandHandler, ICliCommandHandler<ExitCliCommand>
+public class ExitCliCommandHandler : CliCommandHandler, ICliCommandHandler<ExitCliCommand>
 {
     private readonly CliWorkflow _cliWorkflow;
 
-    public ExitCliCliCommandHandler(CliWorkflow cliWorkflow)
+    public ExitCliCommandHandler(CliWorkflow cliWorkflow)
     {
         _cliWorkflow = cliWorkflow;
     }

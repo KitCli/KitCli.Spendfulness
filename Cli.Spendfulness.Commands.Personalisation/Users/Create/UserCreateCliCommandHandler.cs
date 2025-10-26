@@ -6,11 +6,11 @@ using Spendfulness.Database.Users;
 
 namespace Cli.Spendfulness.Commands.Personalisation.Users.Create;
 
-public class UserCreateCliCliCommandHandler : CliCommandHandler, ICliCommandHandler<UserCreateCliCommand>
+public class UserCreateCliCommandHandler : CliCommandHandler, ICliCommandHandler<UserCreateCliCommand>
 {
     private readonly SpendfulnessDbContext _dbContext;
 
-    public UserCreateCliCliCommandHandler(SpendfulnessDbContext dbContext)
+    public UserCreateCliCommandHandler(SpendfulnessDbContext dbContext)
     {
         _dbContext = dbContext;
     }

@@ -4,9 +4,9 @@ using Cli.Commands.Abstractions.Outcomes;
 
 namespace Cli.Spendfulness.Commands.Handlers;
 
-public class CliCliCommandListCliCliCommandHandler : CliCommandHandler, ICliCommandHandler<CliCommandListCliCommand>
+public class CommandListCliCommandHandler : CliCommandHandler, ICliCommandHandler<CommandListCliCommand>
 {
-    public Task<CliCommandOutcome> Handle(CliCommandListCliCommand request, CancellationToken cancellationToken)
+    public Task<CliCommandOutcome> Handle(CommandListCliCommand request, CancellationToken cancellationToken)
     {
         var viewModel = new CliTable();
         

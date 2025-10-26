@@ -3,7 +3,7 @@ using Cli.Commands.Abstractions.Outcomes;
 
 namespace Cli.Spendfulness.Commands.Personalisation.Commitments.Find;
 
-public class CommitmentFindCliCliCommandHandler : CliCommandHandler, ICliCommandHandler<CommitmentFindCliCommand>
+public class CommitmentFindCliCommandHandler : CliCommandHandler, ICliCommandHandler<CommitmentFindCliCommand>
 {
     public async Task<CliCommandOutcome> Handle(CommitmentFindCliCommand request, CancellationToken cancellationToken)
     {

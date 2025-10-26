@@ -8,12 +8,12 @@ using Ynab.Extensions;
 
 namespace Cli.Ynab.Commands.Reporting.MonthlySpending;
 
-public class MonthlySpendingCliCliCommandHandler: CliCommandHandler, ICliCommandHandler<MonthlySpendingCliCommand>
+public class MonthlySpendingCliCommandHandler: CliCommandHandler, ICliCommandHandler<MonthlySpendingCliCommand>
 {
     private readonly SpendfulnessBudgetClient _spendfulnessBudgetClient;
     private readonly TransactionMonthChangeCliTableBuilder _transactionMonthChangeCliTableBuilder;
 
-    public MonthlySpendingCliCliCommandHandler(SpendfulnessBudgetClient spendfulnessBudgetClient, TransactionMonthChangeCliTableBuilder transactionMonthChangeCliTableBuilder)
+    public MonthlySpendingCliCommandHandler(SpendfulnessBudgetClient spendfulnessBudgetClient, TransactionMonthChangeCliTableBuilder transactionMonthChangeCliTableBuilder)
     {
         _spendfulnessBudgetClient = spendfulnessBudgetClient;
         _transactionMonthChangeCliTableBuilder = transactionMonthChangeCliTableBuilder;

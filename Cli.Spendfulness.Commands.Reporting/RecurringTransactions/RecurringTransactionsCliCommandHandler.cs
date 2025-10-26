@@ -10,7 +10,7 @@ using Ynab.Extensions;
 
 namespace Cli.Ynab.Commands.Reporting.RecurringTransactions
 {
-    public class RecurringTransactionsCliCliCommandHandler(SpendfulnessBudgetClient budgetClient)
+    public class RecurringTransactionsCliCommandHandler(SpendfulnessBudgetClient budgetClient)
         : CliCommandHandler, ICliCommandHandler<RecurringTransactionsCliCommand>
     {
         private const int DefaultMinimumOccurrences = 2;

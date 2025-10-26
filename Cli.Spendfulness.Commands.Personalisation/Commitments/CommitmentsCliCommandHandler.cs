@@ -8,7 +8,7 @@ using Spendfulness.Database.Users;
 
 namespace Cli.Spendfulness.Commands.Personalisation.Commitments;
 
-public class CommitmentsCliCliCommandHandler(SpendfulnessDb spendfulnessDb) : CliCommandHandler, ICliCommandHandler<CommitmentsCliCommand>
+public class CommitmentsCliCommandHandler(SpendfulnessDb spendfulnessDb) : CliCommandHandler, ICliCommandHandler<CommitmentsCliCommand>
 {
     public async Task<CliCommandOutcome> Handle(CommitmentsCliCommand request, CancellationToken cancellationToken)
     {

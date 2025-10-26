@@ -6,12 +6,12 @@ using Spendfulness.Database;
 
 namespace Cli.Spendfulness.Commands.Personalisation.Categories;
 
-public class CategoriesCliCliCommandHandler: CliCommandHandler, ICliCommandHandler<CategoriesCliCommand>
+public class CategoriesCliCommandHandler: CliCommandHandler, ICliCommandHandler<CategoriesCliCommand>
 {
     private readonly SpendfulnessBudgetClient _spendfulnessBudgetClient;
     private readonly CategoryCliTableBuilder _categoryCliTableBuilder;
 
-    public CategoriesCliCliCommandHandler(SpendfulnessBudgetClient spendfulnessBudgetClient, CategoryCliTableBuilder categoryCliTableBuilder)
+    public CategoriesCliCommandHandler(SpendfulnessBudgetClient spendfulnessBudgetClient, CategoryCliTableBuilder categoryCliTableBuilder)
     {
         _spendfulnessBudgetClient = spendfulnessBudgetClient;
         _categoryCliTableBuilder = categoryCliTableBuilder;

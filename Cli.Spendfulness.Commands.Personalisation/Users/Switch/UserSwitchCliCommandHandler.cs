@@ -5,11 +5,11 @@ using Spendfulness.Database;
 
 namespace Cli.Spendfulness.Commands.Personalisation.Users.Switch;
 
-public class UserSwitchCliCliCommandHandler : CliCommandHandler, ICliCommandHandler<UserSwitchCliCommand>
+public class UserSwitchCliCommandHandler : CliCommandHandler, ICliCommandHandler<UserSwitchCliCommand>
 {
     private readonly SpendfulnessDbContext _dbContext;
 
-    public UserSwitchCliCliCommandHandler(SpendfulnessDbContext dbContext)
+    public UserSwitchCliCommandHandler(SpendfulnessDbContext dbContext)
     {
         _dbContext = dbContext;
     }

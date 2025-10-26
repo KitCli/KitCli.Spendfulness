@@ -7,7 +7,7 @@ using Ynab.Extensions;
 
 namespace Cli.Ynab.Commands.Reporting.AverageYearlySpending;
 
-public class AverageYearlySpendingCliCliCommandHandler(SpendfulnessBudgetClient spendfulnessBudgetClient)
+public class AverageYearlySpendingCliCommandHandler(SpendfulnessBudgetClient spendfulnessBudgetClient)
     : CliCommandHandler, ICliCommandHandler<AverageYearlySpendingCliCommand>
 {
     public async Task<CliCommandOutcome> Handle(AverageYearlySpendingCliCommand request, CancellationToken cancellationToken)

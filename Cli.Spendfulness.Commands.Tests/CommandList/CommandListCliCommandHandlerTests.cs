@@ -4,13 +4,13 @@ using ConsoleTables;
 namespace Cli.Spendfulness.Commands.Tests.CommandList;
 
 [TestFixture]
-public class CliCliCommandListCliCliCommandHandlerTests
+public class CommandListCliCommandHandlerTests
 {
     [Test]
     public async Task GivenCommandListCommand_WhenHandle_ShouldReturnConsoleTable()
     {
-        var handler = new CliCliCommandListCliCliCommandHandler();
-        var command = new CliCommandListCliCommand();
+        var handler = new CommandListCliCommandHandler();
+        var command = new CommandListCliCommand();
         
         var result = await handler.Handle(command, CancellationToken.None);
 

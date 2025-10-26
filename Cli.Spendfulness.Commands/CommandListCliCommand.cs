@@ -2,6 +2,6 @@ using Cli.Commands.Abstractions;
 
 namespace Cli.Spendfulness.Commands;
 
-public class CliCommandListCliCommand : ICliCommand
+public class CommandListCliCommand : ICliCommand
 {
 }
