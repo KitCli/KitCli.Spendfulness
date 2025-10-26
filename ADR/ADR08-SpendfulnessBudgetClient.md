@@ -93,7 +93,7 @@ services.AddSingleton<SpendfulnessBudgetClient>();
 
 This allows it to be injected into command handlers:
 ```csharp
-public class YearlySpendingCliCliCommandHandler(SpendfulnessBudgetClient budgetClient)
+public class YearlySpendingCliCommandHandler(SpendfulnessBudgetClient budgetClient)
     : CliCommandHandler, ICliCommandHandler<YearlySpendingCliCommand>
 {
     public async Task<CliCommandOutcome> Handle(YearlySpendingCliCommand request, CancellationToken cancellationToken)
