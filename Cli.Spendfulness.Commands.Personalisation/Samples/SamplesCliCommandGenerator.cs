@@ -5,7 +5,7 @@ using Cli.Spendfulness.Commands.Personalisation.Samples.Matches;
 
 namespace Cli.Spendfulness.Commands.Personalisation.Samples;
 
-public class SamplesCommandGenerator : ICommandGenerator<SamplesCliCommand>
+public class SamplesCliCommandGenerator : ICliCommandGenerator<SamplesCliCommand>
 {
     public ICliCommand Generate(CliInstruction instruction)
         => instruction.SubInstructionName switch

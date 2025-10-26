@@ -2,8 +2,7 @@ using Cli.Instructions.Abstractions;
 
 namespace Cli.Commands.Abstractions;
 
-// TODO: Rename to IUsableCliCommandGenerator?
-public interface IGenericCommandGenerator
+public interface IUnidentifiedCliCommandGenerator
 {
     ICliCommand Generate(CliInstruction instruction);
 }

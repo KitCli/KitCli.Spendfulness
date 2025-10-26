@@ -15,7 +15,7 @@ public class CliWorkflowCommandProvider(IServiceProvider serviceProvider)
             throw new NoInstructionException("No instruction entered.");
         }
         
-        var generator = serviceProvider.GetKeyedService<IGenericCommandGenerator>(instruction.Name);
+        var generator = serviceProvider.GetKeyedService<IUnidentifiedCliCommandGenerator>(instruction.Name);
         if (generator == null)
         {
             throw new NoCommandGeneratorException("Did not find generator for " + instruction.Name);

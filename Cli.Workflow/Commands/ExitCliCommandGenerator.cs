@@ -3,7 +3,7 @@ using Cli.Instructions.Abstractions;
 
 namespace Cli.Workflow.Commands;
 
-public class ExitCommandGenerator : ICommandGenerator<ExitCliCommand>
+public class ExitCliCommandGenerator : ICliCommandGenerator<ExitCliCommand>
 {
     public ICliCommand Generate(CliInstruction instruction) => new ExitCliCommand();
 }

@@ -4,7 +4,7 @@ using Cli.Instructions.Arguments;
 
 namespace Cli.Ynab.Commands.Reporting.MonthlySpending;
 
-public class MonthlySpendingGenericCommandGenerator : ICommandGenerator<MonthlySpendingCliCommand>
+public class MonthlySpendingGenericCliCommandGenerator : ICliCommandGenerator<MonthlySpendingCliCommand>
 {
     public ICliCommand Generate(CliInstruction instruction)
     {

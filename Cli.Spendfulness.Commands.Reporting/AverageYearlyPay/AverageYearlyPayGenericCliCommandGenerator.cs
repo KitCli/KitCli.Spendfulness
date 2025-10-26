@@ -3,7 +3,7 @@ using Cli.Instructions.Abstractions;
 
 namespace Cli.Ynab.Commands.Reporting.AverageYearlyPay;
 
-public class AverageYearlyPayGenericCommandGenerator : ICommandGenerator<AverageYearlyPayCliCommand>
+public class AverageYearlyPayGenericCliCommandGenerator : ICliCommandGenerator<AverageYearlyPayCliCommand>
 {
     public ICliCommand Generate(CliInstruction instruction)
     {

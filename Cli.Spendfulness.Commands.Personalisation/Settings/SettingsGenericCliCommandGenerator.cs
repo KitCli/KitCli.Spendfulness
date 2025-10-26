@@ -6,7 +6,7 @@ using Cli.Spendfulness.Commands.Personalisation.Settings.View;
 
 namespace Cli.Spendfulness.Commands.Personalisation.Settings;
 
-public class SettingsGenericCommandGenerator : ICommandGenerator<SettingsCliCommand>
+public class SettingsGenericCliCommandGenerator : ICliCommandGenerator<SettingsCliCommand>
 {
     public ICliCommand Generate(CliInstruction instruction)
         => instruction.SubInstructionName switch

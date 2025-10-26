@@ -4,7 +4,7 @@ using Cli.Spendfulness.Commands.Personalisation.Commitments.Find;
 
 namespace Cli.Spendfulness.Commands.Personalisation.Commitments;
 
-public class CommitmentsGenericCommandGenerator : ICommandGenerator<CommitmentsCliCommand>
+public class CommitmentsGenericCliCommandGenerator : ICliCommandGenerator<CommitmentsCliCommand>
 {
     public ICliCommand Generate(CliInstruction instruction) =>
         instruction.SubInstructionName switch

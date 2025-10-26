@@ -5,7 +5,7 @@ using Cli.Spendfulness.Commands.Personalisation.Accounts.Identify;
 
 namespace Cli.Spendfulness.Commands.Personalisation.Accounts;
 
-public class AccountsCommandGenerator : ICommandGenerator<AccountsCliCommand>
+public class AccountsCliCommandGenerator : ICliCommandGenerator<AccountsCliCommand>
 {
     public ICliCommand Generate(CliInstruction instruction)
         => instruction.SubInstructionName switch

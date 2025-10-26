@@ -4,7 +4,7 @@ using Cli.Instructions.Arguments;
 
 namespace Cli.Ynab.Commands.Reporting.RecurringTransactions;
 
-public class RecurringTransactionsGenericCommandGenerator : ICommandGenerator<RecurringTransactionsCliCommand>
+public class RecurringTransactionsGenericCliCommandGenerator : ICliCommandGenerator<RecurringTransactionsCliCommand>
 {
     public ICliCommand Generate(CliInstruction instruction)
     {

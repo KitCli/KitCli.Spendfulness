@@ -4,12 +4,12 @@ using Cli.Spendfulness.Commands.Generators;
 namespace Cli.Spendfulness.Commands.Tests.CommandList;
 
 [TestFixture]
-public class GenericCommandListCommandGeneratorTests
+public class GenericCliCommandListCliCommandGeneratorTests
 {
     [Test]
     public void GivenAnyArguments_WhenGenerate_ReturnsCommandListCommand()
     {
-        var generator = new GenericCommandListCommandGenerator();
+        var generator = new GenericCliCommandListCliCommandGenerator();
 
         var instruction = new CliInstruction(
             string.Empty,

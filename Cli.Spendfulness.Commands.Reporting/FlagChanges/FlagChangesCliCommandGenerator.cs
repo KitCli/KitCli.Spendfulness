@@ -4,7 +4,7 @@ using Cli.Instructions.Arguments;
 
 namespace Cli.Ynab.Commands.Reporting.FlagChanges;
 
-public class FlagChangesCommandGenerator : ICommandGenerator<FlagChangesCliCommand>
+public class FlagChangesCliCommandGenerator : ICliCommandGenerator<FlagChangesCliCommand>
 {
     public ICliCommand Generate(CliInstruction instruction)
     {

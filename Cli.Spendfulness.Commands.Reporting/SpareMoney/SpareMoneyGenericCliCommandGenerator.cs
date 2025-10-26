@@ -5,7 +5,7 @@ using Cli.Ynab.Commands.Reporting.SpareMoney.Help;
 
 namespace Cli.Ynab.Commands.Reporting.SpareMoney;
 
-public class SpareMoneyGenericCommandGenerator : ICommandGenerator<SpareMoneyCliCommand>
+public class SpareMoneyGenericCliCommandGenerator : ICliCommandGenerator<SpareMoneyCliCommand>
 {
     public ICliCommand Generate(CliInstruction instruction) =>
         instruction.SubInstructionName switch

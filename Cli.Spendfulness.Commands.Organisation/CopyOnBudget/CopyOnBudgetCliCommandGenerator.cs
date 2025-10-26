@@ -5,7 +5,7 @@ using Cli.Instructions.Arguments;
 namespace Cli.Spendfulness.Commands.Organisation.CopyOnBudget;
 
 // TODO: Move me to personalisation class library.
-public class CopyOnBudgetCommandGenerator : ICommandGenerator<CopyOnBudgetCliCommand>
+public class CopyOnBudgetCliCommandGenerator : ICliCommandGenerator<CopyOnBudgetCliCommand>
 {
     public ICliCommand Generate(CliInstruction instruction)
     {

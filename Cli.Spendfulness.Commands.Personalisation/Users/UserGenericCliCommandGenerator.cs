@@ -7,7 +7,7 @@ using Cli.Spendfulness.Commands.Personalisation.Users.Switch;
 
 namespace Cli.Spendfulness.Commands.Personalisation.Users;
 
-public class UserGenericCommandGenerator : ICommandGenerator<UserCliCommand>
+public class UserGenericCliCommandGenerator : ICliCommandGenerator<UserCliCommand>
 {
     public ICliCommand Generate(CliInstruction instruction) 
         => instruction.SubInstructionName switch
