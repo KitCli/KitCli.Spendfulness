@@ -21,6 +21,7 @@ public class CliInstructionParser
         _instructionArgumentBuilders = instructionArgumentBuilders;
     }
 
+    // TODO: Simplify with enums + dictinaries.
     public CliInstruction Parse(string terminalInput)
     {
         var indexes = _cliInstructionTokenIndexer.Index(terminalInput);
