@@ -1,42 +1,31 @@
 using Cli.Instructions.Abstractions;
 using Cli.Instructions.Builders;
-using Cli.Instructions.Extraction;
+using Cli.Instructions.Extensions;
 using Cli.Instructions.Indexers;
+using Cli.Instructions.Markers;
 
 namespace Cli.Instructions.Parsers;
 
-public class CliInstructionParser
+public class CliInstructionParser(IEnumerable<ICliInstructionArgumentBuilder> argumentBuilders)
 {
-    private readonly CliInstructionTokenIndexer _cliInstructionTokenIndexer;
-    private readonly CliInstructionTokenExtractor _cliInstructionTokenExtractor;
-    private readonly IEnumerable<ICliInstructionArgumentBuilder> _instructionArgumentBuilders;
-
-    public CliInstructionParser(
-        CliInstructionTokenIndexer cliInstructionTokenIndexer,
-        CliInstructionTokenExtractor cliInstructionTokenExtractor,
-        IEnumerable<ICliInstructionArgumentBuilder> instructionArgumentBuilders)
-    {
-        _cliInstructionTokenIndexer = cliInstructionTokenIndexer;
-        _cliInstructionTokenExtractor = cliInstructionTokenExtractor;
-        _instructionArgumentBuilders = instructionArgumentBuilders;
-    }
-
     public CliInstruction Parse(string terminalInput)
     {
-        var indexes = _cliInstructionTokenIndexer.Index(terminalInput);
-        var extraction = _cliInstructionTokenExtractor.Extract(indexes, terminalInput);
-
-        var arguments = extraction
-            .ArgumentTokens
-            .Select(token => _instructionArgumentBuilders
+        var markers = CliInstructionMarkers.For(terminalInput);
+        
+        var tokens = markers.GetTokensFrom(terminalInput);
+        
+        var arguments = tokens
+            .Arguments
+            .StripArguments()
+            .Select(token => argumentBuilders
                 .First(builder => builder.For(token.Value))
                 .Create(token.Key, token.Value))
             .ToList();
         
         return new CliInstruction(
-            extraction.PrefixToken,
-            extraction.NameToken,
-            extraction.SubNameToken,
+            tokens.Prefix,
+            tokens.Name,
+            tokens.SubName,
             arguments);
     }
 }
