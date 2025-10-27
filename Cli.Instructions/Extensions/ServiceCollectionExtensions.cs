@@ -1,4 +1,6 @@
 using Cli.Instructions.Builders;
+using Cli.Instructions.Extraction;
+using Cli.Instructions.Indexers;
 using Cli.Instructions.Parsers;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,5 +16,7 @@ public static class ServiceCollectionExtensions
             .AddSingleton<ICliInstructionArgumentBuilder, DecimalCliInstructionArgumentBuilder>()
             .AddSingleton<ICliInstructionArgumentBuilder, DateOnlyCliInstructionArgumentBuilder>()
             .AddSingleton<ICliInstructionArgumentBuilder, BoolCliInstructionArgumentBuilder>()
+            .AddSingleton<CliInstructionTokenIndexer>()
+            .AddSingleton<CliInstructionTokenExtractor>()
             .AddSingleton<CliInstructionParser>();
 }
