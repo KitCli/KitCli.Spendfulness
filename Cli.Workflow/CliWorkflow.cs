@@ -5,15 +5,15 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Cli.Workflow;
 
+// TODO: Write unit tests.
 /// <summary>
 /// State machine of a command line interface.
 /// </summary>
 public class CliWorkflow
 {
+    public List<CliWorkflowRun> Runs = [];
+    
     private readonly IServiceProvider _serviceProvider;
-    // TODO: CLI - Export this?
-    // ReSharper disable once CollectionNeverQueried.Local
-    private List<CliWorkflowRun> _runs = [];
     
     public CliWorkflowStatus Status = CliWorkflowStatus.Started;
 
@@ -39,7 +39,7 @@ public class CliWorkflow
         
         var run = new CliWorkflowRun(state, instructionParser, commandProvider, mediator);
         
-        _runs.Add(run);
+        Runs.Add(run);
 
         return run;
     }

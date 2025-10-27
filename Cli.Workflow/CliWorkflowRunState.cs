@@ -3,10 +3,11 @@ using Cli.Workflow.Abstractions;
 
 namespace Cli.Workflow;
 
+// TODO: Write unit tests.
 public class CliWorkflowRunState
 {
-    private readonly Stopwatch _stopwatch = new Stopwatch();
-    private readonly List<RecordedCliWorkflowRunStateChange> _recordedStateChanges = [];
+    public readonly Stopwatch Stopwatch = new Stopwatch();
+    public readonly List<RecordedCliWorkflowRunStateChange> Changes = [];
 
     public void ChangeTo(ClIWorkflowRunStateType stateTypeToChangeTo)
     {
@@ -15,21 +16,16 @@ public class CliWorkflowRunState
         UpdateStopwatch(stateTypeToChangeTo);
 
         var stateChange = new RecordedCliWorkflowRunStateChange(
-            _stopwatch.ElapsedTicks,
+            Stopwatch.ElapsedTicks,
             currentState, 
             stateTypeToChangeTo);
         
-        _recordedStateChanges.Add(stateChange);
+        Changes.Add(stateChange);
     }
-
-    public List<ClIWorkflowRunStateType> GetStateChangeTimeline()
-        => _recordedStateChanges
-            .Select(x => x.MovedTo)
-            .ToList();
 
     private ClIWorkflowRunStateType CanChangeTo(ClIWorkflowRunStateType stateTypeToChangeTo)
     {
-        var mostRecentState = _recordedStateChanges.LastOrDefault();
+        var mostRecentState = Changes.LastOrDefault();
         var currentState = mostRecentState?.MovedTo ?? ClIWorkflowRunStateType.NotInitialized;
         
         // Can chnge from most recently changed to, to new state to change to.
@@ -50,12 +46,12 @@ public class CliWorkflowRunState
     {
         if (stateTypeToChangeTo != ClIWorkflowRunStateType.Running)
         {
-            _stopwatch.Start();
+            Stopwatch.Start();
         }
 
         if (stateTypeToChangeTo == ClIWorkflowRunStateType.Finished)
         {
-            _stopwatch.Stop();
+            Stopwatch.Stop();
         }
     }
 

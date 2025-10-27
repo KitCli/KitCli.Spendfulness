@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices.ComTypes;
-using Cli.Commands.Abstractions.Io;
 using Cli.Commands.Abstractions.Outcomes;
 using Cli.Workflow;
 using Spendfulness.Database;
@@ -16,38 +14,60 @@ public class SpendfulnessCli : OriginalCli
         _spendfulnessDbContext = spendfulnessDbContext;
     }
 
-    protected override void OnRun(CliWorkflow workflow, CliIo io)
+    protected override void OnSessionStart()
     {
-        io.Say($"New world CLI started");
+        Io.Say($"Welcome to Spendfulness CLI!");
+        Io.Pause();
     }
 
-    protected override void OnRunCreated(CliWorkflowRun workflowRun, CliIo io)
+    protected override void OnRunCreated(CliWorkflowRun workflowRun)
     {
-        io.Say($"New world CLI run created");
+        Io.Say($"Please enter a command:");
+        Io.Pause();
     }
 
-    protected override void OnRunStarted(CliWorkflowRun workflowRun, CliIo io)
+    protected override void OnRunStarted(CliWorkflowRun workflowRun, string ask)
     {
-        io.Say($"New world CLI run started");
+        Io.Say($"Executing command: {ask}");
+        Io.Pause();
     }
 
-    protected override void OnRunComplete(CliCommandOutcome cliCommandOutcome, CliWorkflowRun workflowRun, CliIo io)
+    protected override void OnRunComplete(CliWorkflowRun run, CliCommandOutcome outcome)
     {
-        io.Pause();
+        Io.Pause();
         
-        io.Say($"Command outcome was: {cliCommandOutcome.Kind}");
+        Io.Say($"Command outcome was: {outcome.Kind}");
 
-        var states = workflowRun.GetTimeline();
+        var states = run.State.Changes
+            .Select(change => change.MovedTo.ToString())
+            .ToList();
+        
         var timeline = string.Join(", ", states);
         
-        io.Say($"Timeline: {timeline}");
+        Io.Say($"Timeline: {timeline} in {run.State.Stopwatch.Elapsed.Seconds}s");
         
         // Using synchronous because you cant run commands in parallel.
         var changes = _spendfulnessDbContext.ChangeTracker.Entries();
         
         _spendfulnessDbContext.SaveChanges();
-        io.Say($"Saved {changes.Count()} changes.");
+        Io.Say($"Saved {changes.Count()} changes.");
         
-        io.Pause();
+        Io.Pause();
+    }
+
+    protected override void OnSessionEnd(List<CliWorkflowRun> runs)
+    {
+        Io.Pause();
+        
+        Io.Say($"CLI session complete");
+        Io.Say($"CLI runs executed: {runs.Count}");
+        
+        var totalTime = runs
+            .Select(run => run.State.Stopwatch.Elapsed)
+            .Aggregate(TimeSpan.Zero, (current, elapsed) => current + elapsed);
+        
+        Io.Say($"Total time: {totalTime.Seconds}s");
+        
+        Io.Pause();
     }
 }

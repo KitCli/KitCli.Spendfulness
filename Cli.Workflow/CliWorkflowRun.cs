@@ -6,11 +6,13 @@ using MediatR;
 
 namespace Cli.Workflow;
 
+// TODO: Write unit tests.
 // TODO: Cli: I wonder if always attaching this to the command is a great way to add properties?
 // And then let implementers of the CLI pass around properties between commands and hooks.
 public class CliWorkflowRun
 {
-    private readonly CliWorkflowRunState _state;
+    public readonly CliWorkflowRunState State;
+    
     private readonly CliInstructionParser _cliInstructionParser;
     private readonly CliWorkflowCommandProvider _workflowCommandProvider;
     private readonly IMediator _mediator;
@@ -21,7 +23,8 @@ public class CliWorkflowRun
         CliWorkflowCommandProvider workflowCommandProvider,
         IMediator mediator)
     {
-        _state = state;
+        State = state;
+        
         _cliInstructionParser = cliInstructionParser;
         _workflowCommandProvider = workflowCommandProvider;
         _mediator = mediator;
@@ -31,17 +34,17 @@ public class CliWorkflowRun
     
     public async Task<CliCommandOutcome> RespondToAsk(string? ask)
     {
-        _state.ChangeTo(ClIWorkflowRunStateType.Created);
+        State.ChangeTo(ClIWorkflowRunStateType.Created);
         
         if (!IsValidAsk(ask))
         {
-            _state.ChangeTo(ClIWorkflowRunStateType.InvalidAsk);
+            State.ChangeTo(ClIWorkflowRunStateType.InvalidAsk);
             return new CliCommandNothingOutcome();
         }
 
         try
         {
-            _state.ChangeTo(ClIWorkflowRunStateType.Running);
+            State.ChangeTo(ClIWorkflowRunStateType.Running);
             
             var instruction = _cliInstructionParser.Parse(ask!);
 
@@ -52,30 +55,27 @@ public class CliWorkflowRun
         // TODO: CLI - Custom/re-use exception at some point.
         catch (ArgumentNullException)
         {
-            _state.ChangeTo(ClIWorkflowRunStateType.InvalidAsk);
+            State.ChangeTo(ClIWorkflowRunStateType.InvalidAsk);
             return new CliCommandNothingOutcome();
         }
         catch (NoInstructionException)
         {
-            _state.ChangeTo(ClIWorkflowRunStateType.InvalidAsk);
+            State.ChangeTo(ClIWorkflowRunStateType.InvalidAsk);
             return new CliCommandNothingOutcome();
         }
         catch (NoCommandGeneratorException)
         {
-            _state.ChangeTo(ClIWorkflowRunStateType.InvalidAsk);
+            State.ChangeTo(ClIWorkflowRunStateType.InvalidAsk);
             return new CliCommandNothingOutcome();
         }
         catch (Exception exception)
         {
-            _state.ChangeTo(ClIWorkflowRunStateType.Exceptional);
+            State.ChangeTo(ClIWorkflowRunStateType.Exceptional);
             return new CliCommandExceptionOutcome(exception);
         }
         finally
         {
-            _state.ChangeTo(ClIWorkflowRunStateType.Finished);
+            State.ChangeTo(ClIWorkflowRunStateType.Finished);
         }
     }
-
-    public List<ClIWorkflowRunStateType> GetTimeline()
-        => _state.GetStateChangeTimeline();
 }

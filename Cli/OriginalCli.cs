@@ -1,58 +1,64 @@
-using Cli.Commands.Abstractions.Io;
 using Cli.Commands.Abstractions.Outcomes;
 using Cli.Workflow;
 using Cli.Workflow.Abstractions;
 
 namespace Cli;
 
+// TODO: Write unit tests.
 public abstract class OriginalCli
 {
-    private readonly CliWorkflow _workflow;
-    private readonly CliCommandOutcomeIo _io;
+    public readonly CliWorkflow Workflow;
+    public readonly CliCommandOutcomeIo Io;
 
     protected OriginalCli(CliWorkflow workflow, CliCommandOutcomeIo io)
     {
-        _workflow = workflow;
-        _io = io;
+        Workflow = workflow;
+        Io = io;
     }
     
     public async Task Run()
     { 
-        OnRun(_workflow, _io);
+        OnSessionStart();
         
-        while (_workflow.Status != CliWorkflowStatus.Stopped)
+        while (Workflow.Status != CliWorkflowStatus.Stopped)
         {
-            var cliWorkflowRun = _workflow.CreateRun();
+            var run = Workflow.CreateRun();
             
-            OnRunCreated(cliWorkflowRun, _io);
+            OnRunCreated(run);
             
-            var ask = _io.Ask();
+            var ask = Io.Ask();
             
-            var cliWorkflowRunTask =  cliWorkflowRun.RespondToAsk(ask);
+            var runTask =  run.RespondToAsk(ask);
             
-            OnRunStarted(cliWorkflowRun, _io);
+            OnRunStarted(run, ask);
 
-            var comandOutcome = await cliWorkflowRunTask;
+            var outcome = await runTask;
             
-            _io.Say(comandOutcome);
+            Io.Say(outcome);
             
-            OnRunComplete(comandOutcome, cliWorkflowRun, _io);
+            OnRunComplete(run, outcome);
         }
+        
+        OnSessionEnd(Workflow.Runs);
     }
 
-    protected virtual void OnRun(CliWorkflow workflow, CliIo io)
+    protected virtual void OnSessionStart()
     {
     }
 
-    protected virtual void OnRunCreated(CliWorkflowRun workflowRun, CliIo io)
+    protected virtual void OnRunCreated(CliWorkflowRun run)
     {
     }
 
-    protected virtual void OnRunStarted(CliWorkflowRun workflowRun, CliIo io)
+    protected virtual void OnRunStarted(CliWorkflowRun run, string ask)
     {
     }
 
-    protected virtual void OnRunComplete(CliCommandOutcome outcome, CliWorkflowRun workflowRun, CliIo io)
+    protected virtual void OnRunComplete(CliWorkflowRun run, CliCommandOutcome outcome)
+    {
+    }
+    
+    protected virtual void OnSessionEnd(List<CliWorkflowRun> runs)
     {
     }
 }
