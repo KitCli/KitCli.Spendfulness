@@ -4,6 +4,8 @@ namespace Cli.Instructions.Indexers;
 
 public class CliInstructionTokenIndexer
 {
+    // TODO: Make the default characters below configurable.
+    // (SO this needs to be a DI service)
     public CliInstructionTokenIndexes Index(string terminalInput)
     {
         var characters = terminalInput.ToCharArray();
