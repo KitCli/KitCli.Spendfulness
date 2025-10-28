@@ -9,51 +9,56 @@ public class CliInstructionTokenExtractor
         Dictionary<CliInstructionTokenType, CliInstructionTokenIndex> indexes, 
         string terminalInput)
     {
-        var prefixToken = ExtractToken(
+        var prefixToken = ExtractRequiredToken(
             indexes, 
             terminalInput, 
             CliInstructionTokenType.Prefix, 
             CliInstructionExceptionCode.NoInstructionPrefix,
-            $"Instructions must contain a {CliInstructionConstants.DefaultNamePrefix}",
-            isRequired: true);
+            $"Instructions must contain a {CliInstructionConstants.DefaultNamePrefix}");
         
-        var nameToken = ExtractToken(
+        var nameToken = ExtractRequiredToken(
             indexes, 
             terminalInput, 
             CliInstructionTokenType.Name, 
             CliInstructionExceptionCode.NoInstructionName,
-            "Instructions must have a name",
-            isRequired: true);
+            "Instructions must have a name");
         
-        var subNameToken = ExtractToken(
+        var subNameToken = ExtractOptionalToken(
             indexes, 
             terminalInput, 
-            CliInstructionTokenType.SubName, 
-            CliInstructionExceptionCode.NoInstructionName,
-            null,
-            isRequired: false);
+            CliInstructionTokenType.SubName);
         
         var argumentTokens = ExtractArgumentTokens(indexes, terminalInput);
         
-        return new CliInstructionTokenExtraction(prefixToken!, nameToken!, subNameToken, argumentTokens);
+        return new CliInstructionTokenExtraction(prefixToken, nameToken, subNameToken, argumentTokens);
     }
 
-    private string? ExtractToken(
+    private string ExtractRequiredToken(
         Dictionary<CliInstructionTokenType, CliInstructionTokenIndex> indexes,
         string terminalInput,
         CliInstructionTokenType tokenType,
         CliInstructionExceptionCode exceptionCode,
-        string? exceptionMessage,
-        bool isRequired)
+        string exceptionMessage)
     {
         var tokenIndex = indexes[tokenType];
         
         if (!tokenIndex.Found)
         {
-            if (isRequired)
-            {
-                throw new CliInstructionException(exceptionCode, exceptionMessage!);
-            }
+            throw new CliInstructionException(exceptionCode, exceptionMessage);
+        }
+
+        return terminalInput[tokenIndex.StartIndex..tokenIndex.EndIndex];
+    }
+
+    private string? ExtractOptionalToken(
+        Dictionary<CliInstructionTokenType, CliInstructionTokenIndex> indexes,
+        string terminalInput,
+        CliInstructionTokenType tokenType)
+    {
+        var tokenIndex = indexes[tokenType];
+        
+        if (!tokenIndex.Found)
+        {
             return null;
         }
 
