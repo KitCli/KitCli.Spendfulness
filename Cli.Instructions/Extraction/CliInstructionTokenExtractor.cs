@@ -1,4 +1,5 @@
 using Cli.Instructions.Abstractions;
+using Cli.Instructions.Extensions;
 using Cli.Instructions.Indexers;
 
 namespace Cli.Instructions.Extraction;
@@ -40,7 +41,7 @@ public class CliInstructionTokenExtractor
             throw new CliInstructionException(exception.Code, exception.Message);
         }
 
-        return ExtractTokenContent(terminalInput, tokenIndex);
+        return terminalInput.ExtractTokenContent(tokenIndex);
     }
 
     private string? ExtractOptionalToken(
@@ -55,12 +56,7 @@ public class CliInstructionTokenExtractor
             return null;
         }
 
-        return ExtractTokenContent(terminalInput, tokenIndex);
-    }
-
-    private static string ExtractTokenContent(string terminalInput, CliInstructionTokenIndex tokenIndex)
-    {
-        return terminalInput[tokenIndex.StartIndex..tokenIndex.EndIndex];
+        return terminalInput.ExtractTokenContent(tokenIndex);
     }
     
     private static Dictionary<string, string?> ExtractArgumentTokens(
@@ -74,17 +70,14 @@ public class CliInstructionTokenExtractor
             return new Dictionary<string, string?>();
         }
         
-        var argumentInput = ExtractTokenContent(terminalInput, argumentIndex);
+        var argumentInput = terminalInput.ExtractTokenContent(argumentIndex);
 
-        var argumentTokens = argumentInput.Split(CliInstructionConstants.DefaultArgumentPrefix);
-        
-        var validArgumentTokens = argumentTokens
+        return argumentInput
+            .Split(CliInstructionConstants.DefaultArgumentPrefix)
             .Where(i => !string.IsNullOrWhiteSpace(i))
-            .Select(i => i.Trim());
-        
-        var parsedArgumentTokens = validArgumentTokens.Select(ParseArgumentInput);
-        
-        return parsedArgumentTokens.ToDictionary(token => token.Key, token => token.Value);
+            .Select(i => i.Trim())
+            .Select(ParseArgumentInput)
+            .ToDictionary(token => token.Key, token => token.Value);
     }
     
     private static KeyValuePair<string, string?> ParseArgumentInput(string terminalArgumentInput)

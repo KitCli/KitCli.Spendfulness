@@ -1,8 +1,8 @@
 namespace Cli.Instructions.Indexers;
 
-public class CliInstructionTokenIndex
+public record CliInstructionTokenIndex
 {
-    public bool Found { get; set; }
-    public int StartIndex { get; set; }
-    public int EndIndex { get; set; }
+    public bool Found { get; init; }
+    public int StartIndex { get; init; }
+    public int EndIndex { get; init; }
 }

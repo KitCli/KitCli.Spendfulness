@@ -14,7 +14,7 @@ public class CliInstructionTokenIndexer
         }
 
         var prefixIndex = IndexPrefixToken(terminalInput);
-        var nameIndex = IndexNameToken(terminalInput, prefixIndex);
+        var nameIndex = IndexNameToken(terminalInput, prefixIndex.EndIndex);
         var argumentsIndex = IndexArgumentsToken(terminalInput);
         var subNameIndex = IndexSubNameToken(terminalInput, nameIndex.EndIndex, argumentsIndex);
         
@@ -57,11 +57,9 @@ public class CliInstructionTokenIndexer
         };
     }
 
-    private static CliInstructionTokenIndex IndexNameToken(string terminalInput, CliInstructionTokenIndex prefixIndex)
+    private static CliInstructionTokenIndex IndexNameToken(string terminalInput, int afterPunctuationMarkIndex)
     {
         // e.g. /<here>spare-money help --argumentOne hello world --argumentTwo 1
-        var afterPunctuationMarkIndex = prefixIndex.EndIndex;
-        
         var firstSpaceIndex = terminalInput.IndexOf(CliInstructionConstants.DefaultSpaceCharacter);
         var hasFirstSpace = firstSpaceIndex != -1;
         
