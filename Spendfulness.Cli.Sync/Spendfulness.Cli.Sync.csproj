@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Spendfulness.Database\Spendfulness.Database.csproj" />
+      <ProjectReference Include="..\Ynab\Ynab.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Synchronisers\PossibleSpendingSampleSynchroniser 2.cs" />
+      <Compile Remove="Synchronisers\DerivableSpendingSampleSynchroniser 2.cs" />
+      <Compile Remove="Synchronisers\DatabaseSynchroniser 2.cs" />
+      <Compile Remove="Synchronisers\CommitmentSynchroniser 2.cs" />
+      <Compile Remove="SyncSetup 2.cs" />
+      <Compile Remove="Program 2.cs" />
+    </ItemGroup>
+
+</Project>
