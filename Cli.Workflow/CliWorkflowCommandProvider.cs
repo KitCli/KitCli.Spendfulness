@@ -8,7 +8,7 @@ namespace Cli.Workflow;
 // TODO: CLI - I think this abstraction is unnecessary.
 public class CliWorkflowCommandProvider(IServiceProvider serviceProvider)
 {
-    public ICliCommand GetCommand(CliInstruction instruction)
+    public IUnidentifiedCliCommandGenerator Provide(CliInstruction instruction)
     {
         if (string.IsNullOrEmpty(instruction.Name))
         {
@@ -20,7 +20,7 @@ public class CliWorkflowCommandProvider(IServiceProvider serviceProvider)
         {
             throw new NoCommandGeneratorException("Did not find generator for " + instruction.Name);
         }
-
-        return generator.Generate(instruction);
+        
+        return generator;
     }
 }

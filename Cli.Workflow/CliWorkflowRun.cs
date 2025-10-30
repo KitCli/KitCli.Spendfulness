@@ -1,5 +1,8 @@
+using Cli.Commands.Abstractions;
 using Cli.Commands.Abstractions.Exceptions;
 using Cli.Commands.Abstractions.Outcomes;
+using Cli.Commands.Abstractions.Properties;
+using Cli.Instructions.Abstractions;
 using Cli.Instructions.Parsers;
 using Cli.Workflow.Abstractions;
 using MediatR;
@@ -12,21 +15,27 @@ namespace Cli.Workflow;
 public class CliWorkflowRun
 {
     public readonly CliWorkflowRunState State;
+    public readonly List<CliInstruction> Instructions;
+    public readonly Dictionary<string, CliCommandProperty> Properties;
     
     private readonly CliInstructionParser _cliInstructionParser;
-    private readonly CliWorkflowCommandProvider _workflowCommandProvider;
+    private readonly CliWorkflowCommandProvider _workflowCommandGeneratorProvider;
     private readonly IMediator _mediator;
 
     public CliWorkflowRun(
         CliWorkflowRunState state,
+        List<CliInstruction> instructions,
+        Dictionary<string, CliCommandProperty> properties,
         CliInstructionParser cliInstructionParser,
-        CliWorkflowCommandProvider workflowCommandProvider,
+        CliWorkflowCommandProvider workflowCommandGeneratorProvider,
         IMediator mediator)
     {
         State = state;
-        
+        Instructions = instructions;
+        Properties = properties;
+
         _cliInstructionParser = cliInstructionParser;
-        _workflowCommandProvider = workflowCommandProvider;
+        _workflowCommandGeneratorProvider = workflowCommandGeneratorProvider;
         _mediator = mediator;
     }
 
@@ -34,8 +43,15 @@ public class CliWorkflowRun
     
     public async Task<CliCommandOutcome> RespondToAsk(string? ask)
     {
-        State.ChangeTo(ClIWorkflowRunStateType.Created);
+        var needsToContinue = State.Is(ClIWorkflowRunStateType.NeedsToContinue);
         
+        if (!needsToContinue)
+        {
+            // If it's already running, its not created!
+            State.ChangeTo(ClIWorkflowRunStateType.Created);
+        }
+        
+        // Do process as normal.
         if (!IsValidAsk(ask))
         {
             State.ChangeTo(ClIWorkflowRunStateType.InvalidAsk);
@@ -47,10 +63,10 @@ public class CliWorkflowRun
             State.ChangeTo(ClIWorkflowRunStateType.Running);
             
             var instruction = _cliInstructionParser.Parse(ask!);
-
-            var command = _workflowCommandProvider.GetCommand(instruction);
-
-            return await _mediator.Send(command);
+            
+            var command = PrepareCommand(instruction);
+            
+            return await ExecuteCommand(command);
         }
         // TODO: CLI - Custom/re-use exception at some point.
         catch (ArgumentNullException)
@@ -75,7 +91,49 @@ public class CliWorkflowRun
         }
         finally
         {
-            State.ChangeTo(ClIWorkflowRunStateType.Finished);
+            var instruction = _cliInstructionParser.Parse(ask!);
+            var commandGenerator = _workflowCommandGeneratorProvider.Provide(instruction);
+            var command = commandGenerator.Generate(instruction);
+            
+            // TODO: Not neccessarily a dictator of continuation.
+            var nextState = command.IsContinuous
+                ? ClIWorkflowRunStateType.NeedsToContinue
+                : ClIWorkflowRunStateType.Finished;
+                        
+            State.ChangeTo(nextState);
         }
+    }
+
+    public CliCommand PrepareCommand(CliInstruction nextInstruction)
+    {
+        // TODO: If re-running, get the old generator. If not re-running, get a new one.
+        var instructionToGenerateCommandWith = State.Is(ClIWorkflowRunStateType.NeedsToContinue)
+            ? Instructions.Last()
+            : nextInstruction;
+        
+        var commandGenerator = _workflowCommandGeneratorProvider.Provide(instructionToGenerateCommandWith);
+        
+        var command = commandGenerator.Generate(nextInstruction);
+
+        // Attach already existing properties to newly generate command.
+        command.Properties = Properties;
+        
+        return command;
+    }
+
+    private async Task<CliCommandOutcome> ExecuteCommand<TCliCommand>(TCliCommand command) where TCliCommand : CliCommand
+    {
+        var outcome = await _mediator.Send(command);
+        
+        if (outcome is CliCommandPropertiesOutcome propertiesOutcome)
+        {
+            // Overwrite existing properties with new ones in case they were changed.
+            foreach (var property in propertiesOutcome.Properties)
+            {
+                Properties[property.PropertyKey] = property;
+            }
+        }
+        
+        return outcome;
     }
 }

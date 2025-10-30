@@ -1,3 +1,4 @@
+using Cli.Commands.Abstractions.Properties;
 using Cli.Instructions.Parsers;
 using Cli.Workflow.Abstractions;
 using MediatR;
@@ -26,22 +27,23 @@ public class CliWorkflow
     /// Create a new run, a sub-state machine of an individual execution.
     /// </summary>
     /// <returns>A sub-state mchine of an individual execution.</returns>
-    public CliWorkflowRun CreateRun()
+    // TODO: NextRun? Not CreateRun?
+    public CliWorkflowRun NextRun()
     {
+        var runNeedsToContinue = Runs.LastOrDefault(run =>
+            run.State.Is(ClIWorkflowRunStateType.NeedsToContinue));
+        
+        if (runNeedsToContinue != null)
+        {
+            return runNeedsToContinue;
+        }
+        
         // TODO: CLI - Store this somewhere?
-        var state = new CliWorkflowRunState();
+        var newlyCreatedRun = CreateNewRun();
         
-        var instructionParser = _serviceProvider.GetRequiredService<CliInstructionParser>();
-        
-        var commandProvider = _serviceProvider.GetRequiredService<CliWorkflowCommandProvider>();
-        
-        var mediator = _serviceProvider.GetRequiredService<IMediator>();
-        
-        var run = new CliWorkflowRun(state, instructionParser, commandProvider, mediator);
-        
-        Runs.Add(run);
+        Runs.Add(newlyCreatedRun);
 
-        return run;
+        return newlyCreatedRun;
     }
 
     /// <summary>
@@ -50,5 +52,17 @@ public class CliWorkflow
     public void Stop()
     {
         Status = CliWorkflowStatus.Stopped;
+    }
+    
+    private CliWorkflowRun CreateNewRun()
+    {
+        var state = new CliWorkflowRunState();
+        var properties = new Dictionary<string, CliCommandProperty>();
+        
+        var instructionParser = _serviceProvider.GetRequiredService<CliInstructionParser>();
+        var commandProvider = _serviceProvider.GetRequiredService<CliWorkflowCommandProvider>();
+        var mediator = _serviceProvider.GetRequiredService<IMediator>();
+        
+        return new CliWorkflowRun(state, properties, instructionParser, commandProvider, mediator);
     }
 }

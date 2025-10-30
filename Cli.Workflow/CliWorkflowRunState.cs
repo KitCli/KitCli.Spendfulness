@@ -23,6 +23,12 @@ public class CliWorkflowRunState
         Changes.Add(stateChange);
     }
 
+    public bool Is(ClIWorkflowRunStateType suggestedStateType)
+    {
+        // TODO: Clean this up.
+        return Changes.LastOrDefault()?.MovedTo == suggestedStateType;
+    }
+
     private ClIWorkflowRunStateType CanChangeTo(ClIWorkflowRunStateType stateTypeToChangeTo)
     {
         var mostRecentState = Changes.LastOrDefault();
@@ -62,6 +68,10 @@ public class CliWorkflowRunState
     [
         new(ClIWorkflowRunStateType.NotInitialized, ClIWorkflowRunStateType.Created),
         new(ClIWorkflowRunStateType.Created, ClIWorkflowRunStateType.Running),
+        
+        // This exists to handle multi-turn commands.
+        new(ClIWorkflowRunStateType.Running, ClIWorkflowRunStateType.NeedsToContinue),
+        new(ClIWorkflowRunStateType.NeedsToContinue, ClIWorkflowRunStateType.Running),
         
         new(ClIWorkflowRunStateType.Running, ClIWorkflowRunStateType.InvalidAsk),
         new(ClIWorkflowRunStateType.InvalidAsk, ClIWorkflowRunStateType.Finished),

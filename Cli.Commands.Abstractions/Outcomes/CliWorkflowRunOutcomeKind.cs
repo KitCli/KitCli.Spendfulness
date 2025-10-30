@@ -6,5 +6,6 @@ public enum CliWorkflowRunOutcomeKind
     Exception,
     Table,
     Output,
+    Properties,
     Nothing,
 }
