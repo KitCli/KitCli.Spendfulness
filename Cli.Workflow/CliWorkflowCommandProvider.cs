@@ -37,9 +37,9 @@ public class CliWorkflowCommandProvider(IServiceProvider serviceProvider)
             throw new NoCommandGeneratorException("Did not find generator for " + nextInstruction.Name);
         }
         
-        var builder = new CliNextCommmandDefinition();
+        var builder = new CliCommandMap();
         
-        priorCommandGenerator.NextCommands(builder);
+        priorCommandGenerator.Map(builder);
         
         if (!builder.CanMoveTo(nextInstruction.Name!))
         {

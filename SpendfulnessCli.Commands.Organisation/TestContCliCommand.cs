@@ -17,9 +17,9 @@ public class TestContCliCommandGenerator : ICliCommandGenerator<TestContCliComma
         return new TestContCliCommand();
     }
 
-    public void NextCommands(CliNextCommmandDefinition commmandDefinition)
+    public void Map(CliCommandMap commandMap)
     {
-        commmandDefinition
+        commandMap
             .Next<TestAfterCliCommand>();
     }
 }
