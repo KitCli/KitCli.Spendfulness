@@ -3,7 +3,7 @@
 namespace Cli.Commands.Abstractions.Tests;
 
 [TestFixture]
-public class CliCommandExtensionTests
+public class CliCommandTests
 {
     public record TestCliCommand : CliCommand
     {
