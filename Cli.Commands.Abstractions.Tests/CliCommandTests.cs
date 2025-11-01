@@ -37,6 +37,6 @@ public class CliCommandTests
         var commandName = command.GetCommandName();
 
         // Assert
-        Assert.That(commandName, Is.EqualTo("AnotherCommand"));;
+        Assert.That(commandName, Is.EqualTo("AnotherCommand"));
     }
 }
