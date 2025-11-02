@@ -20,7 +20,7 @@ public class CliWorkflowCommandProvider(IServiceProvider serviceProvider)
         {
             throw new NoCommandGeneratorException("Did not find generator for " + instruction.Name);
         }
-        
+
         return generator.Generate(instruction);
     }
 
