@@ -1,7 +1,10 @@
 using Cli.Commands.Abstractions;
 using Cli.Commands.Abstractions.Outcomes;
+using Cli.Commands.Abstractions.Properties;
+using Cli.Instructions.Abstractions;
 using Spendfulness.Database;
 using SpendfulnessCli.Aggregation.Aggregates;
+using SpendfulnessCli.Aggregation.Aggregator;
 using SpendfulnessCli.Aggregation.Aggregator.ListAggregators;
 using SpendfulnessCli.CliTables.ViewModelBuilders;
 using Ynab.Extensions;
@@ -29,7 +32,7 @@ public class MonthlySpendingCliCommandHandler: CliCommandHandler, ICliCommandHan
         return Compile(viewModel);
     }
 
-    private async Task<ListYnabAggregator<TransactionMonthTotalAggregate>> PrepareAggregator(MonthlySpendingCliCommand cliCommand)
+    private async Task<TransactionMonthTotalYnabAggregator> PrepareAggregator(MonthlySpendingCliCommand cliCommand)
     {
         var budget = await _spendfulnessBudgetClient.GetDefaultBudget();
 
@@ -42,6 +45,43 @@ public class MonthlySpendingCliCommandHandler: CliCommandHandler, ICliCommandHan
             aggregator.BeforeAggregation(o => o.FilterToCategories(cliCommand.CategoryId.Value));
         }
         
+        // TODO: Find a better way to pass this around.
+        cliCommand.Properties.Add(new AggregatorCommandProperty<TransactionMonthTotalAggregate>(aggregator));
+        
         return aggregator;
+    }
+}
+
+public class AggregatorCommandProperty<TAggregate>(ListYnabAggregator<TAggregate> aggregator)
+    : CustomCliCommandProperty<ListYnabAggregator<TAggregate>>(typeof(TAggregate).Name, aggregator)
+{
+    
+}
+
+public record YnabFilterMonthlySpendingCliCommand : CliCommand
+{
+    
+}
+
+public class YnabFilterMonthlySpendingCliCommandGenerator : ICliCommandGenerator<YnabFilterMonthlySpendingCliCommand>
+{
+    public CliCommand Generate(CliInstruction instruction)
+    {
+        return new YnabFilterMonthlySpendingCliCommand();
+    }
+}
+
+public class YnabFilterMonthlySpendingCliCommandHandler : CliCommandHandler, ICliCommandHandler<YnabFilterMonthlySpendingCliCommand>
+{
+    public Task<CliCommandOutcome> Handle(YnabFilterMonthlySpendingCliCommand command, CancellationToken cancellationToken)
+    {
+        var x = command
+            .Properties
+            .OfType<AggregatorCommandProperty<TransactionMonthTotalAggregate>>()
+            .First();
+
+        x.PropertyValue.AfterAggregation(y => y.Take(2));
+        
+        return Task.FromResult<CliCommandOutcome>(new CliCommandNothingOutcome());
     }
 }

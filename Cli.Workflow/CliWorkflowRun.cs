@@ -117,24 +117,21 @@ public class CliWorkflowRun
         
         var ignorePriorInstruction = priorInstruction == null || onSameInstruction;
 
-        var command = ignorePriorInstruction
+        return ignorePriorInstruction
             ? _workflowCommandProvider.Provide(nextInstruction)
             : _workflowCommandProvider.Provide(priorInstruction!, nextInstruction);
-        
-        return command with { Properties = Properties };
     }
 
     private async Task<CliCommandOutcome> ExecuteCommand<TCliCommand>(TCliCommand command) where TCliCommand : CliCommand
     {
-        var outcome = await _mediator.Send(command);
+        command.Properties = Properties.Values.ToList();
         
-        if (outcome is CliCommandPropertiesOutcome propertiesOutcome)
+        var outcome = await _mediator.Send(command);
+
+        // Overwrite existing properties with new ones in case they were changed.
+        foreach (var property in command.Properties)
         {
-            // Overwrite existing properties with new ones in case they were changed.
-            foreach (var property in propertiesOutcome.Properties)
-            {
-                Properties[property.PropertyKey] = property;
-            }
+            Properties[property.PropertyKey] = property;
         }
         
         return outcome;

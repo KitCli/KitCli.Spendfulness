@@ -10,12 +10,12 @@ namespace Cli.Commands.Abstractions;
 /// </summary>
 public abstract record CliCommand : IRequest<CliCommandOutcome>
 {
-    public Dictionary<string, CliCommandProperty> Properties { get; set; }
+    public List<CliCommandProperty> Properties { get; set; }
     public bool IsContinuous { get; set; }
     
     protected CliCommand(bool isContinuous = false)
     {
-        Properties = new Dictionary<string, CliCommandProperty>();
+        Properties = new List<CliCommandProperty>();
         IsContinuous = isContinuous;
     }
     

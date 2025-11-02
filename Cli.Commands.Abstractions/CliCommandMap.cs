@@ -9,11 +9,12 @@ public class CliCommandMap
     
     public CliCommandMap Next<TNextCommand>() where TNextCommand : CliCommand
     {
-        var nextCommandName = typeof(TNextCommand)
-            .GetCommandName()
-            .ToLowerSplitString(CliInstructionConstants.DefaultCommandNameSeparator);
+        var commandName = typeof(TNextCommand).GetCommandName();
 
-        _nextCommands.Add(nextCommandName);
+        var commandInstruction = commandName.ToLowerSplitString(CliInstructionConstants.DefaultCommandNameSeparator);
+        var commandShorthandInstruction = commandName.ToLowerTitleCharacters();
+
+        _nextCommands.AddRange(commandInstruction, commandShorthandInstruction);
 
         return this;
     }

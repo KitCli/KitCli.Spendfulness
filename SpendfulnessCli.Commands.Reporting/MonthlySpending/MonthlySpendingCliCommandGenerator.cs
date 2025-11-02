@@ -18,4 +18,9 @@ public class MonthlySpendingCliCommandGenerator : ICliCommandGenerator<MonthlySp
             CategoryId = categoryIdArgument?.ArgumentValue
         };
     }
+
+    public void Map(CliCommandMap commandMap)
+    {
+        commandMap.Next<YnabFilterMonthlySpendingCliCommand>();
+    }
 }

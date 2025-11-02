@@ -10,4 +10,8 @@ public record MonthlySpendingCliCommand : CliCommand
     }
     
     public Guid? CategoryId { get; set; }
+
+    public MonthlySpendingCliCommand() : base(true)
+    {
+    }
 }

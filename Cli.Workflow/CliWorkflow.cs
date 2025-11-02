@@ -31,8 +31,7 @@ public class CliWorkflow
     // TODO: NextRun? Not CreateRun?
     public CliWorkflowRun NextRun()
     {
-        var runNeedsToContinue = Runs.LastOrDefault(run =>
-            run.State.Is(ClIWorkflowRunStateType.NeedsToContinue));
+        var runNeedsToContinue = Runs.LastOrDefault(run => run.State.Is(ClIWorkflowRunStateType.NeedsToContinue));
         
         if (runNeedsToContinue != null)
         {
@@ -67,4 +66,4 @@ public class CliWorkflow
         
         return new CliWorkflowRun(state, instructions, properties, instructionParser, commandProvider, mediator);
     }
-}
+} 

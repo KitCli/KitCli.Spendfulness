@@ -16,7 +16,6 @@ public class CliCommandOutcomeIo : CliIo
             case CliCommandOutputOutcome outputOutcome:
                 Say(outputOutcome);
                 break;
-            case CliCommandPropertiesOutcome:
             case CliCommandNothingOutcome:
                 break;
             case CliCommandExceptionOutcome exceptionOutcome:
