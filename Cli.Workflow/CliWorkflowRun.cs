@@ -6,21 +6,20 @@ using MediatR;
 
 namespace Cli.Workflow;
 
-// TODO: Write unit tests.
 // TODO: Cli: I wonder if always attaching this to the command is a great way to add properties?
 // And then let implementers of the CLI pass around properties between commands and hooks.
 public class CliWorkflowRun
 {
     public readonly CliWorkflowRunState State;
     
-    private readonly CliInstructionParser _cliInstructionParser;
-    private readonly CliWorkflowCommandProvider _workflowCommandProvider;
+    private readonly ICliInstructionParser _cliInstructionParser;
+    private readonly ICliWorkflowCommandProvider _workflowCommandProvider;
     private readonly IMediator _mediator;
 
     public CliWorkflowRun(
         CliWorkflowRunState state,
-        CliInstructionParser cliInstructionParser,
-        CliWorkflowCommandProvider workflowCommandProvider,
+        ICliInstructionParser cliInstructionParser,
+        ICliWorkflowCommandProvider workflowCommandProvider,
         IMediator mediator)
     {
         State = state;
@@ -32,7 +31,7 @@ public class CliWorkflowRun
 
     private bool IsValidAsk(string? ask) => !string.IsNullOrEmpty(ask);
     
-    public async Task<CliCommandOutcome> RespondToAsk(string? ask)
+    public async ValueTask<CliCommandOutcome> RespondToAsk(string? ask)
     {
         State.ChangeTo(ClIWorkflowRunStateType.Created);
         

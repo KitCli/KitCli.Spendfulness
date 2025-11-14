@@ -19,6 +19,11 @@ public class CliWorkflowRunStateValidStateChangeTests : CliWorkflowRunStateTests
         ).SetName("State can be changed from Created to Running");
         
         yield return new TestCaseData(
+            new[] { ClIWorkflowRunStateType.Created },
+            ClIWorkflowRunStateType.InvalidAsk
+        ).SetName("State can be changed from Created to InvalidAsk");
+        
+        yield return new TestCaseData(
             new[] { ClIWorkflowRunStateType.Created, ClIWorkflowRunStateType.Running },
             ClIWorkflowRunStateType.InvalidAsk
         ).SetName("State can be changed from Running to InvalidAsk");

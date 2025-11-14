@@ -3,7 +3,6 @@ using Cli.Workflow.Abstractions;
 
 namespace Cli.Workflow;
 
-// TODO: Write unit tests.
 public class CliWorkflowRunState
 {
     public readonly Stopwatch Stopwatch = new Stopwatch();
@@ -61,7 +60,9 @@ public class CliWorkflowRunState
     private static readonly List<CliWorkflowRunStateChange> PossibleStateChanges =
     [
         new(ClIWorkflowRunStateType.NotInitialized, ClIWorkflowRunStateType.Created),
+        
         new(ClIWorkflowRunStateType.Created, ClIWorkflowRunStateType.Running),
+        new(ClIWorkflowRunStateType.Created, ClIWorkflowRunStateType.InvalidAsk),
         
         new(ClIWorkflowRunStateType.Running, ClIWorkflowRunStateType.InvalidAsk),
         new(ClIWorkflowRunStateType.InvalidAsk, ClIWorkflowRunStateType.Finished),
