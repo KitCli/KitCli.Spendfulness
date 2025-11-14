@@ -11,13 +11,13 @@ public class CliWorkflowRunState
 
     public void ChangeTo(ClIWorkflowRunStateType stateTypeToChangeTo)
     {
-        var currentState = CanChangeTo(stateTypeToChangeTo);
+        var priorState = CanChangeTo(stateTypeToChangeTo);
         
         UpdateStopwatch(stateTypeToChangeTo);
 
         var stateChange = new RecordedCliWorkflowRunStateChange(
             Stopwatch.ElapsedTicks,
-            currentState, 
+            priorState, 
             stateTypeToChangeTo);
         
         Changes.Add(stateChange);
@@ -26,20 +26,20 @@ public class CliWorkflowRunState
     private ClIWorkflowRunStateType CanChangeTo(ClIWorkflowRunStateType stateTypeToChangeTo)
     {
         var mostRecentState = Changes.LastOrDefault();
-        var currentState = mostRecentState?.MovedTo ?? ClIWorkflowRunStateType.NotInitialized;
+        var priorState = mostRecentState?.MovedTo ?? ClIWorkflowRunStateType.NotInitialized;
         
         // Can chnge from most recently changed to, to new state to change to.
         var possibleStateChange = PossibleStateChanges
             .Any(cliWorkflowRunStateChange =>
-                cliWorkflowRunStateChange.StartedAt == currentState && 
+                cliWorkflowRunStateChange.StartedAt == priorState && 
                 cliWorkflowRunStateChange.MovedTo == stateTypeToChangeTo);
 
         if (!possibleStateChange)
         {
-            throw new ImpossibleStateChangeException($"Invalid state change: {currentState} > {stateTypeToChangeTo}");
+            throw new ImpossibleStateChangeException($"Invalid state change: {priorState} > {stateTypeToChangeTo}");
         }
         
-        return currentState;
+        return priorState;
     }
 
     private void UpdateStopwatch(ClIWorkflowRunStateType stateTypeToChangeTo)

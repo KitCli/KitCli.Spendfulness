@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace Cli.Workflow.Tests;
 
 [TestFixture]
-public class CliWorkflowRunStateValidStateChangeTests
+public class CliWorkflowRunStateValidStateChangeTests : CliWorkflowRunStateTests
 {
     public static IEnumerable<TestCaseData> ValidStateChanges()
     {
@@ -60,15 +60,10 @@ public class CliWorkflowRunStateValidStateChangeTests
     }
     
     [TestCaseSource(nameof(ValidStateChanges))]
-    public void GivenStateIsNotInitialized_WhenChangeToCreated_RecordsStateChange(IEnumerable<ClIWorkflowRunStateType> priorStates, ClIWorkflowRunStateType stateToChangeTo)
+    public void GivenStateIsNotInitialized_WhenChangeToCreated_RecordsStateChange(IEnumerable<ClIWorkflowRunStateType>? priorStates, ClIWorkflowRunStateType stateToChangeTo)
     {
         // Arrange
-        var state = new CliWorkflowRunState();
-        
-        foreach (var priorState in priorStates)
-        {
-            state.ChangeTo(priorState);
-        }
+        var state = GetPreparedState(priorStates ?? new List<ClIWorkflowRunStateType>());
         
         // Act
         state.ChangeTo(stateToChangeTo);

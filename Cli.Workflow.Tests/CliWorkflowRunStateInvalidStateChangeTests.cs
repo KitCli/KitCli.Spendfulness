@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace Cli.Workflow.Tests;
 
-public class CliWorkflowRunStateInvalidStateChangeTests
+public class CliWorkflowRunStateInvalidStateChangeTests : CliWorkflowRunStateTests
 {
     public static IEnumerable<TestCaseData> InvalidStateChanges()
     {
@@ -58,16 +58,11 @@ public class CliWorkflowRunStateInvalidStateChangeTests
         ).SetName("State cannot be Finished when already Finished");
     }
     
-    
     [TestCaseSource(nameof(InvalidStateChanges))]
     public void GivenStateIs_WhenChangedTo_CannotBeChanged(IEnumerable<ClIWorkflowRunStateType> priorStates, ClIWorkflowRunStateType stateToChangeTo)
     {
-        var state = new CliWorkflowRunState();
-
-        foreach (var priorState in priorStates)
-        {
-            state.ChangeTo(priorState);
-        }
+        // Arrange
+        var state = GetPreparedState(priorStates);
         
         // Act & Assert
         Assert.Throws<ImpossibleStateChangeException>(() => state.ChangeTo(stateToChangeTo));
