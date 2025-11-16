@@ -5,7 +5,7 @@ using Cli.Instructions.Indexers;
 
 namespace Cli.Instructions.Parsers;
 
-public class CliInstructionParser
+public class CliInstructionParser : ICliInstructionParser
 {
     private readonly CliInstructionTokenIndexer _cliInstructionTokenIndexer;
     private readonly CliInstructionTokenExtractor _cliInstructionTokenExtractor;

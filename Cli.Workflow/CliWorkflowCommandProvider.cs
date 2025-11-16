@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Cli.Workflow;
 
 // TODO: CLI - I think this abstraction is unnecessary.
-public class CliWorkflowCommandProvider(IServiceProvider serviceProvider)
+public class CliWorkflowCommandProvider(IServiceProvider serviceProvider) : ICliWorkflowCommandProvider
 {
     public CliCommand GetCommand(CliInstruction instruction)
     {

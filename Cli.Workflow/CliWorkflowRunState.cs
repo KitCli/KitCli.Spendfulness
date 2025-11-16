@@ -3,7 +3,6 @@ using Cli.Workflow.Abstractions;
 
 namespace Cli.Workflow;
 
-// TODO: Write unit tests.
 public class CliWorkflowRunState
 {
     public readonly Stopwatch Stopwatch = new Stopwatch();
@@ -11,13 +10,13 @@ public class CliWorkflowRunState
 
     public void ChangeTo(ClIWorkflowRunStateType stateTypeToChangeTo)
     {
-        var currentState = CanChangeTo(stateTypeToChangeTo);
+        var priorState = CanChangeTo(stateTypeToChangeTo);
         
         UpdateStopwatch(stateTypeToChangeTo);
 
         var stateChange = new RecordedCliWorkflowRunStateChange(
             Stopwatch.ElapsedTicks,
-            currentState, 
+            priorState, 
             stateTypeToChangeTo);
         
         Changes.Add(stateChange);
@@ -26,20 +25,20 @@ public class CliWorkflowRunState
     private ClIWorkflowRunStateType CanChangeTo(ClIWorkflowRunStateType stateTypeToChangeTo)
     {
         var mostRecentState = Changes.LastOrDefault();
-        var currentState = mostRecentState?.MovedTo ?? ClIWorkflowRunStateType.NotInitialized;
+        var priorState = mostRecentState?.MovedTo ?? ClIWorkflowRunStateType.NotInitialized;
         
         // Can chnge from most recently changed to, to new state to change to.
         var possibleStateChange = PossibleStateChanges
             .Any(cliWorkflowRunStateChange =>
-                cliWorkflowRunStateChange.StartedAt == currentState && 
+                cliWorkflowRunStateChange.StartedAt == priorState && 
                 cliWorkflowRunStateChange.MovedTo == stateTypeToChangeTo);
 
         if (!possibleStateChange)
         {
-            throw new ImpossibleStateChangeException($"Invalid state change: {currentState} > {stateTypeToChangeTo}");
+            throw new ImpossibleStateChangeException($"Invalid state change: {priorState} > {stateTypeToChangeTo}");
         }
         
-        return currentState;
+        return priorState;
     }
 
     private void UpdateStopwatch(ClIWorkflowRunStateType stateTypeToChangeTo)
@@ -61,7 +60,9 @@ public class CliWorkflowRunState
     private static readonly List<CliWorkflowRunStateChange> PossibleStateChanges =
     [
         new(ClIWorkflowRunStateType.NotInitialized, ClIWorkflowRunStateType.Created),
+        
         new(ClIWorkflowRunStateType.Created, ClIWorkflowRunStateType.Running),
+        new(ClIWorkflowRunStateType.Created, ClIWorkflowRunStateType.InvalidAsk),
         
         new(ClIWorkflowRunStateType.Running, ClIWorkflowRunStateType.InvalidAsk),
         new(ClIWorkflowRunStateType.InvalidAsk, ClIWorkflowRunStateType.Finished),
