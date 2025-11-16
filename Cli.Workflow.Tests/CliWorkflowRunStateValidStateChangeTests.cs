@@ -65,10 +65,10 @@ public class CliWorkflowRunStateValidStateChangeTests : CliWorkflowRunStateTests
     }
     
     [TestCaseSource(nameof(ValidStateChanges))]
-    public void GivenStateIsNotInitialized_WhenChangeToCreated_RecordsStateChange(IEnumerable<ClIWorkflowRunStateType>? priorStates, ClIWorkflowRunStateType stateToChangeTo)
+    public void GivenStateIsNotInitialized_WhenChangeToCreated_RecordsStateChange(ClIWorkflowRunStateType[] priorStates, ClIWorkflowRunStateType stateToChangeTo)
     {
         // Arrange
-        var state = GetPreparedState(priorStates ?? new List<ClIWorkflowRunStateType>());
+        var state = GetPreparedState(priorStates);
         
         // Act
         state.ChangeTo(stateToChangeTo);
