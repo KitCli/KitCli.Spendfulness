@@ -9,7 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Spendfulness.Database;
 using SpendfulnessCli;
 using SpendfulnessCli.Abstractions.Taxis;
-using SpendfulnessCli.Commands.Exports;
 using SpendfulnessCli.Commands.Reporting;
 using Ynab.Extensions;
 
@@ -23,7 +22,6 @@ var serviceProvider = new ServiceCollection()
     .AddReportingCommands() // Commands that work with YNAB data
     .AddOrganisationCommands() // Commands that help organise the data
     .AddPersonalisationCommands() // Commands for CRUD with db data
-    .AddExportsCommands() // Commands for exporting data
     .AddCliInstructions() // Understand terminal commands
     .BuildServiceProvider();
 
