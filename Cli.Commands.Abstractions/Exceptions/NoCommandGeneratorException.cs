@@ -4,7 +4,7 @@ namespace Cli.Commands.Abstractions.Exceptions;
 
 public class NoCommandGeneratorException : CliException
 {
-    public NoCommandGeneratorException()
+    public NoCommandGeneratorException() : base(CliExceptionCode.NoCommandGenerator, string.Empty)
     {
     }
     

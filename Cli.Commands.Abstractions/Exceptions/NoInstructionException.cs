@@ -4,7 +4,7 @@ namespace Cli.Commands.Abstractions.Exceptions;
 
 public class NoInstructionException : CliException
 {
-    public NoInstructionException()
+    public NoInstructionException() : base(CliExceptionCode.NoInstruction, string.Empty)
     {
     }
     

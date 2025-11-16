@@ -56,7 +56,7 @@ public class CliWorkflowRunTests
     }
     
     [Test]
-    public async Task GivenInvalidAsk_WhenRespondToAsk_ReturnsNothignOutcome()
+    public async Task GivenInvalidAsk_WhenRespondToAsk_ReturnsNothingOutcome()
     {
         // Arrange
         var ask = string.Empty;
