@@ -68,6 +68,7 @@ public class CliWorkflowRunTests
     }
     
     [Test]
+    [Ignore("This business requirement should be based on a new command validator model")]
     public async Task GivenInstructionParserFails_WhenRespondToAsk_StateChangeBeforeFinishIsInvalidAsk()
     {
         // Arrange

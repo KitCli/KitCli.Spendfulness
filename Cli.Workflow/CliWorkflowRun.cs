@@ -38,12 +38,12 @@ public class CliWorkflowRun
             State.ChangeTo(ClIWorkflowRunStateType.InvalidAsk);
             return new CliCommandNothingOutcome();
         }
-
+        
+        var instruction = _cliInstructionParser.Parse(ask!);
+        
         try
         {
             State.ChangeTo(ClIWorkflowRunStateType.Running);
-            
-            var instruction = _cliInstructionParser.Parse(ask!);
 
             var command = _workflowCommandProvider.GetCommand(instruction);
 
