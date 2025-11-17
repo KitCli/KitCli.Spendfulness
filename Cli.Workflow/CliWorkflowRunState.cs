@@ -6,16 +6,16 @@ namespace Cli.Workflow;
 public class CliWorkflowRunState
 {
     public readonly Stopwatch Stopwatch = new Stopwatch();
-    public readonly List<RecordedCliWorkflowRunStateChange> Changes = [];
+    public readonly List<CliWorkflowRunStateChange> Changes = [];
 
+    // TODO: Find a way to STORE THINGS in state.
     public void ChangeTo(ClIWorkflowRunStateType stateTypeToChangeTo)
     {
         var priorState = CanChangeTo(stateTypeToChangeTo);
         
         UpdateStopwatch(stateTypeToChangeTo);
 
-        var stateChange = new RecordedCliWorkflowRunStateChange(
-            Stopwatch.ElapsedTicks,
+        var stateChange = new CliWorkflowRunStateChange(
             priorState, 
             stateTypeToChangeTo);
         
@@ -30,8 +30,8 @@ public class CliWorkflowRunState
         // Can chnge from most recently changed to, to new state to change to.
         var possibleStateChange = PossibleStateChanges
             .Any(cliWorkflowRunStateChange =>
-                cliWorkflowRunStateChange.StartedAt == priorState && 
-                cliWorkflowRunStateChange.MovedTo == stateTypeToChangeTo);
+                cliWorkflowRunStateChange.IfStartedAt == priorState && 
+                cliWorkflowRunStateChange.CanMoveTo == stateTypeToChangeTo);
 
         if (!possibleStateChange)
         {
@@ -57,7 +57,7 @@ public class CliWorkflowRunState
     /// <summary>
     /// Stops a CliWorkflowRun from being re-eexecuted for another command.
     /// </summary>
-    private static readonly List<CliWorkflowRunStateChange> PossibleStateChanges =
+    private static readonly List<PossibleCliWorkflowRunStateChange> PossibleStateChanges =
     [
         new(ClIWorkflowRunStateType.Created, ClIWorkflowRunStateType.Running),
         new(ClIWorkflowRunStateType.Created, ClIWorkflowRunStateType.InvalidAsk),
