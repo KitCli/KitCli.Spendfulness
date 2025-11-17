@@ -2,7 +2,6 @@ using Cli.Commands.Abstractions.Exceptions;
 using Cli.Commands.Abstractions.Outcomes;
 using Cli.Instructions.Abstractions.Validators;
 using Cli.Instructions.Parsers;
-using Cli.Instructions.Validators;
 using Cli.Workflow.Abstractions;
 using MediatR;
 
@@ -61,15 +60,13 @@ public class CliWorkflowRun
             var command = _workflowCommandProvider.GetCommand(instruction);
 
             var outcome = await _mediator.Send(command);
+
+            var nextState = outcome.Kind == CliCommandOutcomeKind.Aggregate
+                ? ClIWorkflowRunStateStatus.CanReuseOutcome
+                : ClIWorkflowRunStateStatus.AchievedOutcome;
             
-            // TODO: Even if I can attach the outcome...
-            // It doesnt mean I have access to the data used to drive that outcome.
-            // Should those commands surface that data?
-            // Should a command return an aggregator outcome? - this feels reasonable. it can be used to not break everhything,
-            // Should outcomes always return their aggregator? -- this feels dirty.
-            // Decisions... decsisions....
-            State.ChangeTo(ClIWorkflowRunStateStatus.AchievedOutcome, outcome);
-            
+            State.ChangeTo(nextState, outcome);
+
             return outcome;
         }
         catch (NoCommandGeneratorException)

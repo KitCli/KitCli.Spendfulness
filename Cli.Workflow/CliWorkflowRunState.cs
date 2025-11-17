@@ -102,5 +102,8 @@ public class CliWorkflowRunState
         
         new(ClIWorkflowRunStateStatus.Running, ClIWorkflowRunStateStatus.AchievedOutcome),
         new(ClIWorkflowRunStateStatus.AchievedOutcome, ClIWorkflowRunStateStatus.Finished),
+        
+        new(ClIWorkflowRunStateStatus.Running, ClIWorkflowRunStateStatus.CanReuseOutcome),
+        new(ClIWorkflowRunStateStatus.CanReuseOutcome, ClIWorkflowRunStateStatus.Finished)
     ];
 }

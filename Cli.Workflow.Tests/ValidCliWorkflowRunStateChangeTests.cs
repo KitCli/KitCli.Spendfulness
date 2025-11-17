@@ -32,11 +32,23 @@ public class ValidCliWorkflowRunStateChangeTests : CliWorkflowRunStateTests
             ClIWorkflowRunStateStatus.AchievedOutcome
         ).SetName("GivenStateIsRunning_WhenChangeToAchievedOutcome_CanBeChanged");
         
+        // Command handler returns aggregate outcome, which cna be reused
+        yield return new TestCaseData(
+            new[] { ClIWorkflowRunStateStatus.Running },
+            ClIWorkflowRunStateStatus.CanReuseOutcome
+        ).SetName("GivenStateIsRunning_WhenChangeToCanReuseOutcome_CanBeChanged");
+        
         // try/catch returns outcome achieved
         yield return new TestCaseData(
             new[] { ClIWorkflowRunStateStatus.Running, ClIWorkflowRunStateStatus.AchievedOutcome },
             ClIWorkflowRunStateStatus.Finished
         ).SetName("GivenStateIsAchievedOutcome_WhenChangeToFinished_CanBeChanged");
+        
+        // try/catch returns outcome can be reused
+        yield return new TestCaseData(
+            new[] { ClIWorkflowRunStateStatus.Running, ClIWorkflowRunStateStatus.CanReuseOutcome },
+            ClIWorkflowRunStateStatus.Finished
+        ).SetName("GivenStateIsCanReuseOutcome_WhenChangeToFinished_CanBeChanged");
         
         // Command handler failed.
         yield return new TestCaseData(

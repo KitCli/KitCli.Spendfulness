@@ -43,6 +43,11 @@ public class InvalidCliWorkflowRunStateChangeTests : CliWorkflowRunStateTests
         ).SetName("GivenStateIsAchievedOutcome_WhenChangedToAchievedOutcome_CannotBeChanged");
         
         yield return new TestCaseData(
+            new [] { ClIWorkflowRunStateStatus.Running, ClIWorkflowRunStateStatus.CanReuseOutcome },
+            ClIWorkflowRunStateStatus.CanReuseOutcome
+        ).SetName("GivenStateIsCanReuseOutcome_WhenChangedToCanReuseOutcome_CannotBeChanged");
+        
+        yield return new TestCaseData(
             new [] { ClIWorkflowRunStateStatus.Running, ClIWorkflowRunStateStatus.AchievedOutcome, ClIWorkflowRunStateStatus.Finished },
             ClIWorkflowRunStateStatus.Finished
         ).SetName("GivenStateIsFinished_WhenChangedToFinished_CannotBeChanged");
