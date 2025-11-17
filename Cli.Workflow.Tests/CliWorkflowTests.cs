@@ -1,4 +1,6 @@
+using Cli.Instructions.Abstractions.Validators;
 using Cli.Instructions.Parsers;
+using Cli.Instructions.Validators;
 using Cli.Workflow.Abstractions;
 using MediatR;
 using Moq;
@@ -32,6 +34,10 @@ public class CliWorkflowTests
         _serviceProviderMock
             .Setup(sp => sp.GetService(typeof(ICliInstructionParser)))
             .Returns(new Mock<ICliInstructionParser>().Object);
+        
+        _serviceProviderMock
+            .Setup(sp => sp.GetService(typeof(ICliInstructionValidator)))
+            .Returns(new Mock<ICliInstructionValidator>().Object);
         
         _serviceProviderMock
             .Setup(sp =>  sp.GetService(typeof(ICliWorkflowCommandProvider)))
