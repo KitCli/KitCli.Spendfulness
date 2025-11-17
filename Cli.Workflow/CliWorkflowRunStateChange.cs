@@ -5,13 +5,13 @@ namespace Cli.Workflow;
 public class CliWorkflowRunStateChange
 {
     public readonly TimeSpan At;
-    public readonly ClIWorkflowRunStateType From;
-    public readonly ClIWorkflowRunStateType To;
+    public readonly ClIWorkflowRunStateStatus From;
+    public readonly ClIWorkflowRunStateStatus To;
     
     public CliWorkflowRunStateChange(
         TimeSpan at,
-        ClIWorkflowRunStateType from,
-        ClIWorkflowRunStateType to)
+        ClIWorkflowRunStateStatus from,
+        ClIWorkflowRunStateStatus to)
     {
         At = at;
         From = from;

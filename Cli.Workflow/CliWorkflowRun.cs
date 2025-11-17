@@ -40,20 +40,20 @@ public class CliWorkflowRun
     {
         if (!IsEmptyAsk(ask))
         {
-            State.ChangeTo(ClIWorkflowRunStateType.InvalidAsk);
+            State.ChangeTo(ClIWorkflowRunStateStatus.InvalidAsk);
             return new CliCommandNothingOutcome();
         }
         
         var instruction = _cliInstructionParser.Parse(ask!);
         if (!_cliInstructionValidator.IsValidInstruction(instruction))
         {
-            State.ChangeTo(ClIWorkflowRunStateType.InvalidAsk);
+            State.ChangeTo(ClIWorkflowRunStateStatus.InvalidAsk);
             return new CliCommandNothingOutcome();
         }
         
         try
         {
-            State.ChangeTo(ClIWorkflowRunStateType.Running);
+            State.ChangeTo(ClIWorkflowRunStateStatus.Running);
 
             var command = _workflowCommandProvider.GetCommand(instruction);
 
@@ -61,17 +61,17 @@ public class CliWorkflowRun
         }
         catch (NoCommandGeneratorException)
         {
-            State.ChangeTo(ClIWorkflowRunStateType.InvalidAsk);
+            State.ChangeTo(ClIWorkflowRunStateStatus.InvalidAsk);
             return new CliCommandNothingOutcome();
         }
         catch (Exception exception)
         {
-            State.ChangeTo(ClIWorkflowRunStateType.Exceptional);
+            State.ChangeTo(ClIWorkflowRunStateStatus.Exceptional);
             return new CliCommandExceptionOutcome(exception);
         }
         finally
         {
-            State.ChangeTo(ClIWorkflowRunStateType.Finished);
+            State.ChangeTo(ClIWorkflowRunStateStatus.Finished);
         }
     }
 }

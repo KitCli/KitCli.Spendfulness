@@ -2,8 +2,8 @@ using Cli.Workflow.Abstractions;
 
 namespace Cli.Workflow;
 
-public class PossibleCliWorkflowRunStateChange(ClIWorkflowRunStateType ifStartedAt, ClIWorkflowRunStateType canMoveTo)
+public class PossibleCliWorkflowRunStateChange(ClIWorkflowRunStateStatus ifStartedAt, ClIWorkflowRunStateStatus canMoveTo)
 {
-    public readonly ClIWorkflowRunStateType IfStartedAt = ifStartedAt;
-    public readonly ClIWorkflowRunStateType CanMoveTo = canMoveTo;
+    public readonly ClIWorkflowRunStateStatus IfStartedAt = ifStartedAt;
+    public readonly ClIWorkflowRunStateStatus CanMoveTo = canMoveTo;
 }

@@ -9,43 +9,43 @@ public class CliWorkflowRunStateValidStateChangeTests : CliWorkflowRunStateTests
     public static IEnumerable<TestCaseData> ValidStateChanges()
     {
         yield return new TestCaseData(
-            Array.Empty<ClIWorkflowRunStateType>(),
-            ClIWorkflowRunStateType.Running
+            Array.Empty<ClIWorkflowRunStateStatus>(),
+            ClIWorkflowRunStateStatus.Running
         ).SetName("State can be changed from Created to Running");
         
         yield return new TestCaseData(
-            Array.Empty<ClIWorkflowRunStateType>(),
-            ClIWorkflowRunStateType.InvalidAsk
+            Array.Empty<ClIWorkflowRunStateStatus>(),
+            ClIWorkflowRunStateStatus.InvalidAsk
         ).SetName("State can be changed from Created to InvalidAsk");
         
         yield return new TestCaseData(
-            new[] { ClIWorkflowRunStateType.Running },
-            ClIWorkflowRunStateType.InvalidAsk
+            new[] { ClIWorkflowRunStateStatus.Running },
+            ClIWorkflowRunStateStatus.InvalidAsk
         ).SetName("State can be changed from Running to InvalidAsk");
         
         yield return new TestCaseData(
-            new[] { ClIWorkflowRunStateType.Running, ClIWorkflowRunStateType.InvalidAsk },
-            ClIWorkflowRunStateType.Finished
+            new[] { ClIWorkflowRunStateStatus.Running, ClIWorkflowRunStateStatus.InvalidAsk },
+            ClIWorkflowRunStateStatus.Finished
         ).SetName("State can be changed from InvalidAsk to Finished");
         
         yield return new TestCaseData(
-            new[] { ClIWorkflowRunStateType.Running },
-            ClIWorkflowRunStateType.Exceptional
+            new[] { ClIWorkflowRunStateStatus.Running },
+            ClIWorkflowRunStateStatus.Exceptional
         ).SetName("State can be changed from Running to Exceptional");
         
         yield return new TestCaseData(
-            new[] { ClIWorkflowRunStateType.Running, ClIWorkflowRunStateType.Exceptional },
-            ClIWorkflowRunStateType.Finished
+            new[] { ClIWorkflowRunStateStatus.Running, ClIWorkflowRunStateStatus.Exceptional },
+            ClIWorkflowRunStateStatus.Finished
         ).SetName("State can be changed from Exceptional to Finished");
         
         yield return new TestCaseData(
-            new[] { ClIWorkflowRunStateType.Running },
-            ClIWorkflowRunStateType.Finished
+            new[] { ClIWorkflowRunStateStatus.Running },
+            ClIWorkflowRunStateStatus.Finished
         ).SetName("State can be changed from Running to Finished");
     }
     
     [TestCaseSource(nameof(ValidStateChanges))]
-    public void GivenStateIs_WhenChangeTo_CanBeChanged(IEnumerable<ClIWorkflowRunStateType> priorStates, ClIWorkflowRunStateType stateToChangeTo)
+    public void GivenStateIs_WhenChangeTo_CanBeChanged(IEnumerable<ClIWorkflowRunStateStatus> priorStates, ClIWorkflowRunStateStatus stateToChangeTo)
     {
         // Arrange
         var state = GetPreparedState(priorStates);
@@ -55,7 +55,7 @@ public class CliWorkflowRunStateValidStateChangeTests : CliWorkflowRunStateTests
     }
     
     [TestCaseSource(nameof(ValidStateChanges))]
-    public void GivenStateIsNotInitialized_WhenChangeToCreated_RecordsStateChange(ClIWorkflowRunStateType[] priorStates, ClIWorkflowRunStateType stateToChangeTo)
+    public void GivenStateIsNotInitialized_WhenChangeToCreated_RecordsStateChange(ClIWorkflowRunStateStatus[] priorStates, ClIWorkflowRunStateStatus stateToChangeTo)
     {
         // Arrange
         var state = GetPreparedState(priorStates);
@@ -64,7 +64,7 @@ public class CliWorkflowRunStateValidStateChangeTests : CliWorkflowRunStateTests
         state.ChangeTo(stateToChangeTo);
         
         // Assert
-        var priorStateChange = priorStates.Any() ? priorStates.Last() : ClIWorkflowRunStateType.Created;
+        var priorStateChange = priorStates.Any() ? priorStates.Last() : ClIWorkflowRunStateStatus.Created;
         var stateChange = state.Changes.Last();
         
         Assert.That(stateChange, Is.Not.Null);

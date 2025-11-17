@@ -1,6 +1,6 @@
 namespace Cli.Workflow.Abstractions;
 
-public enum ClIWorkflowRunStateType
+public enum ClIWorkflowRunStateStatus
 {
     Created,
     Running,

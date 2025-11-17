@@ -5,8 +5,8 @@ namespace Cli.Workflow;
 
 public class InstructionCliWorkflowRunStateChange(
     TimeSpan at,
-    ClIWorkflowRunStateType from,
-    ClIWorkflowRunStateType to,
+    ClIWorkflowRunStateStatus from,
+    ClIWorkflowRunStateStatus to,
     CliInstruction instruction)
     : CliWorkflowRunStateChange(at, from, to)
 {

@@ -69,7 +69,7 @@ public class CliWorkflowRunTests
             .LastOrDefault();
         
         Assert.That(lastStateChange, Is.Not.Null);
-        Assert.That(lastStateChange.To, Is.EqualTo(ClIWorkflowRunStateType.InvalidAsk));
+        Assert.That(lastStateChange.To, Is.EqualTo(ClIWorkflowRunStateStatus.InvalidAsk));
     }
     
     [Test]
@@ -88,7 +88,7 @@ public class CliWorkflowRunTests
         // Assert
         var expectedStateChangeTypes = new[]
         {
-            ClIWorkflowRunStateType.InvalidAsk,
+            ClIWorkflowRunStateStatus.InvalidAsk,
         };
         
         var stateChangeTypes = _cliWorkflowRunState
@@ -122,9 +122,9 @@ public class CliWorkflowRunTests
         // Assert
         var expectedStateChangeTypes = new[]
         {
-            ClIWorkflowRunStateType.Running,
-            ClIWorkflowRunStateType.InvalidAsk,
-            ClIWorkflowRunStateType.Finished
+            ClIWorkflowRunStateStatus.Running,
+            ClIWorkflowRunStateStatus.InvalidAsk,
+            ClIWorkflowRunStateStatus.Finished
         };
         
         var stateChangeTypes = _cliWorkflowRunState
@@ -162,9 +162,9 @@ public class CliWorkflowRunTests
         // Assert
         var expectedStateChangeTypes = new[]
         {
-            ClIWorkflowRunStateType.Running,
-            ClIWorkflowRunStateType.Exceptional,
-            ClIWorkflowRunStateType.Finished
+            ClIWorkflowRunStateStatus.Running,
+            ClIWorkflowRunStateStatus.Exceptional,
+            ClIWorkflowRunStateStatus.Finished
         };
         
         var stateChangeTypes = _cliWorkflowRunState

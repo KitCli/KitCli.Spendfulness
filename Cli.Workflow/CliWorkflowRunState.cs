@@ -9,47 +9,47 @@ public class CliWorkflowRunState
     public readonly List<CliWorkflowRunStateChange> Changes = [];
 
     // TODO: Find a way to STORE THINGS in state.
-    public void ChangeTo(ClIWorkflowRunStateType stateTypeToChangeTo)
+    public void ChangeTo(ClIWorkflowRunStateStatus stateStatusToChangeTo)
     {
-        var priorState = CanChangeTo(stateTypeToChangeTo);
+        var priorState = CanChangeTo(stateStatusToChangeTo);
         
-        UpdateStopwatch(stateTypeToChangeTo);
+        UpdateStopwatch(stateStatusToChangeTo);
 
         var stateChange = new CliWorkflowRunStateChange(
             Stopwatch.Elapsed,
             priorState, 
-            stateTypeToChangeTo);
+            stateStatusToChangeTo);
         
         Changes.Add(stateChange);
     }
 
-    private ClIWorkflowRunStateType CanChangeTo(ClIWorkflowRunStateType stateTypeToChangeTo)
+    private ClIWorkflowRunStateStatus CanChangeTo(ClIWorkflowRunStateStatus stateStatusToChangeTo)
     {
         var mostRecentState = Changes.LastOrDefault();
-        var priorState = mostRecentState?.To ?? ClIWorkflowRunStateType.Created;
+        var priorState = mostRecentState?.To ?? ClIWorkflowRunStateStatus.Created;
         
         // Can chnge from most recently changed to, to new state to change to.
         var possibleStateChange = PossibleStateChanges
             .Any(cliWorkflowRunStateChange =>
                 cliWorkflowRunStateChange.IfStartedAt == priorState && 
-                cliWorkflowRunStateChange.CanMoveTo == stateTypeToChangeTo);
+                cliWorkflowRunStateChange.CanMoveTo == stateStatusToChangeTo);
 
         if (!possibleStateChange)
         {
-            throw new ImpossibleStateChangeException($"Invalid state change: {priorState} > {stateTypeToChangeTo}");
+            throw new ImpossibleStateChangeException($"Invalid state change: {priorState} > {stateStatusToChangeTo}");
         }
         
         return priorState;
     }
 
-    private void UpdateStopwatch(ClIWorkflowRunStateType stateTypeToChangeTo)
+    private void UpdateStopwatch(ClIWorkflowRunStateStatus stateStatusToChangeTo)
     {
-        if (stateTypeToChangeTo == ClIWorkflowRunStateType.Running)
+        if (stateStatusToChangeTo == ClIWorkflowRunStateStatus.Running)
         {
             Stopwatch.Start();
         }
 
-        if (stateTypeToChangeTo == ClIWorkflowRunStateType.Finished)
+        if (stateStatusToChangeTo == ClIWorkflowRunStateStatus.Finished)
         {
             Stopwatch.Stop();
         }
@@ -60,15 +60,15 @@ public class CliWorkflowRunState
     /// </summary>
     private static readonly List<PossibleCliWorkflowRunStateChange> PossibleStateChanges =
     [
-        new(ClIWorkflowRunStateType.Created, ClIWorkflowRunStateType.Running),
-        new(ClIWorkflowRunStateType.Created, ClIWorkflowRunStateType.InvalidAsk),
+        new(ClIWorkflowRunStateStatus.Created, ClIWorkflowRunStateStatus.Running),
+        new(ClIWorkflowRunStateStatus.Created, ClIWorkflowRunStateStatus.InvalidAsk),
         
-        new(ClIWorkflowRunStateType.Running, ClIWorkflowRunStateType.InvalidAsk),
-        new(ClIWorkflowRunStateType.InvalidAsk, ClIWorkflowRunStateType.Finished),
+        new(ClIWorkflowRunStateStatus.Running, ClIWorkflowRunStateStatus.InvalidAsk),
+        new(ClIWorkflowRunStateStatus.InvalidAsk, ClIWorkflowRunStateStatus.Finished),
         
-        new(ClIWorkflowRunStateType.Running, ClIWorkflowRunStateType.Exceptional),
-        new(ClIWorkflowRunStateType.Exceptional, ClIWorkflowRunStateType.Finished),
+        new(ClIWorkflowRunStateStatus.Running, ClIWorkflowRunStateStatus.Exceptional),
+        new(ClIWorkflowRunStateStatus.Exceptional, ClIWorkflowRunStateStatus.Finished),
         
-        new(ClIWorkflowRunStateType.Running, ClIWorkflowRunStateType.Finished)
+        new(ClIWorkflowRunStateStatus.Running, ClIWorkflowRunStateStatus.Finished)
     ];
 }

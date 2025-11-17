@@ -4,7 +4,7 @@ namespace Cli.Workflow.Tests;
 
 public abstract class CliWorkflowRunStateTests
 {
-    protected static CliWorkflowRunState GetPreparedState(IEnumerable<ClIWorkflowRunStateType> priorStates)
+    protected static CliWorkflowRunState GetPreparedState(IEnumerable<ClIWorkflowRunStateStatus> priorStates)
     {
         var state = new CliWorkflowRunState();
         
