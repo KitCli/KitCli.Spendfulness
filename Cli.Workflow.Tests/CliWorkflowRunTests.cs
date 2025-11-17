@@ -37,25 +37,6 @@ public class CliWorkflowRunTests
     }
     
     [Test]
-    public async Task GivenAnything_WhenRespondToAsk_ChangesStateToCreated()
-    {
-        // Arrange
-        // (invalid ask so no dependencies get used)
-        var ask = string.Empty;
-        
-        // Act
-        _ = await _classUnderTest.RespondToAsk(ask);
-        
-        // Assert
-        var firstStateChange = _cliWorkflowRunState
-            .Changes
-            .FirstOrDefault();
-        
-        Assert.That(firstStateChange, Is.Not.Null);
-        Assert.That(firstStateChange.MovedTo, Is.EqualTo(ClIWorkflowRunStateType.Created));
-    }
-    
-    [Test]
     public async Task GivenInvalidAsk_WhenRespondToAsk_ReturnsNothingOutcome()
     {
         // Arrange
@@ -102,7 +83,6 @@ public class CliWorkflowRunTests
         // Assert
         var expectedStateChangeTypes = new[]
         {
-            ClIWorkflowRunStateType.Created,
             ClIWorkflowRunStateType.Running,
             ClIWorkflowRunStateType.InvalidAsk,
             ClIWorkflowRunStateType.Finished
@@ -135,7 +115,6 @@ public class CliWorkflowRunTests
         // Assert
         var expectedStateChangeTypes = new[]
         {
-            ClIWorkflowRunStateType.Created,
             ClIWorkflowRunStateType.Running,
             ClIWorkflowRunStateType.InvalidAsk,
             ClIWorkflowRunStateType.Finished
@@ -172,7 +151,6 @@ public class CliWorkflowRunTests
         // Assert
         var expectedStateChangeTypes = new[]
         {
-            ClIWorkflowRunStateType.Created,
             ClIWorkflowRunStateType.Running,
             ClIWorkflowRunStateType.Exceptional,
             ClIWorkflowRunStateType.Finished

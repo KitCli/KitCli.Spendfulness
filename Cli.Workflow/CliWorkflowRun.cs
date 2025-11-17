@@ -33,8 +33,6 @@ public class CliWorkflowRun
     
     public async ValueTask<CliCommandOutcome> RespondToAsk(string? ask)
     {
-        State.ChangeTo(ClIWorkflowRunStateType.Created);
-        
         if (!IsValidAsk(ask))
         {
             State.ChangeTo(ClIWorkflowRunStateType.InvalidAsk);

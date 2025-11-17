@@ -10,7 +10,7 @@ public class CliWorkflowRunStateStopwatchTests : CliWorkflowRunStateTests
     public void GivenStateIsCreated_WhenChangeToRunning_StartsStopwatch()
     {
         // Arrange
-        var state = GetPreparedState([ClIWorkflowRunStateType.Created]);
+        var state = GetPreparedState([]);
         
         // Act
         state.ChangeTo(ClIWorkflowRunStateType.Running);
@@ -23,7 +23,7 @@ public class CliWorkflowRunStateStopwatchTests : CliWorkflowRunStateTests
     public void GivenStateIsRunning_WhenChangeToFinished_StopsStopwatch()
     {
         // Arrange
-        var state = GetPreparedState([ClIWorkflowRunStateType.Created, ClIWorkflowRunStateType.InvalidAsk]);
+        var state = GetPreparedState([ClIWorkflowRunStateType.InvalidAsk]);
         
         // Act
         state.ChangeTo(ClIWorkflowRunStateType.Finished);

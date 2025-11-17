@@ -9,42 +9,37 @@ public class CliWorkflowRunStateValidStateChangeTests : CliWorkflowRunStateTests
     public static IEnumerable<TestCaseData> ValidStateChanges()
     {
         yield return new TestCaseData(
-            Enumerable.Empty<ClIWorkflowRunStateType>(),
-            ClIWorkflowRunStateType.Created
-        ).SetName("State can be changed from NotInitialized to Created");
-        
-        yield return new TestCaseData(
-            new[] { ClIWorkflowRunStateType.Created },
+            Array.Empty<ClIWorkflowRunStateType>(),
             ClIWorkflowRunStateType.Running
         ).SetName("State can be changed from Created to Running");
         
         yield return new TestCaseData(
-            new[] { ClIWorkflowRunStateType.Created },
+            Array.Empty<ClIWorkflowRunStateType>(),
             ClIWorkflowRunStateType.InvalidAsk
         ).SetName("State can be changed from Created to InvalidAsk");
         
         yield return new TestCaseData(
-            new[] { ClIWorkflowRunStateType.Created, ClIWorkflowRunStateType.Running },
+            new[] { ClIWorkflowRunStateType.Running },
             ClIWorkflowRunStateType.InvalidAsk
         ).SetName("State can be changed from Running to InvalidAsk");
         
         yield return new TestCaseData(
-            new[] { ClIWorkflowRunStateType.Created, ClIWorkflowRunStateType.Running, ClIWorkflowRunStateType.InvalidAsk },
+            new[] { ClIWorkflowRunStateType.Running, ClIWorkflowRunStateType.InvalidAsk },
             ClIWorkflowRunStateType.Finished
         ).SetName("State can be changed from InvalidAsk to Finished");
         
         yield return new TestCaseData(
-            new[] { ClIWorkflowRunStateType.Created, ClIWorkflowRunStateType.Running },
+            new[] { ClIWorkflowRunStateType.Running },
             ClIWorkflowRunStateType.Exceptional
         ).SetName("State can be changed from Running to Exceptional");
         
         yield return new TestCaseData(
-            new[] { ClIWorkflowRunStateType.Created, ClIWorkflowRunStateType.Running, ClIWorkflowRunStateType.Exceptional },
+            new[] { ClIWorkflowRunStateType.Running, ClIWorkflowRunStateType.Exceptional },
             ClIWorkflowRunStateType.Finished
         ).SetName("State can be changed from Exceptional to Finished");
         
         yield return new TestCaseData(
-            new[] { ClIWorkflowRunStateType.Created, ClIWorkflowRunStateType.Running },
+            new[] { ClIWorkflowRunStateType.Running },
             ClIWorkflowRunStateType.Finished
         ).SetName("State can be changed from Running to Finished");
     }
@@ -53,12 +48,7 @@ public class CliWorkflowRunStateValidStateChangeTests : CliWorkflowRunStateTests
     public void GivenStateIs_WhenChangeTo_CanBeChanged(IEnumerable<ClIWorkflowRunStateType> priorStates, ClIWorkflowRunStateType stateToChangeTo)
     {
         // Arrange
-        var state = new CliWorkflowRunState();
-
-        foreach (var priorState in priorStates)
-        {
-            state.ChangeTo(priorState);
-        }
+        var state = GetPreparedState(priorStates);
         
         // Act & Assert
         Assert.DoesNotThrow(() => state.ChangeTo(stateToChangeTo));
@@ -74,7 +64,7 @@ public class CliWorkflowRunStateValidStateChangeTests : CliWorkflowRunStateTests
         state.ChangeTo(stateToChangeTo);
         
         // Assert
-        var priorStateChange = priorStates.Any() ? priorStates.Last() : ClIWorkflowRunStateType.NotInitialized;
+        var priorStateChange = priorStates.Any() ? priorStates.Last() : ClIWorkflowRunStateType.Created;
         var stateChange = state.Changes.Last();
         
         Assert.That(stateChange, Is.Not.Null);

@@ -25,7 +25,7 @@ public class CliWorkflowRunState
     private ClIWorkflowRunStateType CanChangeTo(ClIWorkflowRunStateType stateTypeToChangeTo)
     {
         var mostRecentState = Changes.LastOrDefault();
-        var priorState = mostRecentState?.MovedTo ?? ClIWorkflowRunStateType.NotInitialized;
+        var priorState = mostRecentState?.MovedTo ?? ClIWorkflowRunStateType.Created;
         
         // Can chnge from most recently changed to, to new state to change to.
         var possibleStateChange = PossibleStateChanges
@@ -43,7 +43,7 @@ public class CliWorkflowRunState
 
     private void UpdateStopwatch(ClIWorkflowRunStateType stateTypeToChangeTo)
     {
-        if (stateTypeToChangeTo != ClIWorkflowRunStateType.Running)
+        if (stateTypeToChangeTo == ClIWorkflowRunStateType.Running)
         {
             Stopwatch.Start();
         }
@@ -59,8 +59,6 @@ public class CliWorkflowRunState
     /// </summary>
     private static readonly List<CliWorkflowRunStateChange> PossibleStateChanges =
     [
-        new(ClIWorkflowRunStateType.NotInitialized, ClIWorkflowRunStateType.Created),
-        
         new(ClIWorkflowRunStateType.Created, ClIWorkflowRunStateType.Running),
         new(ClIWorkflowRunStateType.Created, ClIWorkflowRunStateType.InvalidAsk),
         

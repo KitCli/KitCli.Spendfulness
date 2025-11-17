@@ -9,31 +9,16 @@ public class CliWorkflowRunStateInvalidStateChangeTests : CliWorkflowRunStateTes
     {
         yield return new TestCaseData(
             Enumerable.Empty<ClIWorkflowRunStateType>(),
-            ClIWorkflowRunStateType.NotInitialized
-        ).SetName("State cannot be NotYetInitialized when already NotInitialized");
-        
-        yield return new TestCaseData(
-            new [] { ClIWorkflowRunStateType.Created },
             ClIWorkflowRunStateType.Created
         ).SetName("State cannot be Created when already Created");
         
         yield return new TestCaseData(
-            Enumerable.Empty<ClIWorkflowRunStateType>(),
-            ClIWorkflowRunStateType.Running
-        ).SetName("State cannot be Running when not NotInitialized");
-        
-        yield return new TestCaseData(
-            new [] { ClIWorkflowRunStateType.Created, ClIWorkflowRunStateType.Running },
+            new [] { ClIWorkflowRunStateType.Running },
             ClIWorkflowRunStateType.Running
         ).SetName("State cannot be Running when already Running");
         
         yield return new TestCaseData(
-            Enumerable.Empty<ClIWorkflowRunStateType>(),
-            ClIWorkflowRunStateType.InvalidAsk
-        ).SetName("State cannot be InvalidAsk when not NotInitialized");
-        
-        yield return new TestCaseData(
-            new [] { ClIWorkflowRunStateType.Created, ClIWorkflowRunStateType.Running, ClIWorkflowRunStateType.InvalidAsk},
+            new [] { ClIWorkflowRunStateType.Running, ClIWorkflowRunStateType.InvalidAsk},
             ClIWorkflowRunStateType.InvalidAsk
         ).SetName("State cannot be InvalidAsk when already InvalidAsk");
         
@@ -43,7 +28,7 @@ public class CliWorkflowRunStateInvalidStateChangeTests : CliWorkflowRunStateTes
         ).SetName("State cannot be Exceptional when not NotInitialized");
         
         yield return new TestCaseData(
-            new [] { ClIWorkflowRunStateType.Created, ClIWorkflowRunStateType.Running, ClIWorkflowRunStateType.Exceptional },
+            new [] { ClIWorkflowRunStateType.Running, ClIWorkflowRunStateType.Exceptional },
             ClIWorkflowRunStateType.Exceptional
         ).SetName("State cannot be InvalidAsk when already Exceptional");
         
@@ -53,7 +38,7 @@ public class CliWorkflowRunStateInvalidStateChangeTests : CliWorkflowRunStateTes
         ).SetName("State cannot be Finished when not NotInitialized");
         
         yield return new TestCaseData(
-            new [] { ClIWorkflowRunStateType.Created, ClIWorkflowRunStateType.Running, ClIWorkflowRunStateType.Finished },
+            new [] { ClIWorkflowRunStateType.Running, ClIWorkflowRunStateType.Finished },
             ClIWorkflowRunStateType.Finished
         ).SetName("State cannot be Finished when already Finished");
     }
