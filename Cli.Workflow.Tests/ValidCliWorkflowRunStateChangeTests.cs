@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace Cli.Workflow.Tests;
 
 [TestFixture]
-public class CliWorkflowRunStateValidStateChangeTests : CliWorkflowRunStateTests
+public class ValidCliWorkflowRunStateChangeTests : CliWorkflowRunStateTests
 {
     public static IEnumerable<TestCaseData> ValidStateChanges()
     {

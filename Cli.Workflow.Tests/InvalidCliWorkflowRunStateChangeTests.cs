@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace Cli.Workflow.Tests;
 
-public class CliWorkflowRunStateInvalidStateChangeTests : CliWorkflowRunStateTests
+public class InvalidCliWorkflowRunStateChangeTests : CliWorkflowRunStateTests
 {
     public static IEnumerable<TestCaseData> InvalidStateChanges()
     {
