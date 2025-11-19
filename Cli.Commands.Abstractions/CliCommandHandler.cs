@@ -6,24 +6,8 @@ namespace Cli.Commands.Abstractions;
 
 public abstract class CliCommandHandler
 {
-    protected static CliCommandOutcome[] Compile(CliTable cliTable)
-    {
-        var table = new ConsoleTable
-        {
-            Options =
-            {
-                EnableCount = cliTable.ShowRowCount
-            }
-        };
+    protected static CliCommandOutcome[] Compile(CliTable cliTable) => [new CliCommandTableOutcome(cliTable)];
 
-        table.AddColumn(cliTable.Columns.ToArray());
-       
-        foreach (var row in cliTable.Rows)
-            table.AddRow(row.ToArray());
-        
-        return [new CliCommandTableOutcome(table)];
-    }
-    
     protected static CliCommandOutcome[] Compile<TAggregate>(CliAggregator<TAggregate> aggregator)
         => [new CliCommandAggregatorOutcome<TAggregate>(aggregator)];
 

@@ -4,6 +4,7 @@ using Spendfulness.Database;
 using SpendfulnessCli.Aggregation.Aggregates;
 using SpendfulnessCli.Aggregation.Aggregator.ListAggregators;
 using SpendfulnessCli.CliTables.ViewModelBuilders;
+using Ynab;
 using Ynab.Extensions;
 
 namespace SpendfulnessCli.Commands.Reporting.MonthlySpending;
@@ -21,12 +22,16 @@ public class MonthlySpendingCliCommandHandler: CliCommandHandler, ICliCommandHan
     public async Task<CliCommandOutcome[]> Handle(MonthlySpendingCliCommand cliCommand, CancellationToken cancellationToken)
     {
         var aggregator = await PrepareAggregator(cliCommand);
-
-        // var viewModel = new TransactionMonthChangeCliTableBuilder()
-        //     .WithAggregator(aggregator)
-        //     .Build();
         
-        return Compile(aggregator);
+        var aggregatorOutcome = new CliCommandAggregatorOutcome<IEnumerable<TransactionMonthTotalAggregate>>(aggregator);
+        
+        var table = new TransactionMonthChangeCliTableBuilder()
+            .WithAggregator(aggregator)
+            .Build();
+
+        var tableOutcome = new CliCommandTableOutcome(table);
+        
+        return [tableOutcome, aggregatorOutcome];
     }
 
     private async Task<ListYnabAggregator<TransactionMonthTotalAggregate>> PrepareAggregator(MonthlySpendingCliCommand cliCommand)
