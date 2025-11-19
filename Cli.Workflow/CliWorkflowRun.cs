@@ -60,7 +60,7 @@ public class CliWorkflowRun
 
         try
         {
-            var command = await PrepareCommand(instruction);
+            var command = PrepareCommand(instruction);
             
             var outcome = await _mediator.Send(command);
             
@@ -94,16 +94,8 @@ public class CliWorkflowRun
         return kind == CliCommandOutcomeKind.Aggregate;
     }
     
-    private async Task<CliCommand> PrepareCommand(CliInstruction instruction)
+    private CliCommand PrepareCommand(CliInstruction instruction)
     {
-        var command = _workflowCommandProvider.GetCommand(instruction);
-
-        if (command is not ContinuousCliCommand continuousCommand)
-        {
-            return command;
-        }
-        
-        // Attach whatever results are from the previous outcomes.
         var properties = State
             .Changes
             .OfType<OutcomeCliWorkflowRunStateChange>()
@@ -113,10 +105,8 @@ public class CliWorkflowRun
                 .First(strategy => strategy.CanCreate(stateChange.Outcome))
                 .CreateProperty(stateChange.Outcome))
             .ToList();
-            
-        continuousCommand.Properties.AddRange(properties!);
-
-        return command;
+        
+        return _workflowCommandProvider.GetCommand(instruction, properties);
     }
 
     private void HandleAfterCommand(CliCommandOutcome outcome)

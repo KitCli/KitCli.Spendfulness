@@ -17,6 +17,7 @@ public static class ServiceCollectionExtensions
 
         return serviceCollection
             .AddCommandGenerators(assembly)
+            .AddContinuousCommandGenerators(assembly)
             .AddMediatRCommandsAndHandlers(assembly);
     }
 
@@ -45,6 +46,35 @@ public static class ServiceCollectionExtensions
                     implementationType)
                 .AddKeyedSingleton(
                     typeof(IUnidentifiedCliCommandGenerator),
+                    shorthandCommandName,
+                    implementationType);
+        }
+        
+        return serviceCollection;
+    }
+
+    public static IServiceCollection AddContinuousCommandGenerators(this IServiceCollection serviceCollection, Assembly assembly)
+    {
+        var continuousImplementationTypes = assembly.WhereClassTypesImplementType(typeof(IUnidentifiedContinuousCliCommandGenerator));
+        
+        foreach (var implementationType in continuousImplementationTypes)
+        {
+            var genericInterfaceType = implementationType.GetRequiredFirstGenericInterface();
+            
+            var typeForReferencedCommand = genericInterfaceType.GenericTypeArguments.First();
+            
+            var name = typeForReferencedCommand.Name.Replace(nameof(CliCommand), string.Empty);
+            
+            var commandName = name.ToLowerSplitString(CliInstructionConstants.DefaultCommandNameSeparator);
+            var shorthandCommandName = name.ToLowerTitleCharacters();
+
+            serviceCollection
+                .AddKeyedSingleton(
+                    typeof(IUnidentifiedContinuousCliCommandGenerator),
+                    commandName,
+                    implementationType)
+                .AddKeyedSingleton(
+                    typeof(IUnidentifiedContinuousCliCommandGenerator),
                     shorthandCommandName,
                     implementationType);
         }
