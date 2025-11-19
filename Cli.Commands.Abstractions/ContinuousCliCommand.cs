@@ -1,13 +1,6 @@
-using Cli.Abstractions;
-
 namespace Cli.Commands.Abstractions;
 
-public record ContinuousCliCommand<TAggregate> : CliCommand
+public record ContinuousCliCommand : CliCommand
 {
-    public CliAggregator<TAggregate> Aggregator { get; }
-    
-    public ContinuousCliCommand(CliAggregator<TAggregate> aggregator)
-    {
-        Aggregator = aggregator;
-    }
+    public List<CliCommandProperty> Properties { get; } = new();
 }

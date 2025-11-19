@@ -1,5 +1,8 @@
+using Cli.Commands.Abstractions;
 using Cli.Commands.Abstractions.Exceptions;
 using Cli.Commands.Abstractions.Outcomes;
+using Cli.Commands.Abstractions.Properties;
+using Cli.Instructions.Abstractions;
 using Cli.Instructions.Abstractions.Validators;
 using Cli.Instructions.Parsers;
 using Cli.Workflow.Abstractions;
@@ -16,6 +19,7 @@ public class CliWorkflowRun
     private readonly ICliInstructionParser _cliInstructionParser;
     private readonly ICliInstructionValidator _cliInstructionValidator;
     private readonly ICliWorkflowCommandProvider _workflowCommandProvider;
+    private readonly IEnumerable<ICliCommandPropertyStrategy> _cliCommandPropertyStrategies;
     private readonly IMediator _mediator;
 
     public CliWorkflowRun(
@@ -23,6 +27,7 @@ public class CliWorkflowRun
         ICliInstructionParser cliInstructionParser,
         ICliInstructionValidator cliInstructionValidator,
         ICliWorkflowCommandProvider workflowCommandProvider,
+        IEnumerable<ICliCommandPropertyStrategy> cliCommandPropertyStrategies,
         IMediator mediator)
     {
         State = state;
@@ -30,10 +35,9 @@ public class CliWorkflowRun
         _cliInstructionParser = cliInstructionParser;
         _cliInstructionValidator = cliInstructionValidator;
         _workflowCommandProvider = workflowCommandProvider;
+        _cliCommandPropertyStrategies = cliCommandPropertyStrategies;
         _mediator = mediator;
     }
-
-    private bool IsEmptyAsk(string? ask) => !string.IsNullOrEmpty(ask);
     
     public async ValueTask<CliCommandOutcome> RespondToAsk(string? ask)
     {
@@ -44,7 +48,6 @@ public class CliWorkflowRun
         }
         
         var instruction = _cliInstructionParser.Parse(ask!);
-        
         if (_cliInstructionValidator.IsValidInstruction(instruction))
         {
             State.ChangeTo(ClIWorkflowRunStateStatus.Running, instruction);
@@ -59,15 +62,11 @@ public class CliWorkflowRun
 
         try
         {
-            var command = _workflowCommandProvider.GetCommand(instruction);
-
-            var outcome = await _mediator.Send(command);
-
-            var nextState = outcome.Kind == CliCommandOutcomeKind.Aggregate
-                ? ClIWorkflowRunStateStatus.ReachedReusableOutcome
-                : ClIWorkflowRunStateStatus.ReachedFinalOutcome;
+            var command = await PrepareCommand(instruction);
             
-            State.ChangeTo(nextState, outcome);
+            var outcome = await _mediator.Send(command);
+            
+            HandleAfterCommand(outcome);
 
             return outcome;
         }
@@ -83,7 +82,49 @@ public class CliWorkflowRun
         }
         finally
         {
-            State.ChangeTo(ClIWorkflowRunStateStatus.Finished);
+            if (!State.Was(ClIWorkflowRunStateStatus.ReachedReusableOutcome))
+            {
+                State.ChangeTo(ClIWorkflowRunStateStatus.Finished);
+            }
         }
+    }
+    
+    private bool IsEmptyAsk(string? ask) => !string.IsNullOrEmpty(ask);
+    
+    private bool IsReusableOutcomeKind(CliCommandOutcomeKind kind)
+    {
+        return kind == CliCommandOutcomeKind.Aggregate;
+    }
+    
+    private async Task<CliCommand> PrepareCommand(CliInstruction instruction)
+    {
+        var command = _workflowCommandProvider.GetCommand(instruction);
+
+        if (command is ContinuousCliCommand continuousCommand)
+        {
+            // Attach whatever results are from the previous outcomes.
+            var properties = State
+                .Changes
+                .OfType<OutcomeCliWorkflowRunStateChange>()
+                .Where(stateChange => _cliCommandPropertyStrategies
+                    .Any(strategy => strategy.CanCreate(stateChange.Outcome)))
+                .Select(stateChange => _cliCommandPropertyStrategies
+                    .First(strategy => strategy.CanCreate(stateChange.Outcome))
+                    .CreateProperty(stateChange.Outcome))
+                .ToList();
+            
+            continuousCommand.Properties.AddRange(properties!);
+        }
+
+        return command;
+    }
+
+    private void HandleAfterCommand(CliCommandOutcome outcome)
+    {
+        var nextState = IsReusableOutcomeKind(outcome.Kind)
+            ? ClIWorkflowRunStateStatus.ReachedReusableOutcome
+            : ClIWorkflowRunStateStatus.ReachedFinalOutcome;
+            
+        State.ChangeTo(nextState, outcome);
     }
 }

@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Cli.Abstractions\Cli.Abstractions.csproj" />
+      <ProjectReference Include="..\Cli.Commands.Abstractions\Cli.Commands.Abstractions.csproj" />
       <ProjectReference Include="..\Spendfulness.Database\Spendfulness.Database.csproj" />
       <ProjectReference Include="..\Ynab\Ynab.csproj" />
     </ItemGroup>
@@ -28,6 +29,10 @@
       <Compile Remove="Aggregates\CategoryYearAverageAggregate 2.cs" />
       <Compile Remove="Aggregates\CategoryAggregate 2.cs" />
       <Compile Remove="Calculators\PercentageCalculator 2.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Properties\" />
     </ItemGroup>
 
 </Project>

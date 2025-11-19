@@ -1,3 +1,4 @@
+using Cli.Commands.Abstractions.Properties;
 using Cli.Instructions.Abstractions.Validators;
 using Cli.Instructions.Parsers;
 using Cli.Instructions.Validators;
@@ -57,6 +58,8 @@ public class CliWorkflow
         
         var commandProvider = _serviceProvider.GetRequiredService<ICliWorkflowCommandProvider>();
         
+        var commandPropertyStrategies = _serviceProvider.GetServices<ICliCommandPropertyStrategy>();
+        
         var mediator = _serviceProvider.GetRequiredService<IMediator>();
         
         var run = new CliWorkflowRun(
@@ -64,6 +67,7 @@ public class CliWorkflow
             instructionParser,
             instructionValidator,
             commandProvider,
+            commandPropertyStrategies,
             mediator);
         
         Runs.Add(run);

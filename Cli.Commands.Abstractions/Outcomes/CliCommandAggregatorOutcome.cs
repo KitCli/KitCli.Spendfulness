@@ -10,5 +10,4 @@ public class CliCommandAggregatorOutcome<TAggregate> : CliCommandOutcome
     {
         Aggregator = aggregator;
     }
-    
 }
