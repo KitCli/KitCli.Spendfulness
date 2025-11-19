@@ -6,7 +6,7 @@ namespace Cli.Commands.Abstractions;
 
 public abstract class CliCommandHandler
 {
-    protected static CliCommandTableOutcome Compile(CliTable cliTable)
+    protected static CliCommandOutcome[] Compile(CliTable cliTable)
     {
         var table = new ConsoleTable
         {
@@ -21,11 +21,11 @@ public abstract class CliCommandHandler
         foreach (var row in cliTable.Rows)
             table.AddRow(row.ToArray());
         
-        return new CliCommandTableOutcome(table);
+        return [new CliCommandTableOutcome(table)];
     }
     
-    protected static CliCommandAggregatorOutcome<TAggregate> Compile<TAggregate>(CliAggregator<TAggregate> aggregator)
-        => new(aggregator);
+    protected static CliCommandOutcome[] Compile<TAggregate>(CliAggregator<TAggregate> aggregator)
+        => [new CliCommandAggregatorOutcome<TAggregate>(aggregator)];
 
-    protected static CliCommandOutputOutcome Compile(string message) => new(message);
+    protected static CliCommandOutcome[] Compile(string message) => [new CliCommandOutputOutcome(message)];
 }

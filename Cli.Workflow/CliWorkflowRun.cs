@@ -39,12 +39,12 @@ public class CliWorkflowRun
         _mediator = mediator;
     }
     
-    public async ValueTask<CliCommandOutcome> RespondToAsk(string? ask)
+    public async ValueTask<CliCommandOutcome[]> RespondToAsk(string? ask)
     {
         if (!IsEmptyAsk(ask))
         {
             State.ChangeTo(ClIWorkflowRunStateStatus.InvalidAsk);
-            return new CliCommandNothingOutcome();
+            return [new CliCommandNothingOutcome()];
         }
         
         var instruction = _cliInstructionParser.Parse(ask!);
@@ -55,7 +55,7 @@ public class CliWorkflowRun
         else
         {
             State.ChangeTo(ClIWorkflowRunStateStatus.InvalidAsk);
-            return new CliCommandNothingOutcome();
+            return [new CliCommandNothingOutcome()];
         }
 
         try
@@ -71,12 +71,12 @@ public class CliWorkflowRun
         catch (NoCommandGeneratorException)
         {
             State.ChangeTo(ClIWorkflowRunStateStatus.InvalidAsk);
-            return new CliCommandNothingOutcome();
+            return [new CliCommandNothingOutcome()];
         }
         catch (Exception exception)
         {
             State.ChangeTo(ClIWorkflowRunStateStatus.Exceptional);
-            return new CliCommandExceptionOutcome(exception);
+            return [new CliCommandExceptionOutcome(exception)];
         }
         finally
         {
@@ -109,12 +109,15 @@ public class CliWorkflowRun
         return _workflowCommandProvider.GetCommand(instruction, properties);
     }
 
-    private void HandleAfterCommand(CliCommandOutcome outcome)
+    private void HandleAfterCommand(CliCommandOutcome[] outcomes)
     {
-        var nextState = IsReusableOutcomeKind(outcome.Kind)
+        var nextState = outcomes.Any(outcome => IsReusableOutcomeKind(outcome.Kind))
             ? ClIWorkflowRunStateStatus.ReachedReusableOutcome
             : ClIWorkflowRunStateStatus.ReachedFinalOutcome;
-            
-        State.ChangeTo(nextState, outcome);
+
+        foreach (var outcome in outcomes)
+        {
+            State.ChangeTo(nextState, outcome);
+        }
     }
 }

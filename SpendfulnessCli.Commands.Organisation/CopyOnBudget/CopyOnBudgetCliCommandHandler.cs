@@ -8,7 +8,7 @@ namespace SpendfulnessCli.Commands.Organisation.CopyOnBudget;
 
 public class CopyOnBudgetCliCommandHandler(SpendfulnessBudgetClient budgetClient) : CliCommandHandler, ICliCommandHandler<CopyOnBudgetCliCommand>
 {
-    public async Task<CliCommandOutcome> Handle(CopyOnBudgetCliCommand cliCommand, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome[]> Handle(CopyOnBudgetCliCommand cliCommand, CancellationToken cancellationToken)
     {
         var budget = await budgetClient.GetDefaultBudget();
 

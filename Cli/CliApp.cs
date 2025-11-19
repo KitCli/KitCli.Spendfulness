@@ -55,7 +55,7 @@ public abstract class CliApp
     {
     }
 
-    protected virtual void OnRunComplete(CliWorkflowRun run, CliCommandOutcome outcome)
+    protected virtual void OnRunComplete(CliWorkflowRun run, CliCommandOutcome[] outcomes)
     {
     }
     

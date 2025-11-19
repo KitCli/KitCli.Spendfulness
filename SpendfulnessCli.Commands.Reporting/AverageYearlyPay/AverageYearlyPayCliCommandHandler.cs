@@ -11,7 +11,7 @@ namespace SpendfulnessCli.Commands.Reporting.AverageYearlyPay;
 public class AverageYearlyPayCliCommandHandler(SpendfulnessBudgetClient budgetClient)
     : CliCommandHandler, ICliCommandHandler<AverageYearlyPayCliCommand>
 {
-    public async Task<CliCommandOutcome> Handle(AverageYearlyPayCliCommand cliCommand, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome[]> Handle(AverageYearlyPayCliCommand cliCommand, CancellationToken cancellationToken)
     {
         var aggregator = await PrepareAggregator();
 

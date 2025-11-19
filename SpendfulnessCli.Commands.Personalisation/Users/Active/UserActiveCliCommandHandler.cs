@@ -14,7 +14,7 @@ public class UserActiveCliCommandHandler : CliCommandHandler, ICliCommandHandler
         _dbContext = dbContext;
     }
 
-    public async Task<CliCommandOutcome> Handle(UserActiveCliCommand request, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome[]> Handle(UserActiveCliCommand request, CancellationToken cancellationToken)
     {
         var activeUser = await _dbContext.Users.FirstOrDefaultAsync(u => u.Active);
         

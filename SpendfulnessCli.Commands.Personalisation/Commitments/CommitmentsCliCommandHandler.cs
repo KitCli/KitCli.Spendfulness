@@ -10,7 +10,7 @@ namespace SpendfulnessCli.Commands.Personalisation.Commitments;
 
 public class CommitmentsCliCommandHandler(SpendfulnessDbContext dbContext, UserRepository userRepository) : CliCommandHandler, ICliCommandHandler<CommitmentsCliCommand>
 {
-    public async Task<CliCommandOutcome> Handle(CommitmentsCliCommand request, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome[]> Handle(CommitmentsCliCommand request, CancellationToken cancellationToken)
     {
         // Respect that there is a sync job.
         await dbContext.Sync<User>();

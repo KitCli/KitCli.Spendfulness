@@ -15,7 +15,7 @@ public class SettingsViewCliCommandHandler : CliCommandHandler, ICliCommandHandl
         _dbContext = dbContext;
     }
 
-    public async Task<CliCommandOutcome> Handle(SettingsViewCliCommand request, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome[]> Handle(SettingsViewCliCommand request, CancellationToken cancellationToken)
     {
         var activeUser = await _dbContext.Users
             .Include(user => user.Settings)

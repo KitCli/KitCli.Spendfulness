@@ -10,7 +10,7 @@ namespace SpendfulnessCli.Commands.Personalisation.Transactions.List;
 public class TransactionListCliCliCommandHandler(SpendfulnessBudgetClient spendfulnessBudgetClient)
     : CliCommandHandler, ICliCommandHandler<TransactionsListCliCommand>
 {
-    public async Task<CliCommandOutcome> Handle(TransactionsListCliCommand cliCommand, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome[]> Handle(TransactionsListCliCommand cliCommand, CancellationToken cancellationToken)
     {
         var budget = await spendfulnessBudgetClient.GetDefaultBudget();
 

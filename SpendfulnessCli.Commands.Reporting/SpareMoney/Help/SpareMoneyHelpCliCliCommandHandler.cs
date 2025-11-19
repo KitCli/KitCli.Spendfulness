@@ -7,7 +7,7 @@ namespace SpendfulnessCli.Commands.Reporting.SpareMoney.Help;
 public class SpareMoneyHelpCliCliCommandHandler(CommandHelpCliTableBuilder commandHelpCliTableBuilder)
     : CliCommandHandler, ICliCommandHandler<SpareMoneyHelpCliCommand>
 {
-    public Task<CliCommandOutcome> Handle(SpareMoneyHelpCliCommand request, CancellationToken cancellationToken)
+    public Task<CliCommandOutcome[]> Handle(SpareMoneyHelpCliCommand request, CancellationToken cancellationToken)
     {
         var aggregator = new SpareMoneyCommandHelpYnabAggregator();
         
@@ -18,6 +18,6 @@ public class SpareMoneyHelpCliCliCommandHandler(CommandHelpCliTableBuilder comma
         
         var compilation = Compile(viewModel);
 
-        return Task.FromResult<CliCommandOutcome>(compilation);
+        return Task.FromResult<CliCommandOutcome[]>(compilation);
     }
 }

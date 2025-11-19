@@ -15,7 +15,7 @@ public class UserCreateCliCommandHandler : CliCommandHandler, ICliCommandHandler
         _dbContext = dbContext;
     }
 
-    public async Task<CliCommandOutcome> Handle(UserCreateCliCommand cliCommand, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome[]> Handle(UserCreateCliCommand cliCommand, CancellationToken cancellationToken)
     {
         var activeUser = await _dbContext.Users.FirstOrDefaultAsync(u => u.Active, cancellationToken);
         

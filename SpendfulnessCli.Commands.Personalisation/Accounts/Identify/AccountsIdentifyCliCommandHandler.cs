@@ -27,7 +27,7 @@ public class AccountsIdentifyCliCommandHandler : CliCommandHandler, ICliCommandH
         _userRepository = userRepository;
     }
 
-    public async Task<CliCommandOutcome> Handle(AccountsIdentifyCliCommand command, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome[]> Handle(AccountsIdentifyCliCommand command, CancellationToken cancellationToken)
     {
         var attribute = await _customAccountAttributeRepository.Get(command.YnabAccountName, cancellationToken);
         

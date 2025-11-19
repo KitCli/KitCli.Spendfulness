@@ -10,7 +10,7 @@ namespace SpendfulnessCli.Commands.Reporting.FlagChanges;
 public class FlagChangesCliCliCommandHandler(SpendfulnessBudgetClient spendfulnessBudgetClient)
     : CliCommandHandler, ICliCommandHandler<FlagChangesCliCommand>
 {
-    public async Task<CliCommandOutcome> Handle(FlagChangesCliCommand cliCommand, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome[]> Handle(FlagChangesCliCommand cliCommand, CancellationToken cancellationToken)
     {
         var budget = await spendfulnessBudgetClient.GetDefaultBudget();
         

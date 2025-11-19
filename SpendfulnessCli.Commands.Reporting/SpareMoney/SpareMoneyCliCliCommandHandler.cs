@@ -14,7 +14,7 @@ namespace SpendfulnessCli.Commands.Reporting.SpareMoney;
 public class SpareMoneyCliCliCommandHandler(SpendfulnessBudgetClient spendfulnessBudgetClient)
     : CliCommandHandler, ICliCommandHandler<SpareMoneyCliCommand>
 {
-    public async Task<CliCommandOutcome> Handle(SpareMoneyCliCommand cliCommand, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome[]> Handle(SpareMoneyCliCommand cliCommand, CancellationToken cancellationToken)
     {
         var aggregator = await PrepareAggregator(cliCommand);
         

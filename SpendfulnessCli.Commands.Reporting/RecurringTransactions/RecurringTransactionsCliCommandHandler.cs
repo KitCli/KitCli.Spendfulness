@@ -15,7 +15,7 @@ namespace SpendfulnessCli.Commands.Reporting.RecurringTransactions
     {
         private const int DefaultMinimumOccurrences = 2;
     
-        public async Task<CliCommandOutcome> Handle(RecurringTransactionsCliCommand cliCommand, CancellationToken cancellationToken)
+        public async Task<CliCommandOutcome[]> Handle(RecurringTransactionsCliCommand cliCommand, CancellationToken cancellationToken)
         {
             var aggregator = await PrepareAggregator(cliCommand);
 

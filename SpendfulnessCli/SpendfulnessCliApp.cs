@@ -34,11 +34,13 @@ public class SpendfulnessCliApp : CliApp
         Io.Pause();
     }
 
-    protected override void OnRunComplete(CliWorkflowRun run, CliCommandOutcome outcome)
+    protected override void OnRunComplete(CliWorkflowRun run, CliCommandOutcome[] outcomes)
     {
         Io.Pause();
-        
-        Io.Say($"Command outcome was: {outcome.GetType().Name}");
+
+        var outcomeNames = outcomes.Select(o => o.GetType().Name);
+        var outcomeList = string.Join(", ", outcomeNames);
+        Io.Say($"Command outcome was: {outcomeList}");
 
         var states = run.State.Changes
             .Select(change => change.To.ToString())

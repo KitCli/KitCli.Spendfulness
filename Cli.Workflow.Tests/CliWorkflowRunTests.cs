@@ -1,6 +1,7 @@
 using Cli.Commands.Abstractions;
 using Cli.Commands.Abstractions.Exceptions;
 using Cli.Commands.Abstractions.Outcomes;
+using Cli.Commands.Abstractions.Properties;
 using Cli.Instructions.Abstractions;
 using Cli.Instructions.Abstractions.Validators;
 using Cli.Instructions.Parsers;
@@ -19,6 +20,8 @@ public class CliWorkflowRunTests
     private Mock<ICliInstructionParser> _cliInstructionParser;
     private Mock<ICliInstructionValidator> _cliInstructionValidator;
     private Mock<ICliWorkflowCommandProvider> _cliWorkflowCommandProvider;
+    private Mock<ICliCommandPropertyStrategy> _cliCommandPropertyStrategy;
+    private ICliCommandPropertyStrategy[] _cliCommandPropertyStrategies = [];
     private Mock<IMediator> _mediator;
     private CliWorkflowRun _classUnderTest;
     
@@ -30,6 +33,9 @@ public class CliWorkflowRunTests
         _cliInstructionParser = new Mock<ICliInstructionParser>();
         _cliInstructionValidator = new Mock<ICliInstructionValidator>();
         _cliWorkflowCommandProvider = new Mock<ICliWorkflowCommandProvider>();
+        _cliCommandPropertyStrategy = new Mock<ICliCommandPropertyStrategy>();
+        _cliCommandPropertyStrategies = [_cliCommandPropertyStrategy.Object];
+        
         _mediator = new Mock<IMediator>();
         
         _classUnderTest = new CliWorkflowRun(
@@ -37,6 +43,7 @@ public class CliWorkflowRunTests
             _cliInstructionParser.Object,
             _cliInstructionValidator.Object,
             _cliWorkflowCommandProvider.Object,
+            _cliCommandPropertyStrategies,
             _mediator.Object
             );
     }
@@ -113,7 +120,9 @@ public class CliWorkflowRunTests
             .Returns(true);
         
         _cliWorkflowCommandProvider
-            .Setup(provider => provider.GetCommand(It.IsAny<CliInstruction>()))
+            .Setup(provider => provider.GetCommand(
+                It.IsAny<CliInstruction>(), 
+                It.IsAny<List<CliCommandProperty>>()))
             .Throws<NoCommandGeneratorException>();
         
         // Act
@@ -149,8 +158,10 @@ public class CliWorkflowRunTests
             .Returns(true);
         
         _cliWorkflowCommandProvider
-            .Setup(provider => provider.GetCommand(It.IsAny<CliInstruction>()))
-            .Returns(new CliCommand());
+            .Setup(provider => provider.GetCommand(
+                It.IsAny<CliInstruction>(), 
+                It.IsAny<List<CliCommandProperty>>()))
+            .Throws<NoCommandGeneratorException>();
 
         _mediator
             .Setup(mediator => mediator.Send(It.IsAny<CliCommand>(), It.IsAny<CancellationToken>()))
