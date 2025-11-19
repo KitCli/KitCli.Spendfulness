@@ -1,12 +1,8 @@
-using Cli.Commands.Abstractions;
 using Cli.Commands.Abstractions.Outcomes;
-using Cli.Commands.Abstractions.Properties;
-using SpendfulnessCli.Aggregation.Aggregates;
 
-namespace SpendfulnessCli.Commands.Reporting.MonthlySpending;
+namespace Cli.Commands.Abstractions.Properties;
 
-
-public abstract class AggregatorCliCommandPropertyStrategy<TAggregate> : ICliCommandPropertyStrategy
+public class AggregatorCliCommandPropertyStrategy<TAggregate> : ICliCommandPropertyStrategy
 {
     public bool CanCreate(CliCommandOutcome outcome)
     {
@@ -22,10 +18,4 @@ public abstract class AggregatorCliCommandPropertyStrategy<TAggregate> : ICliCom
 
         throw new InvalidOperationException("Outcome is not an aggregator outcome.");
     }
-}
-
-// TODO: Can I achieve this via reflection.
-public class MonthlySpendingCliCommandPropertyStrategy 
-    : AggregatorCliCommandPropertyStrategy<IEnumerable<TransactionMonthTotalAggregate>>
-{
 }

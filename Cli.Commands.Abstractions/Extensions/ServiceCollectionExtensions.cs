@@ -1,4 +1,6 @@
 using System.Reflection;
+using Cli.Abstractions;
+using Cli.Commands.Abstractions.Properties;
 using Cli.Instructions.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -45,6 +47,40 @@ public static class ServiceCollectionExtensions
                     typeof(IUnidentifiedCliCommandGenerator),
                     shorthandCommandName,
                     implementationType);
+        }
+        
+        return serviceCollection;
+    }
+    
+    public static IServiceCollection AddCommandPropertiesFromAssembly(this IServiceCollection serviceCollection, Assembly? assembly)
+    {
+        if (assembly == null)
+        {
+            throw new NullReferenceException("No Assembly Containing ICommand Implementation");
+        }
+        
+        // get all aggregates, generate property strategies for them?
+
+        var possibleAggregatorTypes = assembly
+            .GetTypes()
+            .Where(type => !type.IsAbstract);
+        
+        foreach (var possibleAggregatorType in possibleAggregatorTypes)
+        {
+            var aggregatorType = possibleAggregatorType.GetSuperclassGenericOf(typeof(CliAggregator<>));
+            if (aggregatorType is null)
+            {
+                continue;
+            }
+            
+            var typeForReferencedAggregate = aggregatorType.GenericTypeArguments.First();
+        
+            var strategyType = typeof(AggregatorCliCommandPropertyStrategy<>).MakeGenericType(typeForReferencedAggregate);
+            
+            var instance = Activator.CreateInstance(strategyType) as ICliCommandPropertyStrategy;
+
+            serviceCollection
+                .AddSingleton<ICliCommandPropertyStrategy>(instance);
         }
         
         return serviceCollection;

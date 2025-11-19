@@ -57,8 +57,6 @@ public class CliWorkflowRun
             State.ChangeTo(ClIWorkflowRunStateStatus.InvalidAsk);
             return new CliCommandNothingOutcome();
         }
-        
-        // TODO: In the situation this is being re run, wht now?
 
         try
         {
@@ -100,21 +98,23 @@ public class CliWorkflowRun
     {
         var command = _workflowCommandProvider.GetCommand(instruction);
 
-        if (command is ContinuousCliCommand continuousCommand)
+        if (command is not ContinuousCliCommand continuousCommand)
         {
-            // Attach whatever results are from the previous outcomes.
-            var properties = State
-                .Changes
-                .OfType<OutcomeCliWorkflowRunStateChange>()
-                .Where(stateChange => _cliCommandPropertyStrategies
-                    .Any(strategy => strategy.CanCreate(stateChange.Outcome)))
-                .Select(stateChange => _cliCommandPropertyStrategies
-                    .First(strategy => strategy.CanCreate(stateChange.Outcome))
-                    .CreateProperty(stateChange.Outcome))
-                .ToList();
-            
-            continuousCommand.Properties.AddRange(properties!);
+            return command;
         }
+        
+        // Attach whatever results are from the previous outcomes.
+        var properties = State
+            .Changes
+            .OfType<OutcomeCliWorkflowRunStateChange>()
+            .Where(stateChange => _cliCommandPropertyStrategies
+                .Any(strategy => strategy.CanCreate(stateChange.Outcome)))
+            .Select(stateChange => _cliCommandPropertyStrategies
+                .First(strategy => strategy.CanCreate(stateChange.Outcome))
+                .CreateProperty(stateChange.Outcome))
+            .ToList();
+            
+        continuousCommand.Properties.AddRange(properties!);
 
         return command;
     }
