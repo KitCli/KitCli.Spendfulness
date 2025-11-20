@@ -4,7 +4,7 @@ using Cli.Commands.Abstractions.Io;
 
 namespace Cli.Commands.Abstractions.Outcomes;
 
-public class CliCommandOutcomeIo : CliIo
+public class CliCommandOutcomeIo : CliIo, ICliCommandOutcomeIo
 {
     public void Say(CliCommandOutcome[] outcomes)
     {
