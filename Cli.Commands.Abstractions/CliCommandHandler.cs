@@ -6,23 +6,17 @@ namespace Cli.Commands.Abstractions;
 
 public abstract class CliCommandHandler
 {
-    protected static CliCommandTableOutcome Compile(CliTable cliTable)
+    protected static CliCommandOutcome[] OutcomeAs(CliTable cliTable)
     {
-        var table = new ConsoleTable
-        {
-            Options =
-            {
-                EnableCount = cliTable.ShowRowCount
-            }
-        };
+        var outcome = new CliCommandTableOutcome(cliTable);
 
-        table.AddColumn(cliTable.Columns.ToArray());
-       
-        foreach (var row in cliTable.Rows)
-            table.AddRow(row.ToArray());
-        
-        return new CliCommandTableOutcome(table);
+        return [outcome];
     }
 
-    protected static CliCommandOutputOutcome Compile(string message) => new(message);
+    protected static CliCommandOutcome[] OutcomeAs(string message)
+    {
+        var outcome = new CliCommandOutputOutcome(message);
+
+        return [outcome];
+    }
 }
