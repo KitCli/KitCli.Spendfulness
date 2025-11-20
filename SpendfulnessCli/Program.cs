@@ -9,7 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Spendfulness.Database;
 using SpendfulnessCli;
 using SpendfulnessCli.Abstractions.Taxis;
+using SpendfulnessCli.Aggregation.Extensions;
 using SpendfulnessCli.Commands.Reporting;
+using SpendfulnessCli.Commands.Reusable;
 using Ynab.Extensions;
 
 // TODO: CLI - I wonder if I could simplify this to new CliBuilder() or something.
@@ -18,10 +20,12 @@ var serviceProvider = new ServiceCollection()
     .AddYnab() // Speak to the YNAB API
     .AddYnabTransactionFactory<TaxiTransactionFactory>()
     .AddSpendfulnessDb() // Store data in an SQLite databaase.
+    .AddAggregatorCommandProperties() // Add command properties for aggregators
     .AddCommands() // Convert them into MediatR requests
     .AddReportingCommands() // Commands that work with YNAB data
     .AddOrganisationCommands() // Commands that help organise the data
     .AddPersonalisationCommands() // Commands for CRUD with db data
+    .AddReusableCommands() // Reusable commands like Table
     .AddCliInstructions() // Understand terminal commands
     .BuildServiceProvider();
 

@@ -17,6 +17,7 @@
       <ProjectReference Include="..\SpendfulnessCli.Commands.Organisation\SpendfulnessCli.Commands.Organisation.csproj" />
       <ProjectReference Include="..\SpendfulnessCli.Commands.Personalisation\SpendfulnessCli.Commands.Personalisation.csproj" />
       <ProjectReference Include="..\SpendfulnessCli.Commands.Reporting\SpendfulnessCli.Commands.Reporting.csproj" />
+      <ProjectReference Include="..\SpendfulnessCli.Commands.Reusable\SpendfulnessCli.Commands.Reusable.csproj" />
       <ProjectReference Include="..\SpendfulnessCli.Commands\SpendfulnessCli.Commands.csproj" />
       <ProjectReference Include="..\Ynab\Ynab.csproj" />
     </ItemGroup>
