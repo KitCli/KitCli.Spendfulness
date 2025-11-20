@@ -87,15 +87,12 @@ public class CliWorkflowRun
 
     private void UpdateStateAfterOutcome(CliCommandOutcome[] outcomes)
     {
-        var achievedReusableOutcomes = outcomes.Any(o => o.IsReusable);
+        var reusableOutcome = outcomes.LastOrDefault(x => x.IsReusable);
         
-        var nextState = achievedReusableOutcomes
+        var nextState = reusableOutcome != null
             ? ClIWorkflowRunStateStatus.ReachedReusableOutcome
             : ClIWorkflowRunStateStatus.ReachedFinalOutcome;
-        
-        foreach (var outcome in outcomes)
-        {
-            State.ChangeTo(nextState, outcome);
-        }
+
+        State.ChangeTo(nextState, outcomes);
     }
 }

@@ -44,7 +44,7 @@ public class CliWorkflowRunState
         Changes.Add(stateChange);
     }
     
-    public void ChangeTo(ClIWorkflowRunStateStatus statusToChangeTo, CliCommandOutcome outcome)
+    public void ChangeTo(ClIWorkflowRunStateStatus statusToChangeTo, CliCommandOutcome[] outcomes)
     {
         var priorState = CanChangeTo(statusToChangeTo);
         
@@ -54,7 +54,7 @@ public class CliWorkflowRunState
             Stopwatch.Elapsed,
             priorState, 
             statusToChangeTo,
-            outcome);
+            outcomes);
         
         Changes.Add(stateChange);
     }
