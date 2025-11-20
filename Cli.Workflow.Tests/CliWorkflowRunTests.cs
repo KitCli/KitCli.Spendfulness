@@ -237,7 +237,7 @@ public class CliWorkflowRunTests
         var insruction = new CliInstruction("/", "some-valid-ask", null, []);
 
         var aggregator = new TestAggregator();
-        var outcome = new CliCommandAggregateOutcome<IEnumerable<TestAggregate>>(aggregator);
+        var outcome = new CliCommandAggregatorOutcome<IEnumerable<TestAggregate>>(aggregator);
         
         _cliInstructionParser
             .Setup(parser => parser.Parse(It.IsAny<string>()))
