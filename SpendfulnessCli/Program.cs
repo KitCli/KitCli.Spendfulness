@@ -11,6 +11,7 @@ using SpendfulnessCli;
 using SpendfulnessCli.Abstractions.Taxis;
 using SpendfulnessCli.Aggregation.Extensions;
 using SpendfulnessCli.Commands.Reporting;
+using SpendfulnessCli.Commands.Reusable;
 using Ynab.Extensions;
 
 // TODO: CLI - I wonder if I could simplify this to new CliBuilder() or something.
@@ -24,6 +25,7 @@ var serviceProvider = new ServiceCollection()
     .AddReportingCommands() // Commands that work with YNAB data
     .AddOrganisationCommands() // Commands that help organise the data
     .AddPersonalisationCommands() // Commands for CRUD with db data
+    .AddReusableCommands() // Reusable commands like Table
     .AddCliInstructions() // Understand terminal commands
     .BuildServiceProvider();
 
