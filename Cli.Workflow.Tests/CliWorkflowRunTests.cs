@@ -144,11 +144,11 @@ public class CliWorkflowRunTests
         // Arrange
         var ask = "/some-valid-ask";
         
-        var insruction = new CliInstruction("/", "some-valid-ask", null, []);
+        var instruction = new CliInstruction("/", "some-valid-ask", null, []);
         
         _cliInstructionParser
             .Setup(parser => parser.Parse(It.IsAny<string>()))
-            .Returns(insruction);
+            .Returns(instruction);
         
         _cliInstructionValidator
             .Setup(civ => civ.IsValidInstruction(It.IsAny<CliInstruction>()))
@@ -186,13 +186,13 @@ public class CliWorkflowRunTests
         // Arrange
         var ask = "some valid ask";
         
-        var insruction = new CliInstruction("/", "some-valid-ask", null, []);
+        var instruction = new CliInstruction("/", "some-valid-ask", null, []);
 
         var outcome = new CliCommandNothingOutcome();
         
         _cliInstructionParser
             .Setup(parser => parser.Parse(It.IsAny<string>()))
-            .Returns(insruction);
+            .Returns(instruction);
         
         _cliInstructionValidator
             .Setup(civ => civ.IsValidInstruction(It.IsAny<CliInstruction>()))
@@ -224,8 +224,8 @@ public class CliWorkflowRunTests
         Assert.That(expectedStateChangeTypes, Is.EqualTo(stateChangeTypes).AsCollection);
         Assert.That(resultingOutcomes.Length, Is.EqualTo(1));
         
-        var resultingOutcoe = resultingOutcomes[0];
-        Assert.That(resultingOutcoe, Is.EqualTo(outcome));
+        var resultingOutcome = resultingOutcomes[0];
+        Assert.That(resultingOutcome, Is.EqualTo(outcome));
     }
     
     [Test]
@@ -234,14 +234,14 @@ public class CliWorkflowRunTests
         // Arrange
         var ask = "some valid ask";
         
-        var insruction = new CliInstruction("/", "some-valid-ask", null, []);
+        var instruction = new CliInstruction("/", "some-valid-ask", null, []);
 
         var aggregator = new TestAggregator();
         var outcome = new CliCommandAggregatorOutcome<IEnumerable<TestAggregate>>(aggregator);
         
         _cliInstructionParser
             .Setup(parser => parser.Parse(It.IsAny<string>()))
-            .Returns(insruction);
+            .Returns(instruction);
         
         _cliInstructionValidator
             .Setup(civ => civ.IsValidInstruction(It.IsAny<CliInstruction>()))

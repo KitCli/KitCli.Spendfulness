@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace Cli.Workflow.Tests;
 
-public class CliWorkflowRunStateWasChangdToTests : CliWorkflowRunStateTests
+public class CliWorkflowRunStateWasChangedToTests : CliWorkflowRunStateTests
 {
     [Test]
     public void GivenState_WhenWasCalledWithPriorStatus_ReturnsTrue()
