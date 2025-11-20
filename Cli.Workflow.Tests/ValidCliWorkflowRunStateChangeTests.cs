@@ -32,13 +32,13 @@ public class ValidCliWorkflowRunStateChangeTests : CliWorkflowRunStateTests
             ClIWorkflowRunStateStatus.ReachedReusableOutcome
         ).SetName("GivenStateIsRunning_WhenChangeToReachedReusableOutcome_CanBeChanged");
         
-        // Command handler responds to to mediator with a reusable outcome on second execute
+        // Command handler responds to mediator with a reusable outcome on second execute
         yield return new TestCaseData(
             new[] { ClIWorkflowRunStateStatus.Running, ClIWorkflowRunStateStatus.ReachedReusableOutcome },
             ClIWorkflowRunStateStatus.ReachedReusableOutcome
         ).SetName("GivenStateIsReachedReusableOutcome_WhenChangeToReachedReusableOutcome_CanBeChanged");
         
-        // Command handler respond to mediator with a final outcoem on second execute
+        // Command handler respond to mediator with a final outcome on second execute
         yield return new TestCaseData(
             new[] { ClIWorkflowRunStateStatus.Running, ClIWorkflowRunStateStatus.ReachedReusableOutcome },
             ClIWorkflowRunStateStatus.ReachedFinalOutcome

@@ -272,8 +272,8 @@ public class CliWorkflowRunTests
         Assert.That(expectedStateChangeTypes, Is.EqualTo(stateChangeTypes).AsCollection);
         Assert.That(resultingOutcomes.Length, Is.EqualTo(1));
         
-        var resultingOutcoe = resultingOutcomes[0];
-        Assert.That(resultingOutcoe, Is.EqualTo(outcome));
+        var resultingOutcome = resultingOutcomes[0];
+        Assert.That(resultingOutcome, Is.EqualTo(outcome));
     }
 
     public record TestAggregate(string Name);
