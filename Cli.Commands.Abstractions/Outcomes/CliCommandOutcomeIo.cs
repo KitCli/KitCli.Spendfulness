@@ -30,11 +30,6 @@ public class CliCommandOutcomeIo : CliIo, ICliCommandOutcomeIo
             case CliCommandExceptionOutcome exceptionOutcome:
                 Say(exceptionOutcome);
                 break;
-            case CliCommandNothingOutcome:
-                break;
-            default:
-                throw new UnknownOutcomeException(
-                    $"{outcome.GetType().Name} outcomes not supported");
         }
     }
     public void Say(CliCommandTableOutcome tableOutcome)
