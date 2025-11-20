@@ -7,8 +7,3 @@ public class CliCommandAggregatorOutcome<TAggregate>(CliAggregator<TAggregate> a
 {
     public CliAggregator<TAggregate> Aggregator { get; } = aggregator;
 }
-public class CliCommandMessageOutcome(string message)
-    : CliCommandOutcome(CliCommandOutcomeKind.Reusable)
-{
-    public string Message { get; } = message;
-}

@@ -33,11 +33,11 @@ public class SpareMoneyCliCliCommandHandler(SpendfulnessBudgetClient spendfulnes
 
         var table = viewModelBuilder.Build();
         table.Columns = ["Spare Money"];
- 
+
         return
         [
             new CliCommandTableOutcome(table),
-            new CliCommandMessageOutcome("Test!")
+            new CliCommandMessageOutcome("Ran the Spare Money command")
         ];
     }
 
