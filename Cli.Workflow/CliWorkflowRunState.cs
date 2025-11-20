@@ -10,6 +10,11 @@ public class CliWorkflowRunState
     public readonly Stopwatch Stopwatch = new Stopwatch();
     public readonly List<CliWorkflowRunStateChange> Changes = [];
     
+    public bool WasChangedTo(ClIWorkflowRunStateStatus status)
+    {
+        return Changes.Any(change => change.To == status);
+    }
+    
     public void ChangeTo(ClIWorkflowRunStateStatus statusToChangeTo)
     {
         var priorState = CanChangeTo(statusToChangeTo);

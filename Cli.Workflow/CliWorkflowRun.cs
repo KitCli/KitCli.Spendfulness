@@ -78,15 +78,24 @@ public class CliWorkflowRun
         }
         finally
         {
-            State.ChangeTo(ClIWorkflowRunStateStatus.Finished);
+            if (!State.WasChangedTo(ClIWorkflowRunStateStatus.ReachedReusableOutcome))
+            {
+                State.ChangeTo(ClIWorkflowRunStateStatus.Finished);
+            }
         }
     }
 
     private void UpdateStateAfterOutcome(CliCommandOutcome[] outcomes)
     {
+        var achievedReusableOutcomes = outcomes.Any(o => o.IsReusable);
+        
+        var nextState = achievedReusableOutcomes
+            ? ClIWorkflowRunStateStatus.ReachedReusableOutcome
+            : ClIWorkflowRunStateStatus.ReachedFinalOutcome;
+        
         foreach (var outcome in outcomes)
         {
-            State.ChangeTo(ClIWorkflowRunStateStatus.ReachedFinalOutcome, outcome);
+            State.ChangeTo(nextState, outcome);
         }
     }
 }
