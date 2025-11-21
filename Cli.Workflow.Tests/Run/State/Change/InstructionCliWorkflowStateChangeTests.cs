@@ -41,9 +41,9 @@ public class InstructionCliWorkflowStateChangeTests : CliWorkflowRunStateTests
         // Assert
         var lastChange = state.Changes.Last();
         
-        Assert.That(lastChange, Is.InstanceOf<InstructionCliWorkflowRunStateChange>());
+        Assert.That(lastChange, Is.InstanceOf<IInstructionCliWorkflowRunStateChange>());
         
-        var instructionStateChange = (InstructionCliWorkflowRunStateChange)lastChange;
+        var instructionStateChange = (IInstructionCliWorkflowRunStateChange)lastChange;
         
         Assert.That(instructionStateChange.Instruction, Is.EqualTo(instruction));
     }

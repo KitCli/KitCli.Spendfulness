@@ -8,10 +8,10 @@ namespace Cli.Workflow.Abstractions;
 public interface ICliWorkflowRunState
 {
     Stopwatch Stopwatch { get; }
-    List<CliWorkflowRunStateChange> Changes { get; }
+    List<ICliWorkflowRunStateChange> Changes { get; }
     
     bool WasChangedTo(ClIWorkflowRunStateStatus status);
-    List<OutcomeCliWorkflowRunStateChange> AllOutcomeStateChanges();
+    List<IOutcomeCliWorkflowRunStateChange> AllOutcomeStateChanges();
     void ChangeTo(ClIWorkflowRunStateStatus statusToChangeTo);
     void ChangeTo(ClIWorkflowRunStateStatus statusToChangeTo, CliInstruction instruction);
     void ChangeTo(ClIWorkflowRunStateStatus statusToChangeTo, CliCommandOutcome[] outcomes);

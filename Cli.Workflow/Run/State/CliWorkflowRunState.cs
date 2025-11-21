@@ -3,24 +3,25 @@ using Cli.Commands.Abstractions.Outcomes;
 using Cli.Instructions.Abstractions;
 using Cli.Workflow.Abstractions;
 using Cli.Workflow.Abstractions.Run.State.Change;
+using Cli.Workflow.Run.State.Change;
 
 namespace Cli.Workflow.Run.State;
 
 public class CliWorkflowRunState : ICliWorkflowRunState
 {
     public Stopwatch Stopwatch { get; }= new Stopwatch();
-    public List<CliWorkflowRunStateChange> Changes { get; } = [];
+    public List<ICliWorkflowRunStateChange> Changes { get; } = [];
 
     public bool WasChangedTo(ClIWorkflowRunStateStatus status)
     {
         return Changes.Any(change => change.To == status);
     }
     
-    public List<OutcomeCliWorkflowRunStateChange> AllOutcomeStateChanges()
+    public List<IOutcomeCliWorkflowRunStateChange> AllOutcomeStateChanges()
     {
         return Changes
             .Where(change => change.To == ClIWorkflowRunStateStatus.ReachedReusableOutcome)
-            .OfType<OutcomeCliWorkflowRunStateChange>()
+            .OfType<IOutcomeCliWorkflowRunStateChange>()
             .ToList();
     }
     
