@@ -18,16 +18,8 @@ public record CliCommand : IRequest<CliCommandOutcome[]>
         => GetType().Name.ReplaceCommandSuffix()
             .ToLowerSplitString(CliInstructionConstants.DefaultCommandNameSeparator);
 
-    public static string StripSpecificCommandInstruction(string commandName)
+    public static string StripInstructionName(string commandName)
         => commandName
             .ReplaceCommandSuffix()
             .ToLowerSplitString(CliInstructionConstants.DefaultCommandNameSeparator);
-}
-
-internal static class CommandStringExtensions
-{
-    private const string CommandSuffix = nameof(CliCommand);
-    
-    public static string ReplaceCommandSuffix(this string something)
-        => something.Replace(CommandSuffix, string.Empty);
 }

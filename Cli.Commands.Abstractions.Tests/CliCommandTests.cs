@@ -36,16 +36,14 @@ public class CliCommandTests
     }
     
     [Test]
-    public void GivenFullCommandName_WhenStripSpecificCommandNameIsCalled_ThenCorrectNameIsReturned()
+    [TestCase("SampleCliCommand", "sample")]
+    [TestCase("SampleTwoCliCommand", "sample-two")]
+    public void GivenFullCommandName_WhenStripInstructionName_InstructionNameIsReturned(string commandName, string expectedStrippedName)
     {
-        // Arrange
-        var fullCommandName = "SampleCliCommand";
-        
         // Act
-        var strippedName = CliCommand.StripSpecificCommandInstruction(fullCommandName);
+        var strippedName = CliCommand.StripInstructionName(commandName);
 
         // Assert
-        var expectedStrippedName = fullCommandName.Replace(nameof(CliCommand), string.Empty);
         Assert.That(strippedName, Is.EqualTo(expectedStrippedName));
     }
 }
