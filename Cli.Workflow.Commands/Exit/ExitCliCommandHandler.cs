@@ -1,10 +1,11 @@
 using Cli.Commands.Abstractions.Handlers;
 using Cli.Commands.Abstractions.Outcomes;
 using Cli.Commands.Abstractions.Outcomes.Final;
+using Cli.Workflow.Abstractions;
 
 namespace Cli.Workflow.Commands.Exit;
 
-public class ExitCliCommandHandler(CliWorkflow cliWorkflow) : CliCommandHandler, ICliCommandHandler<ExitCliCommand>
+public class ExitCliCommandHandler(ICliWorkflow cliWorkflow) : CliCommandHandler, ICliCommandHandler<ExitCliCommand>
 {
     public Task<CliCommandOutcome[]> Handle(ExitCliCommand command, CancellationToken cancellationToken)
     {
@@ -14,3 +15,4 @@ public class ExitCliCommandHandler(CliWorkflow cliWorkflow) : CliCommandHandler,
         return Task.FromResult<CliCommandOutcome[]>([outcome]);
     }
 }
+

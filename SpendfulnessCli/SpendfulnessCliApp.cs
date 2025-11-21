@@ -2,6 +2,7 @@ using Cli;
 using Cli.Commands.Abstractions.Io.Outcomes;
 using Cli.Commands.Abstractions.Outcomes;
 using Cli.Workflow;
+using Cli.Workflow.Abstractions;
 using Cli.Workflow.Run;
 using Microsoft.EntityFrameworkCore;
 using Spendfulness.Database;
@@ -24,19 +25,19 @@ public class SpendfulnessCliApp : CliApp
         Io.Pause();
     }
 
-    protected override void OnRunCreated(CliWorkflowRun workflowRun)
+    protected override void OnRunCreated(ICliWorkflowRun workflowRun)
     {
         Io.Say($"Please enter a command:");
         Io.Pause();
     }
 
-    protected override void OnRunStarted(CliWorkflowRun workflowRun, string? ask)
+    protected override void OnRunStarted(ICliWorkflowRun workflowRun, string? ask)
     {
         Io.Say($"Executing command: {ask}");
         Io.Pause();
     }
 
-    protected override void OnRunComplete(CliWorkflowRun run, CliCommandOutcome[] outcomes)
+    protected override void OnRunComplete(ICliWorkflowRun run, CliCommandOutcome[] outcomes)
     {
         Io.Pause();
         
@@ -72,7 +73,7 @@ public class SpendfulnessCliApp : CliApp
         Io.Say($"Command outcome was: {outcomeTypeList}");
     }
 
-    protected override void OnSessionEnd(List<CliWorkflowRun> runs)
+    protected override void OnSessionEnd(List<ICliWorkflowRun> runs)
     {
         Io.Pause();
         

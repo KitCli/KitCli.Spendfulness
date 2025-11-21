@@ -19,4 +19,11 @@ public abstract class CliCommandHandler
 
         return [outcome];
     }
+
+    protected static Task<CliCommandOutcome[]> AsyncOutcomeAs(string message)
+    {
+        var outcome = OutcomeAs(message);
+        
+        return Task.FromResult(outcome);
+    }
 }

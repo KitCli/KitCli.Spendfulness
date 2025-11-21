@@ -6,3 +6,5 @@ public abstract class CliCommandOutcome(CliCommandOutcomeKind kind)
 
     public bool IsReusable => Kind == CliCommandOutcomeKind.Reusable;
 }
+
+public class TestReusableCliCommandOutcome() : CliCommandOutcome(CliCommandOutcomeKind.Reusable);

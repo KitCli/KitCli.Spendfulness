@@ -1,7 +1,6 @@
-using Cli.Workflow.Abstractions;
+namespace Cli.Workflow.Abstractions.Run.State.Change;
 
-namespace Cli.Workflow.Run.State.Change;
-
+// TODO: Move this to workflow, mark with interface?
 public class CliWorkflowRunStateChange
 {
     public readonly TimeSpan At;

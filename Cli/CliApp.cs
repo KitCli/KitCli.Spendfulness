@@ -48,19 +48,19 @@ public abstract class CliApp
     {
     }
 
-    protected virtual void OnRunCreated(CliWorkflowRun run)
+    protected virtual void OnRunCreated(ICliWorkflowRun run)
     {
     }
 
-    protected virtual void OnRunStarted(CliWorkflowRun run, string? ask)
+    protected virtual void OnRunStarted(ICliWorkflowRun run, string? ask)
     {
     }
 
-    protected virtual void OnRunComplete(CliWorkflowRun run, CliCommandOutcome[] outcomes)
+    protected virtual void OnRunComplete(ICliWorkflowRun run, CliCommandOutcome[] outcomes)
     {
     }
     
-    protected virtual void OnSessionEnd(List<CliWorkflowRun> runs)
+    protected virtual void OnSessionEnd(List<ICliWorkflowRun> runs)
     {
     }
 }

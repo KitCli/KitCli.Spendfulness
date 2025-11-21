@@ -5,10 +5,17 @@ namespace Cli.Commands.Abstractions.Properties;
 
 public static class CliCommandPropertyExtensions
 {
-    public static bool AnyCommandRan<TCliCommand>(this List<CliCommandProperty> properties) where TCliCommand : CliCommand
-        => properties
-            .OfType<CliCommandRanProperty>()
-            .Any(c => c.RanCommand is TCliCommand);
+    public static bool LastCommandRanWas<TCliCommand>(this List<CliCommandProperty> properties)
+        where TCliCommand : CliCommand
+    {
+        var lastCommandRanProperty = properties.OfType<CliCommandRanProperty>().LastOrDefault();
+        if (lastCommandRanProperty == null)
+        { 
+            return false;
+        }
+        
+        return lastCommandRanProperty.RanCommand is TCliCommand;
+    }
     
     public static List<ListAggregatorCliCommandProperty<TAggregate>> OfListAggregatorType<TAggregate>(
         this List<CliCommandProperty> properties)

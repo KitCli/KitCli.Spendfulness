@@ -14,9 +14,9 @@ namespace Cli.Workflow.Run;
 
 // TODO: Cli: I wonder if always attaching this to the command is a great way to add properties?
 // And then let implementers of the CLI pass around properties between commands and hooks.
-public class CliWorkflowRun
+public class CliWorkflowRun : ICliWorkflowRun
 {
-    public readonly CliWorkflowRunState State;
+    public ICliWorkflowRunState State { get; set; }
     
     private readonly ICliInstructionParser _cliInstructionParser;
     private readonly ICliInstructionValidator _cliInstructionValidator;
@@ -40,6 +40,7 @@ public class CliWorkflowRun
 
     private bool IsEmptyAsk(string? ask) => !string.IsNullOrEmpty(ask);
     
+
     public async ValueTask<CliCommandOutcome[]> RespondToAsk(string? ask)
     {
         if (!IsEmptyAsk(ask))

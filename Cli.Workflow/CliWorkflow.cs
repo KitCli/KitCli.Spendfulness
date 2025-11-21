@@ -15,7 +15,7 @@ namespace Cli.Workflow;
 /// </summary>
 public class CliWorkflow(IServiceProvider serviceProvider) : ICliWorkflow
 {
-    public List<CliWorkflowRun> Runs { get; set; } = [];
+    public List<ICliWorkflowRun> Runs { get; set; } = [];
     public CliWorkflowStatus Status { get; set; } = CliWorkflowStatus.Started;
 
 
@@ -23,7 +23,7 @@ public class CliWorkflow(IServiceProvider serviceProvider) : ICliWorkflow
     /// Create a new run, a sub-state machine of an individual execution.
     /// </summary>
     /// <returns>A sub-state mchine of an individual execution.</returns>
-    public CliWorkflowRun NextRun()
+    public ICliWorkflowRun NextRun()
     {
         var lastRunToAchieveReusableOutcome = Runs.LastOrDefault(run =>
             run.State.WasChangedTo(ClIWorkflowRunStateStatus.ReachedReusableOutcome));
@@ -39,7 +39,7 @@ public class CliWorkflow(IServiceProvider serviceProvider) : ICliWorkflow
         Status = CliWorkflowStatus.Stopped;
     }
     
-    private CliWorkflowRun CreateNewRun()
+    private ICliWorkflowRun CreateNewRun()
     {
         var state = new CliWorkflowRunState();
         
