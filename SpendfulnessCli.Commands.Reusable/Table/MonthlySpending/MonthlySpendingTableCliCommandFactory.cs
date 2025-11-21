@@ -20,25 +20,9 @@ public class MonthlySpendingTableCliCommandFactory : ICliCommandFactory<MonthlyS
     
     public CliCommand Generate(CliInstruction instruction, List<CliCommandProperty> properties)
     {
+        // TODO: It cant not be null, because.....????
         var monthlySpendingAggregator = properties.GetListAggregator<TransactionMonthTotalAggregate>();
-        if (monthlySpendingAggregator is null)
-        {
-            return new PrerequisitesNotMetCliCommand(
-                nameof(CliCommandListAggregatorOutcome<TransactionMonthTotalAggregate>));
-        }
         
-        return new MonthlySpendingTableCliCommand(monthlySpendingAggregator);
-    }
-}
-
-public record PrerequisitesNotMetCliCommand(params string[] PrerequisitesNotMet) : CliCommand;
-
-public class RequirementsNotMetCliCommandHandler : ICliCommandHandler<PrerequisitesNotMetCliCommand>
-{
-    public Task<CliCommandOutcome[]> Handle(PrerequisitesNotMetCliCommand command, CancellationToken cancellationToken)
-    {
-        var outcome = new CliCommandPrerequisiteNotMetOutcome(command.PrerequisitesNotMet);
-
-        return Task.FromResult<CliCommandOutcome[]>([outcome]);
+        return new MonthlySpendingTableCliCommand(monthlySpendingAggregator!);
     }
 }

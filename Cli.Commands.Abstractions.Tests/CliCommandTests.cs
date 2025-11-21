@@ -38,10 +38,10 @@ public class CliCommandTests
     [Test]
     [TestCase("SampleCliCommand", "Sample")]
     [TestCase("SampleTwoCliCommand", "SampleTwo")]
-    public void GivenFullCommandName_WhenStripCommandName_InstructionNameIsReturned(string commandName, string expectedStrippedName)
+    public void GivenCommandClassName_WhenStripCommandName_InstructionNameIsReturned(string commandClassName, string expectedStrippedName)
     {
         // Act
-        var strippedName = CliCommand.StripCommandName(commandName);
+        var strippedName = CliCommand.StripCommandName(commandClassName);
 
         // Assert
         Assert.That(strippedName, Is.EqualTo(expectedStrippedName));

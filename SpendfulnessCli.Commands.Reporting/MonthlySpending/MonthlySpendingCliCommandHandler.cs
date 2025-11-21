@@ -31,8 +31,7 @@ public class MonthlySpendingCliCommandHandler: CliCommandHandler, ICliCommandHan
         
         return [
             new CliCommandTableOutcome(table),
-            // TODO: Re-enable once we have a way to display reusable outcomes.
-            // new CliCommandListAggregatorOutcome<TransactionMonthTotalAggregate>(aggregator)
+            new CliCommandListAggregatorOutcome<TransactionMonthTotalAggregate>(aggregator)
         ];
     }
 
