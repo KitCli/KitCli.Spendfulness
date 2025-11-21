@@ -2,9 +2,9 @@ namespace Cli.Workflow.Abstractions;
 
 public interface ICliWorkflow
 {
-    CliWorkflowStatus Status { get; set; }
+    CliWorkflowStatus Status { get; }
     
-    List<ICliWorkflowRun> Runs { get; set; }
+    List<ICliWorkflowRun> Runs { get; }
     
     ICliWorkflowRun NextRun();
 

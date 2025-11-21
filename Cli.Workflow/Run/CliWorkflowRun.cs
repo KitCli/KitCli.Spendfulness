@@ -16,7 +16,7 @@ namespace Cli.Workflow.Run;
 // And then let implementers of the CLI pass around properties between commands and hooks.
 public class CliWorkflowRun : ICliWorkflowRun
 {
-    public ICliWorkflowRunState State { get; set; }
+    public ICliWorkflowRunState State { get; }
     
     private readonly ICliInstructionParser _cliInstructionParser;
     private readonly ICliInstructionValidator _cliInstructionValidator;

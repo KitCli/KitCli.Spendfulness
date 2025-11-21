@@ -1,6 +1,5 @@
 using Cli.Commands.Abstractions.Outcomes.Final;
 using Cli.Workflow.Abstractions;
-using Cli.Workflow.Abstractions.Run.State.Change;
 using Cli.Workflow.Run.State.Change;
 using NUnit.Framework;
 

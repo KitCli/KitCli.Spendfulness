@@ -1,9 +1,7 @@
 using Cli;
 using Cli.Commands.Abstractions.Io.Outcomes;
 using Cli.Commands.Abstractions.Outcomes;
-using Cli.Workflow;
 using Cli.Workflow.Abstractions;
-using Cli.Workflow.Run;
 using Microsoft.EntityFrameworkCore;
 using Spendfulness.Database;
 
@@ -13,7 +11,7 @@ public class SpendfulnessCliApp : CliApp
 {
     private readonly SpendfulnessDbContext _spendfulnessDbContext;
     
-    public SpendfulnessCliApp(CliWorkflow workflow, CliCommandOutcomeIo io, SpendfulnessDbContext spendfulnessDbContext)
+    public SpendfulnessCliApp(ICliWorkflow workflow, CliCommandOutcomeIo io, SpendfulnessDbContext spendfulnessDbContext)
         : base(workflow, io)
     {
         _spendfulnessDbContext = spendfulnessDbContext;

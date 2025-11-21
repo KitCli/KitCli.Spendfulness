@@ -15,4 +15,3 @@ public class ExitCliCommandHandler(ICliWorkflow cliWorkflow) : CliCommandHandler
         return Task.FromResult<CliCommandOutcome[]>([outcome]);
     }
 }
-

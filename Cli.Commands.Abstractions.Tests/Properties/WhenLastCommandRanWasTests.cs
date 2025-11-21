@@ -26,7 +26,7 @@ public class WhenLastCommandRanWasTests
     }
     
     [Test]
-    public void GivenNoRanCommandProperty_WhenLastCommandRanWas_ThenShouldReturnTrue()
+    public void GivenNoRanCommandProperty_WhenLastCommandRanWas_ThenShouldReturnFalse()
     {
         // Arrange
         var properties = new List<CliCommandProperty>();
