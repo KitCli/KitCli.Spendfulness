@@ -242,8 +242,9 @@ Five virtual methods allow derived classes to customize behavior:
       
       var changes = _dbContext.ChangeTracker.Entries()
           .Where(x => x.State != EntityState.Unchanged);
+      var changeCount = changes.Count();
       _dbContext.SaveChanges();
-      Io.Say($"Saved {changes.Count()} changes.");
+      Io.Say($"Saved {changeCount} changes.");
   }
   ```
 
