@@ -1,15 +1,13 @@
 using Cli.Commands.Abstractions;
-using Cli.Commands.Abstractions.Generators;
-using Cli.Commands.Abstractions.Handlers;
+using Cli.Commands.Abstractions.Factories;
 using Cli.Commands.Abstractions.Outcomes;
 using Cli.Commands.Abstractions.Properties;
 using Cli.Instructions.Abstractions;
 using Cli.Workflow.Commands;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
 using NUnit.Framework;
 
-namespace Cli.Workflow.Tests.Commands;
+namespace Cli.Workflow.IntegrationTests.Commands;
 
 [TestFixture]
 public class CliWorkflowCommandProviderCommandPropertyTests
@@ -29,7 +27,7 @@ public class CliWorkflowCommandProviderCommandPropertyTests
             => new TestCliCommandProperty();
     }
 
-    private class TestCliCommandGenerator : ICliCommandGenerator<TestCliCommand>
+    private class TestCliCommandFactory : ICliCommandFactory<TestCliCommand>
     {
         public bool CanGenerate(CliInstruction instruction, List<CliCommandProperty> properties)
             => properties.OfType<TestCliCommandProperty>().Any();
@@ -49,7 +47,7 @@ public class CliWorkflowCommandProviderCommandPropertyTests
         var serviceKey = new TestCliCommand().GetInstructionName();
         _serviceCollection = new ServiceCollection();
         _serviceCollection
-            .AddKeyedSingleton<IUnidentifiedCliCommandGenerator, TestCliCommandGenerator>(serviceKey)
+            .AddKeyedSingleton<IUnidentifiedCliCommandFactory, TestCliCommandFactory>(serviceKey)
             .AddSingleton<ICliCommandPropertyFactory, TestCliCommandPropertyFactory>();
         
         _serviceProvider = _serviceCollection.BuildServiceProvider();

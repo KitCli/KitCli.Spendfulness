@@ -1,6 +1,6 @@
 using Cli.Commands.Abstractions;
 using Cli.Commands.Abstractions.Exceptions;
-using Cli.Commands.Abstractions.Generators;
+using Cli.Commands.Abstractions.Factories;
 using Cli.Commands.Abstractions.Outcomes;
 using Cli.Commands.Abstractions.Properties;
 using Cli.Instructions.Abstractions;
@@ -13,50 +13,38 @@ namespace Cli.Workflow.IntegrationTests.Commands;
 [TestFixture]
 public class CliWorkflowCommandProviderNoApplicableGeneratorTests
 {
-    private record TestCliCommand(int Number) : CliCommand;
+    private record TestCliCommand : CliCommand;
     
-    private class TestCliCommandGeneratorA : ICliCommandGenerator<TestCliCommand>
+    private class TestCliCommandGeneratorA : ICliCommandFactory<TestCliCommand>
     {
         public bool CanGenerate(CliInstruction instruction, List<CliCommandProperty> properties)
-            => instruction.SubInstructionName == "1";
+            => instruction.SubInstructionName == "not applicable";
 
         public CliCommand Generate(CliInstruction instruction, List<CliCommandProperty> properties)
-            => new TestCliCommand(1);
+            => new TestCliCommand();
     }
     
-    private class TestCliCommandGeneratorB : ICliCommandGenerator<TestCliCommand>
+    private class TestCliCommandGeneratorB : ICliCommandFactory<TestCliCommand>
     {
         public bool CanGenerate(CliInstruction instruction, List<CliCommandProperty> properties)
-            => instruction.SubInstructionName == "2";
+            => instruction.SubInstructionName == "not applicable";
         
         public CliCommand Generate(CliInstruction instruction, List<CliCommandProperty> properties)
-            => new TestCliCommand(2);
+            => new TestCliCommand();
     }
     
     private IServiceCollection _serviceCollection;
     private ServiceProvider _serviceProvider;
     private CliWorkflowCommandProvider _cliWorkflowCommandProvider;
     
-    private TestCliCommand _testCliCommand;
-    private TestCliCommandGeneratorA _testCliCommandGeneratorA;
-    private TestCliCommandGeneratorB _testCliCommandGeneratorB;
-    
     [SetUp]
     public void SetUp()
     {
-        _testCliCommand = new TestCliCommand(0);
-        _testCliCommandGeneratorA = new TestCliCommandGeneratorA();
-        _testCliCommandGeneratorB = new TestCliCommandGeneratorB();
-        
-        var serviceKey = _testCliCommand.GetInstructionName();
+        var serviceKey = new TestCliCommand().GetInstructionName();
         _serviceCollection = new ServiceCollection();
         _serviceCollection
-            .AddKeyedSingleton<IUnidentifiedCliCommandGenerator>(
-                serviceKey,
-                _testCliCommandGeneratorA)
-            .AddKeyedSingleton<IUnidentifiedCliCommandGenerator>(
-                serviceKey,
-                _testCliCommandGeneratorB);
+            .AddKeyedSingleton<IUnidentifiedCliCommandFactory, TestCliCommandGeneratorA>(serviceKey)
+            .AddKeyedSingleton<IUnidentifiedCliCommandFactory, TestCliCommandGeneratorB>(serviceKey);
         
         _serviceProvider = _serviceCollection.BuildServiceProvider();
         

@@ -1,5 +1,5 @@
 using Cli.Commands.Abstractions;
-using Cli.Commands.Abstractions.Generators;
+using Cli.Commands.Abstractions.Factories;
 using Cli.Commands.Abstractions.Outcomes;
 using Cli.Commands.Abstractions.Properties;
 using Cli.Instructions.Abstractions;
@@ -7,14 +7,14 @@ using Cli.Workflow.Commands;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 
-namespace Cli.Workflow.Tests.Commands;
+namespace Cli.Workflow.IntegrationTests.Commands;
 
 [TestFixture]
 public class CliWorkflowCommandProviderMultipleGeneratorTests
 {
     private record TestCliCommand(int Number) : CliCommand;
     
-    private class TestCliCommandGeneratorA : ICliCommandGenerator<TestCliCommand>
+    private class TestCliCommandGeneratorA : ICliCommandFactory<TestCliCommand>
     {
         public bool CanGenerate(CliInstruction instruction, List<CliCommandProperty> properties)
             => instruction.SubInstructionName == "1";
@@ -23,7 +23,7 @@ public class CliWorkflowCommandProviderMultipleGeneratorTests
             => new TestCliCommand(1);
     }
     
-    private class TestCliCommandGeneratorB : ICliCommandGenerator<TestCliCommand>
+    private class TestCliCommandGeneratorB : ICliCommandFactory<TestCliCommand>
     {
         public bool CanGenerate(CliInstruction instruction, List<CliCommandProperty> properties)
             => instruction.SubInstructionName == "2";
@@ -50,10 +50,10 @@ public class CliWorkflowCommandProviderMultipleGeneratorTests
         var serviceKey = _testCliCommand.GetInstructionName();
         _serviceCollection = new ServiceCollection();
         _serviceCollection
-            .AddKeyedSingleton<IUnidentifiedCliCommandGenerator>(
+            .AddKeyedSingleton<IUnidentifiedCliCommandFactory>(
                 serviceKey,
                 _testCliCommandGeneratorA)
-            .AddKeyedSingleton<IUnidentifiedCliCommandGenerator>(
+            .AddKeyedSingleton<IUnidentifiedCliCommandFactory>(
                 serviceKey,
                 _testCliCommandGeneratorB);
         

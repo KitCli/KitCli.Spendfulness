@@ -1,6 +1,6 @@
 using Cli.Commands.Abstractions;
 using Cli.Commands.Abstractions.Attributes;
-using Cli.Commands.Abstractions.Generators;
+using Cli.Commands.Abstractions.Factories;
 using Cli.Commands.Abstractions.Properties;
 using Cli.Instructions.Abstractions;
 using SpendfulnessCli.Aggregation.Aggregates;
@@ -8,7 +8,7 @@ using SpendfulnessCli.Aggregation.Aggregates;
 namespace SpendfulnessCli.Commands.Reusable.Table.MonthlySpending;
 
 [CliCommandGeneratorFor(typeof(TableCliCommand))]
-public class MonthlySpendingTableCliCommandGenerator : ICliCommandGenerator<MonthlySpendingTableCliCommand>
+public class MonthlySpendingTableCliCommandGenerator : ICliCommandFactory<MonthlySpendingTableCliCommand>
 {
     public bool CanGenerate(CliInstruction instruction, List<CliCommandProperty> properties)
     {

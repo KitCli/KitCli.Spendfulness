@@ -1,5 +1,5 @@
 using Cli.Commands.Abstractions;
-using Cli.Commands.Abstractions.Generators;
+using Cli.Commands.Abstractions.Factories;
 using Cli.Commands.Abstractions.Outcomes;
 using Cli.Commands.Abstractions.Properties;
 using Cli.Instructions.Abstractions;
@@ -7,14 +7,14 @@ using Cli.Workflow.Commands;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 
-namespace Cli.Workflow.Tests.Commands;
+namespace Cli.Workflow.IntegrationTests.Commands;
 
 [TestFixture]
 public class CliWorkflowCommandProviderSingleGeneratorTests
 {
     private record TestCliCommand : CliCommand;
     
-    private class TestCliCommandGenerator : ICliCommandGenerator<TestCliCommand>
+    private class TestCliCommandGenerator : ICliCommandFactory<TestCliCommand>
     {
         public CliCommand Generate(CliInstruction instruction, List<CliCommandProperty> properties)
             => new TestCliCommand();
@@ -35,7 +35,7 @@ public class CliWorkflowCommandProviderSingleGeneratorTests
         
         _serviceCollection = new ServiceCollection();
         _serviceCollection
-            .AddKeyedSingleton<IUnidentifiedCliCommandGenerator>(
+            .AddKeyedSingleton<IUnidentifiedCliCommandFactory>(
                 _cliCommand.GetInstructionName(),
                 _cliCommandGenerator);
         
