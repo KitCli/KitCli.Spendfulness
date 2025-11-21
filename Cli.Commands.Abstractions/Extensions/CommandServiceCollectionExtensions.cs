@@ -37,7 +37,7 @@ public static class CommandServiceCollectionExtensions
                 ? generatorAttribute.CommandType.Name
                 : generatorCommandType.Name;
             
-            var specificCommandName = CliCommand.StripSpecificCommandName(fullCommandName);
+            var specificCommandName = CliCommand.StripSpecificCommandInstruction(fullCommandName);
             
             var commandName = specificCommandName.ToLowerSplitString(CliInstructionConstants.DefaultCommandNameSeparator);
             var shorthandCommandName = specificCommandName.ToLowerTitleCharacters();

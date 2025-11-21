@@ -42,7 +42,7 @@ public class CliCommandTests
         var fullCommandName = "SampleCliCommand";
         
         // Act
-        var strippedName = CliCommand.StripSpecificCommandName(fullCommandName);
+        var strippedName = CliCommand.StripSpecificCommandInstruction(fullCommandName);
 
         // Assert
         var expectedStrippedName = fullCommandName.Replace(nameof(CliCommand), string.Empty);

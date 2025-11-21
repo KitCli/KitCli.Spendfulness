@@ -12,11 +12,6 @@ public class CliWorkflowCommandProvider(IServiceProvider serviceProvider) : ICli
 {
     public CliCommand GetCommand(CliInstruction instruction, List<CliCommandOutcome> outcomes)
     {
-        if (string.IsNullOrEmpty(instruction.Name))
-        {
-            throw new NoInstructionException("No instruction entered.");
-        }
-        
         var generators = serviceProvider
             .GetKeyedServices<IUnidentifiedCliCommandGenerator>(instruction.Name)
             .ToList();
