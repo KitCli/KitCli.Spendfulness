@@ -1,12 +1,13 @@
 using Cli.Workflow.Abstractions;
+using Cli.Workflow.Abstractions.Run.State.Change;
 
 namespace Cli.Workflow.Run.State.Change;
 
-public class CliWorkflowRunStateChange
+public class CliWorkflowRunStateChange : ICliWorkflowRunStateChange
 {
-    public readonly TimeSpan At;
-    public readonly ClIWorkflowRunStateStatus From;
-    public readonly ClIWorkflowRunStateStatus To;
+    public TimeSpan At { get; }
+    public ClIWorkflowRunStateStatus From { get; }
+    public ClIWorkflowRunStateStatus To { get; }
     
     public CliWorkflowRunStateChange(
         TimeSpan at,

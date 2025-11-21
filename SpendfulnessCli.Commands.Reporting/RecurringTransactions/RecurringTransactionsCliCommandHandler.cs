@@ -1,6 +1,8 @@
 using Cli.Abstractions;
 using Cli.Commands.Abstractions.Handlers;
 using Cli.Commands.Abstractions.Outcomes;
+using Cli.Commands.Abstractions.Outcomes.Final;
+using Cli.Commands.Abstractions.Outcomes.Reusable;
 using Spendfulness.Database;
 using SpendfulnessCli.Aggregation.Aggregates;
 using SpendfulnessCli.Aggregation.Aggregator.ListAggregators;
@@ -20,11 +22,14 @@ namespace SpendfulnessCli.Commands.Reporting.RecurringTransactions
         {
             var aggregator = await PrepareAggregator(cliCommand);
 
-            var viewModel = new TransactionPayeeMemoOccurrenceCliTableBuilder()
+            var table = new TransactionPayeeMemoOccurrenceCliTableBuilder()
                 .WithAggregator(aggregator)
                 .Build();
 
-            return OutcomeAs(viewModel);
+            return [
+                new CliCommandListAggregatorOutcome<TransactionPayeeMemoOccurrenceAggregate>(aggregator),
+                new CliCommandTableOutcome(table)
+            ];
         }
 
         private async Task<CliListAggregator<TransactionPayeeMemoOccurrenceAggregate>> PrepareAggregator(RecurringTransactionsCliCommand cliCommand)

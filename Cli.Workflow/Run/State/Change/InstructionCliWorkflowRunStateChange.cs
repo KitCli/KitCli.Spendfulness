@@ -1,14 +1,20 @@
 using Cli.Instructions.Abstractions;
 using Cli.Workflow.Abstractions;
+using Cli.Workflow.Abstractions.Run.State.Change;
 
 namespace Cli.Workflow.Run.State.Change;
 
-public class InstructionCliWorkflowRunStateChange(
-    TimeSpan at,
-    ClIWorkflowRunStateStatus from,
-    ClIWorkflowRunStateStatus to,
-    CliInstruction instruction)
-    : CliWorkflowRunStateChange(at, from, to)
+public class InstructionCliWorkflowRunStateChange : CliWorkflowRunStateChange, IInstructionCliWorkflowRunStateChange
 {
-    public readonly CliInstruction Instruction = instruction;
+    public CliInstruction Instruction { get;  }
+
+    public InstructionCliWorkflowRunStateChange(
+        TimeSpan at,
+        ClIWorkflowRunStateStatus from,
+        ClIWorkflowRunStateStatus to,
+        CliInstruction instruction)
+        : base(at, from, to)
+    {
+        Instruction = instruction;
+    }
 }

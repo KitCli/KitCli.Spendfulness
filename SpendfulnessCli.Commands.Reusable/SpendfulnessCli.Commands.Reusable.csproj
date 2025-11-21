@@ -8,6 +8,8 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Cli.Abstractions\Cli.Abstractions.csproj" />
+      <ProjectReference Include="..\Cli.Workflow.Commands\Cli.Workflow.Commands.csproj" />
+      <ProjectReference Include="..\Cli.Workflow\Cli.Workflow.csproj" />
       <ProjectReference Include="..\SpendfulnessCli.Aggregation\SpendfulnessCli.Aggregation.csproj" />
       <ProjectReference Include="..\SpendfulnessCli.CliTables\SpendfulnessCli.CliTables.csproj" />
       <ProjectReference Include="..\SpendfulnessCli.Commands.Reporting\SpendfulnessCli.Commands.Reporting.csproj" />
