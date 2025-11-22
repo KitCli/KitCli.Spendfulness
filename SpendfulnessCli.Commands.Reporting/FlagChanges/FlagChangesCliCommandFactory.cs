@@ -8,7 +8,7 @@ namespace SpendfulnessCli.Commands.Reporting.FlagChanges;
 
 public class FlagChangesCliCommandFactory : ICliCommandFactory<FlagChangesCliCommand>
 {
-    public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
+    public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> artefacts)
     {
         var from = instruction
             .Arguments

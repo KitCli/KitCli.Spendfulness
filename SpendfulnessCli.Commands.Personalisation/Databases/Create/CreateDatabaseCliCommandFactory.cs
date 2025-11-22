@@ -1,18 +1,15 @@
 using Cli.Commands.Abstractions;
 using Cli.Commands.Abstractions.Artefacts;
-using Cli.Commands.Abstractions.Attributes;
 using Cli.Commands.Abstractions.Factories;
 using Cli.Instructions.Abstractions;
-using SpendfulnessCli.Commands.Personalisation.Databases.Create;
 
-namespace SpendfulnessCli.Commands.Personalisation.Databases;
+namespace SpendfulnessCli.Commands.Personalisation.Databases.Create;
 
-[FactoryFor(typeof(DatabaseCliCommand))]
-public class CreateDatabaseCliCommandFactory : ICliCommandFactory<CreateDatabaseCliCommand>
+public class CreateDatabaseCliCommandFactory : ICliCommandFactory<DatabaseCliCommand>
 {
-    public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> properties)
+    public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> artefacts)
         => instruction.SubInstructionName == DatabaseCliCommand.SubCommandNames.Create;
 
-    public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
+    public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> artefacts)
         => new CreateDatabaseCliCommand();
 }

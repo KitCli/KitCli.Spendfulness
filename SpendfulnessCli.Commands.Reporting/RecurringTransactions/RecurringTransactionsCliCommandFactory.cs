@@ -8,7 +8,7 @@ namespace SpendfulnessCli.Commands.Reporting.RecurringTransactions;
 
 public class RecurringTransactionsCliCommandFactory : ICliCommandFactory<RecurringTransactionsCliCommand>
 {
-    public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
+    public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> artefacts)
     {
         var fromArgument = instruction
             .Arguments

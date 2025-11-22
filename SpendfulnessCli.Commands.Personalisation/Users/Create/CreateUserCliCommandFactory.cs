@@ -1,20 +1,17 @@
 using Cli.Commands.Abstractions;
 using Cli.Commands.Abstractions.Artefacts;
-using Cli.Commands.Abstractions.Attributes;
 using Cli.Commands.Abstractions.Factories;
 using Cli.Instructions.Abstractions;
 using Cli.Instructions.Arguments;
-using SpendfulnessCli.Commands.Personalisation.Users.Create;
 
-namespace SpendfulnessCli.Commands.Personalisation.Users;
+namespace SpendfulnessCli.Commands.Personalisation.Users.Create;
 
-[FactoryFor(typeof(UserCliCommand))]
-public class CreateUserCliCommandFactory : ICliCommandFactory<CreateUserCliCommand>
+public class CreateUserCliCommandFactory : ICliCommandFactory<UserCliCommand>
 {
-    public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> properties)
+    public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> artefacts)
         => instruction.SubInstructionName == UserCliCommand.SubCommandNames.Create;
 
-    public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
+    public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> artefacts)
     {
         var userNameArgument = instruction
             .Arguments

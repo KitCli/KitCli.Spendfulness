@@ -1,19 +1,16 @@
 using Cli.Commands.Abstractions;
 using Cli.Commands.Abstractions.Artefacts;
-using Cli.Commands.Abstractions.Attributes;
 using Cli.Commands.Abstractions.Factories;
 using Cli.Instructions.Abstractions;
 using SpendfulnessCli.Commands.Personalisation.Transactions.List;
-using SpendfulnessCli.Commands.Personalisation.Users;
 
 namespace SpendfulnessCli.Commands.Personalisation.Transactions;
 
-[FactoryFor(typeof(TransactionsCliCommand))]
 public class TransactionCliCommandFactory : ICliCommandFactory<TransactionsCliCommand>
 {
-    public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> properties)
+    public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> artefacts)
         => instruction.SubInstructionName is null;
 
-    public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
+    public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> artefacts)
         => new ListTransactionCliCommand();
 }

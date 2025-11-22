@@ -17,19 +17,19 @@ public class CliWorkflowCommandProviderNoApplicableGeneratorTests
     
     private class TestCliCommandGeneratorA : ICliCommandFactory<TestCliCommand>
     {
-        public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> properties)
+        public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> artefacts)
             => instruction.SubInstructionName == "not applicable";
 
-        public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
+        public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> artefacts)
             => new TestCliCommand();
     }
     
     private class TestCliCommandGeneratorB : ICliCommandFactory<TestCliCommand>
     {
-        public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> properties)
+        public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> artefacts)
             => instruction.SubInstructionName == "not applicable";
         
-        public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
+        public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> artefacts)
             => new TestCliCommand();
     }
     

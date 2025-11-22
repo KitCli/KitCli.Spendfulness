@@ -16,19 +16,19 @@ public class CliWorkflowCommandProviderMultipleGeneratorTests
     
     private class TestCliCommandGeneratorA : ICliCommandFactory<TestCliCommand>
     {
-        public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> properties)
+        public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> artefacts)
             => instruction.SubInstructionName == "1";
 
-        public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
+        public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> artefacts)
             => new TestCliCommand(1);
     }
     
     private class TestCliCommandGeneratorB : ICliCommandFactory<TestCliCommand>
     {
-        public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> properties)
+        public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> artefacts)
             => instruction.SubInstructionName == "2";
         
-        public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
+        public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> artefacts)
             => new TestCliCommand(2);
     }
     

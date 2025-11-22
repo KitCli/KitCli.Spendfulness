@@ -7,6 +7,6 @@ namespace Cli.Workflow.Commands.Exit;
 
 public class ExitCliCommandFactory : ICliCommandFactory<ExitCliCommandFactory>
 {
-    public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
+    public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> artefacts)
         => new ExitCliCommand();
 }

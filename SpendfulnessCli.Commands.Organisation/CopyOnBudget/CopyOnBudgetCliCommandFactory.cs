@@ -9,7 +9,7 @@ namespace SpendfulnessCli.Commands.Organisation.CopyOnBudget;
 // TODO: Move me to personalisation class library.
 public class CopyOnBudgetCliCommandFactory : ICliCommandFactory<CopyOnBudgetCliCommand>
 {
-    public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
+    public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> artefacts)
     {
         var accountIdArgument = instruction.Arguments
             .OfRequiredType<Guid>(CopyOnBudgetCliCommand.ArgumentNames.AccountId);

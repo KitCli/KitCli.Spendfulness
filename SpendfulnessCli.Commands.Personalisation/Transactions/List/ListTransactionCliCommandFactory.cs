@@ -1,20 +1,17 @@
 using Cli.Commands.Abstractions;
 using Cli.Commands.Abstractions.Artefacts;
-using Cli.Commands.Abstractions.Attributes;
 using Cli.Commands.Abstractions.Factories;
 using Cli.Instructions.Abstractions;
 using Cli.Instructions.Arguments;
-using SpendfulnessCli.Commands.Personalisation.Transactions.List;
 
-namespace SpendfulnessCli.Commands.Personalisation.Transactions;
+namespace SpendfulnessCli.Commands.Personalisation.Transactions.List;
 
-[FactoryFor(typeof(TransactionsCliCommand))]
 public class ListTransactionCliCommandFactory : ICliCommandFactory<TransactionsCliCommand>
 {
-    public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> properties)
+    public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> artefacts)
         => instruction.SubInstructionName == TransactionsCliCommand.SubCommandNames.List;
 
-    public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
+    public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> artefacts)
     {
         var payeeNameArgument = instruction
             .Arguments

@@ -1,18 +1,15 @@
 using Cli.Commands.Abstractions;
 using Cli.Commands.Abstractions.Artefacts;
-using Cli.Commands.Abstractions.Attributes;
 using Cli.Commands.Abstractions.Factories;
 using Cli.Instructions.Abstractions;
-using SpendfulnessCli.Commands.Personalisation.Settings.View;
 
-namespace SpendfulnessCli.Commands.Personalisation.Settings;
+namespace SpendfulnessCli.Commands.Personalisation.Settings.View;
 
-[FactoryFor(typeof(SettingCliCommand))]
-public class ViewSettingCliCommandFactory : ICliCommandFactory<ViewSettingCliCommand>
+public class ViewSettingCliCommandFactory : ICliCommandFactory<SettingCliCommand>
 {
-    public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> properties)
+    public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> artefacts)
         => instruction.SubInstructionName == SettingCliCommand.SubCommandNames.View;
 
-    public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
+    public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> artefacts)
         => new ViewSettingCliCommand();
 }

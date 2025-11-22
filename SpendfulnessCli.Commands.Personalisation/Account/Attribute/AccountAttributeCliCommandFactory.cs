@@ -1,6 +1,5 @@
 using Cli.Commands.Abstractions;
 using Cli.Commands.Abstractions.Artefacts;
-using Cli.Commands.Abstractions.Attributes;
 using Cli.Commands.Abstractions.Factories;
 using Cli.Instructions.Abstractions;
 using Cli.Instructions.Arguments;
@@ -8,15 +7,14 @@ using Cli.Workflow.Commands.MissingOutcomes;
 
 namespace SpendfulnessCli.Commands.Personalisation.Account.Attribute;
 
-[FactoryFor(typeof(AccountCliCommand))]
-public class AccountAttributeCliCommandFactory : ICliCommandFactory<AccountAttributeCliCommand>
+public class AccountAttributeCliCommandFactory : ICliCommandFactory<AccountCliCommand>
 {
-    public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> properties)
+    public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> artefacts)
         => instruction.SubInstructionName == AccountCliCommand.SubCommandNames.Attribute;
     
-    public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
+    public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> artefacts)
     {
-        var ynabAccountName = GetYnabAccountNameArgument(instruction, properties);
+        var ynabAccountName = GetYnabAccountNameArgument(instruction, artefacts);
         if (ynabAccountName == null)
         {
             return new MissingOutcomesCliCommand([

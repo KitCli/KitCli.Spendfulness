@@ -7,6 +7,6 @@ namespace SpendfulnessCli.Commands.Personalisation.Categories;
 
 public class CategoriesGenericCliCommandFactory : ICliCommandFactory<CategoriesGenericCliCommandFactory>
 {
-    public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
+    public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> artefacts)
         => new CategoriesCliCommand();
 }

@@ -1,6 +1,5 @@
 using System.Reflection;
 using Cli.Commands.Abstractions.Factories;
-using Cli.Commands.Abstractions.Attributes;
 using Cli.Instructions.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -31,13 +30,7 @@ public static class CommandServiceCollectionExtensions
         foreach (var implementationType in implementationTypes)
         {
             var generatorCommandType = implementationType.FirstOrDefaultGenericTypeArgument();
-            var generatorAttribute = implementationType.FirstOrDefaultAttributeOfType<FactoryFor>();
-
-            var fullCommandName = generatorAttribute != null
-                ? generatorAttribute.CommandType.Name
-                : generatorCommandType.Name;
-            
-            var specificCommandName = CliCommand.StripCommandName(fullCommandName);
+            var specificCommandName = CliCommand.StripCommandName(generatorCommandType.Name);
             
             var commandName = specificCommandName.ToLowerSplitString(CliInstructionConstants.DefaultCommandNameSeparator);
             var shorthandCommandName = specificCommandName.ToLowerTitleCharacters();

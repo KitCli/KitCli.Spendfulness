@@ -1,6 +1,5 @@
 using Cli.Commands.Abstractions;
 using Cli.Commands.Abstractions.Artefacts;
-using Cli.Commands.Abstractions.Attributes;
 using Cli.Commands.Abstractions.Factories;
 using Cli.Commands.Abstractions.Outcomes.Reusable;
 using Cli.Instructions.Abstractions;
@@ -10,15 +9,14 @@ using SpendfulnessCli.Commands.Reporting.MonthlySpending;
 
 namespace SpendfulnessCli.Commands.Reusable.Table.MonthlySpending;
 
-[FactoryFor(typeof(TableCliCommand))]
-public class MonthlySpendingTableCliCommandFactory : ICliCommandFactory<MonthlySpendingTableCliCommand>
+public class MonthlySpendingTableCliCommandFactory : ICliCommandFactory<TableCliCommand>
 {
-    public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> properties)
-        => properties.LastCommandRanWas<MonthlySpendingCliCommand>();
+    public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> artefacts)
+        => artefacts.LastCommandRanWas<MonthlySpendingCliCommand>();
     
-    public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
+    public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> artefacts)
     {
-        var monthlySpendingAggregator = properties.GetListAggregator<TransactionMonthTotalAggregate>();
+        var monthlySpendingAggregator = artefacts.GetListAggregator<TransactionMonthTotalAggregate>();
         if (monthlySpendingAggregator == null)
         {
             return new MissingOutcomesCliCommand([
