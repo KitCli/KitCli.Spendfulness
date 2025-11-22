@@ -12,8 +12,6 @@ using MediatR;
 
 namespace Cli.Workflow.Run;
 
-// TODO: Cli: I wonder if always attaching this to the command is a great way to add properties?
-// And then let implementers of the CLI pass around properties between commands and hooks.
 public class CliWorkflowRun : ICliWorkflowRun
 {
     public ICliWorkflowRunState State { get; }
@@ -95,6 +93,7 @@ public class CliWorkflowRun : ICliWorkflowRun
     {
         var priorOutcomes = State
             .AllOutcomeStateChanges()
+            // TODO: Write unit test covering this flattening.
             .SelectMany(outcomeChange => outcomeChange.Outcomes)
             .ToList();
         

@@ -6,7 +6,7 @@ using SpendfulnessCli.Commands.Personalisation.Databases.Create;
 
 namespace SpendfulnessCli.Commands.Personalisation.Databases;
 
-public class DatabaseGenericCliCommandFactory : ICliCommandFactory<DatabaseCliCommand>
+public class DatabaseGenericCliCommandFactory : ICliCommandFactory
 {
     public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
         => instruction.SubInstructionName switch

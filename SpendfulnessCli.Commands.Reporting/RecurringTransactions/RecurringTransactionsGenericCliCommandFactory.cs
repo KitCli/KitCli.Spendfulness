@@ -6,7 +6,7 @@ using Cli.Instructions.Arguments;
 
 namespace SpendfulnessCli.Commands.Reporting.RecurringTransactions;
 
-public class RecurringTransactionsGenericCliCommandFactory : ICliCommandFactory<RecurringTransactionsCliCommand>
+public class RecurringTransactionsGenericCliCommandFactory : ICliCommandFactory
 {
     public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
     {

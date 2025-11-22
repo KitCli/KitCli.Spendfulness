@@ -2,7 +2,7 @@ namespace Cli.Abstractions;
 
 public static class StringExtensions
 {
-    // TODO: I wonder if there's something like this.
+    // TODO: Write unit tests.
     public static bool IsSimilarTo(this string ctrl, string candidate)
     {
         var exact = ctrl.Equals(candidate);

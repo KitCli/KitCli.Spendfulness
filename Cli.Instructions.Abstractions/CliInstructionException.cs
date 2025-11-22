@@ -2,6 +2,7 @@ using Cli.Abstractions;
 
 namespace Cli.Instructions.Abstractions;
 
+// TODO: Write unit test.
 public class CliInstructionException : CliException
 {
     public new readonly CliInstructionExceptionCode Code;

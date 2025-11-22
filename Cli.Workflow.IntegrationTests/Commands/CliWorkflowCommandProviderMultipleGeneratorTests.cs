@@ -14,7 +14,7 @@ public class CliWorkflowCommandProviderMultipleGeneratorTests
 {
     private record TestCliCommand(int Number) : CliCommand;
     
-    private class TestCliCommandGeneratorA : ICliCommandFactory<TestCliCommand>
+    private class TestCliCommandGeneratorA : ICliCommandFactory
     {
         public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> properties)
             => instruction.SubInstructionName == "1";
@@ -23,7 +23,7 @@ public class CliWorkflowCommandProviderMultipleGeneratorTests
             => new TestCliCommand(1);
     }
     
-    private class TestCliCommandGeneratorB : ICliCommandFactory<TestCliCommand>
+    private class TestCliCommandGeneratorB : ICliCommandFactory
     {
         public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> properties)
             => instruction.SubInstructionName == "2";

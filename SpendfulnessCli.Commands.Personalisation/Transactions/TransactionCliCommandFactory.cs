@@ -7,7 +7,7 @@ using SpendfulnessCli.Commands.Personalisation.Transactions.List;
 
 namespace SpendfulnessCli.Commands.Personalisation.Transactions;
 
-public class TransactionCliCommandFactory : ICliCommandFactory<TransactionsCliCommand>
+public class TransactionCliCommandFactory : ICliCommandFactory
 {
     public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
         => instruction.SubInstructionName switch

@@ -8,7 +8,7 @@ using Cli.Instructions.Arguments;
 namespace SpendfulnessCli.Commands.Personalisation.Account;
 
 [FactoryFor(typeof(AccountCliCommand))]
-public class AccountCliCommandFactory : ICliCommandFactory<AccountCliCommand>
+public class AccountCliCommandFactory : ICliCommandFactory
 {
     public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> properties)
         => instruction.SubInstructionName is null;

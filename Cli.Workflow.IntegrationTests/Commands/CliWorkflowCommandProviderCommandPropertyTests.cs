@@ -27,7 +27,7 @@ public class CliWorkflowCommandProviderCommandPropertyTests
             => new TestCliCommandArtefact();
     }
 
-    private class TestCliCommandFactory : ICliCommandFactory<TestCliCommand>
+    private class TestCliCommandFactory : ICliCommandFactory
     {
         public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> properties)
             => properties.OfType<TestCliCommandArtefact>().Any();

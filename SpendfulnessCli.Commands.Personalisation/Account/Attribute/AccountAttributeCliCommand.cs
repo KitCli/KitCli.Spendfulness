@@ -2,7 +2,6 @@ using Cli.Commands.Abstractions;
 
 namespace SpendfulnessCli.Commands.Personalisation.Account.Attribute;
 
-// TODO: Rename me to 'Attribute'
 public record AccountAttributeCliCommand(string YnabAccountName, string? CustomAccountTypeName, decimal? InterestRate) : CliCommand
 {
     public static class ArgumentNames

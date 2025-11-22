@@ -5,7 +5,7 @@ using Cli.Instructions.Abstractions;
 
 namespace Cli.Workflow.Commands.Exit;
 
-public class ExitCliCommandFactory : ICliCommandFactory<ExitCliCommand>
+public class ExitCliCommandFactory : ICliCommandFactory
 {
     public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
         => new ExitCliCommand();

@@ -11,7 +11,7 @@ using SpendfulnessCli.Commands.Reporting.MonthlySpending;
 namespace SpendfulnessCli.Commands.Reusable.Table.MonthlySpending;
 
 [FactoryFor(typeof(TableCliCommand))]
-public class MonthlySpendingTableCliCommandFactory : ICliCommandFactory<MonthlySpendingTableCliCommand>
+public class MonthlySpendingTableCliCommandFactory : ICliCommandFactory
 {
     public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> properties)
         => properties.LastCommandRanWas<MonthlySpendingCliCommand>();

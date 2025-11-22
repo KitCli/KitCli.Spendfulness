@@ -3,6 +3,7 @@ using Cli.Instructions.Abstractions.Validators;
 
 namespace Cli.Instructions.Validators;
 
+// TODO: Write unit tests.
 public class DefaultCliInstructionValidator : ICliInstructionValidator
 {
     public bool IsValidInstruction(CliInstruction instruction)

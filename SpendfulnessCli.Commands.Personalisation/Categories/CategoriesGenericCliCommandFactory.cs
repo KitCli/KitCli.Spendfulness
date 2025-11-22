@@ -5,7 +5,7 @@ using Cli.Instructions.Abstractions;
 
 namespace SpendfulnessCli.Commands.Personalisation.Categories;
 
-public class CategoriesGenericCliCommandFactory : ICliCommandFactory<CategoriesCliCommand>
+public class CategoriesGenericCliCommandFactory : ICliCommandFactory
 {
     public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
         => new CategoriesCliCommand();

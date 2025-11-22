@@ -5,8 +5,7 @@ using SpendfulnessCli.Aggregation.Aggregates;
 
 namespace SpendfulnessCli.Aggregation.Aggregator;
 
-// TODO: This should be a list aggregator.
-
+// TODO: FIx this name.
 public class CategoryYearAverageYnabListAggregator(IEnumerable<Transaction> transactions)
     : YnabListAggregator<CategoryYearAverageAggregate>(transactions)
 {

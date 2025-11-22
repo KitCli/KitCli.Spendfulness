@@ -10,6 +10,7 @@ namespace Cli.Workflow.Commands;
 
 public class CliWorkflowCommandProvider(IServiceProvider serviceProvider) : ICliWorkflowCommandProvider
 {
+    // TODO: Test cases for the exceptions.
     public CliCommand GetCommand(CliInstruction instruction, List<CliCommandOutcome> outcomes)
     {
         var generators = serviceProvider

@@ -9,7 +9,7 @@ using SpendfulnessCli.Commands.Personalisation.Users.Switch;
 
 namespace SpendfulnessCli.Commands.Personalisation.Users;
 
-public class UserGenericCliCommandFactory : ICliCommandFactory<UserCliCommand>
+public class UserGenericCliCommandFactory : ICliCommandFactory
 {
     public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
         => instruction.SubInstructionName switch

@@ -3,6 +3,7 @@ using Cli.Commands.Abstractions.Outcomes;
 
 namespace Cli.Workflow.Commands.MissingOutcomes;
 
+// TODO: Write uit tests.
 public class MissingOutcomesCliCommandHandler : CliCommandHandler, ICliCommandHandler<MissingOutcomesCliCommand>
 {
     private const string Message = "The following prerequisite outcomes were not returned from previous commands:";

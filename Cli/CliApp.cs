@@ -4,7 +4,6 @@ using Cli.Workflow.Abstractions;
 
 namespace Cli;
 
-// TODO: Rename to something clever?
 public abstract class CliApp
 {
     private readonly ICliWorkflow _workflow;

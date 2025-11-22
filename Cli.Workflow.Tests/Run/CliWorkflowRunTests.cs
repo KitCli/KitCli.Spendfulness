@@ -20,6 +20,13 @@ namespace Cli.Workflow.Tests.Run;
 [TestFixture]
 public class CliWorkflowRunTests
 {
+    private abstract record TestAggregate;
+
+    private class TestListAggregator : CliListAggregator<TestAggregate>
+    {
+        protected override IEnumerable<TestAggregate> ListAggregate() => new List<TestAggregate>();
+    }
+    
     private CliWorkflowRunState _cliWorkflowRunState;
     private Mock<ICliInstructionParser> _cliInstructionParser;
     private Mock<ICliInstructionValidator> _cliInstructionValidator;
@@ -278,15 +285,5 @@ public class CliWorkflowRunTests
         
         var resultingOutcome = resultingOutcomes[1];
         Assert.That(resultingOutcome, Is.EqualTo(outcome));
-    }
-
-    public record TestAggregate(string Name);
-
-    public class TestListAggregator : CliListAggregator<TestAggregate>
-    {
-        protected override IEnumerable<TestAggregate> ListAggregate()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

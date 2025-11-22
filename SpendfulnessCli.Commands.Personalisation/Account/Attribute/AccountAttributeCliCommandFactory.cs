@@ -9,7 +9,7 @@ using Cli.Workflow.Commands.MissingOutcomes;
 namespace SpendfulnessCli.Commands.Personalisation.Account.Attribute;
 
 [FactoryFor(typeof(AccountCliCommand))]
-public class AccountAttributeCliCommandFactory : ICliCommandFactory<AccountAttributeCliCommand>
+public class AccountAttributeCliCommandFactory : ICliCommandFactory
 {
     public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> properties)
         => instruction.SubInstructionName == AccountCliCommand.SubCommandNames.Attribute;

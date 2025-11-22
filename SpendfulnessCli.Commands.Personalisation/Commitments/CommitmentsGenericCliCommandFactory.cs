@@ -6,7 +6,7 @@ using SpendfulnessCli.Commands.Personalisation.Commitments.Find;
 
 namespace SpendfulnessCli.Commands.Personalisation.Commitments;
 
-public class CommitmentsGenericCliCommandFactory : ICliCommandFactory<CommitmentsCliCommand>
+public class CommitmentsGenericCliCommandFactory : ICliCommandFactory
 {
     public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
         => instruction.SubInstructionName switch

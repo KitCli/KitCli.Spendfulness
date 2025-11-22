@@ -5,6 +5,7 @@ using Cli.Workflow.Abstractions;
 
 namespace Cli.Workflow.Commands.Exit;
 
+// TODO: Write unit tests.
 public class ExitCliCommandHandler(ICliWorkflow cliWorkflow) : CliCommandHandler, ICliCommandHandler<ExitCliCommand>
 {
     public Task<CliCommandOutcome[]> Handle(ExitCliCommand command, CancellationToken cancellationToken)

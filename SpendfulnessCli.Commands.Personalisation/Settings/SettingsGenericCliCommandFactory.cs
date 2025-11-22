@@ -8,7 +8,7 @@ using SpendfulnessCli.Commands.Personalisation.Settings.View;
 
 namespace SpendfulnessCli.Commands.Personalisation.Settings;
 
-public class SettingsGenericCliCommandFactory : ICliCommandFactory<SettingsCliCommand>
+public class SettingsGenericCliCommandFactory : ICliCommandFactory
 {
     public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
         => instruction.SubInstructionName switch

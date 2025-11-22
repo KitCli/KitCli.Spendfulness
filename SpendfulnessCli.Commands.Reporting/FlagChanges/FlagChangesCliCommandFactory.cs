@@ -6,11 +6,10 @@ using Cli.Instructions.Arguments;
 
 namespace SpendfulnessCli.Commands.Reporting.FlagChanges;
 
-public class FlagChangesCliCommandFactory : ICliCommandFactory<FlagChangesCliCommand>
+public class FlagChangesCliCommandFactory : ICliCommandFactory
 {
     public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
     {
-        // TODO: I dont like that this isnt more generic!
         var from = instruction
             .Arguments
             .OfType<DateOnly>(FlagChangesCliCommand.ArgumentNames.From);

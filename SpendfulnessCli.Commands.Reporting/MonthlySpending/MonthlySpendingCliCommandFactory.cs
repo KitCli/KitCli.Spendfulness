@@ -7,7 +7,7 @@ using Cli.Instructions.Arguments;
 namespace SpendfulnessCli.Commands.Reporting.MonthlySpending;
 
 // TODO: Write unit tests.
-public class MonthlySpendingCliCommandFactory : ICliCommandFactory<MonthlySpendingCliCommand>
+public class MonthlySpendingCliCommandFactory : ICliCommandFactory
 {
     public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
     {
