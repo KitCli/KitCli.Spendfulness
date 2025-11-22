@@ -9,13 +9,12 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Cli.Workflow;
 
-// TODO: Write unit tests.
 /// <summary>
 /// State machine of a command line interface.
 /// </summary>
 public class CliWorkflow(IServiceProvider serviceProvider) : ICliWorkflow
 {
-    public List<ICliWorkflowRun> Runs { get; set; } = [];
+    public List<ICliWorkflowRun> Runs { get; } = [];
     public CliWorkflowStatus Status { get; set; } = CliWorkflowStatus.Started;
 
 
