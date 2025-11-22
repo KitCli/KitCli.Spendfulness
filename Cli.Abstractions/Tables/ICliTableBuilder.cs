@@ -1,3 +1,5 @@
+using Cli.Abstractions.Aggregators;
+
 namespace Cli.Abstractions;
 
 public interface ICliTableBuilder<TAggregation> where TAggregation : notnull

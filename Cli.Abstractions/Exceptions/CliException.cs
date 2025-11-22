@@ -1,4 +1,4 @@
-namespace Cli.Abstractions;
+namespace Cli.Abstractions.Exceptions;
 
 public class CliException : Exception
 {

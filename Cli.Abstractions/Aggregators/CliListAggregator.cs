@@ -1,4 +1,4 @@
-namespace Cli.Abstractions;
+namespace Cli.Abstractions.Aggregators;
 
 public abstract class CliListAggregator<TAggregation> : CliAggregator<IEnumerable<TAggregation>>
 {

@@ -1,4 +1,5 @@
 using Cli.Abstractions;
+using Cli.Abstractions.Aggregators;
 using Cli.Commands.Abstractions.Artefacts.Aggregator;
 using Cli.Commands.Abstractions.Artefacts.CommandRan;
 

@@ -1,4 +1,5 @@
 using Cli.Abstractions;
+using Cli.Abstractions.Exceptions;
 
 namespace Cli.Workflow.Abstractions;
 

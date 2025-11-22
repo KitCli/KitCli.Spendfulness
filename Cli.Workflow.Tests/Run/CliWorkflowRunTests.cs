@@ -1,4 +1,5 @@
 using Cli.Abstractions;
+using Cli.Abstractions.Aggregators;
 using Cli.Commands.Abstractions;
 using Cli.Commands.Abstractions.Exceptions;
 using Cli.Commands.Abstractions.Outcomes;

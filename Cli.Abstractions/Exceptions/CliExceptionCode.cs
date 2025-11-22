@@ -1,8 +1,7 @@
-namespace Cli.Abstractions;
+namespace Cli.Abstractions.Exceptions;
 
 public enum CliExceptionCode
 {
-    Workflow,
     Instruction,
     Command,
     Custom,
