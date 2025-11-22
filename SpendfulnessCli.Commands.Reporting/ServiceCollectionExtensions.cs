@@ -7,7 +7,7 @@ namespace SpendfulnessCli.Commands.Reporting;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddReportingCommands(this IServiceCollection serviceCollection)
+    public static IServiceCollection AddSpendfulnessReportingCommands(this IServiceCollection serviceCollection)
     {
         var reportingCommandsAssembly = Assembly.GetAssembly(typeof(SpareMoneyCliCommand));
         return serviceCollection.AddCommandsFromAssembly(reportingCommandsAssembly);

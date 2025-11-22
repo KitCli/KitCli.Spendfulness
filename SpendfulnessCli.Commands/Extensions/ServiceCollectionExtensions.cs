@@ -6,7 +6,7 @@ namespace SpendfulnessCli.Commands.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddCommands(this IServiceCollection serviceCollection)
+    public static IServiceCollection AddSpendfulnessCommands(this IServiceCollection serviceCollection)
     {
         return serviceCollection
             .AddSingleton<SpendfulnessBudgetClient>()

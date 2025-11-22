@@ -5,7 +5,7 @@ using Cli.Instructions.Abstractions;
 
 namespace SpendfulnessCli.Commands.Reporting.AverageYearlySpending;
 
-public class AverageYearlySpendingCliCommandFactory : ICliCommandFactory
+public class AverageYearlySpendingCliCommandFactory : ICliCommandFactory<AverageYearlySpendingCliCommand>
 {
     public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
         => new AverageYearlySpendingCliCommand();

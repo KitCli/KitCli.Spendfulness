@@ -6,16 +6,16 @@ using Spendfulness.Database;
 
 namespace SpendfulnessCli.Commands.Personalisation.Settings.View;
 
-public class SettingsViewCliCommandHandler : CliCommandHandler, ICliCommandHandler<SettingsViewCliCommand>
+public class ViewSettingCliCommandHandler : CliCommandHandler, ICliCommandHandler<ViewSettingCliCommand>
 {
     private readonly SpendfulnessDbContext _dbContext;
 
-    public SettingsViewCliCommandHandler(SpendfulnessDbContext dbContext)
+    public ViewSettingCliCommandHandler(SpendfulnessDbContext dbContext)
     {
         _dbContext = dbContext;
     }
 
-    public async Task<CliCommandOutcome[]> Handle(SettingsViewCliCommand request, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome[]> Handle(ViewSettingCliCommand request, CancellationToken cancellationToken)
     {
         var activeUser = await _dbContext.Users
             .Include(user => user.Settings)

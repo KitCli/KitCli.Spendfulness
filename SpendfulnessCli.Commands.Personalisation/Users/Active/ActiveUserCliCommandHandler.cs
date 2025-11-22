@@ -5,16 +5,16 @@ using Spendfulness.Database;
 
 namespace SpendfulnessCli.Commands.Personalisation.Users.Active;
 
-public class UserActiveCliCommandHandler : CliCommandHandler, ICliCommandHandler<UserActiveCliCommand>
+public class ActiveUserCliCommandHandler : CliCommandHandler, ICliCommandHandler<ActiveUserCliCommand>
 {
     private readonly SpendfulnessDbContext _dbContext;
 
-    public UserActiveCliCommandHandler(SpendfulnessDbContext dbContext)
+    public ActiveUserCliCommandHandler(SpendfulnessDbContext dbContext)
     {
         _dbContext = dbContext;
     }
 
-    public async Task<CliCommandOutcome[]> Handle(UserActiveCliCommand request, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome[]> Handle(ActiveUserCliCommand request, CancellationToken cancellationToken)
     {
         var activeUser = await _dbContext.Users.FirstOrDefaultAsync(u => u.Active);
         

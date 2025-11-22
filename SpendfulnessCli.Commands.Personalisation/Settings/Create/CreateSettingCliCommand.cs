@@ -2,7 +2,7 @@ using Cli.Commands.Abstractions;
 
 namespace SpendfulnessCli.Commands.Personalisation.Settings.Create;
 
-public record SettingCreateCliCommand : CliCommand
+public record CreateSettingCliCommand : CliCommand
 {
     public static class ArgumentNames
     {

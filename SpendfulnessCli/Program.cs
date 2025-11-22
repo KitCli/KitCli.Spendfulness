@@ -1,11 +1,9 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using Cli;
-using Cli.Instructions.Extensions;
 using SpendfulnessCli.Commands.Extensions;
 using SpendfulnessCli.Commands.Organisation;
 using SpendfulnessCli.Commands.Personalisation;
-using Microsoft.Extensions.DependencyInjection;
 using Spendfulness.Database;
 using SpendfulnessCli;
 using SpendfulnessCli.Abstractions.Taxis;
@@ -14,21 +12,27 @@ using SpendfulnessCli.Commands.Reporting;
 using SpendfulnessCli.Commands.Reusable;
 using Ynab.Extensions;
 
-// TODO: CLI - I wonder if I could simplify this to new CliBuilder() or something.
-var serviceProvider = new ServiceCollection()
-    .AddCli<SpendfulnessCliApp>()
-    .AddYnab() // Speak to the YNAB API
-    .AddYnabTransactionFactory<TaxiTransactionFactory>()
-    .AddSpendfulnessDb() // Store data in an SQLite databaase.
-    .AddAggregatorCommandProperties() // Add command properties for aggregators
-    .AddCommands() // Convert them into MediatR requests
-    .AddReportingCommands() // Commands that work with YNAB data
-    .AddOrganisationCommands() // Commands that help organise the data
-    .AddPersonalisationCommands() // Commands for CRUD with db data
-    .AddReusableCommands() // Reusable commands like Table
-    .AddCliInstructions() // Understand terminal commands
-    .BuildServiceProvider();
+var cliAppBuilder = new CliAppBuilder()
+    .WithCli<SpendfulnessCliApp>();
+    
+// Add YNAB services
+cliAppBuilder
+    .WithCustomServices(services => 
+        services
+            .AddYnab() // Speak to the YNAB API
+            .AddYnabTransactionFactory<TaxiTransactionFactory>());
 
-var cliApp = serviceProvider.GetRequiredService<CliApp>();
 
-await cliApp.Run();
+// Spendfulness specific set up.
+cliAppBuilder
+    .WithCustomServices(services =>
+        services
+            .AddSpendfulnessDb() 
+            .AddSpendfulnessAggregatorCommandProperties() 
+            .AddSpendfulnessCommands() 
+            .AddSpendfulnessReportingCommands() 
+            .AddSpendfulnessOrganisationCommands() 
+            .AddSpendfulnessPersonalisationCommands() 
+            .AddSpendfulnessReusableCommands()); 
+
+await cliAppBuilder.Run();

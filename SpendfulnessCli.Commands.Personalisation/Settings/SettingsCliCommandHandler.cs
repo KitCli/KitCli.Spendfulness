@@ -3,9 +3,9 @@ using Cli.Commands.Abstractions.Outcomes;
 
 namespace SpendfulnessCli.Commands.Personalisation.Settings;
 
-public class SettingsCliCommandHandler : ICliCommandHandler<SettingsCliCommand>
+public class SettingsCliCommandHandler : ICliCommandHandler<SettingCliCommand>
 {
-    public Task<CliCommandOutcome[]> Handle(SettingsCliCommand request, CancellationToken cancellationToken)
+    public Task<CliCommandOutcome[]> Handle(SettingCliCommand request, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }

@@ -7,7 +7,7 @@ namespace SpendfulnessCli.Commands.Organisation;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddOrganisationCommands(this IServiceCollection serviceCollection)
+    public static IServiceCollection AddSpendfulnessOrganisationCommands(this IServiceCollection serviceCollection)
     {
         var organisationCommandsAssembly = Assembly.GetAssembly(typeof(CopyOnBudgetCliCommand));
         return serviceCollection.AddCommandsFromAssembly(organisationCommandsAssembly);

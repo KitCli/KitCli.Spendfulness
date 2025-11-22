@@ -8,7 +8,7 @@ using Cli.Instructions.Arguments;
 namespace SpendfulnessCli.Commands.Reporting.SpareMoney;
 
 [FactoryFor(typeof(SpareMoneyCliCommand))]
-public class SpareMoneyCliCommandFactory : ICliCommandFactory
+public class SpareMoneyCliCommandFactory : ICliCommandFactory<SpareMoneyCliCommand>
 {
     public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> properties)
     {

@@ -8,7 +8,7 @@ namespace SpendfulnessCli.Commands.Personalisation;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddPersonalisationCommands(this IServiceCollection serviceCollection)
+    public static IServiceCollection AddSpendfulnessPersonalisationCommands(this IServiceCollection serviceCollection)
     {
         var personalisationCommandsAssembly = Assembly.GetAssembly(typeof(DatabaseCliCommand));
 

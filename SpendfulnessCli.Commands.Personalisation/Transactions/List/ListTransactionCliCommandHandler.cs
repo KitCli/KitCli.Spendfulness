@@ -7,10 +7,10 @@ using Ynab.Extensions;
 
 namespace SpendfulnessCli.Commands.Personalisation.Transactions.List;
 
-public class TransactionListCliCliCommandHandler(SpendfulnessBudgetClient spendfulnessBudgetClient)
-    : CliCommandHandler, ICliCommandHandler<TransactionsListCliCommand>
+public class ListTransactionCliCommandHandler(SpendfulnessBudgetClient spendfulnessBudgetClient)
+    : CliCommandHandler, ICliCommandHandler<ListTransactionCliCommand>
 {
-    public async Task<CliCommandOutcome[]> Handle(TransactionsListCliCommand cliCommand, CancellationToken cancellationToken)
+    public async Task<CliCommandOutcome[]> Handle(ListTransactionCliCommand transactionCliCommand, CancellationToken cancellationToken)
     {
         var budget = await spendfulnessBudgetClient.GetDefaultBudget();
 
@@ -18,10 +18,10 @@ public class TransactionListCliCliCommandHandler(SpendfulnessBudgetClient spendf
 
         var aggregator = new TransactionYnabListAggregator(transactions);
 
-        if (cliCommand.PayeeName is not null)
+        if (transactionCliCommand.PayeeName is not null)
         {
             aggregator.BeforeAggregation(transaction
-                => transaction.FilterToPayeeNames([cliCommand.PayeeName]));
+                => transaction.FilterToPayeeNames([transactionCliCommand.PayeeName]));
         }
         
         aggregator.AfterAggregation(aggregates

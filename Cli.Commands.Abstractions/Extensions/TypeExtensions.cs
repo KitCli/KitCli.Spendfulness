@@ -20,7 +20,7 @@ public static class TypeExtensions
         if (genericInterfaceType is null)
         {
             var implementationTypeName = implementationType.Name;
-            var typeName = typeof(ICliCommandFactory).Name;
+            var typeName = typeof(ICliCommandFactory<>).Name;
                 
             throw new ArgumentException($"Type '{implementationTypeName}' does not implement {typeName} interface");
         }

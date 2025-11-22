@@ -2,9 +2,9 @@ using Cli.Commands.Abstractions;
 
 namespace SpendfulnessCli.Commands.Personalisation.Users.Create;
 
-public record UserCreateCliCommand : CliCommand
+public record CreateUserCliCommand : CliCommand
 {
-    public static class ArugmentNames
+    public static class ArgumentNames
     {
         public const string UserName = "user-name";
     }

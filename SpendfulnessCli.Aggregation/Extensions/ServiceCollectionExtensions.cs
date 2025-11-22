@@ -6,7 +6,7 @@ namespace SpendfulnessCli.Aggregation.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddAggregatorCommandProperties(this IServiceCollection serviceCollection)
+    public static IServiceCollection AddSpendfulnessAggregatorCommandProperties(this IServiceCollection serviceCollection)
         => serviceCollection
             .AddAggregatorCommandPropertiesFromAssembly(typeof(YnabListAggregator<>).Assembly)
             .AddListAggregatorCommandPropertiesFromAssembly(typeof(YnabListAggregator<>).Assembly);
