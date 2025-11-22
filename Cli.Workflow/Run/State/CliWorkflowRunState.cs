@@ -17,6 +17,19 @@ public class CliWorkflowRunState : ICliWorkflowRunState
         return Changes.Any(change => change.To == status);
     }
     
+    public bool WasChangedToReusableOutcome()
+    {
+        var lastOutcomeChange = Changes
+            .OfType<OutcomeCliWorkflowRunStateChange>()
+            .LastOrDefault();
+
+        var includesReusableOutcome = lastOutcomeChange?
+            .Outcomes
+            .Any(p => p.IsReusable);
+
+        return includesReusableOutcome ?? false;
+    }
+    
     public List<IOutcomeCliWorkflowRunStateChange> AllOutcomeStateChanges()
     {
         return Changes

@@ -13,6 +13,8 @@ public interface ICliWorkflowRunState
 
     bool WasChangedTo(ClIWorkflowRunStateStatus status);
 
+    bool WasChangedToReusableOutcome();
+
     List<IOutcomeCliWorkflowRunStateChange> AllOutcomeStateChanges();
 
     void ChangeTo(ClIWorkflowRunStateStatus statusToChangeTo);

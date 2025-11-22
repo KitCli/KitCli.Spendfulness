@@ -1,3 +1,5 @@
+using Cli.Commands.Abstractions.Outcomes;
+using Cli.Commands.Abstractions.Outcomes.Final;
 using Cli.Instructions.Abstractions.Validators;
 using Cli.Instructions.Parsers;
 using Cli.Workflow.Abstractions;
@@ -13,6 +15,8 @@ namespace Cli.Workflow.Tests;
 [TestFixture]
 public class CliWorkflowTests
 {
+    private class TestCliCommandOutcome() : CliCommandOutcome(CliCommandOutcomeKind.Reusable);
+    
     private Mock<IServiceProvider> _serviceProviderMock;
     private CliWorkflow _classUnderTest;
 
@@ -61,9 +65,27 @@ public class CliWorkflowTests
     public void GivenPriorRunAchievedReusableOutcome_WhenNextRun_GetsThatRun()
     {
         // Arrange
+        _serviceProviderMock
+            .Setup(sp => sp.GetService(typeof(ICliInstructionParser)))
+            .Returns(new Mock<ICliInstructionParser>().Object);
+        
+        _serviceProviderMock
+            .Setup(sp => sp.GetService(typeof(ICliInstructionValidator)))
+            .Returns(new Mock<ICliInstructionValidator>().Object);
+        
+        _serviceProviderMock
+            .Setup(sp =>  sp.GetService(typeof(ICliWorkflowCommandProvider)))
+            .Returns(new Mock<ICliWorkflowCommandProvider>().Object);
+        
+        _serviceProviderMock
+            .Setup(sp => sp.GetService(typeof(IMediator)))
+            .Returns(new Mock<IMediator>().Object);
+
+        var outcome = new TestCliCommandOutcome();
+        
         var reusableRunState = new CliWorkflowRunState();
         reusableRunState.ChangeTo(ClIWorkflowRunStateStatus.Running);
-        reusableRunState.ChangeTo(ClIWorkflowRunStateStatus.ReachedReusableOutcome);
+        reusableRunState.ChangeTo(ClIWorkflowRunStateStatus.ReachedReusableOutcome, [outcome]);
         
         var reusableRun = new CliWorkflowRun(
             reusableRunState,
@@ -79,6 +101,50 @@ public class CliWorkflowTests
         
         // Assert
         Assert.That(nextRun, Is.EqualTo(reusableRun));
+    }
+    
+    [Test]
+    public void GivenPriorRunAchievedFinalOutcome_WhenNextRun_GetsThatRun()
+    {
+        // Arrange
+        _serviceProviderMock
+            .Setup(sp => sp.GetService(typeof(ICliInstructionParser)))
+            .Returns(new Mock<ICliInstructionParser>().Object);
+        
+        _serviceProviderMock
+            .Setup(sp => sp.GetService(typeof(ICliInstructionValidator)))
+            .Returns(new Mock<ICliInstructionValidator>().Object);
+        
+        _serviceProviderMock
+            .Setup(sp =>  sp.GetService(typeof(ICliWorkflowCommandProvider)))
+            .Returns(new Mock<ICliWorkflowCommandProvider>().Object);
+        
+        _serviceProviderMock
+            .Setup(sp => sp.GetService(typeof(IMediator)))
+            .Returns(new Mock<IMediator>().Object);
+        
+        var outcome = new CliCommandOutputOutcome(string.Empty);
+        
+        var reusableRunState = new CliWorkflowRunState();
+        reusableRunState.ChangeTo(ClIWorkflowRunStateStatus.Running);
+        reusableRunState.ChangeTo(ClIWorkflowRunStateStatus.ReachedReusableOutcome);
+        reusableRunState.ChangeTo(ClIWorkflowRunStateStatus.Running);
+        reusableRunState.ChangeTo(ClIWorkflowRunStateStatus.ReachedFinalOutcome, [outcome]);
+        
+        var reusableRun = new CliWorkflowRun(
+            reusableRunState,
+            new Mock<ICliInstructionParser>().Object,
+            new Mock<ICliInstructionValidator>().Object,
+            new Mock<ICliWorkflowCommandProvider>().Object,
+            new Mock<IMediator>().Object);
+        
+        _classUnderTest.Runs.Add(reusableRun);
+        
+        // Act
+        var nextRun = _classUnderTest.NextRun();
+        
+        // Assert
+        Assert.That(nextRun, Is.Not.EqualTo(reusableRun));
     }
     
     [Test]
