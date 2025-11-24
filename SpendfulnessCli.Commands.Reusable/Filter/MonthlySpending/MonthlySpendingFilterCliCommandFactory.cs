@@ -3,27 +3,34 @@ using Cli.Commands.Abstractions.Artefacts;
 using Cli.Commands.Abstractions.Factories;
 using Cli.Commands.Abstractions.Outcomes.Reusable;
 using Cli.Instructions.Abstractions;
+using Cli.Instructions.Arguments;
 using Cli.Workflow.Commands.MissingOutcomes;
 using SpendfulnessCli.Aggregation.Aggregates;
-using SpendfulnessCli.Commands.Reporting.MonthlySpending;
 using SpendfulnessCli.Commands.Reusable.MonthlySpending;
 
-namespace SpendfulnessCli.Commands.Reusable.Table.MonthlySpending;
+namespace SpendfulnessCli.Commands.Reusable.Filter.MonthlySpending;
 
-public class MonthlySpendingTableCliCommandFactory
-    : MonthlySpendingReusableCliCommandFactory, ICliCommandFactory<TableCliCommand>
+public class MonthlySpendingFilterCliCommandFactory
+    : MonthlySpendingReusableCliCommandFactory, ICliCommandFactory<FilterCliCommand>
 {
     public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> artefacts)
     {
-        var aggregatorArtefact = artefacts.OfListAggregatorType<TransactionMonthTotalAggregate>();
-        
+        var aggregatorArtefact = artefacts
+            .OfListAggregatorType<TransactionMonthTotalAggregate>();
+
         if (aggregatorArtefact == null)
         {
             return new MissingOutcomesCliCommand([
                 nameof(ListAggregatorCliCommandOutcome<TransactionMonthTotalAggregate>)
             ]);
         }
+        
+        var greaterThanArgument = instruction
+            .Arguments
+            .OfType<decimal>(MonthlySpendingFilterCliCommand.ArgumentNames.GreaterThan);
 
-        return new MonthlySpendingTableCliCommand(aggregatorArtefact.ArtefactValue);
+        return new MonthlySpendingFilterCliCommand(
+            aggregatorArtefact.ArtefactValue,
+            greaterThanArgument?.ArgumentValue);
     }
 }

@@ -3,7 +3,7 @@ using Cli.Commands.Abstractions.Outcomes.Final;
 
 namespace Cli.Commands.Abstractions.Artefacts.CommandRan;
 
-public class CliCommandRanArtefactFactory : ICliCommandArtefactFactory
+public class RanCliCommandArtefactFactory : ICliCommandArtefactFactory
 {
     public bool For(CliCommandOutcome outcome) => outcome is CliCommandRanOutcome;
 
