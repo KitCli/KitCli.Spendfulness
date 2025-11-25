@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Cli;
 
-public static class ServiceCollectionExtensions
+public static class CliServiceCollectionExtensions
 {
     public static IServiceCollection AddCli<TCliApp>(this IServiceCollection serviceCollection) where TCliApp : CliApp
     {
@@ -18,8 +18,8 @@ public static class ServiceCollectionExtensions
         
         serviceCollection.AddSingleton<ICliWorkflow, CliWorkflow>();
 
-        serviceCollection.AddSingleton<CliIo>();
-        serviceCollection.AddSingleton<CliCommandOutcomeIo>();
+        serviceCollection.AddSingleton<ICliIo, CliIo>();
+        serviceCollection.AddSingleton<ICliCommandOutcomeIo, CliCommandOutcomeIo>();
         
         serviceCollection.AddSingleton<CliApp, TCliApp>();
         
