@@ -10,7 +10,7 @@ using NUnit.Framework;
 namespace Cli.Workflow.IntegrationTests.Commands;
 
 [TestFixture]
-public class CliWorkflowCommandProviderCommandPropertyTests
+public class CliWorkflowCommandProviderCommandArtefactTests
 {
     private record TestCliCommand : CliCommand;
 
@@ -30,7 +30,7 @@ public class CliWorkflowCommandProviderCommandPropertyTests
     private class TestCliCommandFactory : ICliCommandFactory<TestCliCommand>
     {
         public bool CanCreateWhen(CliInstruction instruction, List<CliCommandArtefact> artefacts)
-            => artefacts.OfType<TestCliCommandArtefact>() != null;
+            => artefacts.FirstOrDefault(x => x is TestCliCommandArtefact) != null;
 
         public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> artefacts)
             => new TestCliCommand();
@@ -45,6 +45,7 @@ public class CliWorkflowCommandProviderCommandPropertyTests
     public void SetUp()
     {
         var serviceKey = new TestCliCommand().GetInstructionName();
+        
         _serviceCollection = new ServiceCollection();
         _serviceCollection
             .AddKeyedSingleton<IUnidentifiedCliCommandFactory, TestCliCommandFactory>(serviceKey)
@@ -66,6 +67,7 @@ public class CliWorkflowCommandProviderCommandPropertyTests
     {
         // Arrange
         var instruction = new CliInstruction("/", "test", null, []);
+        
         var outcomes = new List<CliCommandOutcome>
         {
             new TestCliCommandOutcome()
