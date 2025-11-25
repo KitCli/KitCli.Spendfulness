@@ -5,11 +5,6 @@ namespace SpendfulnessCli.Commands.Reusable.Filter.MonthlySpending;
 
 public record FilterMonthlySpendingCliCommand : FilterCliCommand
 {
-    public static class ArgumentNames
-    {
-        public const string GreaterThan = "gt";
-    }
-
     public static class FilterNames
     {
         public const string TotalAmount = "Total Amount";
