@@ -42,4 +42,4 @@ cliAppBuilder
             .AddSpendfulnessPersonalisationCommands() 
             .AddSpendfulnessReusableCommands()); 
 
-await cliAppBuilder.Run();
+await cliAppBuilder.Build();

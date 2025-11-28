@@ -6,42 +6,55 @@ namespace Cli;
 public class CliAppBuilder
 {
     private readonly ServiceCollection _services = [];
+    private IConfigurationBuilder _configurationBuilder;
     private IConfigurationRoot? _configuration = null;
     
     public CliAppBuilder WithCli<TCliApp>() where TCliApp : CliApp
     {
         _services.AddCli<TCliApp>();
+
+        _services.AddOptions();
+        _configurationBuilder = new ConfigurationBuilder();
         
+        return this;
+    }
+
+    public CliAppBuilder WithUserSecretsSettings()
+    {
+        var cliAppServiceDescriptor = _services
+            .FirstOrDefault(x => x.ServiceType == typeof(CliApp));
+
+        if (cliAppServiceDescriptor is null)
+        {
+            throw new Exception("CliApp must be registered before calling WithUserSecretsSettings");
+        }
+        
+        _configurationBuilder
+            .AddUserSecrets(cliAppServiceDescriptor.ImplementationType!.Assembly);
+
         return this;
     }
 
     public CliAppBuilder WithJsonSettings(string fileName)
     {
-        _services.AddOptions();
-        
         var currentDirectory = Directory.GetCurrentDirectory();
         
-        var configurationBuilder = new ConfigurationBuilder()
+        _configurationBuilder
             .SetBasePath(currentDirectory)
             .AddJsonFile(fileName, optional: true, reloadOnChange: true);
-        
-        _configuration = configurationBuilder.Build();
 
         return this;
     }
     
     public CliAppBuilder WithSettings<TSettings>() where TSettings : class
     {
-        if (_configuration== null)
-        {
-            throw new Exception("You must call WithJsonSettings before calling WithSettings.");
-        }
-        
         var configurationName = typeof(TSettings)
             .Name
             .Replace("Settings", string.Empty);
         
-        var section = _configuration.GetSection(configurationName);
+        var configuration = _configuration ??= _configurationBuilder.Build();
+        
+        var section = configuration.GetSection(configurationName);
         
         _services.Configure<TSettings>(section);
 
@@ -55,12 +68,10 @@ public class CliAppBuilder
         return this;
     }
 
-    public async Task Run()
+    public CliApp Build()
     {
         var serviceProvider = _services.BuildServiceProvider();
         
-        var cliApp = serviceProvider.GetRequiredService<CliApp>();
-        
-        await cliApp.Run();
+        return serviceProvider.GetRequiredService<CliApp>();
     }
 }

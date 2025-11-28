@@ -12,31 +12,23 @@ public class CliCommandOutcomeIo : CliIo, ICliCommandOutcomeIo
             Say(outcome);
         }
     }
-    
-    public void Say(CliCommandOutcome outcome)
+
+    private void Say(CliCommandOutcome outcome)
     {
         switch (outcome)
         {
             case CliCommandTableOutcome tableOutcome:
-                Say(tableOutcome);
+                Say(tableOutcome.Table.ToString());
                 break;
             case CliCommandOutputOutcome outputOutcome:
-                Say(outputOutcome);
+                Say(outputOutcome.Output);
                 break;
             case CliCommandNotFoundOutcome nothingOutcome:
-                Say(nothingOutcome);
+                Say(string.Empty);
                 break;
             case CliCommandExceptionOutcome exceptionOutcome:
-                Say(exceptionOutcome);
+                Say(exceptionOutcome.Exception.ToString());
                 break;
         }
     }
-    public void Say(CliCommandTableOutcome tableOutcome)
-        => Say(tableOutcome.Table.ToString());
-    
-    public void Say(CliCommandOutputOutcome outputOutcome)
-        => Say(outputOutcome.Output);
-    
-    public void Say(CliCommandNothingOutcome cliCommandNothingOutcome)
-        => Say("Command not found.");
 }
