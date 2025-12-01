@@ -35,7 +35,7 @@ cliAppBuilder
     .WithCustomServices(services =>
         services
             .AddSpendfulnessDb() 
-            .AddSpendfulnessAggregatorCommandProperties() 
+            .AddSpendfulnessAggregatorCommandArtefacts() 
             .AddSpendfulnessCommands() 
             .AddSpendfulnessReportingCommands() 
             .AddSpendfulnessOrganisationCommands() 

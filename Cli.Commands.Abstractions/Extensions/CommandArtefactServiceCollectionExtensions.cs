@@ -1,5 +1,4 @@
 using System.Reflection;
-using Cli.Abstractions;
 using Cli.Abstractions.Aggregators;
 using Cli.Commands.Abstractions.Artefacts;
 using Cli.Commands.Abstractions.Artefacts.Aggregator;
@@ -12,7 +11,7 @@ namespace Cli.Commands.Abstractions.Extensions;
 
 public static class CommandArtefactServiceCollectionExtensions
 {
-    public static IServiceCollection AddCommandProperties(this IServiceCollection serviceCollection)
+    public static IServiceCollection AddCommandArtefacts(this IServiceCollection serviceCollection)
     {
         return serviceCollection
             .AddSingleton<ICliCommandArtefactFactory, RanCliCommandArtefactFactory>()
@@ -21,7 +20,7 @@ public static class CommandArtefactServiceCollectionExtensions
             .AddSingleton<ICliCommandArtefactFactory, CliListAggregatorFilterCliCommandArtefactFactory>();
     }
     
-    public static IServiceCollection AddAggregatorCommandPropertiesFromAssembly(this IServiceCollection serviceCollection, Assembly? assembly)
+    public static IServiceCollection AddAggregatorCommandArtefactsFromAssembly(this IServiceCollection serviceCollection, Assembly? assembly)
     {
         if (assembly == null)
         {
@@ -57,7 +56,7 @@ public static class CommandArtefactServiceCollectionExtensions
         return serviceCollection;
     }
     
-    public static IServiceCollection AddListAggregatorCommandPropertiesFromAssembly(this IServiceCollection serviceCollection, Assembly? assembly)
+    public static IServiceCollection AddListAggregatorCommandArtefactsFromAssembly(this IServiceCollection serviceCollection, Assembly? assembly)
     {
         if (assembly == null)
         {
