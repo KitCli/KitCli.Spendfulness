@@ -49,6 +49,14 @@ public abstract class YnabListAggregator<TAggregation> : CliListAggregator<TAggr
         Commitments = new List<Commitment>();
     }
 
+    protected YnabListAggregator(IEnumerable<Transaction> transactions, IEnumerable<CategoryGroup> categoryGroups)
+    {
+        Accounts = new List<Account>();
+        Transactions = transactions;
+        CategoryGroups = categoryGroups;
+        Commitments = new List<Commitment>();
+    }
+
     protected YnabListAggregator(IEnumerable<Transaction> transactions)
     {
         Accounts = new List<Account>();
