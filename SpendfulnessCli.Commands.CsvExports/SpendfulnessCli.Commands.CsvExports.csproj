@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="PersonalInflationRate\" />
+      <ProjectReference Include="..\Cli.Commands.Abstractions\Cli.Commands.Abstractions.csproj" />
     </ItemGroup>
 
 </Project>
