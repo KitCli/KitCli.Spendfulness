@@ -8,4 +8,10 @@ public class Csv
     {
         Rows = rows;
     }
+
+    public Task Write(string filePath)
+    {
+        var writer = new CsvWriter(this);
+        return writer.Write(filePath);
+    }
 }

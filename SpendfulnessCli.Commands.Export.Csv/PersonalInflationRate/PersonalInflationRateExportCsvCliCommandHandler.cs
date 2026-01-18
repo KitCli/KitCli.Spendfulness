@@ -1,7 +1,6 @@
 using Cli.Commands.Abstractions.Handlers;
 using Cli.Commands.Abstractions.Outcomes;
 using Spendfulness.Aggregation.Aggregator.ListAggregators;
-using Spendfulness.Csv;
 using Spendfulness.Csv.PersonalInflationRate;
 using Spendfulness.Database;
 using Spendfulness.Tools;
@@ -26,12 +25,10 @@ public class PersonalInflationRateExportCsvCliCommandHandler(SpendfulnessBudgetC
             .WithBudget(defaultBudget)
             .WithAggregator(aggregator)
             .Build();
-
-        var writer = new CsvWriter(csv);
         
         var filePath = command.OutputFileSystemInfo.GetFilePath("personal-inflation-rate", FileFormat.Csv);
         
-        await writer.Write(filePath);
+        await csv.Write(filePath);
         
         return OutcomeAs(
             "Personal inflation rate CSV export completed.",
