@@ -1,5 +1,4 @@
 using Cli.Commands.Abstractions.Outcomes;
-using Cli.Commands.Abstractions.Outcomes.Final;
 
 namespace Cli.Commands.Abstractions.Handlers;
 

@@ -1,6 +1,5 @@
 using Spendfulness.Aggregation.Aggregates;
 using Spendfulness.Tools.Percentages;
-using SpendfulnessCli.Aggregation.Aggregator;
 using Ynab;
 using Ynab.Collections;
 using Ynab.Extensions;

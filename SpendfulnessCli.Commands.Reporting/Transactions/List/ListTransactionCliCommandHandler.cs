@@ -3,8 +3,8 @@ using Cli.Commands.Abstractions.Outcomes;
 using Cli.Commands.Abstractions.Outcomes.Final;
 using Cli.Commands.Abstractions.Outcomes.Reusable;
 using Cli.Commands.Abstractions.Outcomes.Reusable.Page;
+using Spendfulness.Aggregation.Aggregator.ListAggregators;
 using Spendfulness.Database;
-using SpendfulnessCli.Aggregation.Aggregator.ListAggregators;
 using SpendfulnessCli.CliTables.ViewModelBuilders;
 using Ynab;
 

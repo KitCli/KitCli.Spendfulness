@@ -1,6 +1,6 @@
 using Cli.Commands.Abstractions.Extensions;
 using Microsoft.Extensions.DependencyInjection;
-using SpendfulnessCli.Aggregation.Aggregator;
+using Spendfulness.Aggregation.Aggregator;
 
 namespace SpendfulnessCli.Aggregation.Extensions;
 

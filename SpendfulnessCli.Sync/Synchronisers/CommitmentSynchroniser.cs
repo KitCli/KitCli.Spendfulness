@@ -1,4 +1,3 @@
-using Cli.Abstractions;
 using Cli.Abstractions.Exceptions;
 using Spendfulness.Database;
 using Spendfulness.Database.Commitments;

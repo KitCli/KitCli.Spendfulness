@@ -1,5 +1,4 @@
 using Spendfulness.Database.Commitments;
-using SpendfulnessCli.Aggregation.Aggregator;
 
 namespace Spendfulness.Aggregation.Aggregator;
 

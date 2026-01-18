@@ -1,6 +1,6 @@
 using Ynab;
 
-namespace SpendfulnessCli.Aggregation.Aggregator.ListAggregators;
+namespace Spendfulness.Aggregation.Aggregator.ListAggregators;
 
 public class TransactionPagedListAggregator : YnabListAggregator<Transaction>
 {

@@ -1,9 +1,8 @@
-using Cli.Abstractions;
 using Cli.Abstractions.Aggregators;
 using Spendfulness.Database.Commitments;
 using Ynab;
 
-namespace SpendfulnessCli.Aggregation.Aggregator;
+namespace Spendfulness.Aggregation.Aggregator;
 
 // TODO: Renamed to YnabPagedListAggregator
 public abstract class YnabListAggregator<TAggregation> : CliListAggregator<TAggregation>

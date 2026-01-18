@@ -1,5 +1,4 @@
 using Spendfulness.Aggregation.Aggregates;
-using SpendfulnessCli.Aggregation.Aggregator;
 using Ynab;
 
 namespace Spendfulness.Aggregation.Aggregator.ListAggregators;

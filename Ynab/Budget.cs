@@ -40,10 +40,6 @@ public class Budget(BudgetResponse budgetResponse)
             
             .ToList();
 
-        return new BudgetYears
-        {
-            All = budgetActiveYears,
-            Measurable = measurableYears
-        };
+        return new BudgetYears(budgetActiveYears, measurableYears);
     }
 }

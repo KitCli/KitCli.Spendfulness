@@ -1,5 +1,4 @@
-﻿using Cli.Abstractions;
-using Cli.Abstractions.Exceptions;
+﻿using Cli.Abstractions.Exceptions;
 
 namespace Spendfulness.Database.Abstractions;
 

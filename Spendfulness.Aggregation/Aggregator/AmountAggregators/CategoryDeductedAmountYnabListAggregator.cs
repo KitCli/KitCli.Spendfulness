@@ -1,6 +1,6 @@
 using Ynab;
 
-namespace SpendfulnessCli.Aggregation.Aggregator.AmountAggregators;
+namespace Spendfulness.Aggregation.Aggregator.AmountAggregators;
 
 public class CategoryDeductedAmountYnabListAggregator(IEnumerable<Account> accounts, IEnumerable<CategoryGroup> categoryGroups)
     : YnabListAggregator<decimal>(accounts, categoryGroups)

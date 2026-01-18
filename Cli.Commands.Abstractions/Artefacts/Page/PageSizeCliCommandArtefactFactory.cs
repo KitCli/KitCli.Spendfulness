@@ -1,5 +1,4 @@
 using Cli.Commands.Abstractions.Outcomes;
-using Cli.Commands.Abstractions.Outcomes.Reusable;
 using Cli.Commands.Abstractions.Outcomes.Reusable.Page;
 
 namespace Cli.Commands.Abstractions.Artefacts.Page;

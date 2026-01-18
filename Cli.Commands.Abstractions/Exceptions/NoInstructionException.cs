@@ -1,4 +1,3 @@
-using Cli.Abstractions;
 using Cli.Abstractions.Exceptions;
 
 namespace Cli.Commands.Abstractions.Exceptions;

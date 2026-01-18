@@ -4,7 +4,6 @@ using Spendfulness.Aggregation.Aggregator;
 using Spendfulness.Database;
 using Spendfulness.Database.Commitments;
 using Spendfulness.Database.Users;
-using SpendfulnessCli.Aggregation.Aggregator;
 using SpendfulnessCli.CliTables.ViewModelBuilders;
 
 namespace SpendfulnessCli.Commands.Personalisation.Commitments;

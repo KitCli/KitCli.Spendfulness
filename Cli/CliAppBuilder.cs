@@ -6,7 +6,7 @@ namespace Cli;
 public class CliAppBuilder
 {
     private readonly ServiceCollection _services = [];
-    private IConfigurationRoot? _configuration = null;
+    private IConfigurationRoot? _configuration;
     
     public CliAppBuilder WithCli<TCliApp>() where TCliApp : CliApp
     {

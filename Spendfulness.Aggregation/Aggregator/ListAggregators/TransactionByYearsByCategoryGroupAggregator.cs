@@ -1,5 +1,4 @@
 using Spendfulness.Aggregation.Aggregates;
-using SpendfulnessCli.Aggregation.Aggregator;
 using Ynab;
 using Ynab.Collections;
 using Ynab.Extensions;
@@ -54,21 +53,13 @@ public class TransactionByYearsByCategoryGroupAggregator(
                     byYears.Add(transactionsInYear);
                 }
                 
-                var categoryAggregate = new TransactionByYearsByCategoryAggregate
-                {
-                    CategoryName = category.Name,
-                    TransactionsByYears = byYears
-                };
+                var categoryAggregate = new TransactionByYearsByCategoryAggregate(category.Name, byYears);
                 
                 categoryAggregates.Add(categoryAggregate);
             }
             
-            var categoryGroupAggregate = new TransactionByYearsByCategoryGroupAggregate
-            {
-                CategoryGroupName = categoryGroup.Name,
-                CategoryAggregates = categoryAggregates
-            };
-            
+            var categoryGroupAggregate = new TransactionByYearsByCategoryGroupAggregate(categoryGroup.Name, categoryAggregates);
+
             categoryGroupAggregates.Add(categoryGroupAggregate);
         }
 

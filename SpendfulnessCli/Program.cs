@@ -2,7 +2,6 @@
 
 using Cli;
 using Cli.Instructions.Abstractions;
-using Microsoft.Extensions.Configuration;
 using SpendfulnessCli.Commands.Organisation;
 using SpendfulnessCli.Commands.Personalisation;
 using Spendfulness.Database;

@@ -1,4 +1,4 @@
-using SpendfulnessCli.Aggregation.Aggregator;
+using Spendfulness.Aggregation.Aggregator;
 using Ynab;
 
 namespace Spendfulness.Csv;

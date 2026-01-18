@@ -1,15 +1,15 @@
 using Spendfulness.Aggregation.Aggregates;
+using Spendfulness.Aggregation.Aggregator;
 using Spendfulness.Tools;
 using Spendfulness.Tools.Percentages;
-using SpendfulnessCli.Aggregation.Aggregator;
 using Ynab;
 
 namespace Spendfulness.Csv.PersonalInflationRate;
 
 public class PersonalInflationRateCsvBuilder : ICsvBuilder<TransactionByYearsByCategoryGroupAggregate>
 {
-    private Budget _budget;
-    private YnabListAggregator<TransactionByYearsByCategoryGroupAggregate> _aggregator;
+    private Budget? _budget;
+    private YnabListAggregator<TransactionByYearsByCategoryGroupAggregate>? _aggregator;
     
     public ICsvBuilder<TransactionByYearsByCategoryGroupAggregate> WithBudget(Budget budget)
     {
@@ -25,9 +25,9 @@ public class PersonalInflationRateCsvBuilder : ICsvBuilder<TransactionByYearsByC
 
     public Csv Build()
     {
-        var years = _budget.GetYears();
+        var years = _budget!.GetYears();
 
-        var aggregates = _aggregator.Aggregate();
+        var aggregates = _aggregator!.Aggregate();
 
         var headerCsvRow = BuildHeaderCsvRow(years);
 
