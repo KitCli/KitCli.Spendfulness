@@ -119,6 +119,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spendfulness.OpenAI", "Spen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpendfulnessCli.Commands.Chat", "SpendfulnessCli.Commands.Chat\SpendfulnessCli.Commands.Chat.csproj", "{C48C2D42-C369-4476-812C-4266EBB2B8BE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spendfulness.Database.Cosmos", "Spendfulness.Database.Cosmos\Spendfulness.Database.Cosmos.csproj", "{A249C74A-35D4-4B2C-A50B-C603A1C78B2E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -277,6 +279,10 @@ Global
 		{C48C2D42-C369-4476-812C-4266EBB2B8BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C48C2D42-C369-4476-812C-4266EBB2B8BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C48C2D42-C369-4476-812C-4266EBB2B8BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A249C74A-35D4-4B2C-A50B-C603A1C78B2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A249C74A-35D4-4B2C-A50B-C603A1C78B2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A249C74A-35D4-4B2C-A50B-C603A1C78B2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A249C74A-35D4-4B2C-A50B-C603A1C78B2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1C607C1F-B2A8-4405-B5F9-224D8434FDA4} = {68F25F73-18EB-4E65-80EB-1EDCAF174DFA}
@@ -317,5 +323,6 @@ Global
 		{7AAF0E59-4B5E-49E5-BDEB-D467DFD11F60} = {52E90345-79FA-4FD3-8A3A-1D69887FA38E}
 		{81CD78C0-001C-4CCE-9267-F247A2301A2A} = {52E90345-79FA-4FD3-8A3A-1D69887FA38E}
 		{C48C2D42-C369-4476-812C-4266EBB2B8BE} = {288969D4-0605-4444-B37F-7B01D4AD5165}
+		{A249C74A-35D4-4B2C-A50B-C603A1C78B2E} = {52E90345-79FA-4FD3-8A3A-1D69887FA38E}
 	EndGlobalSection
 EndGlobal

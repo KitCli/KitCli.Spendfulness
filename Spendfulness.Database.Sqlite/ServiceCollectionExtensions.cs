@@ -6,7 +6,7 @@ namespace Spendfulness.Database.Sqlite;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddSpendfulnessDb(this IServiceCollection services)
+    public static IServiceCollection AddSpendfulnessSqliteDb(this IServiceCollection services)
         => services
             .AddDbContext<SpendfulnessDbContext>()
             .AddYnabWrappers()

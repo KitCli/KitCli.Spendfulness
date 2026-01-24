@@ -9,6 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Spendfulness.Database.Cosmos\Spendfulness.Database.Cosmos.csproj" />
       <ProjectReference Include="..\Spendfulness.OpenAI\Spendfulness.OpenAI.csproj" />
       <ProjectReference Include="..\SpendfulnessCli.Abstractions\SpendfulnessCli.Abstractions.csproj" />
       <ProjectReference Include="..\Cli\Cli.csproj" />

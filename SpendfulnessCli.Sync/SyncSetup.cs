@@ -13,7 +13,7 @@ public static class SyncSetup
         // Dependencies
         serviceCollection
             .AddYnab()
-            .AddSpendfulnessDb();
+            .AddSpendfulnessSqliteDb();
         
         // Sync-related
         serviceCollection

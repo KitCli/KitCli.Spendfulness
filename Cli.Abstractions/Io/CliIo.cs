@@ -1,4 +1,4 @@
-namespace Cli.Commands.Abstractions.Io;
+namespace Cli.Abstractions.Io;
 
 public class CliIo : ICliIo
 {

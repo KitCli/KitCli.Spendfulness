@@ -5,6 +5,7 @@ using Cli.Instructions.Abstractions;
 using SpendfulnessCli.Commands.Organisation;
 using SpendfulnessCli.Commands.Personalisation;
 using Spendfulness.Database;
+using Spendfulness.Database.Cosmos;
 using Spendfulness.Database.Sqlite;
 using Spendfulness.OpenAI;
 using SpendfulnessCli;
@@ -29,17 +30,23 @@ cliAppBuilder
     
 // Add YNAB services
 cliAppBuilder
-    .WithCustomServices(services => 
+    .WithServices(services => 
         services
             .AddYnab() // Speak to the YNAB API
             .AddYnabTransactionFactory<TaxiTransactionFactory>());
 
 
+// Spendfulness db specific set up.
+cliAppBuilder
+    .WithConfiguredServices<CosmosSettings>((settings, services) =>
+        services
+            .AddSpendfulnessCosmos(settings));
+
 // Spendfulness specific set up.
 cliAppBuilder
-    .WithCustomServices(services =>
+    .WithServices(services =>
         services
-            .AddSpendfulnessDb() 
+            .AddSpendfulnessSqliteDb() 
             .AddSpendfulnessAggregatorCommandArtefacts() 
             .AddSpendfulnessCommands() 
             .AddSpendfulnessReportingCommands() 

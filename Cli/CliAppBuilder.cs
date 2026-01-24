@@ -73,10 +73,40 @@ public class CliAppBuilder
         return this;
     }
 
-    public CliAppBuilder WithCustomServices(Func<ServiceCollection, IServiceCollection> configureServices)
+    public CliAppBuilder WithServices(Func<IServiceCollection, IServiceCollection> configureServices)
     {
         configureServices(_services);
         
+        return this;
+    }
+
+    public CliAppBuilder WithConfiguredServices<TSettings>(Func<TSettings, IServiceCollection, IServiceCollection> configureServices)
+    {
+        if (_configurationBuilder == null)
+        {
+            throw new Exception("You must call With[..]Settings before calling WithSettings.");
+        }
+        
+        if (_configuration == null)
+        {
+            _configuration = _configurationBuilder.Build();
+        }
+        
+        var configurationName = typeof(TSettings)
+            .Name
+            .Replace("Settings", string.Empty);
+
+        var section = _configuration.GetSection(configurationName);
+        
+        if (!section.Exists())
+        {
+            throw new Exception($"No configuration section found for {configurationName}");
+        }
+
+        var settings = section.Get<TSettings>();
+
+        configureServices(settings!, _services);
+
         return this;
     }
 
