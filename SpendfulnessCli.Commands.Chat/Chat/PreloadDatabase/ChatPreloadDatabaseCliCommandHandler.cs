@@ -43,7 +43,18 @@ public class ChatPreloadDatabaseCliCommandHandler : CliCommandHandler, ICliComma
                 .Skip(nextBatchStartingPoint)
                 .Take(maxItemsPerSecond)
                 .Select(t => t.ToTransactionEntity())
-                .Select((transaction, currentIndex) => CreateItem(initialItemNumber + currentIndex + 1, transactionContainer, transaction, cancellationToken));
+                .Select((transaction, currentIndex) =>
+                {
+                    var itemNumber = initialItemNumber + currentIndex + 1;
+                    var totalItems = missingYnabTransactions.Count;
+
+                    return CreateItem(
+                        totalItems,
+                        itemNumber,
+                        transactionContainer,
+                        transaction,
+                        cancellationToken);
+                });
             
             await Task.WhenAll(createItemTasks);
 
@@ -104,16 +115,14 @@ public class ChatPreloadDatabaseCliCommandHandler : CliCommandHandler, ICliComma
             .ToList();
     }
 
-    private async Task CreateItem(int itemNumber, Container container, TransactionEntity transactionEntity, CancellationToken cancellationToken)
+    private async Task CreateItem(int totalItems, int itemNumber, Container container, TransactionEntity transactionEntity, CancellationToken cancellationToken)
     {
-        _io.Say($"Started Creating Item Cosmos Transaction #{itemNumber} (PartitionKey: {transactionEntity.Id})");
+        _io.Say($"On Item #{itemNumber} / {totalItems} (PartitionKey: {transactionEntity.Id})");
         
-        var itemResponse = await container.CreateItemAsync(
+        await container.CreateItemAsync(
             transactionEntity,
             new PartitionKey(transactionEntity.Id),
             null,
             cancellationToken);
-            
-        _io.Say($"Finished Creating Item Cosmos Transaction #{itemNumber} (PartitionKey: {itemResponse.Resource.Id})");
     }
 }
