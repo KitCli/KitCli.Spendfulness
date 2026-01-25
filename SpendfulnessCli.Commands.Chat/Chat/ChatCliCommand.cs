@@ -8,6 +8,7 @@ public record ChatCliCommand(string Prompt) : CliCommand
     public static class SubCommandNames
     {
         public const string PreloadDatabase = "preload-database";
+        public const string ClearDatabase = "clear-database";
     }
     
     public static class ArgumentNames

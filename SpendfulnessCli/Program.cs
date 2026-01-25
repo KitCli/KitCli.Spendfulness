@@ -26,7 +26,8 @@ cliAppBuilder
     .WithUserSecretSettings<SpendfulnessCliApp>()
     .WithJsonSettings("appsettings.json")
     .WithSettings<InstructionSettings>()
-    .WithSettings<OpenAiSettings>();
+    .WithSettings<OpenAiSettings>()
+    .WithSettings<CosmosSettings>();
     
 // Add YNAB services
 cliAppBuilder
