@@ -1,4 +1,4 @@
-using Cli.Commands.Abstractions.Artefacts;
+using KitCli.Commands.Abstractions.Artefacts;
 using Microsoft.Extensions.DependencyInjection;
 using Spendfulness.Database;
 using Spendfulness.Database.Sqlite;

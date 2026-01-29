@@ -8,6 +8,8 @@
 
     <ItemGroup>
       <PackageReference Include="Azure.Identity" Version="1.17.1" />
+      <PackageReference Include="KitCli" Version="1.0.1" />
+      <PackageReference Include="KitCli.Commands" Version="1.0.0" />
       <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.57.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.2" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />

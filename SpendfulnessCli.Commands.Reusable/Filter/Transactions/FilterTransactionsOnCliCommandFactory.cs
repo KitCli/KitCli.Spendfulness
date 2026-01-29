@@ -1,6 +1,6 @@
-using Cli.Commands.Abstractions.Artefacts;
-using Cli.Instructions.Abstractions;
-using Cli.Instructions.Arguments;
+using KitCli.Commands.Abstractions.Artefacts;
+using KitCli.Instructions.Abstractions;
+using KitCli.Instructions.Arguments;
 using SpendfulnessCli.Commands.Reusable.Transactions.List;
 
 namespace SpendfulnessCli.Commands.Reusable.Filter.Transactions;

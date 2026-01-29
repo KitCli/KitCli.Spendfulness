@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Cli.Commands.Abstractions\Cli.Commands.Abstractions.csproj" />
       <ProjectReference Include="..\Spendfulness.Aggregation\Spendfulness.Aggregation.csproj" />
       <ProjectReference Include="..\Spendfulness.Database.Sqlite\Spendfulness.Database.Sqlite.csproj" />
       <ProjectReference Include="..\Ynab\Ynab.csproj" />
@@ -29,6 +28,11 @@
       <Compile Remove="Aggregates\CategoryYearAverageAggregate 2.cs" />
       <Compile Remove="Aggregates\CategoryAggregate 2.cs" />
       <Compile Remove="Calculators\PercentageCalculator 2.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="KitCli" Version="1.0.1" />
+      <PackageReference Include="KitCli.Commands" Version="1.0.0" />
     </ItemGroup>
 
 </Project>

@@ -1,8 +1,8 @@
-using Cli.Abstractions.Aggregators;
-using Cli.Commands.Abstractions.Handlers;
-using Cli.Commands.Abstractions.Outcomes;
-using Cli.Commands.Abstractions.Outcomes.Final;
-using Cli.Commands.Abstractions.Outcomes.Reusable;
+using KitCli.Abstractions.Aggregators;
+using KitCli.Commands.Abstractions.Handlers;
+using KitCli.Commands.Abstractions.Outcomes;
+using KitCli.Commands.Abstractions.Outcomes.Final;
+using KitCli.Commands.Abstractions.Outcomes.Reusable;
 using Spendfulness.Aggregation.Aggregates;
 using Spendfulness.Aggregation.Aggregator.ListAggregators;
 using Spendfulness.Aggregation.Extensions;

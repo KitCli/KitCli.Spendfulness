@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Cli.Abstractions\Cli.Abstractions.csproj" />
       <ProjectReference Include="..\Cli.Instructions.Abstractions\Cli.Instructions.Abstractions.csproj" />
     </ItemGroup>
 

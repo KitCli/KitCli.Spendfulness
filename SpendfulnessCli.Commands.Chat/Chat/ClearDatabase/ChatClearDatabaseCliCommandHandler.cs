@@ -1,5 +1,5 @@
-using Cli.Commands.Abstractions.Handlers;
-using Cli.Commands.Abstractions.Outcomes;
+using KitCli.Commands.Abstractions.Handlers;
+using KitCli.Commands.Abstractions.Outcomes;
 using Microsoft.Azure.Cosmos;
 
 namespace SpendfulnessCli.Commands.Chat.Chat.ClearDatabase;

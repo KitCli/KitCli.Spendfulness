@@ -1,7 +1,7 @@
-using Cli.Commands.Abstractions;
-using Cli.Commands.Abstractions.Artefacts;
-using Cli.Commands.Abstractions.Factories;
-using Cli.Instructions.Abstractions;
+using KitCli.Commands.Abstractions;
+using KitCli.Commands.Abstractions.Artefacts;
+using KitCli.Commands.Abstractions.Factories;
+using KitCli.Instructions.Abstractions;
 
 namespace SpendfulnessCli.Commands.Reporting.AverageYearlyPay;
 

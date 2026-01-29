@@ -12,7 +12,6 @@
       <ProjectReference Include="..\Spendfulness.Database.Cosmos\Spendfulness.Database.Cosmos.csproj" />
       <ProjectReference Include="..\Spendfulness.OpenAI\Spendfulness.OpenAI.csproj" />
       <ProjectReference Include="..\SpendfulnessCli.Abstractions\SpendfulnessCli.Abstractions.csproj" />
-      <ProjectReference Include="..\Cli\Cli.csproj" />
       <ProjectReference Include="..\SpendfulnessCli.Commands.Chat\SpendfulnessCli.Commands.Chat.csproj" />
       <ProjectReference Include="..\SpendfulnessCli.Commands.Export.Csv\SpendfulnessCli.Commands.Export.Csv.csproj" />
       <ProjectReference Include="..\SpendfulnessCli.Commands.Organisation\SpendfulnessCli.Commands.Organisation.csproj" />
@@ -27,6 +26,11 @@
       <None Update="appsettings.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="KitCli" Version="1.0.1" />
+      <PackageReference Include="KitCli.Commands" Version="1.0.0" />
     </ItemGroup>
 
 </Project>

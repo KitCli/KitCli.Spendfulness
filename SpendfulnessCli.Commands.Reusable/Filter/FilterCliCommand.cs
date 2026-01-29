@@ -1,4 +1,4 @@
-using Cli.Commands.Abstractions;
+using KitCli.Commands.Abstractions;
 
 namespace SpendfulnessCli.Commands.Reusable.Filter;
 

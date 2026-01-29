@@ -1,9 +1,9 @@
-using Cli.Commands.Abstractions;
-using Cli.Commands.Abstractions.Artefacts;
-using Cli.Commands.Abstractions.Factories;
-using Cli.Instructions.Abstractions;
-using Cli.Instructions.Arguments;
-using Cli.Workflow.Commands.MissingOutcomes;
+using KitCli.Commands.Abstractions;
+using KitCli.Commands.Abstractions.Artefacts;
+using KitCli.Commands.Abstractions.Factories;
+using KitCli.Instructions.Abstractions;
+using KitCli.Instructions.Arguments;
+using KitCli.Workflow.Commands.MissingOutcomes;
 using SpendfulnessCli.Commands.Accounts;
 using Ynab;
 

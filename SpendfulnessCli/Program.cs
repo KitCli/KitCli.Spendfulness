@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using Cli;
-using Cli.Instructions.Abstractions;
+using KitCli;
+using KitCli.Instructions.Abstractions;
 using SpendfulnessCli.Commands.Organisation;
 using SpendfulnessCli.Commands.Personalisation;
 using Spendfulness.Database;

@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using Cli.Commands.Abstractions.Extensions;
+using KitCli.Commands.Abstractions.Extensions;
 using SpendfulnessCli.Commands.Organisation.CopyOnBudget;
 using Microsoft.Extensions.DependencyInjection;
 

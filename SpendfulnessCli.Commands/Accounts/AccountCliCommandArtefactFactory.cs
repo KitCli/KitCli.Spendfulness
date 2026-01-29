@@ -1,5 +1,5 @@
-using Cli.Commands.Abstractions.Artefacts;
-using Cli.Commands.Abstractions.Outcomes;
+using KitCli.Commands.Abstractions.Artefacts;
+using KitCli.Commands.Abstractions.Outcomes;
 
 namespace SpendfulnessCli.Commands.Accounts;
 

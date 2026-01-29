@@ -1,4 +1,4 @@
-using Cli.Commands.Abstractions.Artefacts;
+using KitCli.Commands.Abstractions.Artefacts;
 using Ynab;
 
 namespace SpendfulnessCli.Commands.Accounts;

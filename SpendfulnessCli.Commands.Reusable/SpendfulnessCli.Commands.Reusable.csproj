@@ -7,12 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Cli.Abstractions\Cli.Abstractions.csproj" />
-      <ProjectReference Include="..\Cli.Workflow.Commands\Cli.Workflow.Commands.csproj" />
-      <ProjectReference Include="..\Cli.Workflow\Cli.Workflow.csproj" />
       <ProjectReference Include="..\SpendfulnessCli.Aggregation\SpendfulnessCli.Aggregation.csproj" />
       <ProjectReference Include="..\SpendfulnessCli.CliTables\SpendfulnessCli.CliTables.csproj" />
       <ProjectReference Include="..\SpendfulnessCli.Commands.Reporting\SpendfulnessCli.Commands.Reporting.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="KitCli" Version="1.0.1" />
+      <PackageReference Include="KitCli.Commands" Version="1.0.0" />
     </ItemGroup>
 
 </Project>

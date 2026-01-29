@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Cli.Workflow.Commands\Cli.Workflow.Commands.csproj" />
       <ProjectReference Include="..\SpendfulnessCli.Commands\SpendfulnessCli.Commands.csproj" />
     </ItemGroup>
 
@@ -36,6 +35,11 @@
       <Compile Remove="Categories\CategoriesCliCliCommandHandler 2.cs" />
       <Compile Remove="Accounts\AccountsCliCommandHandler 2.cs" />
       <Compile Remove="Accounts\AccountsCliCommand 2.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="KitCli" Version="1.0.1" />
+      <PackageReference Include="KitCli.Commands" Version="1.0.0" />
     </ItemGroup>
 
 </Project>

@@ -1,9 +1,9 @@
-using Cli.Commands.Abstractions;
-using Cli.Commands.Abstractions.Artefacts;
-using Cli.Commands.Abstractions.Factories;
-using Cli.Commands.Abstractions.Outcomes.Reusable;
-using Cli.Instructions.Abstractions;
-using Cli.Workflow.Commands.MissingOutcomes;
+using KitCli.Commands.Abstractions;
+using KitCli.Commands.Abstractions.Artefacts;
+using KitCli.Commands.Abstractions.Factories;
+using KitCli.Commands.Abstractions.Outcomes.Reusable;
+using KitCli.Instructions.Abstractions;
+using KitCli.Workflow.Commands.MissingOutcomes;
 using Spendfulness.Aggregation.Aggregates;
 using SpendfulnessCli.Commands.Reusable.MonthlySpending;
 

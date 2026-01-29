@@ -1,4 +1,4 @@
-using Cli.Abstractions.Aggregators;
+using KitCli.Abstractions.Aggregators;
 using Spendfulness.Aggregation.Aggregates;
 
 namespace SpendfulnessCli.Commands.Reusable.Filter.MonthlySpending;

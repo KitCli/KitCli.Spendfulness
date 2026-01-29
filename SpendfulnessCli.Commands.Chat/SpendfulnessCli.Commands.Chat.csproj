@@ -7,12 +7,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Cli.Commands.Abstractions\Cli.Commands.Abstractions.csproj" />
-      <ProjectReference Include="..\Cli.Instructions\Cli.Instructions.csproj" />
       <ProjectReference Include="..\Spendfulness.Database.Cosmos\Spendfulness.Database.Cosmos.csproj" />
       <ProjectReference Include="..\Spendfulness.Database.Sqlite\Spendfulness.Database.Sqlite.csproj" />
       <ProjectReference Include="..\Spendfulness.OpenAI\Spendfulness.OpenAI.csproj" />
       <ProjectReference Include="..\Ynab\Ynab.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="KitCli" Version="1.0.1" />
+      <PackageReference Include="KitCli.Commands" Version="1.0.0" />
     </ItemGroup>
 
 </Project>

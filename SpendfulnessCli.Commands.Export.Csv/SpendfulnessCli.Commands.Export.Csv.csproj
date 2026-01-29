@@ -7,12 +7,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Cli.Commands.Abstractions\Cli.Commands.Abstractions.csproj" />
-      <ProjectReference Include="..\Cli.Instructions\Cli.Instructions.csproj" />
       <ProjectReference Include="..\Spendfulness.Aggregation\Spendfulness.Aggregation.csproj" />
       <ProjectReference Include="..\Spendfulness.Csv\Spendfulness.Csv.csproj" />
       <ProjectReference Include="..\Spendfulness.Database.Abstractions\Spendfulness.Database.Abstractions.csproj" />
       <ProjectReference Include="..\Spendfulness.Database.Sqlite\Spendfulness.Database.Sqlite.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="KitCli" Version="1.0.1" />
+      <PackageReference Include="KitCli.Commands" Version="1.0.0" />
     </ItemGroup>
 
 </Project>

@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using Cli.Commands.Abstractions.Extensions;
+using KitCli.Commands.Abstractions.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using SpendfulnessCli.Commands.Chat.Chat;
 

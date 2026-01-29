@@ -1,5 +1,5 @@
-using Cli.Commands.Abstractions.Artefacts;
-using Cli.Instructions.Abstractions;
+using KitCli.Commands.Abstractions.Artefacts;
+using KitCli.Instructions.Abstractions;
 using SpendfulnessCli.Commands.Reporting.MonthlySpending;
 using SpendfulnessCli.Commands.Reusable.Filter.MonthlySpending;
 

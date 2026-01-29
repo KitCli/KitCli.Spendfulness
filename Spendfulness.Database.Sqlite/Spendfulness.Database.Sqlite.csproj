@@ -7,11 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="KitCli" Version="1.0.1" />
+      <PackageReference Include="KitCli.Commands" Version="1.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.2" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Cli.Abstractions\Cli.Abstractions.csproj" />
       <ProjectReference Include="..\Spendfulness.Database.Abstractions\Spendfulness.Database.Abstractions.csproj" />
       <ProjectReference Include="..\Ynab\Ynab.csproj" />
     </ItemGroup>

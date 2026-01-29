@@ -1,8 +1,8 @@
-using Cli.Commands.Abstractions;
-using Cli.Commands.Abstractions.Artefacts;
-using Cli.Commands.Abstractions.Factories;
-using Cli.Instructions.Abstractions;
-using Cli.Instructions.Arguments;
+using KitCli.Commands.Abstractions;
+using KitCli.Commands.Abstractions.Artefacts;
+using KitCli.Commands.Abstractions.Factories;
+using KitCli.Instructions.Abstractions;
+using KitCli.Instructions.Arguments;
 using SpendfulnessCli.Commands.Personalisation.Users.Create;
 
 namespace SpendfulnessCli.Commands.Personalisation.Users.Switch;

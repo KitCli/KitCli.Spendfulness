@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Cli.Abstractions\Cli.Abstractions.csproj" />
       <ProjectReference Include="..\Spendfulness.Tools\Spendfulness.Tools.csproj" />
       <ProjectReference Include="..\SpendfulnessCli.Aggregation\SpendfulnessCli.Aggregation.csproj" />
       <ProjectReference Include="..\Spendfulness.Database.Sqlite\Spendfulness.Database.Sqlite.csproj" />
@@ -34,6 +33,11 @@
       <Compile Remove="ViewModelBuilders\CliTableBuilder 2.cs" />
       <Compile Remove="ViewModelBuilders\AmountCliTableBuilder 2.cs" />
       <Compile Remove="Formatters\CurrencyDisplayFormatter 2.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="KitCli" Version="1.0.1" />
+      <PackageReference Include="KitCli.Commands" Version="1.0.0" />
     </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-using Cli.Abstractions.Aggregators;
+using KitCli.Abstractions.Aggregators;
 using Ynab;
 
 namespace SpendfulnessCli.Commands.Reusable.Filter.Transactions;

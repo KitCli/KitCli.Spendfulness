@@ -1,8 +1,8 @@
-using Cli.Commands.Abstractions.Artefacts;
-using Cli.Commands.Abstractions.Artefacts.Aggregator;
-using Cli.Commands.Abstractions.Artefacts.CommandRan;
-using Cli.Instructions.Abstractions;
-using Cli.Instructions.Arguments;
+using KitCli.Commands.Abstractions.Artefacts;
+using KitCli.Commands.Abstractions.Artefacts.Aggregator;
+using KitCli.Commands.Abstractions.Artefacts.CommandRan;
+using KitCli.Instructions.Abstractions;
+using KitCli.Instructions.Arguments;
 using NUnit.Framework;
 using Spendfulness.Aggregation.Aggregates;
 using Spendfulness.Aggregation.Aggregator.ListAggregators;

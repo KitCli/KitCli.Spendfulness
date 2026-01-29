@@ -1,9 +1,8 @@
-using Cli;
-using Cli.Commands.Abstractions.Io.Outcomes;
-using Cli.Commands.Abstractions.Outcomes;
-using Cli.Workflow.Abstractions;
+using KitCli;
+using KitCli.Commands.Abstractions.Io.Outcomes;
+using KitCli.Commands.Abstractions.Outcomes;
+using KitCli.Workflow.Abstractions;
 using Microsoft.EntityFrameworkCore;
-using Spendfulness.Database;
 using Spendfulness.Database.Sqlite;
 
 namespace SpendfulnessCli;

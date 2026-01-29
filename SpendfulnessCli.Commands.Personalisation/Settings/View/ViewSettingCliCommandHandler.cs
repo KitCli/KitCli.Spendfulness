@@ -1,6 +1,6 @@
-using Cli.Abstractions.Tables;
-using Cli.Commands.Abstractions.Handlers;
-using Cli.Commands.Abstractions.Outcomes;
+using KitCli.Abstractions.Tables;
+using KitCli.Commands.Abstractions.Handlers;
+using KitCli.Commands.Abstractions.Outcomes;
 using Microsoft.EntityFrameworkCore;
 using Spendfulness.Database;
 using Spendfulness.Database.Sqlite;

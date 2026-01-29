@@ -1,4 +1,4 @@
-﻿using Cli.Abstractions.Exceptions;
+﻿using KitCli.Abstractions.Exceptions;
 
 namespace Spendfulness.Database.Abstractions;
 

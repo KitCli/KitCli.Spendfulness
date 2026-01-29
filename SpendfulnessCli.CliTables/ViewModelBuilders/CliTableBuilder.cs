@@ -1,5 +1,5 @@
-using Cli.Abstractions.Aggregators;
-using Cli.Abstractions.Tables;
+using KitCli.Abstractions.Aggregators;
+using KitCli.Abstractions.Tables;
 
 namespace SpendfulnessCli.CliTables.ViewModelBuilders;
 

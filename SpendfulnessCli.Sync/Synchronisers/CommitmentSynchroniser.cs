@@ -1,4 +1,4 @@
-using Cli.Abstractions.Exceptions;
+using KitCli.Abstractions.Exceptions;
 using Spendfulness.Database;
 using Spendfulness.Database.Sqlite;
 using Spendfulness.Database.Sqlite.Commitments;

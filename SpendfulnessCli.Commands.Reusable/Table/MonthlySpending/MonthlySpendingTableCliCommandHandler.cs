@@ -1,6 +1,6 @@
-using Cli.Commands.Abstractions.Handlers;
-using Cli.Commands.Abstractions.Outcomes;
-using Cli.Commands.Abstractions.Outcomes.Final;
+using KitCli.Commands.Abstractions.Handlers;
+using KitCli.Commands.Abstractions.Outcomes;
+using KitCli.Commands.Abstractions.Outcomes.Final;
 using SpendfulnessCli.CliTables.ViewModelBuilders;
 
 namespace SpendfulnessCli.Commands.Reusable.Table.MonthlySpending;

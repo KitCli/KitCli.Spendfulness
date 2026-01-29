@@ -1,8 +1,8 @@
-using Cli.Abstractions.Aggregators.Filters;
-using Cli.Commands.Abstractions.Handlers;
-using Cli.Commands.Abstractions.Outcomes;
-using Cli.Commands.Abstractions.Outcomes.Final;
-using Cli.Commands.Abstractions.Outcomes.Reusable.Page;
+using KitCli.Abstractions.Aggregators.Filters;
+using KitCli.Commands.Abstractions.Handlers;
+using KitCli.Commands.Abstractions.Outcomes;
+using KitCli.Commands.Abstractions.Outcomes.Final;
+using KitCli.Commands.Abstractions.Outcomes.Reusable.Page;
 using SpendfulnessCli.CliTables.ViewModelBuilders;
 using Ynab.Extensions;
 

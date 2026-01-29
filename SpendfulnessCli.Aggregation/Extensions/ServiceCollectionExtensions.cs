@@ -1,4 +1,4 @@
-using Cli.Commands.Abstractions.Extensions;
+using KitCli.Commands.Abstractions.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Spendfulness.Aggregation.Aggregator;
 

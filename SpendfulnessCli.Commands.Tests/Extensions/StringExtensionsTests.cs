@@ -1,4 +1,4 @@
-using Cli.Commands.Abstractions.Extensions;
+using KitCli.Commands.Abstractions.Extensions;
 
 namespace Cli.Spendfulness.Commands.Tests.Extensions;
 

@@ -1,5 +1,5 @@
-using Cli.Instructions.Abstractions;
-using Cli.Instructions.Arguments;
+using KitCli.Instructions.Abstractions;
+using KitCli.Instructions.Arguments;
 
 namespace SpendfulnessCli.Commands.Reporting;
 

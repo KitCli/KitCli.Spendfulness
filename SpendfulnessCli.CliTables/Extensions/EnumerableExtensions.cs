@@ -1,4 +1,4 @@
-using Cli.Abstractions.Tables;
+using KitCli.Abstractions.Tables;
 
 namespace SpendfulnessCli.CliTables.Extensions;
 

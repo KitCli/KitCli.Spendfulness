@@ -12,4 +12,9 @@
       <ProjectReference Include="..\Ynab\Ynab.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="KitCli" Version="1.0.1" />
+      <PackageReference Include="KitCli.Commands" Version="1.0.0" />
+    </ItemGroup>
+
 </Project>
