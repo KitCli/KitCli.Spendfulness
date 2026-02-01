@@ -1,406 +1,481 @@
-# Building Extensible CLI Applications: A Framework Approach 🚀
+# From Hello World to a Scalable CLI Architecture
+
+**"Stop writing throwaway scripts. Start building proper CLIs."**
 
 **Duration:** 45 minutes  
-**Presenter:** [Your Name]  
-**Repository:** KitCli/SpendfulnessCli
+**Event:** DotNetNorth  
+**Speaker:** Joshua Edward Crowe  
+**Repository:** KitCli/KitCli.Spendfulness
 
 ---
 
 ## Table of Contents
-1. [What Is This Framework?](#1-what-is-this-framework) (8 minutes)
-2. [Framework Features Demo](#2-framework-features-demo) (10 minutes)
-3. [The Architecture That Makes It Work](#3-the-architecture-that-makes-it-work) (12 minutes)
-4. [Why It Doesn't Suck: SOLID, DRY, YAGNI](#4-why-it-doesnt-suck-solid-dry-yagni) (10 minutes)
-5. [Live Coding: Build Your CLI](#5-live-coding-build-your-cli) (3 minutes)
-6. [Q&A](#6-qa) (2 minutes)
+1. [Hook - Live Demo](#1-hook---live-demo) (2 minutes)
+2. [Who Am I](#2-who-am-i) (3 minutes)
+3. [What Is This Talk About](#3-what-is-this-talk-about) (5 minutes)
+4. [Where Did I Cheat](#4-where-did-i-cheat) (5 minutes)
+5. [LIVE DEMO - Hello World to Reusable](#5-live-demo---hello-world-to-reusable) (10 minutes)
+6. [HOW IT WORKS](#6-how-it-works) (15 minutes)
+7. [WHERE NEXT](#7-where-next) (3 minutes)
+8. [Q&A](#8-qa) (2 minutes)
 
 ---
 
-## 1. What Is This Framework?
-**Duration: 8 minutes**
+## 1. Hook - Live Demo
+**Duration: 2 minutes**
 
-### Why CLIs Still Matter in 2026 🖥️
+### Let's Start With Something Simple
 
-**Let's be honest:** CLIs might seem old-school in a world of fancy UIs and web apps.
-
-**But here's the thing:** CLIs are **developer superpowers** for:
-
-**⚡ Speed & Automation**
-- Type commands vs clicking through 5 screens
-- Chain commands together: no manual data copying
-- Script repetitive tasks: run weekly reports automatically
-
-**🔧 Developer Tooling**
-- Git, npm, docker — the best tools are CLIs
-- Integrates into your existing workflow
-- Perfect for CI/CD pipelines and automation
-
-**🎯 Custom Analysis**
-- GUI apps are limited to what someone built
-- CLIs let YOU decide what questions to ask
-- Build exactly the tool you need
-
-**💪 Power User Paradise**
-- Keyboard > mouse for power users
-- Composable: combine simple commands into complex workflows
-- Scriptable: automate everything
-
-**Real Talk:** If you're a developer, you probably spend half your day in a terminal anyway. Why not make your tools work the way YOU work?
-
-### TL;DR
-
-This is a **reusable CLI framework** (the `Cli.*` projects) that gives you:
-- 🏗️ Production-ready CLI infrastructure
-- 🔌 Plugin architecture - add commands in minutes
-- 🔍 Type-safe command parsing (no more string manipulation!)
-- 🔄 Command pipelines (compose simple commands into complex workflows)
-- 📦 Reusable patterns for any CLI application
-- ✅ Proven architecture used in real production app (SpendfulnessCli)
-
-### The Framework vs The Application
-
-**The Framework (`Cli.*` projects):** Reusable infrastructure for building ANY CLI
-- `Cli` - Core application loop and lifecycle
-- `Cli.Abstractions` - Base abstractions (I/O, tables, aggregators)
-- `Cli.Commands.Abstractions` - Command pattern infrastructure
-- `Cli.Instructions` - Instruction parsing pipeline
-- `Cli.Workflow` - Workflow and state management
-
-**The Application (`SpendfulnessCli.*`):** One example built on the framework
-- Domain-specific commands (financial analysis)
-- Custom aggregations
-- YNAB integration
-- Proves the framework works in production!
-
-**You can build:** Developer tools, data processors, automation scripts, monitoring CLIs, deployment tools, testing frameworks, etc.
-
----
-
-## 2. Framework Features Demo
-**Duration: 10 minutes**
-
-### Feature 1: Type-Safe Command Parsing 🔍
-
-**The Problem:** Most CLIs do ugly string parsing everywhere.
-
-**Before (typical CLI code):**
-```csharp
-// Ugh, brittle string manipulation
-var parts = input.Split(' ');
-var command = parts[0];
-var arg1 = parts[1]; // Hope this exists!
-var value = int.Parse(parts[2]); // Hope this is a number!
-```
-
-**With This Framework:**
-```csharp
-// Type-safe from input to handler!
-var instruction = parser.Parse("/deploy --environment production --replicas 3");
-// instruction.Name = "deploy"
-// instruction.Arguments = [
-//   TypedArgument<string>("environment", "production"),
-//   TypedArgument<int>("replicas", 3)
-// ]
-```
-
-**Why It's Cool:**
-- ✅ **Three-stage pipeline:** Find tokens → Extract values → Convert to types
-- ✅ **Plugin-based type system:** Add support for new types (Guid, DateOnly, custom types)
-- ✅ **Compiler-checked:** No runtime type errors
-- ✅ **IntelliSense works:** Refactoring is safe
-
-**Real Example from Production:**
 ```bash
-/filter-transactions --payee-name "Amazon" --amount-greater-than 50
-# Framework automatically converts:
-# "Amazon" → string
-# 50 → decimal
-# Your handler receives typed arguments!
+$ ./HelloWorldCli
+> /hello
+World!
 ```
 
-### Feature 2: Plugin Architecture (Add Commands in 2 Minutes!) ⚡
+**That's it.** A CLI that responds to `/hello` with `World!`
 
-**The Problem:** Adding features to CLIs is usually painful.
+**But wait...** what if we want:
+- Type-safe arguments?
+- Multiple commands?
+- Reusable across projects?
+- Proper error handling?
+- Command pipelines?
 
-**With This Framework:**
+**That's what we're building today.** 🚀
 
-**Step 1:** Define command (30 seconds)
+---
+
+## 2. Who Am I
+**Duration: 3 minutes**
+
+### Joshua Edward Crowe
+
+**Day Job:** Software Engineer at BrightHR
+
+### What's BrightHR?
+
+We're **transforming people management** — making HR and employee management simple for SMEs.
+
+**The Challenge:**
+- Strong player in the market
+- Growing fast
+- Need to think about **architecture for the future**
+- **Extensibility** is key to delivering value quickly
+
+### Why Does This Matter?
+
+As an engineering department scales, we need:
+- **Fast tooling** for repetitive tasks
+- **Proper architecture** even for "small" internal tools
+- **Reusable patterns** that work across teams
+
+**This talk is about one of those patterns: building proper CLIs.**
+
+---
+
+## 3. What Is This Talk About
+**Duration: 5 minutes**
+
+### The Problem: We Write Throwaway Scripts
+
+A big part of moving forward as an engineering department is making those **small, intricate jobs** much faster.
+
+**Common Scenario:**
+- Unique task that doesn't belong in the product
+- Need a quick tool to automate something
+- Write a "throwaway" script
+- Script becomes permanent
+- Script becomes unmaintainable
+- Script becomes a problem
+
+### The Solution: Proper CLIs
+
+We often solve these with **tooling** — writing quick little apps where:
+- The task is unique enough
+- Doesn't belong in the product
+- Or there are bigger opportunities out there
+
+**The CLI is a key tool in that space.**
+
+### The Great Debate
+
+**GitHub Desktop vs Git CLI** — the debate goes on today.
+
+**The .NET Team** has embraced CLIs:
+- `dotnet` CLI is the primary interface
+- Entity Framework CLI tools
+- Build and deployment tools
+
+**Any big fan of grep** is willing to fight that corner too. 😄
+
+### What We're Building
+
+A **reusable CLI framework** that turns throwaway scripts into:
+- **Maintainable** applications
+- **Extensible** architecture
+- **Type-safe** commands
+- **Testable** components
+- **Production-ready** tools
+
+---
+
+## 4. Where Did I Cheat
+**Duration: 5 minutes**
+
+### Standing on the Shoulders of Giants
+
+There are some **already amazing packages** out there that solve key architectural challenges. Let's get those out of the way first.
+
+#### 1. Microsoft Dependency Injection
+
+**What it does:** Manages object lifetime and dependencies.
+
+**Why it's great:**
+- Many common frameworks already use it
+- Really powerful
+- Familiar to .NET developers
+- Quickly spin up apps
+
+**How we use it:**
 ```csharp
-public record DeployCommand(string Environment, int Replicas) : CliCommand;
+services.AddSingleton<ICliWorkflow, CliWorkflow>();
+services.AddTransient<ICliCommandHandler, MyCommandHandler>();
 ```
 
-**Step 2:** Write handler (60 seconds)
+#### 2. MediatR
+
+**What it does:** Atomically separates business logic via CQRS pattern.
+
+**The principle:** One handler, one action.
+
+**Why it's great:**
+- Clean separation of concerns
+- Easy to test individual handlers
+- Pipeline behaviors for cross-cutting concerns
+
+**How we use it:**
 ```csharp
-public class DeployCommandHandler 
-    : IRequestHandler<DeployCommand, CliCommandOutcome[]>
+// Command
+public record DeployCommand(string Environment) : IRequest<CliCommandOutcome[]>;
+
+// Handler
+public class DeployCommandHandler : IRequestHandler<DeployCommand, CliCommandOutcome[]>
 {
     public async Task<CliCommandOutcome[]> Handle(DeployCommand cmd)
     {
-        // Your logic here
-        await DeployService.Deploy(cmd.Environment, cmd.Replicas);
-        return OutcomeAs($"Deployed to {cmd.Environment} with {cmd.Replicas} replicas");
+        // Business logic here
     }
 }
 ```
 
-**Step 3:** Register (30 seconds)
-```csharp
-services.AddKeyedTransient<ICliCommandGenerator>(
-    "deploy",
-    (sp, key) => new DeployCommandGenerator()
-);
-```
+#### 3. ConsoleTables
 
-**That's it!** Framework handles:
-- ✅ Parsing `/deploy --environment production --replicas 3`
-- ✅ Converting arguments to correct types
-- ✅ Routing to your handler
-- ✅ Error handling
-- ✅ Displaying output
+**What it does:** A neat way to display info.
 
-**No changes to core code. Ever.**
-
-### Feature 3: Command Pipelines (Unix Pipes, But Type-Safe!) 🔗
-
-**The Problem:** Most CLIs make you run commands separately and manually copy data.
-
-**Framework Solution:**
-```bash
-# Unix pipes (strings only)
-cat file.txt | grep "error" | wc -l
-
-# This framework (typed data!)
-/load-logs | /filter --level error | /count
-```
-
-**How It Works:**
-- Commands return **typed outcomes** (not just strings!)
-- Next command receives **typed data** as properties
-- Type-safe composition with compiler verification
-- Build complex workflows from simple commands
-
-**Example Flow:**
-```
-/load-logs → LogsOutcome (List<LogEntry>)
-       ↓
-/filter --level error → FilteredLogsOutcome (List<LogEntry>)
-       ↓
-/count → MessageOutcome ("Found 42 errors")
-```
-
-**Why This Is Powerful:**
-- ✅ No writing one-off "mega commands"
-- ✅ Users compose features themselves
-- ✅ Type safety prevents errors
-- ✅ Infinite combinations from finite commands
-
-### Feature 4: Reusable Aggregation Pattern 📦
-
-**The Problem:** Same data manipulation logic everywhere.
-
-**Framework Solution: Aggregators**
-
-```csharp
-// Define once
-public class MonthlyTotalAggregator : CliListAggregator<MonthTotal>
-{
-    protected override List<MonthTotal> OnAggregate()
-    {
-        return Data
-            .GroupBy(item => new { item.Year, item.Month })
-            .Select(g => new MonthTotal(g.Key.Year, g.Key.Month, g.Sum(x => x.Amount)))
-            .ToList();
-    }
-}
-
-// Use everywhere with composition
-var aggregator = new MonthlyTotalAggregator(data)
-    .BeforeAggregation(a => a.FilterByDateRange(start, end))
-    .BeforeAggregation(a => a.FilterByCategory("groceries"))
-    .AfterAggregation(a => a.OrderByMonth());
-
-var results = aggregator.Aggregate();
-```
-
-**Benefits:**
-- ✅ Write logic once, use in multiple commands
-- ✅ Test once
-- ✅ Fix bugs once
-- ✅ Fluent composition (chain operations)
-
-### Feature 5: Built-in CLI Table Formatting 📊
-
-**The Problem:** Making pretty tables in CLIs is tedious.
-
-**Framework Solution:**
-```csharp
-var table = new CliTable();
-table.AddColumn("Name");
-table.AddColumn("Status");
-table.AddColumn("Count");
-
-table.AddRow("Service-A", "Running", "3");
-table.AddRow("Service-B", "Stopped", "0");
-
-return OutcomeAs(table);
-```
-
-**Output:**
-```
-┌───────────┬─────────┬───────┐
-│ Name      │ Status  │ Count │
-├───────────┼─────────┼───────┤
-│ Service-A │ Running │ 3     │
-│ Service-B │ Stopped │ 0     │
-└───────────┴─────────┴───────┘
-```
-
-**Features:**
-- ✅ Automatic column sizing
-- ✅ Sorting support
-- ✅ Pagination
-- ✅ Unicode box drawing
-- ✅ Consistent formatting
-
-### Feature 6: Interactive Session Management 🔄
-
-**The Framework Handles:**
-- ✅ **REPL Loop:** Read-Eval-Print-Loop for interactive sessions
-- ✅ **Session State:** Track command history
-- ✅ **Lifecycle Hooks:** `OnSessionStart`, `OnRunCreated`, `OnRunComplete`, `OnSessionEnd`
-- ✅ **Error Recovery:** Graceful error handling, session continues
-- ✅ **State Transitions:** Validated state machine (prevents bugs)
+**Why it's great:**
+- Most business data is relational, tabular
+- Beautiful output with minimal code
 
 **Example:**
-```csharp
-public class MyCliApp : CliApp
-{
-    protected override void OnSessionStart()
-    {
-        Io.Say("Welcome to My CLI!");
-    }
-    
-    protected override void OnRunComplete(ICliWorkflowRun run, CliCommandOutcome[] outcomes)
-    {
-        // Log every command executed
-        Logger.LogCommand(run.Instruction);
-    }
-}
+```
+┌──────────┬─────────┬───────┐
+│ Service  │ Status  │ Count │
+├──────────┼─────────┼───────┤
+│ API      │ Running │ 3     │
+│ Worker   │ Stopped │ 0     │
+└──────────┴─────────┴───────┘
 ```
 
-**You Focus On:** Your command logic  
-**Framework Handles:** Everything else
+#### 4. CsvHelper
+
+**What it does:** Go one better — export CSVs.
+
+**Why it's great:**
+- Data is often consumed in Excel/Google Sheets
+- CSV is universal
+- CsvHelper makes it trivial
+
+**The Stack:**
+- **Microsoft DI** for object management
+- **MediatR** for command dispatch
+- **ConsoleTables** for display
+- **CsvHelper** for export
+
+**What we're building:** The glue that makes these work together beautifully.
 
 ---
 
-## 3. The Architecture That Makes It Work
-**Duration: 12 minutes**
+## 5. LIVE DEMO - Hello World to Reusable
+**Duration: 10 minutes**
 
-### How Do You Build a Framework That Doesn't Suck?
+### Part 1: Hello World App (Start from Scratch)
 
-**The Challenge:** Support unlimited commands without becoming spaghetti code.
+**Goal:** Build the simplest possible CLI.
 
-**The Solution:** Smart architecture patterns that make it EASY to extend.
-
-### Pattern 1: The Three-Layer Separation 🎂
-
-```
-┌─────────────────────────────────────┐
-│     You Type: "/deploy"             │  ← User Layer (CliApp)
-└─────────────┬───────────────────────┘
-              │
-     ┌────────▼─────────┐
-     │  Parse & Route   │  ← Workflow Layer (CliWorkflow)
-     └────────┬─────────┘
-              │
-     ┌────────▼─────────┐
-     │  Execute Logic   │  ← Command Layer (Handlers)
-     └──────────────────┘
+#### Step 1: Create the App (1 minute)
+```bash
+dotnet new console -n HelloWorldCli
+cd HelloWorldCli
 ```
 
-**Layer 1: CliApp (User Interaction)**
+#### Step 2: Add Basic Loop (2 minutes)
 ```csharp
-public abstract class CliApp
+// Program.cs
+while (true)
 {
-    public async Task Run()
+    Console.Write("> ");
+    var input = Console.ReadLine();
+    
+    if (input == "/hello")
     {
-        OnSessionStart();
-        while (_workflow.Status != CliWorkflowStatus.Stopped)
-        {
-            var ask = Io.Ask();              // Get input
-            var outcomes = await run.RespondToAsk(ask);
-            Io.Say(outcomes);                // Display output
-        }
+        Console.WriteLine("World!");
+    }
+    else if (input == "/exit")
+    {
+        break;
     }
 }
 ```
-- Shows prompts, gets input, displays results
-- **No business logic here**
-- Override lifecycle hooks for customization
 
-**Layer 2: CliWorkflow (Traffic Cop)**
+**Run it:**
+```bash
+$ dotnet run
+> /hello
+World!
+> /exit
+```
+
+**Problems:**
+- Hardcoded commands
+- No argument parsing
+- Not testable
+- Not reusable
+
+### Part 2: Convert to Reusable (5 minutes)
+
+**Goal:** Make it extensible and maintainable.
+
+#### Step 1: Install Framework Packages
+```bash
+dotnet add package MediatR
+dotnet add package Microsoft.Extensions.DependencyInjection
+```
+
+#### Step 2: Define Command
+```csharp
+// Commands/HelloCommand.cs
+public record HelloCommand : CliCommand;
+```
+
+#### Step 3: Create Handler
+```csharp
+// Handlers/HelloCommandHandler.cs
+public class HelloCommandHandler : IRequestHandler<HelloCommand, CliCommandOutcome[]>
+{
+    public async Task<CliCommandOutcome[]> Handle(
+        HelloCommand command, 
+        CancellationToken ct)
+    {
+        return OutcomeAs("World!");
+    }
+}
+```
+
+#### Step 4: Register in DI
+```csharp
+// Program.cs
+var services = new ServiceCollection();
+services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+services.AddSingleton<ICliWorkflow, CliWorkflow>();
+
+var provider = services.BuildServiceProvider();
+var app = provider.GetRequiredService<CliApp>();
+await app.Run();
+```
+
+**What we gained:**
+- ✅ Testable (mock the handler)
+- ✅ Extensible (add more commands without touching core)
+- ✅ Type-safe (commands are objects, not strings)
+- ✅ Reusable (framework can be extracted)
+
+### Part 3: Filter App Example (2 minutes)
+
+**Real-world example:** Show how reusable architecture works in the wild.
+
+```csharp
+// Filter command - completely independent
+public record FilterCommand(string Field, string Value) : CliCommand;
+
+// Handler - focused on one thing
+public class FilterCommandHandler : IRequestHandler<FilterCommand, CliCommandOutcome[]>
+{
+    public async Task<CliCommandOutcome[]> Handle(FilterCommand cmd)
+    {
+        var filter = new EqualsFilter(cmd.Field, cmd.Value);
+        return OutcomeAs(filter); // Can be consumed by next command!
+    }
+}
+```
+
+**Usage:**
+```bash
+> /filter --field status --value active | /table | /export-csv
+```
+
+**The power:** Commands compose. Just like Unix pipes, but type-safe.
+
+---
+
+## 6. HOW IT WORKS
+**Duration: 15 minutes**
+
+### The Architecture - 7 Key Components
+
+#### 1. Workflow - How Units of Work Are Moderated (2 min)
+
+**What it is:** The session manager.
+
+**Responsibilities:**
+- Start/stop the CLI session
+- Create new workflow runs for each command
+- Maintain command history
+
+```csharp
+public class CliWorkflow
+{
+    public CliWorkflowStatus Status { get; set; } // Started | Stopped
+    private List<CliWorkflowRun> _runs = [];
+    
+    public CliWorkflowRun NextRun()
+    {
+        var run = new CliWorkflowRun(_parser, _commandProvider, _mediator);
+        _runs.Add(run);
+        return run;
+    }
+    
+    public void Stop() => Status = CliWorkflowStatus.Stopped;
+}
+```
+
+**Key insight:** Workflow = session. Run = command.
+
+#### 2. Runs - Units of Work (2 min)
+
+**What it is:** A single command execution.
+
+**Lifecycle:**
+```
+NotInitialized → Created → Running → Finished
+                              ↓
+                         [InvalidAsk | Exceptional]
+```
+
+**Code:**
 ```csharp
 public class CliWorkflowRun
 {
     public async Task<CliCommandOutcome[]> RespondToAsk(string? ask)
     {
-        var instruction = _parser.Parse(ask);        // Parse
-        var command = _provider.GetCommand(instruction); // Route
-        return await _mediator.Send(command);         // Execute
+        _state.ChangeTo(RunState.Created);
+        
+        if (string.IsNullOrEmpty(ask))
+        {
+            _state.ChangeTo(RunState.InvalidAsk);
+            return [new CliCommandNothingOutcome()];
+        }
+        
+        try
+        {
+            _state.ChangeTo(RunState.Running);
+            var instruction = _parser.Parse(ask);
+            var command = _provider.GetCommand(instruction);
+            return await _mediator.Send(command);
+        }
+        catch (Exception ex)
+        {
+            _state.ChangeTo(RunState.Exceptional);
+            return [new CliCommandExceptionOutcome(ex)];
+        }
+        finally
+        {
+            _state.ChangeTo(RunState.Finished);
+        }
     }
 }
 ```
-- Parses `/deploy --environment prod` into typed command
-- Routes to the right handler
-- Manages session state
 
-**Layer 3: Command Handlers (The Actual Work)**
+**Key insight:** Each run is isolated. Errors don't crash the session.
+
+#### 3. Operating Model - State Machine at Play (2 min)
+
+**Why state machines?** Predictability and debuggability.
+
+**Session States:**
+```
+Started → Stopped
+```
+
+**Run States:**
+```
+NotInitialized 
+    → Created 
+    → Running 
+    → {InvalidAsk | Exceptional | Success} 
+    → Finished
+```
+
+**State Validation:**
 ```csharp
-public class DeployCommandHandler : IRequestHandler<DeployCommand, CliCommandOutcome[]>
+private void ChangeTo(RunState newState)
 {
-    public async Task<CliCommandOutcome[]> Handle(DeployCommand cmd)
+    if (!IsValidTransition(_currentState, newState))
     {
-        // Your logic here
-        await _deployService.Deploy(cmd.Environment);
-        return OutcomeAs($"Deployed to {cmd.Environment}!");
+        throw new InvalidStateTransitionException(
+            $"Cannot transition from {_currentState} to {newState}"
+        );
     }
+    
+    _currentState = newState;
+    _recordedTransitions.Add(new StateTransition(DateTime.Now, newState));
 }
 ```
-- Implements your business logic
-- Independent, testable, focused
 
-**Why This Matters:**
-- ✅ Each layer has ONE responsibility (SRP)
-- ✅ Easy to test each piece in isolation
-- ✅ Change one layer without breaking others
-- ✅ New developers understand quickly
+**Benefits:**
+- ✅ Impossible states are impossible
+- ✅ Clear execution flow
+- ✅ Easy to debug (see state history)
+- ✅ Prevents bugs
 
-### Pattern 2: Parser Three-Stage Pipeline 🔍
+#### 4. Instructions - Raw Input to Type-Safe Values (3 min)
 
-**Problem:** Converting `"/deploy --env prod"` into typed objects.
+**The problem:** User types `/deploy --env prod --replicas 3`
 
-**Solution:** Three specialized stages:
+**We need:** Type-safe command object with `Environment="prod"` and `Replicas=3`
+
+**The solution:** Three-stage pipeline.
 
 **Stage 1: Token Indexer**
 ```
-Input:  "/deploy --environment production"
+Input:  "/deploy --env prod --replicas 3"
 Output: PrefixIndex=0, NameIndex=1-6, ArgIndex=8...
 ```
-- **One job:** Find where tokens are located
-- Fast string scanning
-- No parsing logic
+- Finds WHERE tokens are
+- No parsing, just position detection
 
 **Stage 2: Token Extractor**
 ```
 Output: {
     Prefix: "/",
     Name: "deploy",
-    Arguments: { "environment": "production" }
+    Arguments: { 
+        "env": "prod",
+        "replicas": "3"
+    }
 }
 ```
-- **One job:** Extract string values
+- Extracts string values
 - Uses indexes from Stage 1
-- Dictionary of arg name → value
 
 **Stage 3: Argument Builders**
 ```csharp
@@ -409,10 +484,18 @@ public interface IConsoleInstructionArgumentBuilder
     bool For(string? value);  // Can I handle this?
     ConsoleInstructionArgument Create(string name, string? value);
 }
+
+// Concrete builders
+public class IntArgumentBuilder : IConsoleInstructionArgumentBuilder
+{
+    public bool For(string? value) => int.TryParse(value, out _);
+    
+    public ConsoleInstructionArgument Create(string name, string? value)
+    {
+        return new TypedArgument<int>(name, int.Parse(value!));
+    }
+}
 ```
-- **One job per builder:** Convert one type
-- `IntBuilder`, `DateBuilder`, `GuidBuilder`, `BoolBuilder` (fallback)
-- Plugin system: register new builders for custom types
 
 **Result:**
 ```csharp
@@ -422,602 +505,350 @@ public record ConsoleInstruction(
 );
 ```
 
-**Why Three Stages?**
-- ✅ Single Responsibility per stage
-- ✅ Easy to test each stage
-- ✅ Easy to extend (add new type builders)
-- ✅ Clear error messages per stage
+**Benefits:**
+- ✅ Type-safe from input to handler
+- ✅ Extensible (add new type builders)
+- ✅ Compiler catches type errors
+- ✅ IntelliSense works
 
-### Pattern 3: MediatR for Command Dispatch 📬
+#### 5. Building Commands - Instructions to DTOs (2 min)
 
-**Instead of:** Big switch statement or if/else chains
-
-**Use:** MediatR pattern (CQRS)
+**From instruction to command:**
 
 ```csharp
-// Command = Data (no logic)
-public record DeployCommand(string Environment) : CliCommand;
+// Instruction (parsed input)
+var instruction = new ConsoleInstruction(
+    Name: "deploy",
+    Arguments: [
+        new TypedArgument<string>("env", "prod"),
+        new TypedArgument<int>("replicas", 3)
+    ]
+);
 
-// Handler = Logic (no routing)
-public class DeployCommandHandler 
-    : IRequestHandler<DeployCommand, CliCommandOutcome[]>
+// Command Generator
+public class DeployCommandGenerator : ICliCommandGenerator
 {
-    public async Task<CliCommandOutcome[]> Handle(DeployCommand cmd)
+    public CliCommand Generate(ConsoleInstruction instruction)
     {
-        // Business logic here
+        var env = instruction.GetArgument<string>("env");
+        var replicas = instruction.GetArgument<int>("replicas");
+        
+        return new DeployCommand(env, replicas);
     }
 }
 
-// Routing = Automatic
+// Command (DTO)
+public record DeployCommand(string Environment, int Replicas) : CliCommand;
+```
+
+**Why this step?** Separation of concerns:
+- Parser doesn't know about commands
+- Commands don't know about parsing
+- Generators bridge the gap
+
+#### 6. Routing - Sending Commands to Handlers (2 min)
+
+**The routing mechanism:**
+
+```csharp
+// Registration (in DI)
+services.AddKeyedTransient<ICliCommandGenerator>(
+    "deploy",  // Instruction name
+    (sp, key) => new DeployCommandGenerator()
+);
+
+// Routing (in command provider)
+public CliCommand GetCommand(ConsoleInstruction instruction)
+{
+    var generator = _serviceProvider
+        .GetKeyedService<ICliCommandGenerator>(instruction.Name);
+        
+    if (generator == null)
+    {
+        throw new NoCommandGeneratorException(
+            $"No generator found for '{instruction.Name}'"
+        );
+    }
+    
+    return generator.Generate(instruction);
+}
+
+// Dispatch (via MediatR)
 var outcome = await _mediator.Send(command);
 ```
 
 **Benefits:**
-- ✅ Commands are simple data carriers
-- ✅ Handlers are focused on business logic
-- ✅ No routing code in your app
-- ✅ Can add pipeline behaviors (logging, validation, caching)
-- ✅ Handlers can be in different assemblies
+- ✅ Add commands without touching routing code
+- ✅ DI handles discovery
+- ✅ MediatR handles dispatch
+- ✅ Handlers are focused and testable
 
-### Pattern 4: Outcome Pattern (No Exceptions for Control Flow) ✅
+#### 7. Achieving Outcomes - Simpler Terminal Output (2 min)
 
-**Problem:** Using exceptions for normal control flow is expensive and unclear.
-
-**Solution:** Typed outcomes
+**The outcome pattern:**
 
 ```csharp
-// Base outcome
+// Base
 public abstract class CliCommandOutcome { }
 
-// Specific outcomes
-public class CliCommandTableOutcome(CliTable table) : CliCommandOutcome;
+// Concrete outcomes
 public class CliCommandOutputOutcome(string message) : CliCommandOutcome;
+public class CliCommandTableOutcome(CliTable table) : CliCommandOutcome;
+public class FilterCliCommandOutcome(CliListAggregatorFilter filter) : CliCommandOutcome;
 public class CliCommandNothingOutcome : CliCommandOutcome;
 public class CliCommandExceptionOutcome(Exception ex) : CliCommandOutcome;
-public class FilterCliCommandOutcome(CliListAggregatorFilter filter) : CliCommandOutcome;
 ```
 
-**Usage:**
+**Handler returns outcomes:**
 ```csharp
-// Return success
-return OutcomeAs("Deployment successful!");
-
-// Return table
-return OutcomeAs(table);
-
-// Return filter (for pipelines!)
-return OutcomeAs(filter);
+public class DeployCommandHandler : IRequestHandler<DeployCommand, CliCommandOutcome[]>
+{
+    public async Task<CliCommandOutcome[]> Handle(DeployCommand cmd)
+    {
+        await _deployService.Deploy(cmd.Environment, cmd.Replicas);
+        return OutcomeAs($"✅ Deployed to {cmd.Environment}");
+    }
+}
 ```
 
-**Why This Pattern:**
-- ✅ Explicit success/failure handling
-- ✅ Type-safe result passing
-- ✅ Enables command pipelines
-- ✅ I/O layer decides how to display
-- ✅ No hidden control flow
-
-### Pattern 5: Dependency Injection Throughout 💉
-
-**Framework Philosophy:** Everything is injected, nothing is `new`'d
-
+**I/O layer displays outcomes:**
 ```csharp
-// Register framework
-services.AddSingleton<ICliInstructionParser, ConsoleInstructionParser>();
-services.AddSingleton<ICliWorkflow, CliWorkflow>();
-services.AddSingleton<ICliCommandOutcomeIo, ConsoleCliCommandOutcomeIo>();
-
-// Register commands
-services.AddKeyedTransient<ICliCommandGenerator>("deploy", ...);
-
-// Register type builders
-services.AddSingleton<IConsoleInstructionArgumentBuilder, IntBuilder>();
-services.AddSingleton<IConsoleInstructionArgumentBuilder, DateBuilder>();
+public void Say(CliCommandOutcome[] outcomes)
+{
+    foreach (var outcome in outcomes)
+    {
+        switch (outcome)
+        {
+            case CliCommandOutputOutcome output:
+                Console.WriteLine(output.Message);
+                break;
+            case CliCommandTableOutcome table:
+                Console.WriteLine(table.Table.ToMarkdownString());
+                break;
+            // ... other outcome types
+        }
+    }
+}
 ```
 
 **Benefits:**
-- ✅ Easy to test (inject mocks)
-- ✅ Swap implementations (ConsoleIo → FileIo → TestIo)
-- ✅ Plugin architecture (register new commands/types)
-- ✅ Open/Closed Principle in action
+- ✅ Handlers don't know about display
+- ✅ Easy to test (check outcome type)
+- ✅ Can change display without touching handlers
+- ✅ Supports command pipelines (outcomes pass data)
+
+### The Biggest Challenge: Continuous Input
+
+**The problem:** Most CLI examples show single-command execution. Real CLIs need continuous input.
+
+**The solution:** REPL (Read-Eval-Print-Loop) with proper state management.
+
+```csharp
+public abstract class CliApp
+{
+    public async Task Run()
+    {
+        OnSessionStart();
+        
+        while (_workflow.Status != CliWorkflowStatus.Stopped)
+        {
+            var run = _workflow.NextRun();
+            OnRunCreated(run);
+            
+            var ask = Io.Ask();  // Read
+            var runTask = run.RespondToAsk(ask);  // Eval
+            
+            OnRunStarted(run, ask);
+            
+            var outcomes = await runTask;
+            Io.Say(outcomes);  // Print
+            
+            OnRunComplete(run, outcomes);
+        }
+        
+        OnSessionEnd(_workflow.Runs);
+    }
+}
+```
+
+**Key features:**
+- ✅ Session remains alive between commands
+- ✅ Errors don't crash the session
+- ✅ Lifecycle hooks for customization
+- ✅ Command history maintained
+- ✅ Async command execution
 
 ---
 
-## 4. Why It Doesn't Suck: SOLID, DRY, YAGNI
-
-**Most CLIs:**
-```csharp
-// Ugh, string parsing everywhere
-var parts = input.Split(' ');
-var command = parts[0];
-var arg1 = parts[1]; // Hope this exists!
-var value = int.Parse(parts[2]); // Hope this is a number!
-```
-
-**SpendfulnessCli:**
-```csharp
-// Type-safe from the start!
-var instruction = parser.Parse("/spare-money --minus-savings true");
-// instruction.Name = "spare-money"
-// instruction.Arguments = [TypedArgument<bool>("minus-savings", true)]
-
-// Later, in your handler:
-public class SpareMoneyHandler(bool? MinusSavings) // Compiler-checked!
-```
-
-**The Magic:** Three-stage pipeline
-1. **Find** where tokens are → `"--minus-savings true"` starts at position 13
-2. **Extract** the values → `{ "minus-savings": "true" }`
-3. **Convert** to types → `TypedArgument<bool>(true)`
-
-**Why This Rocks:**
-- ✅ No string parsing in business logic
-- ✅ Compiler catches type errors
-- ✅ Refactoring is safe
-- ✅ IntelliSense just works
-
-### Pattern 3: Plugin Architecture (Add Commands in 2 Minutes!) ⚡
-
-**Want to add a new command?** Just three steps:
-
-```csharp
-// 1. Define the command (data only)
-public record MyAwesomeCommand(string Param) : CliCommand;
-
-// 2. Write the handler (the logic)
-public class MyAwesomeCommandHandler 
-    : IRequestHandler<MyAwesomeCommand, CliCommandOutcome[]>
-{
-    public async Task<CliCommandOutcome[]> Handle(MyAwesomeCommand cmd)
-    {
-        // Do your thing
-        return OutcomeAs("Result!");
-    }
-}
-
-// 3. Register it
-services.AddKeyedTransient<ICliCommandGenerator>(
-    "my-awesome-command",
-    (sp, key) => new MyAwesomeCommandGenerator()
-);
-```
-
-**That's it!** The framework:
-- ✅ Automatically finds your command
-- ✅ Parses arguments for you
-- ✅ Routes `/my-awesome-command` to your handler
-- ✅ Handles errors
-- ✅ Displays output
-
-**No changes to core code. Ever.**
-
-### Pattern 4: Reusable Data Aggregations 📦
-
-**Problem:** Same data manipulation logic everywhere.
-
-```csharp
-// ❌ DON'T: Copy-paste filtering logic
-public void Command1()
-{
-    var filtered = transactions
-        .Where(t => t.Date > startDate)
-        .Where(t => t.Amount > 0)
-        .GroupBy(t => t.Category);
-}
-
-public void Command2()
-{
-    var filtered = transactions  // DUPLICATE!
-        .Where(t => t.Date > startDate)
-        .Where(t => t.Amount > 0)
-        .GroupBy(t => t.Category);
-}
-```
-
-**Better:** Reusable aggregators
-
-```csharp
-// ✅ DO: Write once, use everywhere
-public class TransactionMonthTotalAggregator
-{
-    protected override List<MonthTotal> OnAggregate()
-    {
-        return Transactions
-            .GroupBy(t => new { t.Date.Year, t.Date.Month })
-            .Select(g => new MonthTotal(g.Key.Year, g.Key.Month, g.Sum(t => t.Amount)))
-            .ToList();
-    }
-}
-
-// Use in multiple commands with composition
-var aggregator = new TransactionMonthTotalAggregator(transactions)
-    .BeforeAggregation(a => a.FilterToDateRange(start, end))
-    .AfterAggregation(a => a.OrderByYear());
-
-var results = aggregator.Aggregate();
-```
-
-**Benefits:**
-- ✅ Write logic once
-- ✅ Test once
-- ✅ Fix bugs once
-- ✅ Compose operations fluently
-
-### Pattern 5: Command Pipelines (Unix Pipes, But Better!) 🔗
-
-**Unix Pipes:**
-```bash
-cat file.txt | grep "error" | sort | uniq
-```
-
-**SpendfulnessCli Pipes:**
-```bash
-/filter-transactions --payee "Amazon" | /table | /export-csv
-```
-
-**How It Works:**
-- Commands return typed outcomes (not just strings!)
-- Next command receives typed data
-- Type-safe composition
-- Infinite possibilities
-
-**Example Flow:**
-```
-/filter-transactions → TransactionOutcome[]
-       ↓
-/table → TableOutcome
-       ↓
-/export-csv → FileOutcome
-```
-
-**Why This Is Powerful:**
-- ✅ Build complex reports from simple commands
-- ✅ No need to write custom one-off commands
-- ✅ Users compose features themselves
-
----
-
-## 4. Why It Doesn't Suck: SOLID, DRY, YAGNI
-**Duration: 10 minutes**
-
-### The Real Question: How Do You Keep This Maintainable?
-
-**Bad Code Smells to Avoid:**
-- 🤮 Copy-paste programming
-- 🤮 God classes that do everything
-- 🤮 Deep inheritance hierarchies
-- 🤮 Building features "just in case"
-
-### SOLID: The Cheat Codes for Good Code
-
-#### S - Single Responsibility Principle
-**Translation:** Each class does ONE thing.
-
-```csharp
-// ❌ BAD: Class does too much
-public class SpareMoneyHandler
-{
-    public void Handle()
-    {
-        // Parse input
-        // Query database
-        // Calculate money
-        // Format output
-        // Display to user
-    }
-}
-
-// ✅ GOOD: Separate concerns
-public class CliApp { /* Only handles user I/O */ }
-public class CliWorkflow { /* Only routes commands */ }
-public class SpareMoneyHandler { /* Only calculates spare money */ }
-```
-
-**Why It Matters:** When spare money calculation changes, you only touch ONE class.
-
-#### O - Open/Closed Principle
-**Translation:** Add features without changing existing code.
-
-```csharp
-// Want a new command? Just register it!
-services.AddKeyedTransient<ICliCommandGenerator>(
-    "my-new-command",
-    (sp, key) => new MyNewCommandGenerator()
-);
-// No changes to core framework needed!
-```
-
-**Why It Matters:** Add 50 new commands without touching the command router. Ship faster!
-
-#### L - Liskov Substitution Principle
-**Translation:** Subtypes should work wherever parent types work.
-
-```csharp
-// Any ICliCommandOutcome works the same way
-CliCommandOutcome outcome = new TableOutcome(...);
-CliCommandOutcome outcome = new MessageOutcome(...);
-CliCommandOutcome outcome = new FilterOutcome(...);
-// All handled uniformly by the framework
-```
-
-**Why It Matters:** Consistent behavior = fewer bugs.
-
-#### I - Interface Segregation Principle
-**Translation:** Small, focused interfaces > big bloated ones.
-
-```csharp
-// ✅ GOOD: Focused interfaces
-public interface ICliCommandGenerator
-{
-    CliCommand Generate(CliInstruction instruction);
-}
-
-public interface ICliCommandPropertyFactory
-{
-    bool CanCreateProperty(CliCommandOutcome outcome);
-    CliCommandProperty CreateProperty(CliCommandOutcome outcome);
-}
-
-// ❌ BAD: One mega-interface
-public interface ICliCommandEverything
-{
-    CliCommand Generate(...);
-    bool CanCreateProperty(...);
-    void Validate(...);
-    void Log(...);
-    void Export(...);
-    // ... 20 more methods
-}
-```
-
-**Why It Matters:** Implement only what you need. Simpler code, faster development.
-
-#### D - Dependency Inversion Principle
-**Translation:** Depend on abstractions, not concrete classes.
-
-```csharp
-// ✅ GOOD: Depend on interface
-public class CliApp(ICliCommandOutcomeIo io)
-{
-    // Can inject different implementations:
-    // - ConsoleIo for production
-    // - TestIo for testing
-    // - FileIo for scripting
-}
-
-// ❌ BAD: Depend on concrete class
-public class CliApp
-{
-    private readonly ConsoleIo io = new ConsoleIo();
-    // Now stuck with Console forever!
-}
-```
-
-**Why It Matters:** Easy testing, flexibility, swappable components.
-
-### DRY: Don't Repeat Yourself
-
-**The Sin:** Copy-paste code everywhere.
-
-**The Fix:** Reusable components.
-
-```csharp
-// ✅ Write once, use everywhere
-public class TransactionMonthTotalAggregator { /* ... */ }
-
-// Use in command 1
-var aggregator1 = new TransactionMonthTotalAggregator(data).Aggregate();
-
-// Use in command 2
-var aggregator2 = new TransactionMonthTotalAggregator(otherData).Aggregate();
-```
-
-**Real Examples in SpendfulnessCli:**
-- **Aggregators:** Reusable data transformations
-- **Base Handlers:** Common outcome creation methods
-- **Extension Methods:** Shared string utilities
-- **Constants:** Single source of truth for parsing rules
-
-**Result:** Fix a bug once, it's fixed everywhere.
-
-### YAGNI: You Aren't Gonna Need It
-
-**The Trap:** "We might need this someday!"
-
-**The Reality:** You won't. And if you do, add it then.
-
-```csharp
-// ✅ GOOD: Simple state machine (just what's needed)
-public enum CliWorkflowStatus
-{
-    Started,
-    Stopped
-}
-
-// ❌ BAD: Over-engineered "just in case"
-public enum CliWorkflowStatus
-{
-    Started,
-    Paused,           // Not needed yet
-    Suspended,        // Not needed yet
-    Hibernating,      // Definitely not needed
-    QuantumSuperposition,  // What even is this?
-    Stopped
-}
-```
-
-**Real Examples:**
-- **I/O Interface:** Just `Ask()` and `Say()` — that's all we need!
-- **Session States:** Just `Started` and `Stopped` — simple!
-- **No Premature Optimization:** Use stopwatch for timing, not distributed tracing
-
-**The Philosophy:** Build what you need today. Future you will thank you for the simplicity.
-
----
-
-## 5. Live Coding: Build Your CLI
+## 7. WHERE NEXT
 **Duration: 3 minutes**
 
-**Let's build a deployment CLI command in real-time!**
+### The Roadmap - What's Coming
 
-### Step 1: Define the Command (30 seconds)
-```csharp
-public record DeployCommand(string Environment, int Replicas) : CliCommand;
-```
+#### 1. Side Effects Model
 
-### Step 2: Write the Handler (60 seconds)
+**Current limitation:** Commands return outcomes, but can't trigger other actions.
+
+**Solution:** MediatR has Notifications.
+
 ```csharp
-public class DeployCommandHandler 
-    : IRequestHandler<DeployCommand, CliCommandOutcome[]>
+// After a command completes, publish notification
+await _mediator.Publish(new CommandCompletedNotification(command));
+
+// Multiple handlers can react
+public class AuditLogger : INotificationHandler<CommandCompletedNotification>
 {
-    private readonly IDeploymentService _deployService;
-    
-    public async Task<CliCommandOutcome[]> Handle(
-        DeployCommand command, 
-        CancellationToken ct)
+    public async Task Handle(CommandCompletedNotification notification)
     {
-        await _deployService.Deploy(command.Environment, command.Replicas);
-        var message = $"✅ Deployed to {command.Environment} with {command.Replicas} replicas";
-        return OutcomeAs(message);
+        await _auditLog.LogCommand(notification.Command);
     }
 }
 ```
 
-### Step 3: Create the Generator (30 seconds)
+**Use cases:**
+- Audit logging
+- Analytics
+- Triggering related actions
+- Event sourcing
+
+#### 2. Getting Rid of MediatR (Maybe?)
+
+**Current state:** MediatR works great, but...
+
+**Things I want to explore:**
+- Pipeline Behaviors (cross-cutting concerns)
+- Validators (command validation before execution)
+- Could we build this ourselves with less magic?
+
+**The goal:** Understand if we can simplify while keeping benefits.
+
+#### 3. Better DI Registry
+
+**Current limitation:** Microsoft DI works, but registration is verbose.
+
+**Inspiration:**
+- Autofac's module system
+- Lamar's service registries
+
+**Goal:**
 ```csharp
-public class DeployCommandGenerator : ICliCommandGenerator
-{
-    public CliCommand Generate(CliInstruction instruction)
-    {
-        var env = instruction.GetArgument<string>("environment");
-        var replicas = instruction.GetArgument<int>("replicas");
-        return new DeployCommand(env, replicas);
-    }
-}
+// Instead of individual registrations
+services.AddKeyedTransient<ICliCommandGenerator>("cmd1", ...);
+services.AddKeyedTransient<ICliCommandGenerator>("cmd2", ...);
+// ... 50 more times
+
+// Could we do this?
+services.AddCommandsFromAssembly(Assembly.GetExecutingAssembly());
 ```
 
-### Step 4: Register It (30 seconds)
-```csharp
-services.AddKeyedTransient<ICliCommandGenerator>(
-    "deploy",
-    (sp, key) => new DeployCommandGenerator()
-);
+**Find a nice balance:** Autofac/Lamar style registry while still letting Microsoft DI do most of the work.
+
+#### 4. LLM Integration Experiment
+
+**Wild idea:** Can we use the state model to reflect interactions with an LLM?
+
+**Concept:**
+- User input → LLM prompt
+- LLM response → Command generation
+- State machine tracks conversation
+- Commands executed based on natural language
+
+**Example:**
+```
+> I want to deploy the API to production with 5 replicas
+[LLM interprets] → /deploy --env production --service api --replicas 5
+[Confirmation] → Executing: deploy to production (5 replicas)
+[User] → yes
+✅ Deployed
 ```
 
-### Step 5: Run It! (30 seconds)
-```bash
-$ /deploy --environment production --replicas 5
-> ✅ Deployed to production with 5 replicas
-```
+**Challenge:** State machine for LLM conversations (context, clarification, confirmation).
 
-**That's it!** Command added in 2.5 minutes. The framework handles:
-- ✅ Parsing `/deploy --environment production --replicas 5`
-- ✅ Converting `"production"` to string and `5` to int
-- ✅ Routing to your handler
-- ✅ Injecting dependencies (`IDeploymentService`)
-- ✅ Displaying the output
-- ✅ Error handling
+### Contributing
 
-**Build ANY CLI:** Deployment tools, log analyzers, data processors, test runners, automation scripts...
+**The framework is open source:** KitCli/KitCli.Spendfulness
+
+**What we'd love:**
+- Feedback on the architecture
+- Ideas for improvement
+- Real-world use cases
+- PRs welcome!
 
 ---
 
-## 6. Q&A
+## 8. Q&A
 **Duration: 2 minutes**
 
 ### Common Questions
 
-**Q: Can I use this framework for my own CLI app?**
-- **A:** Absolutely! The core `Cli.*` projects are completely reusable. Just reference them and build your domain-specific commands. The framework is generic - it doesn't know or care about finance, deployment, or any specific domain.
+**Q: Why not just use System.CommandLine?**
+- **A:** System.CommandLine is great for single-command CLIs. This framework is for interactive, continuous-input CLIs with command pipelines and reusable patterns.
 
 **Q: Is this production-ready?**
-- **A:** Yes! It's being used in production for SpendfulnessCli (financial management). The framework has comprehensive tests, ADRs documenting decisions, and handles edge cases.
+- **A:** Yes! It's running in production for SpendfulnessCli (financial management tool). Comprehensive tests, ADR-documented decisions, handles edge cases.
 
-**Q: How hard is it to add a command?**
-- **A:** You just saw it — about 2-3 minutes. The framework handles parsing, routing, error handling, and display. You just write the business logic.
+**Q: How do I get started?**
+- **A:** 
+  1. Clone the repo: `git clone https://github.com/KitCli/KitCli.Spendfulness`
+  2. Explore the `Cli.*` projects (the framework)
+  3. Look at `SpendfulnessCli.*` for examples
+  4. Build your first command!
 
 **Q: What about testing?**
-- **A:** Easy! Commands are just records (data). Handlers are just classes with dependencies. Mock the dependencies, test the handler. The framework provides `ICliCommandOutcomeIo` abstraction for integration tests.
+- **A:** Easy! Commands are records. Handlers are classes. Mock dependencies, test handlers. Framework provides `ICliCommandOutcomeIo` for integration tests.
 
-**Q: Can I add custom argument types?**
-- **A:** Yes! Implement `IConsoleInstructionArgumentBuilder` for your type and register it. The framework will automatically use it during parsing.
-
-**Q: What if I need async commands?**
-- **A:** Already supported! Handlers return `Task<CliCommandOutcome[]>`. The framework handles the async execution.
-
-**Q: Can commands call other commands?**
-- **A:** Yes! Through command pipelines. Commands return outcomes that can be consumed by other commands. Type-safe composition.
-
-**Q: What's included in the framework?**
-- **A:** 
-  - Core CLI loop and lifecycle management
-  - Type-safe instruction parsing (3-stage pipeline)
-  - Command registration and routing (via MediatR)
-  - Workflow and state management
-  - Command pipeline support
-  - Table formatting
-  - Aggregation patterns
-  - All abstracted and testable!
+**Q: Can I extend the argument type system?**
+- **A:** Yes! Implement `IConsoleInstructionArgumentBuilder` for your type and register it. Framework automatically uses it.
 
 ---
 
-## Summary: The Big Ideas
+## Summary
 
-### What Makes This Framework Awesome?
+### What We Covered
 
-1. **Reusable Infrastructure** 🏗️
-   - Production-ready CLI application loop
-   - Type-safe command parsing (no string manipulation!)
-   - Plugin architecture (add commands in 2 minutes)
-   - Command pipelines (compose simple → complex)
-   - Built-in table formatting
-   - Aggregation patterns
-
-2. **Smart Architecture** 🎯
-   - Three-layer separation (User, Workflow, Commands)
-   - MediatR for command dispatch (CQRS pattern)
-   - Three-stage parser pipeline (Index → Extract → Build)
-   - Outcome pattern (no exceptions for control flow)
-   - Dependency injection throughout
-
-3. **Developer Experience** 💎
-   - Easy to extend (2-minute commands)
-   - Easy to test (all abstractions mockable)
-   - Easy to understand (clear layer separation)
-   - Well-documented (13 ADRs explaining decisions)
-   - Proven in production (SpendfulnessCli uses it)
+1. **Hook:** Simple hello world demo
+2. **Context:** Why proper CLIs matter at scale
+3. **Standing on Shoulders:** MediatR, Microsoft DI, ConsoleTables, CsvHelper
+4. **Live Coding:** Hello World → Reusable Framework
+5. **Deep Dive:** 7 components that make it work
+6. **Future:** Side effects, LLM integration, better DI
 
 ### Key Takeaways
 
-- ✅ **Build ANY CLI with this framework** — not just financial tools
-- ✅ **SOLID, DRY, YAGNI are practical** — they enable the 2-minute commands
-- ✅ **Type safety prevents bugs** — compiler catches errors, not users
-- ✅ **Composition over configuration** — pipelines, aggregators, outcomes
-- ✅ **Framework vs Application** — `Cli.*` is reusable, `SpendfulnessCli.*` is one example
+✅ **Stop writing throwaway scripts** — build proper CLIs  
+✅ **Type safety from input to handler** — no string manipulation  
+✅ **Extensible architecture** — add commands without touching core  
+✅ **Command pipelines** — compose simple commands into complex workflows  
+✅ **Production-ready** — state machines, error handling, testing  
+✅ **Reusable framework** — works for any CLI domain  
 
-### Want to Explore More?
+### The Big Idea
 
-**Check out the repo:**
-- `/ADR` - Architecture Decision Records explaining design choices
-- `CONCEPTS.md` - High-level patterns and concepts
-- `Cli.*` projects - The reusable framework
-- `SpendfulnessCli.*` projects - Example application built on the framework
-- Test projects - Examples of testing approach
+**A framework that makes building professional CLIs as easy as writing a throwaway script.**
 
-**Build Your Own CLI:**
-1. Reference the `Cli.*` projects
-2. Create your domain-specific commands
-3. Register them in DI
-4. Run!
+---
 
-**Examples You Could Build:**
-- Deployment automation tools
-- Log analysis CLIs
-- Data processing pipelines
-- Test framework runners
-- Monitoring and alerting tools
-- CI/CD helpers
-- Database migration tools
-- API testing tools
+## Resources
+
+### Repository
+**GitHub:** https://github.com/KitCli/KitCli.Spendfulness
+
+### Key Documentation
+- `/ADR` - Architecture Decision Records
+- `CONCEPTS.md` - High-level concepts
+- `Cli.*` projects - Reusable framework
+- `SpendfulnessCli.*` - Example application
+
+### Packages Used
+- **MediatR** - https://github.com/jbogard/MediatR
+- **Microsoft.Extensions.DependencyInjection**
+- **ConsoleTables** - https://github.com/khalidabuhakmeh/ConsoleTables
+- **CsvHelper** - https://joshclose.github.io/CsvHelper/
+
+### Contact
+**Twitter/X:** @joshuaedwardcrowe (probably)  
+**GitHub:** @joshuaedwardcrowe  
+**BrightHR:** We're hiring! 😄
 
 ---
 
@@ -1025,34 +856,8 @@ $ /deploy --environment production --replicas 5
 
 **Questions? Let's discuss!**
 
-*"Great frameworks are invisible—you only notice them when they're missing."*
+*"The difference between a script and a tool is whether you're proud to show it to someone else."*
 
-**Repository:** https://github.com/KitCli/SpendfulnessCli
-**Fun fact:** The framework (`Cli.*`) is completely domain-agnostic. SpendfulnessCli is just one application built on it!
+**Remember:** Stop writing throwaway scripts. Start building proper CLIs.
 
----
-
-## Resources
-
-### In the Repository
-- **`Cli.*` Projects** - The reusable framework (this is what you want!)
-- **`SpendfulnessCli.*` Projects** - Example application using the framework
-- **ADRs** - Architecture decisions that shaped the framework
-- **CONCEPTS.md** - High-level overview of patterns
-- **Tests** - Comprehensive test coverage
-
-### External Learning
-- **Clean Architecture** by Robert C. Martin
-- **Domain-Driven Design** by Eric Evans
-- **Refactoring** by Martin Fowler
-- **MediatR** - https://github.com/jbogard/MediatR
-- **CQRS Pattern** - Command Query Responsibility Segregation
-
-### Get Started!
-1. Clone the repository
-2. Explore the `Cli.*` projects (the framework)
-3. Look at `SpendfulnessCli.*` for examples
-4. Build your own CLI command
-5. Reference the framework in your own projects!
-
-**Good luck building maintainable CLIs! 🚀**
+**Good luck building! 🚀**
